@@ -15,8 +15,10 @@
     "@fortawesome/vue-fontawesome": "^0.1.6",
     "bootstrap": "^4.3.1",
     "core-js": "^2.6.5",
+    "moment": "^2.24.0",
     "pretty-checkbox-vue": "^1.1.9",
     "vue": "^2.6.6",
+    "vue-fragment": "^1.5.1",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },
