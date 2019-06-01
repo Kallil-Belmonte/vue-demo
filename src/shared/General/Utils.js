@@ -28,34 +28,13 @@ export class Utils {
   }
 
 
-  // GROUP ARRAYS
-  static groupArrays(array, itemsQuantity) {
-    const newArray = [[]];
+  // SET INPUT CLASS NAME
+  static setInputClassName(field, customClassNames = []) {
+    const classList = ['form-control', ...customClassNames];
 
-    for (let item of array) {
-      const lastIndex = newArray.length - 1;
+    if (field && field.$touched && field.$invalid) classList.push('is-invalid');
 
-      if (newArray[lastIndex].length < itemsQuantity) {
-        newArray[lastIndex].push(item);
-      } else {
-        newArray.push([]);
-        newArray[newArray.length - 1].push(item);
-      }
-    }
-
-    return newArray;
-  }
-
-
-  // REMOVE ITEMS FROM INDEXES
-  static removeItemsFromIndexes(array, arrayIndexes) {
-    let newArray = array;
-
-    arrayIndexes.forEach((indexItem) => {
-      newArray = newArray.filter(arrayItem => array.indexOf(arrayItem) !== indexItem);
-    });
-
-    return newArray;
+    return classList;
   }
 
 }

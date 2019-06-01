@@ -2,40 +2,38 @@
   <fragment>
     <!-- <loader v-if="loading"></loader> -->
 
-    <form class="login-form" @submit.prevent="onSubmit()">
+    <vue-form class="login-form" :state="form.state" @submit.prevent="onSubmit">
       <h1 class="page-title">Login</h1>
 
-      <div class="form-group">
+      <validate class="form-group">
         <label for="email">E-mail</label>
-        <input v-model="form.email" id="email" :class="onSetInputClass('email')" type="email" name="email" />
-        <!-- <template v-if="email.touched"> -->
-          <!-- <div v-if="validations.required(form.email)" class="invalid-feedback d-block">E-mail is required</div> -->
-          <div v-if="validations.email(form.email)" class="invalid-feedback d-block">Invalid e-mail</div>
-        <!-- </template> -->
+        <input v-model="form.email" id="email" :class="Utils.setInputClassName(form.state.email)" type="email" name="email" required />
+        <field-messages name="email" show="$touched">
+          <div slot="required" class="invalid-feedback d-block">E-mail is required</div>
+          <div slot="email" class="invalid-feedback d-block">Invalid e-mail</div>
+        </field-messages>
 
         <!-- <ng-template [ngIf]="loginFormFeedback.fieldsErrors.email.length > 0">
           <app-alert status="danger" [dismissible]="true" (dismissAlert)="onClearFormMessage(loginFormFeedback.fieldsErrors.email, i)" *ngFor="let errorMessage of loginFormFeedback.fieldsErrors.email; let i = index">
             {{ errorMessage }}
           </app-alert>
         </ng-template> -->
-      </div>
+      </validate>
 
-      <div class="form-group">
+      <validate class="form-group">
         <label for="password">Password</label>
-        <input v-model="form.password" id="password" :class="onSetInputClass()" type="password" name="password" />
-        <div v-if="validations.minLength3(form.password)" class="invalid-feedback d-block">Minimum 3 characters required</div>
-
-        <!-- <ng-template [ngIf]="onShowFieldErrors('password')">
-          <div [ngClass]="onSetPasswordFirstErrorClass()">Password is required</div>
-          <div [ngClass]="onSetPasswordSecondErrorClass()">Minimum 3 characters required</div>
-        </ng-template> -->
+        <input v-model="form.password" id="password" :class="Utils.setInputClassName(form.state.password)" type="password" name="password" minlength="3" required />
+        <field-messages name="password" show="$touched">
+          <div slot="required" class="invalid-feedback d-block">Password is required</div>
+          <div slot="minlength" class="invalid-feedback d-block">Minimum 3 characters required</div>
+        </field-messages>
 
         <!-- <ng-template [ngIf]="loginFormFeedback.fieldsErrors.password.length > 0">
           <app-alert status="danger" [dismissible]="true" (dismissAlert)="onClearFormMessage(loginFormFeedback.fieldsErrors.password, i)" *ngFor="let errorMessage of loginFormFeedback.fieldsErrors.password; let i = index">
             {{ errorMessage }}
           </app-alert>
         </ng-template> -->
-      </div>
+      </validate>
 
       <div class="form-group">
         <!-- Ajustar a implementação desse checkbox conforme o plugin: https://hamed-ehtesham.github.io/pretty-checkbox-vue/ -->
@@ -48,20 +46,20 @@
         </div>
       </div>
 
-      <button class="btn btn-primary d-block mx-auto" type="submit" :disabled="formInvalid()">Login</button> <!-- :disabled="!form.valid" [disabled]="!loginForm.valid || loginForm.pristine" -->
+      <button class="btn btn-primary d-block mx-auto" type="submit" :disabled="!form.state.$valid || form.state.$pristine">Login</button>
 
       <div class="text-center">
         <hr class="mt-4" />
         Don't have an account? <router-link to="register">Register</router-link>
       </div>
-    </form>
+    </vue-form>
   </fragment>
 </template>
 
 
 <script>
 // import Form from '@/shared/Components/Loader.vue';
-import Validations from '@/shared/General/Validations';
+import Utils from '@/shared/General/Utils';
 
 export default {
   //==============================
@@ -78,8 +76,9 @@ export default {
   //==============================
   data() {
     return {
-      validations: Validations,
+      Utils,
       form: {
+        state: {},
         email: '',
         password: '',
         feedbackErrors: {
@@ -95,36 +94,9 @@ export default {
   // METHODS
   //==============================
   methods: {
-    formInvalid() {
-      return (
-        Validations.required(this.form.email) ||
-        Validations.email(this.form.email) ||
-        Validations.required(this.form.password) ||
-        Validations.minLength3(this.form.password)
-      );
-    },
-
-
-    onSetInputClass(field, customClassNames = []) {
-      const classList = ['form-control', ...customClassNames];
-
-      if (this[field] && this[field].errors.length) classList.push('is-invalid');
-
-      return classList;
-    },
-
-    // onSetFieldTouched(field) {
-    //   this[field].touched = true;
-    // },
-
     onSubmit() {
-      console.log('Submetido!')
+      console.log('Submetido!');
     }
-  },
-
-
-  mounted() {
-
   }
 };
 </script>

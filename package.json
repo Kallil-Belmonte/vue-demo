@@ -18,6 +18,7 @@
     "moment": "^2.24.0",
     "pretty-checkbox-vue": "^1.1.9",
     "vue": "^2.6.6",
+    "vue-form": "^4.10.1",
     "vue-fragment": "^1.5.1",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
