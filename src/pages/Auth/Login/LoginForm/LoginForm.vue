@@ -7,16 +7,11 @@
 
       <div class="form-group">
         <label for="email">E-mail</label>
-        <input v-model="email.value" @change="onSetFieldTouched('email')" id="email" :class="onSetInputClass('email')" type="email" />
-        <template v-if="email.touched">
-          <div v-if="validations.required(email.value)" class="invalid-feedback d-block">E-mail is required</div>
-          <div v-if="validations.email(email.value)" class="invalid-feedback d-block">Invalid e-mail</div>
-        </template>
-
-        <!-- <ng-template [ngIf]="onShowFieldErrors('email')">
-          <div [ngClass]="onSetEmailFirstErrorClass()">E-mail is required</div>
-          <div [ngClass]="onSetEmailSecondErrorClass()">Invalid e-mail</div>
-        </ng-template> -->
+        <input v-model="form.email" id="email" :class="onSetInputClass('email')" type="email" name="email" />
+        <!-- <template v-if="email.touched"> -->
+          <!-- <div v-if="validations.required(form.email)" class="invalid-feedback d-block">E-mail is required</div> -->
+          <div v-if="validations.email(form.email)" class="invalid-feedback d-block">Invalid e-mail</div>
+        <!-- </template> -->
 
         <!-- <ng-template [ngIf]="loginFormFeedback.fieldsErrors.email.length > 0">
           <app-alert status="danger" [dismissible]="true" (dismissAlert)="onClearFormMessage(loginFormFeedback.fieldsErrors.email, i)" *ngFor="let errorMessage of loginFormFeedback.fieldsErrors.email; let i = index">
@@ -27,7 +22,8 @@
 
       <div class="form-group">
         <label for="password">Password</label>
-        <input v-model="password.value" id="password" :class="onSetInputClass()" type="password" /> <!-- [ngClass]="onSetInputClass('password')" formControlName="password" -->
+        <input v-model="form.password" id="password" :class="onSetInputClass()" type="password" name="password" />
+        <div v-if="validations.minLength3(form.password)" class="invalid-feedback d-block">Minimum 3 characters required</div>
 
         <!-- <ng-template [ngIf]="onShowFieldErrors('password')">
           <div [ngClass]="onSetPasswordFirstErrorClass()">Password is required</div>
@@ -52,7 +48,7 @@
         </div>
       </div>
 
-      <button class="btn btn-primary d-block mx-auto" type="submit">Login</button> <!-- [disabled]="!loginForm.valid || loginForm.pristine" -->
+      <button class="btn btn-primary d-block mx-auto" type="submit" :disabled="formInvalid()">Login</button> <!-- :disabled="!form.valid" [disabled]="!loginForm.valid || loginForm.pristine" -->
 
       <div class="text-center">
         <hr class="mt-4" />
@@ -83,16 +79,14 @@ export default {
   data() {
     return {
       validations: Validations,
-      email: {
-        value: '',
-        touched: false,
-        errors: []
-      },
-      password: {
-        value: '',
-        touched: false,
-        errors: []
-      },
+      form: {
+        email: '',
+        password: '',
+        feedbackErrors: {
+          email: '',
+          password: '',
+        },
+      }
     }
   },
 
@@ -101,6 +95,16 @@ export default {
   // METHODS
   //==============================
   methods: {
+    formInvalid() {
+      return (
+        Validations.required(this.form.email) ||
+        Validations.email(this.form.email) ||
+        Validations.required(this.form.password) ||
+        Validations.minLength3(this.form.password)
+      );
+    },
+
+
     onSetInputClass(field, customClassNames = []) {
       const classList = ['form-control', ...customClassNames];
 
@@ -109,14 +113,19 @@ export default {
       return classList;
     },
 
-    onSetFieldTouched(field) {
-      this[field].touched = true;
-    },
+    // onSetFieldTouched(field) {
+    //   this[field].touched = true;
+    // },
 
     onSubmit() {
       console.log('Submetido!')
     }
   },
+
+
+  mounted() {
+
+  }
 };
 </script>
 
