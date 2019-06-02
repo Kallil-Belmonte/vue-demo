@@ -19,7 +19,7 @@ export class Utils {
     return text.toLowerCase().replace(/\b./g, function(value) {
       return value.toUpperCase();
     });
-  };
+  }
 
 
   // LIMIT WORDS

@@ -60,7 +60,7 @@ export default new Router({
     // },
     {
       path: '/login',
-      name: true,
+      name: 'login',
       component: Login
     },
     // {

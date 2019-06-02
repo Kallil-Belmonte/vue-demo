@@ -1,44 +1,40 @@
 <template>
   <fragment>
-    <!-- <loader v-if="loading"></loader> -->
+    <loader v-if="loading"></loader>
 
     <vue-form class="login-form" :state="form.state" @submit.prevent="onSubmit">
       <h1 class="page-title">Login</h1>
 
       <validate class="form-group">
         <label for="email">E-mail</label>
-        <input v-model="form.email" id="email" :class="Utils.setInputClassName(form.state.email)" type="email" name="email" required />
+        <input v-model="form.values.email" id="email" :class="Utils.setInputClassName(form.state.email)" type="email" name="email" required />
         <field-messages name="email" show="$touched">
           <div slot="required" class="invalid-feedback d-block">E-mail is required</div>
           <div slot="email" class="invalid-feedback d-block">Invalid e-mail</div>
         </field-messages>
 
-        <!-- <ng-template [ngIf]="loginFormFeedback.fieldsErrors.email.length > 0">
-          <app-alert status="danger" [dismissible]="true" (dismissAlert)="onClearFormMessage(loginFormFeedback.fieldsErrors.email, i)" *ngFor="let errorMessage of loginFormFeedback.fieldsErrors.email; let i = index">
-            {{ errorMessage }}
-          </app-alert>
-        </ng-template> -->
+        <alert-dismissible v-for="(errorMessage, index) in form.feedbackErrors.email" :key="errorMessage" status="danger" :dismissible="true" v-on:dismissAlert="onClearFormMessage(form.feedbackErrors.email, index)">
+          {{ errorMessage }}
+        </alert-dismissible>
       </validate>
 
       <validate class="form-group">
         <label for="password">Password</label>
-        <input v-model="form.password" id="password" :class="Utils.setInputClassName(form.state.password)" type="password" name="password" minlength="3" required />
+        <input v-model="form.values.password" id="password" :class="Utils.setInputClassName(form.state.password)" type="password" name="password" minlength="3" required />
         <field-messages name="password" show="$touched">
           <div slot="required" class="invalid-feedback d-block">Password is required</div>
           <div slot="minlength" class="invalid-feedback d-block">Minimum 3 characters required</div>
         </field-messages>
 
-        <!-- <ng-template [ngIf]="loginFormFeedback.fieldsErrors.password.length > 0">
-          <app-alert status="danger" [dismissible]="true" (dismissAlert)="onClearFormMessage(loginFormFeedback.fieldsErrors.password, i)" *ngFor="let errorMessage of loginFormFeedback.fieldsErrors.password; let i = index">
-            {{ errorMessage }}
-          </app-alert>
-        </ng-template> -->
+        <alert-dismissible v-for="(errorMessage, index) in form.feedbackErrors.password" :key="errorMessage" status="danger" :dismissible="true" v-on:dismissAlert="onClearFormMessage(form.feedbackErrors.password, index)">
+          {{ errorMessage }}
+        </alert-dismissible>
       </validate>
 
       <div class="form-group">
         <!-- Ajustar a implementação desse checkbox conforme o plugin: https://hamed-ehtesham.github.io/pretty-checkbox-vue/ -->
         <div class="pretty p-svg p-curve">
-          <input type="checkbox" /> <!-- formControlName="keepLogged" -->
+          <input v-model="form.values.keepLogged" type="checkbox" />
           <div class="state p-primary">
             <svg class="svg svg-icon" viewBox="0 0 20 20"><path d="M7.629,14.566c0.125,0.125,0.291,0.188,0.456,0.188c0.164,0,0.329-0.062,0.456-0.188l8.219-8.221c0.252-0.252,0.252-0.659,0-0.911c-0.252-0.252-0.659-0.252-0.911,0l-7.764,7.763L4.152,9.267c-0.252-0.251-0.66-0.251-0.911,0c-0.252,0.252-0.252,0.66,0,0.911L7.629,14.566z" style="stroke: white; fill: white;"></path></svg>
             <label>Keep logged</label>
@@ -58,17 +54,20 @@
 
 
 <script>
-// import Form from '@/shared/Components/Loader.vue';
 import Utils from '@/shared/General/Utils';
+import { MOCKY_INSTANCE, ENDPOINTS } from '@/core/API/API';
+import Loader from '@/shared/Components/Loader.vue';
+import AlertDismissible from '@/shared/Components/AlertDismissible.vue';
 
 export default {
   //==============================
   // GENERAL
   //==============================
   name: 'LoginForm',
-  // components: {
-  //   Loader
-  // },
+  components: {
+    Loader,
+    AlertDismissible
+  },
 
 
   //==============================
@@ -77,13 +76,17 @@ export default {
   data() {
     return {
       Utils,
+      loading: false,
       form: {
         state: {},
-        email: '',
-        password: '',
-        feedbackErrors: {
+        values: {
           email: '',
           password: '',
+          keepLogged: false,
+        },
+        feedbackErrors: {
+          email: [],
+          password: [],
         },
       }
     }
@@ -94,8 +97,62 @@ export default {
   // METHODS
   //==============================
   methods: {
+    // ON CLEAR FORM MESSAGE
+    onClearFormMessage(field, index) {
+      field.splice(index, 1);
+    },
+
+
+    // ON SUBMIT
     onSubmit() {
-      console.log('Submetido!');
+      // Activate loader
+      this.loading = true;
+
+      // Clear messages
+      this.form.feedbackErrors.email = [];
+      this.form.feedbackErrors.password = [];
+
+      MOCKY_INSTANCE.post(ENDPOINTS.auth.login, this.form.values)
+        .then(response => {
+          if (this.form.values.email === 'demo@demo.com') {
+
+            // Error simulation
+            this.form.feedbackErrors.email.push('This e-mail does not exists.');
+            this.form.feedbackErrors.password.push('The password is incorrect.');
+
+            // Deactivate loader
+            this.loading = false;
+
+          } else {
+
+            // Handle set user data
+            // this.props.handleSetUserData({
+            //   firstName: response.data.firstName,
+            //   lastName: response.data.lastName,
+            //   email: response.data.email,
+            //   token: response.data.idToken,
+            //   expiresIn: response.data.expiresIn
+            // });
+
+            // Store session data
+            if (this.form.values.keepLogged) {
+              localStorage.setItem('authTokenReactDemo', response.data.idToken);
+              localStorage.setItem('expirationDateReactDemo', new Date(new Date().getTime() + response.data.expiresIn * 1000).toISOString());
+            } else {
+              sessionStorage.setItem('authTokenReactDemo', response.data.idToken);
+            }
+
+            // Redirect
+            this.$router.push({ name: 'home' });
+
+          }
+        })
+        .catch(error => {
+          console.error(error);
+
+          // Deactivate loader
+          this.loading = false;
+        });
     }
   }
 };
