@@ -52,7 +52,7 @@
 
 <script>
 import Utils from '@/shared/General/Utils';
-import { MOCKY_INSTANCE, ENDPOINTS } from '@/core/API/API';
+import { ENDPOINTS } from '@/core/Resource/Resource';
 import Loader from '@/shared/Components/Loader.vue';
 import AlertDismissible from '@/shared/Components/AlertDismissible.vue';
 
@@ -109,7 +109,7 @@ export default {
       this.form.feedbackErrors.email = [];
       this.form.feedbackErrors.password = [];
 
-      MOCKY_INSTANCE.post(ENDPOINTS.auth.login, this.form.values)
+      this.$http.post(ENDPOINTS.auth.login, this.form.values)
         .then(response => {
           if (this.form.values.email === 'demo@demo.com') {
 
