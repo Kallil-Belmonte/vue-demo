@@ -14,12 +14,24 @@
 
 
 <script>
+import Utils from '@/shared/General/Utils';
 import LoginForm from '@/pages/Auth/Login/LoginForm/LoginForm.vue'
 
 export default {
+  //==============================
+  // GENERAL
+  //==============================
   name: 'Login',
   components: {
     LoginForm
+  },
+
+
+  //==============================
+  // LIFECYCLE HOOKS
+  //==============================
+  mounted() {
+    Utils.setPageTitle('Login');
   },
 }
 </script>

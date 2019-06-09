@@ -13,7 +13,7 @@
           <div slot="email" class="invalid-feedback d-block">Invalid e-mail</div>
         </field-messages>
 
-        <alert-dismissible v-for="(errorMessage, index) in form.feedbackErrors.email" :key="errorMessage" status="danger" :dismissible="true" v-on:dismissAlert="onClearFormMessage(form.feedbackErrors.email, index)">
+        <alert-dismissible v-for="(errorMessage, index) in form.feedbackErrors.email" :key="errorMessage" status="danger" :dismissible="true" v-on:dismissAlert="Utils.clearFormMessage(form.feedbackErrors.email, index)">
           {{ errorMessage }}
         </alert-dismissible>
       </validate>
@@ -26,7 +26,7 @@
           <div slot="minlength" class="invalid-feedback d-block">Minimum 3 characters required</div>
         </field-messages>
 
-        <alert-dismissible v-for="(errorMessage, index) in form.feedbackErrors.password" :key="errorMessage" status="danger" :dismissible="true" v-on:dismissAlert="onClearFormMessage(form.feedbackErrors.password, index)">
+        <alert-dismissible v-for="(errorMessage, index) in form.feedbackErrors.password" :key="errorMessage" status="danger" :dismissible="true" v-on:dismissAlert="Utils.clearFormMessage(form.feedbackErrors.password, index)">
           {{ errorMessage }}
         </alert-dismissible>
       </validate>
@@ -94,12 +94,6 @@ export default {
   // METHODS
   //==============================
   methods: {
-    // ON CLEAR FORM MESSAGE
-    onClearFormMessage(field, index) {
-      field.splice(index, 1);
-    },
-
-
     // ON SUBMIT
     onSubmit() {
       // Activate loader

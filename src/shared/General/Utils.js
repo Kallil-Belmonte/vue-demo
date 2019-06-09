@@ -2,6 +2,12 @@ import * as moment from 'moment';
 
 export class Utils {
 
+  // SET PAGE TITLE
+  static setPageTitle(title) {
+    document.title = `Vue Demo | ${title}`;
+  }
+
+
   // FORMAT DATE
   static formatDate(date, originalFormat = 'YYYY-MM-DD', newFormat = 'DD/MM/YYYY') {
     return moment(date, originalFormat).format(newFormat);
@@ -25,6 +31,12 @@ export class Utils {
   // LIMIT WORDS
   static limitWords(text, numberOfWords) {
     return text.split(' ').splice(0, numberOfWords).join(' ');
+  }
+
+
+  // CLEAR FORM MESSAGE
+  static clearFormMessage(field, index) {
+    field.splice(index, 1);
   }
 
 

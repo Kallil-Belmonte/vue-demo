@@ -16,23 +16,17 @@ Vue.use(Router);
 export default new Router({
   mode: 'history',
   routes: [
+    // {
+    //   // Lazy loading example
+    //   path: '/page-name',
+    //   name: 'page-name',
+    //   component: () => import('@/pages/PageName/PageName.vue')
+    // }
     {
       path: '/',
       name: 'home',
       component: Home
     },
-    // {
-    //   // Lazy loading example
-    //   path: '/about',
-    //   name: 'about',
-    //   component: () => import('@/pages/About/About.vue')
-    // }
-
-    // {
-    //   path: '/',
-    //   name: 'home',
-    //   component: Home
-    // },
     // {
     //   path: '/blog',
     //   name: 'blog',

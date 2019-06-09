@@ -1,6 +1,6 @@
 <template>
   <section class="page-header">
-    <font-awesome-icon v-if="icon" :icon="icon" class="icon d-block mx-auto" />
+    <font-awesome-icon v-if="icon" :icon="icon" class="icon d-block mx-auto"></font-awesome-icon>
     <h1 class="title">{{ title }}</h1>
   </section>
 </template>
