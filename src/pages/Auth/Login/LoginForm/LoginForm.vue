@@ -52,7 +52,7 @@
 
 <script>
 import Utils from '@/shared/General/Utils';
-import { ENDPOINTS } from '@/core/Resource/Resource';
+import { INSTANCES, ENDPOINTS } from '@/core/Resource/Resource';
 import Loader from '@/shared/Components/Loader.vue';
 import AlertDismissible from '@/shared/Components/AlertDismissible.vue';
 
@@ -109,7 +109,7 @@ export default {
       this.form.feedbackErrors.email = [];
       this.form.feedbackErrors.password = [];
 
-      this.$http.post(ENDPOINTS.auth.login, this.form.values)
+      this.$http.post(INSTANCES.mocky + ENDPOINTS.auth.login, this.form.values)
         .then(response => {
           if (this.form.values.email === 'demo@demo.com') {
 
@@ -122,22 +122,26 @@ export default {
 
           } else {
 
-            // Handle set user data
-            // this.props.handleSetUserData({
-            //   firstName: response.data.firstName,
-            //   lastName: response.data.lastName,
-            //   email: response.data.email,
-            //   token: response.data.idToken,
-            //   expiresIn: response.data.expiresIn
-            // });
-
             // Store session data
             if (this.form.values.keepLogged) {
-              localStorage.setItem('authTokenReactDemo', response.data.idToken);
-              localStorage.setItem('expirationDateReactDemo', new Date(new Date().getTime() + response.data.expiresIn * 1000).toISOString());
+              localStorage.setItem('authTokenVueDemo', response.data.idToken);
+              localStorage.setItem('expirationDateVueDemo', new Date(new Date().getTime() + response.data.expiresIn * 1000).toISOString());
             } else {
-              sessionStorage.setItem('authTokenReactDemo', response.data.idToken);
+              sessionStorage.setItem('authTokenVueDemo', response.data.idToken);
             }
+
+            // Set User Data
+            const userData = {
+              firstName: response.data.firstName,
+              lastName: response.data.lastName,
+              email: response.data.email
+            };
+
+            // Set data to reducer
+            // this.store.dispatch(new AccountActions.SetUserData(userData));
+
+            // Deactivate loader
+            this.loading = false;
 
             // Redirect
             this.$router.push({ name: 'home' });

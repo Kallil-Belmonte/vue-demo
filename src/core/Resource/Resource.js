@@ -3,37 +3,14 @@ import VueResource from 'vue-resource';
 
 Vue.use(VueResource);
 
-// MOCKY
-Vue.http.options.root = 'http://www.mocky.io/v2/';
+//==============================
+// INSTANCES
+//==============================
 
-// //==============================
-// // INSTANCES
-// //==============================
-//
-// // JSON PLACEHOLDER
-// const JSON_PLACEHOLDER_INSTANCE = axios.create({
-//   baseURL: 'https://jsonplaceholder.typicode.com/'
-// });
-//
-// JSON_PLACEHOLDER_INSTANCE.interceptors.request.use(
-//   (config) => {
-//     const authToken = sessionStorage.getItem('tokenReactDemo') || localStorage.getItem('tokenReactDemo');
-//
-//     config.headers['Authorization'] = authToken;
-//     // config.url = config.url + '?authKey=' + localStorage.getItem('tokenKeyReactDemo');
-//
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
-//
-//
-// // MOCKY
-// export const MOCKY_INSTANCE = axios.create({
-//   baseURL: 'http://www.mocky.io/v2/'
-// });
+export const INSTANCES = {
+  jsonPlaceholder: 'https://jsonplaceholder.typicode.com/',
+  mocky: 'http://www.mocky.io/v2/'
+};
 
 
 //==============================
@@ -54,4 +31,19 @@ export const ENDPOINTS = {
   }
 };
 
-// export default JSON_PLACEHOLDER_INSTANCE;
+
+//==============================
+// CONFIGURATION
+//==============================
+
+// INTERCEPTORS
+Vue.http.interceptors.push((request, next) => {
+  if (request.url.includes(INSTANCES.jsonPlaceholder)) {
+    const authToken = sessionStorage.getItem('authTokenVueDemo') || localStorage.getItem('authTokenVueDemo');
+
+    request.headers.set('Authorization', `Bearer ${authToken}`);
+    // request.url = request.url + '?authKey=' + localStorage.getItem('authTokenVueDemo');
+  }
+
+  next();
+});
