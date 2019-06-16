@@ -1,22 +1,18 @@
 <template>
-  <layout>
-    <div class="home">
-      <img alt="Vue logo" src="@/assets/logo.svg">
+  <div class="home">
+    <img alt="Vue logo" src="@/assets/logo.svg">
 
-      <hello-world msg="Welcome to Your Vue.js App"></hello-world>
-    </div>
-  </layout>
+    <hello-world msg="Welcome to Your Vue.js App"></hello-world>
+  </div>
 </template>
 
 
 <script>
-import Layout from '@/layout/Layout.vue'
-import HelloWorld from '@/pages/Home/HelloWorld/HelloWorld.vue'
+import HelloWorld from '@/pages/Home/HelloWorld/HelloWorld'
 
 export default {
   name: 'Home',
   components: {
-    Layout,
     HelloWorld
   }
 }

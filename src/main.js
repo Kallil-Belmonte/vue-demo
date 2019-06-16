@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-import App from './App.vue';
+import App from './App';
 import router from './core/Router/Router';
 import store from './core/Vuex/Store';
 import './core/Resource/Resource';

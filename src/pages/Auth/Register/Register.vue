@@ -5,7 +5,7 @@
 
       <div class="row">
         <div class="offset-md-3 col-md-6">
-          <login-form></login-form>
+          <register-form></register-form>
         </div>
       </div>
     </div>
@@ -15,15 +15,15 @@
 
 <script>
 import Utils from '@/shared/General/Utils';
-import LoginForm from '@/pages/Auth/Login/LoginForm/LoginForm'
+import RegisterForm from '@/pages/Auth/Register/RegisterForm/RegisterForm'
 
 export default {
   //==============================
   // GENERAL
   //==============================
-  name: 'Login',
+  name: 'Register',
   components: {
-    LoginForm
+    RegisterForm
   },
 
 
@@ -32,7 +32,7 @@ export default {
   //==============================
   mounted() {
     console.log('Utilize o e-mail: demo@demo.com para ver os alertas de erro.');
-    Utils.setPageTitle('Login');
+    Utils.setPageTitle('Register');
   },
 }
 </script>

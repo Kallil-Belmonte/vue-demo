@@ -1,8 +1,8 @@
 <template>
   <fragment>
-    <app-header userFullName="fullName"></app-header>
+    <app-header :userFullName="fullName"></app-header>
 
-    <slot></slot>
+    <router-view></router-view>
 
     <app-footer></app-footer>
   </fragment>
@@ -10,14 +10,14 @@
 
 
 <script>
-import AppHeader from '@/layout/AppHeader.vue';
-import AppFooter from '@/layout/AppFooter.vue';
+import AppHeader from './AppHeader';
+import AppFooter from './AppFooter';
 
 export default {
   //==============================
   // GENERAL
   //==============================
-  name: 'Layout',
+  name: 'Dashboard',
   components: {
     AppHeader,
     AppFooter
@@ -25,10 +25,20 @@ export default {
 
 
   //==============================
+  // DATA
+  //==============================
+  data() {
+    return {
+      fullName: 'Full Name'
+    }
+  },
+
+
+  //==============================
   // LIFECYCLE HOOKS
   //==============================
   mounted() {
-    // this.getUserData();
+    this.getUserData();
   },
 
 

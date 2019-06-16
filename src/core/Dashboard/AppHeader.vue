@@ -54,9 +54,9 @@ export default {
     // ON LOG OUT
     onLogOut() {
       // Remove token
-      sessionStorage.removeItem('authTokenAngularDemo');
-      localStorage.removeItem('authTokenAngularDemo');
-      localStorage.removeItem('expirationDateAngularDemo');
+      sessionStorage.removeItem('authTokenVueDemo');
+      localStorage.removeItem('authTokenVueDemo');
+      localStorage.removeItem('expirationDateVueDemo');
 
       // Handle log out
       // this.props.handleLogOut(); <- STORE
@@ -70,7 +70,7 @@ export default {
 
 
 <style lang="scss" scoped>
-@import "../assets/scss/helpers/helpers";
+@import "../../assets/scss/helpers/helpers";
 
 header {
   color: #FFF;
