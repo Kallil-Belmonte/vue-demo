@@ -8,7 +8,7 @@ library.add(
   faHome,
   faNewspaper,
   faEnvelope,
-  faUser
+  faUser,
 );
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);

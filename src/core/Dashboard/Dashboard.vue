@@ -20,7 +20,7 @@ export default {
   name: 'Dashboard',
   components: {
     AppHeader,
-    AppFooter
+    AppFooter,
   },
 
 
@@ -29,7 +29,7 @@ export default {
   //==============================
   data() {
     return {
-      fullName: 'Full Name'
+      fullName: 'Full Name',
     }
   },
 
@@ -49,7 +49,7 @@ export default {
     // GET USER DATA
     getUserData() {
       // Get User Data Reducer
-    }
+    },
   }
 };
 </script>

@@ -14,7 +14,7 @@ export default {
   //==============================
   // GENERAL
   //==============================
-  name: 'Loader'
+  name: 'Loader',
 };
 </script>
 

@@ -31,7 +31,7 @@ export default {
   //==============================
   // GENERAL
   //==============================
-  name: 'AppFooter'
+  name: 'AppFooter',
 };
 </script>
 

@@ -15,7 +15,7 @@
 
 <script>
 import Utils from '@/shared/General/Utils';
-import LoginForm from '@/pages/Auth/Login/LoginForm/LoginForm'
+import LoginForm from '@/pages/Auth/Login/LoginForm/LoginForm';
 
 export default {
   //==============================
@@ -23,7 +23,7 @@ export default {
   //==============================
   name: 'Login',
   components: {
-    LoginForm
+    LoginForm,
   },
 
 

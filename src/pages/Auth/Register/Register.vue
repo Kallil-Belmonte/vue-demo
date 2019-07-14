@@ -15,7 +15,7 @@
 
 <script>
 import Utils from '@/shared/General/Utils';
-import RegisterForm from '@/pages/Auth/Register/RegisterForm/RegisterForm'
+import RegisterForm from '@/pages/Auth/Register/RegisterForm/RegisterForm';
 
 export default {
   //==============================
@@ -23,7 +23,7 @@ export default {
   //==============================
   name: 'Register',
   components: {
-    RegisterForm
+    RegisterForm,
   },
 
 

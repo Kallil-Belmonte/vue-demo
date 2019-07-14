@@ -8,6 +8,7 @@
       <validate class="form-group">
         <label for="first-name">First name</label>
         <input v-model="form.values.firstName" id="first-name" :class="Utils.setInputClassName(form.state.firstName)" type="text" name="firstName" required />
+
         <field-messages name="firstName" show="$touched">
           <div slot="required" class="invalid-feedback d-block">First name is required</div>
         </field-messages>
@@ -16,6 +17,7 @@
       <validate class="form-group">
         <label for="last-name">Last name</label>
         <input v-model="form.values.lastName" id="last-name" :class="Utils.setInputClassName(form.state.lastName)" type="text" name="lastName" required />
+
         <field-messages name="lastName" show="$touched">
           <div slot="required" class="invalid-feedback d-block">Last name is required</div>
         </field-messages>
@@ -24,12 +26,13 @@
       <validate class="form-group">
         <label for="email">E-mail</label>
         <input v-model="form.values.email" id="email" :class="Utils.setInputClassName(form.state.email)" type="email" name="email" required />
+
         <field-messages name="email" show="$touched">
           <div slot="required" class="invalid-feedback d-block">E-mail is required</div>
           <div slot="email" class="invalid-feedback d-block">Invalid e-mail</div>
         </field-messages>
 
-        <alert-dismissible v-for="(errorMessage, index) in form.feedbackErrors.email" :key="errorMessage" status="danger" :dismissible="true" v-on:dismissAlert="Utils.clearFormMessage(form.feedbackErrors.email, index)">
+        <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" status="danger" :dismissible="true" v-on:dismissAlert="Utils.clearFormMessage(form.feedbackMessages.email, index)">
           {{ errorMessage }}
         </alert-dismissible>
       </validate>
@@ -37,17 +40,20 @@
       <validate class="form-group">
         <label for="password">Password</label>
         <input v-model="form.values.password" id="password" :class="Utils.setInputClassName(form.state.password)" type="password" name="password" minlength="3" required />
+
         <field-messages name="password" show="$touched">
           <div slot="required" class="invalid-feedback d-block">Password is required</div>
           <div slot="minlength" class="invalid-feedback d-block">Minimum 3 characters required</div>
         </field-messages>
 
-        <alert-dismissible v-for="(errorMessage, index) in form.feedbackErrors.password" :key="errorMessage" status="danger" :dismissible="true" v-on:dismissAlert="Utils.clearFormMessage(form.feedbackErrors.password, index)">
+        <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.password" :key="errorMessage" status="danger" :dismissible="true" v-on:dismissAlert="Utils.clearFormMessage(form.feedbackMessages.password, index)">
           {{ errorMessage }}
         </alert-dismissible>
       </validate>
 
-      <button class="btn btn-primary d-block mx-auto" type="submit" :disabled="!form.state.$valid || form.state.$pristine">Submit</button>
+      <button class="btn btn-primary d-block mx-auto" type="submit" :disabled="!form.state.$valid || form.state.$pristine">
+        Submit
+      </button>
 
       <div class="text-center">
         <hr class="mt-4" />
@@ -71,7 +77,7 @@ export default {
   name: 'RegisterForm',
   components: {
     Loader,
-    AlertDismissible
+    AlertDismissible,
   },
 
 
@@ -90,11 +96,11 @@ export default {
           email: '',
           password: '',
         },
-        feedbackErrors: {
+        feedbackMessages: {
           email: [],
           password: [],
         },
-      }
+      },
     }
   },
 
@@ -109,16 +115,18 @@ export default {
       this.loading = true;
 
       // Clear messages
-      this.form.feedbackErrors.email = [];
-      this.form.feedbackErrors.password = [];
+      this.form.feedbackMessages = {
+        email: [],
+        password: [],
+      };
 
       this.$http.post(INSTANCES.mocky + ENDPOINTS.auth.register, this.form.values)
         .then(response => {
           if (this.form.values.email === 'demo@demo.com') {
 
             // Error simulation
-            this.form.feedbackErrors.email.push('This e-mail already exists.');
-            this.form.feedbackErrors.password.push('Your password is too weak.');
+            this.form.feedbackMessages.email.push('This e-mail already exists.');
+            this.form.feedbackMessages.password.push('Your password is too weak.');
 
             // Deactivate loader
             this.loading = false;
@@ -152,7 +160,7 @@ export default {
           // Deactivate loader
           this.loading = false;
         });
-    }
+    },
   }
 };
 </script>

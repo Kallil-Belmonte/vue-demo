@@ -6,8 +6,8 @@ import Home from '@/pages/Home/Home';
 // import Blog from '@/pages/News/Blog/Blog';
 // import Post from '@/pages/News/Post/Post';
 // import EditPost from '@/pages/News/EditPost/EditPost';
-// import Contact from '@/pages/Contact/Contact';
-// import Account from '@/pages/Account/Account';
+import Contact from '@/pages/Contact/Contact';
+import Account from '@/pages/Account/Account';
 import Login from '@/pages/Auth/Login/Login';
 import Register from '@/pages/Auth/Register/Register';
 import NotFound from '@/pages/NotFound/NotFound';
@@ -26,56 +26,55 @@ export default new Router({
     // }
     {
       path: '/',
-      name: 'dashboard',
       component: Dashboard,
       beforeEnter: RouterGuard,
       children: [
         {
           path: '',
           name: 'home',
-          component: Home
+          component: Home,
         },
         // {
         //   path: '/blog',
         //   name: 'blog',
-        //   component: Blog
+        //   component: Blog,
         // },
         // {
         //   path: '/post/:id',
         //   name: 'post',
-        //   component: Post
+        //   component: Post,
         // },
         // {
         //   path: '/edit-post/:id',
         //   name: 'edit-post',
-        //   component: EditPost
+        //   component: EditPost,
         // },
-        // {
-        //   path: '/contact',
-        //   name: 'contact',
-        //   component: Contact
-        // },
-        // {
-        //   path: '/account',
-        //   name: 'account',
-        //   component: Account
-        // },
+        {
+          path: '/contact',
+          name: 'contact',
+          component: Contact,
+        },
+        {
+          path: '/account',
+          name: 'account',
+          component: Account,
+        },
       ]
     },
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: Login,
     },
     {
       path: '/register',
       name: 'register',
-      component: Register
+      component: Register,
     },
     {
       path: '*',
       name: 'not-found',
-      component: NotFound
+      component: NotFound,
     },
   ]
 });

@@ -7,23 +7,31 @@
     <nav class="main-menu">
       <ul>
         <router-link tag="li" active-class="active" to="/" exact>
-          <font-awesome-icon icon="home"></font-awesome-icon>
-          <a>Home</a>
+          <a>
+            <font-awesome-icon icon="home"></font-awesome-icon>
+            Home
+          </a>
         </router-link>
 
         <router-link tag="li" active-class="active" to="/blog">
-          <font-awesome-icon icon="newspaper"></font-awesome-icon>
-          <a>Blog</a>
+          <a>
+            <font-awesome-icon icon="newspaper"></font-awesome-icon>
+            Blog
+          </a>
         </router-link>
 
         <router-link tag="li" active-class="active" to="/contact">
-          <font-awesome-icon icon="envelope"></font-awesome-icon>
-          <a>Contact</a>
+          <a>
+            <font-awesome-icon icon="envelope"></font-awesome-icon>
+            Contact
+          </a>
         </router-link>
 
         <router-link tag="li" active-class="active" to="/account">
-          <font-awesome-icon icon="user"></font-awesome-icon>
-          <a>Account</a>
+          <a>
+            <font-awesome-icon icon="user"></font-awesome-icon>
+            Account
+          </a>
         </router-link>
       </ul>
     </nav>
@@ -43,7 +51,7 @@ export default {
   //==============================
   name: 'AppHeader',
   props: {
-    userFullName: String
+    userFullName: String,
   },
 
 
@@ -63,7 +71,7 @@ export default {
 
       // Redirect
       this.$router.push({ name: 'login' });
-    }
+    },
   }
 };
 </script>

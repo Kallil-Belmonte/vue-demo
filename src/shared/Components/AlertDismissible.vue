@@ -1,5 +1,5 @@
 <template>
-  <div :class="'alert alert-' + status + ' alert-dismissible fade show'" role="alert">
+  <div :class="`alert alert-${status} alert-dismissible fade show`" role="alert">
     <slot></slot>
 
     <button v-if="dismissible" @click="$emit('dismissAlert')" type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -17,8 +17,8 @@ export default {
   name: 'AlertDismissible',
   props: {
     status: String,
-    dismissible: Boolean
-  }
+    dismissible: Boolean,
+  },
 };
 </script>
 

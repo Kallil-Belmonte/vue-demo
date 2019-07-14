@@ -1,7 +1,9 @@
 <template>
   <section class="page-header">
     <font-awesome-icon v-if="icon" :icon="icon" class="icon d-block mx-auto"></font-awesome-icon>
-    <h1 class="title">{{ title }}</h1>
+    <h1 class="title">
+      <slot></slot>
+    </h1>
   </section>
 </template>
 
@@ -14,7 +16,6 @@ export default {
   name: 'PageHeader',
   props: {
     icon: String,
-    title: String
   }
 };
 </script>
