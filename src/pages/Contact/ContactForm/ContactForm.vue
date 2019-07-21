@@ -187,17 +187,6 @@ export default {
         });
     },
 
-    // ON SUBMIT
-    onSubmit() {
-      console.log('Form submitted:', this.form.values);
-
-      // Set success message
-      this.form.feedbackMessages.success.push('Message sent successfully.');
-
-      // Reset form
-      this.onResetForm();
-    },
-
     // ON RESET FORM
     onResetForm() {
       this.form.values = {
@@ -210,6 +199,17 @@ export default {
         employed: false,
         message: null,
       };
+    },
+
+    // ON SUBMIT
+    onSubmit() {
+      console.log('Form submitted:', this.form.values);
+
+      // Set success message
+      this.form.feedbackMessages.success.push('Message sent successfully.');
+
+      // Reset form
+      this.onResetForm();
     },
   },
 };

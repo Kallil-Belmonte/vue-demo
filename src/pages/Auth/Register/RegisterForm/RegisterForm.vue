@@ -2,7 +2,7 @@
   <fragment>
     <loader v-if="loading"></loader>
 
-    <vue-form class="login-form" :state="form.state" @submit.prevent="onSubmit">
+    <vue-form class="register-form" :state="form.state" @submit.prevent="onSubmit">
       <h1 class="page-title">Register</h1>
 
       <validate class="form-group">
@@ -167,7 +167,7 @@ export default {
 
 
 <style lang="scss" scoped>
-.login-form {
+.register-form {
   padding: 40px 40px 15px 40px;
   border-radius: 10px;
   background-color: #FFF;

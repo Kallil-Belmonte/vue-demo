@@ -5,7 +5,7 @@ import Dashboard from '@/core/Dashboard/Dashboard';
 import Home from '@/pages/Home/Home';
 // import Blog from '@/pages/News/Blog/Blog';
 // import Post from '@/pages/News/Post/Post';
-// import EditPost from '@/pages/News/EditPost/EditPost';
+import EditPost from '@/pages/News/EditPost/EditPost';
 import Contact from '@/pages/Contact/Contact';
 import Account from '@/pages/Account/Account';
 import Login from '@/pages/Auth/Login/Login';
@@ -44,11 +44,11 @@ export default new Router({
         //   name: 'post',
         //   component: Post,
         // },
-        // {
-        //   path: '/edit-post/:id',
-        //   name: 'edit-post',
-        //   component: EditPost,
-        // },
+        {
+          path: '/edit-post/:id',
+          name: 'edit-post',
+          component: EditPost,
+        },
         {
           path: '/contact',
           name: 'contact',
