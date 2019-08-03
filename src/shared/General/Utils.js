@@ -22,15 +22,34 @@ export class Utils {
 
   // CAPITALIZE TEXT
   static capitalizeText(text) {
-    return text.toLowerCase().replace(/\b./g, function(value) {
-      return value.toUpperCase();
-    });
+    return text.toLowerCase().split(' ').map((word, index) => {
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    }).join(' ');
   }
 
 
   // LIMIT WORDS
   static limitWords(text, numberOfWords) {
     return text.split(' ').splice(0, numberOfWords).join(' ');
+  }
+
+
+  // GROUP ARRAY ITEMS
+  static groupArrayItems(array, itemsQuantity) {
+    const newArray = [[]];
+
+    array.forEach((item, index) => {
+      const lastIndex = newArray.length - 1;
+
+      if (newArray[lastIndex].length < itemsQuantity) {
+        newArray[lastIndex].push(item);
+      } else {
+        newArray.push([]);
+        newArray[newArray.length - 1].push(item);
+      }
+    });
+
+    return newArray;
   }
 
 

@@ -3,7 +3,7 @@ import Router from 'vue-router';
 
 import Dashboard from '@/core/Dashboard/Dashboard';
 import Home from '@/pages/Home/Home';
-// import Blog from '@/pages/News/Blog/Blog';
+import Blog from '@/pages/News/Blog/Blog';
 // import Post from '@/pages/News/Post/Post';
 import EditPost from '@/pages/News/EditPost/EditPost';
 import Contact from '@/pages/Contact/Contact';
@@ -34,11 +34,11 @@ export default new Router({
           name: 'home',
           component: Home,
         },
-        // {
-        //   path: '/blog',
-        //   name: 'blog',
-        //   component: Blog,
-        // },
+        {
+          path: '/blog',
+          name: 'blog',
+          component: Blog,
+        },
         // {
         //   path: '/post/:id',
         //   name: 'post',
