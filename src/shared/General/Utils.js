@@ -8,12 +8,6 @@ export class Utils {
   }
 
 
-  // FORMAT DATE
-  static formatDate(date, originalFormat = 'YYYY-MM-DD', newFormat = 'DD/MM/YYYY') {
-    return moment(date, originalFormat).format(newFormat);
-  }
-
-
   // CAPITALIZE FIRST LETTER
   static capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -22,7 +16,7 @@ export class Utils {
 
   // CAPITALIZE TEXT
   static capitalizeText(text) {
-    return text.toLowerCase().split(' ').map((word, index) => {
+    return text.toLowerCase().split(' ').map(word => {
       return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
     }).join(' ');
   }
@@ -38,7 +32,7 @@ export class Utils {
   static groupArrayItems(array, itemsQuantity) {
     const newArray = [[]];
 
-    array.forEach((item, index) => {
+    array.forEach(item => {
       const lastIndex = newArray.length - 1;
 
       if (newArray[lastIndex].length < itemsQuantity) {

@@ -1,6 +1,6 @@
 <template>
   <main>
-    <!-- <loader v-if="loading"></loader> -->
+    <loader v-if="loading"></loader>
 
     <div class="container">
       <page-header icon="newspaper">Blog</page-header>
@@ -9,12 +9,12 @@
 
       <div class="row">
         <div class="col-md-9">
-          <!-- <posts :data="pagePosts" :page="currentPage"></posts> -->
+          <posts :data="pagePosts" :page="currentPage"></posts>
 
-          <!-- <pagination :firstItem="firstPaginationItem" :totalItems="pagePosts.length" v-on:paginate="onPaginate()"></pagination> -->
+          <pagination :firstItem="firstPaginationItem" :totalItems="pagePosts.length" v-on:paginate="onPaginate()"></pagination>
         </div>
         <div class="col-md-3">
-          <!-- <categories :data="categories" v-on:selectCategory="onSelectCategory()"></categories> -->
+          <categories :data="categories" v-on:selectCategory="onSelectCategory()"></categories>
         </div>
       </div>
     </div>
@@ -25,12 +25,12 @@
 <script>
 import Utils from '@/shared/General/Utils';
 import { INSTANCES, ENDPOINTS } from '@/core/Resource/Resource';
-// import Loader from '@/shared/Components/Loader';
+import Loader from '@/shared/Components/Loader';
 import PageHeader from '@/shared/Components/PageHeader';
 import PostsFilter from '@/pages/News/Blog/PostsFilter/PostsFilter';
-// import Posts from '@/pages/News/Blog/Posts/Posts';
-// import Pagination from '@/pages/News/Blog/Pagination/Pagination';
-// import Categories from '@/pages/News/Blog/Categories/Categories';
+import Posts from '@/pages/News/Blog/Posts/Posts';
+import Pagination from '@/pages/News/Blog/Pagination/Pagination';
+import Categories from '@/pages/News/Blog/Categories/Categories';
 
 export default {
   //==============================
@@ -38,12 +38,12 @@ export default {
   //==============================
   name: 'Blog',
   components: {
-    // Loader,
+    Loader,
     PageHeader,
     PostsFilter,
-    // Posts,
-    // Pagination,
-    // Categories,
+    Posts,
+    Pagination,
+    Categories,
   },
 
 
@@ -58,6 +58,9 @@ export default {
       pagePosts: [],
       currentPage: 0,
       firstPaginationItem: 1,
+
+      // Remover depois e usar do Vuex em: <categories :data="categories"
+      categories: [],
     }
   },
 
@@ -108,6 +111,9 @@ export default {
         // this.props.handleSetPosts(posts);
         // this.props.handleSetCategories(categories);
 
+        // Remover depois que estiver com o Vuex
+        this.categories = categories;
+
         // Set Page Posts
         this.pagePosts = Utils.groupArrayItems(posts, this.postsPerPage);
       })
@@ -121,7 +127,7 @@ export default {
     },
 
     // ON SELECT CATEGORY
-    onSelectCategory(event) {
+    onSelectCategory() {
       // Activate loader
       this.loading = true;
 
@@ -144,7 +150,7 @@ export default {
       this.pagePosts = [];
 
       // Get posts from the selected category
-      // let category = document.querySelector('.list-group-item.active').getAttribute('data-name');
+      // const category = document.querySelector('.list-group-item.active').getAttribute('data-name');;
       this.$http.get(INSTANCES.jsonPlaceholder + ENDPOINTS.blog.posts)
         .then(response => {
           // Set Posts
@@ -194,9 +200,9 @@ export default {
 
         for (let item of document.querySelectorAll('.page-item .page-link')) {
           if (back) {
-            if (+item.innerText === this.state.currentPage + 2) item.parentNode.classList.add('active');
+            if (+item.innerText === this.currentPage + 2) item.parentNode.classList.add('active');
           } else {
-            if (+item.innerText === this.state.currentPage) item.parentNode.classList.add('active');
+            if (+item.innerText === this.currentPage) item.parentNode.classList.add('active');
           }
         }
 
