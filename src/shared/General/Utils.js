@@ -1,5 +1,3 @@
-import * as moment from 'moment';
-
 export class Utils {
 
   // SET PAGE TITLE

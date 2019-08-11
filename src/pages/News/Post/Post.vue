@@ -63,14 +63,14 @@ export default {
     // GET CURRENT POST
     getCurrentPost() {
       this.$http.get(INSTANCES.jsonPlaceholder + ENDPOINTS.blog.posts + this.$route.params.id)
-        .then((response) => {
+        .then(response => {
           // Handle set post
           // this.props.handleSetPost(response.data);
 
           // Remover depois que estiver com o Vuex
           this.currentPost = response.data;
         })
-        .catch((error) => {
+        .catch(error => {
           console.error(error);
         })
         .then(() => {

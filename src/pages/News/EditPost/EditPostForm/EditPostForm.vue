@@ -110,7 +110,7 @@ export default {
       this.loading = true;
 
       this.$http.put(INSTANCES.jsonPlaceholder + ENDPOINTS.blog.posts + this.$route.params.id, this.form.values)
-        .then(response => {
+        .then(() => {
           // Update Current Post
           this.currentPost = {
             userId: this.currentPost.userId,

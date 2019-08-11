@@ -76,7 +76,7 @@
             <label for="favorite-color">Favorite color</label>
             <select v-model="form.values.favoriteColor" id="favorite-color" class="form-control" name="favoriteColor">
               <option value="select" disabled>Select</option>
-              <option :value="color" v-for="color in favoriteColors">{{ color }}</option>
+              <option :value="color" v-for="color in favoriteColors" :key="color">{{ color }}</option>
             </select>
 
             <field-messages name="favoriteColor" show="$touched">

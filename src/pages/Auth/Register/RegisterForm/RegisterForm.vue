@@ -137,11 +137,11 @@ export default {
             sessionStorage.setItem('authTokenVueDemo', response.data.token);
 
             // Set User Data
-            const userData = {
-              firstName: response.data.firstName,
-              lastName: response.data.lastName,
-              email: response.data.email
-            };
+            // const userData = {
+            //   firstName: response.data.firstName,
+            //   lastName: response.data.lastName,
+            //   email: response.data.email
+            // };
 
             // Set data to reducer
             // this.store.dispatch(new AccountActions.SetUserData(userData)); <- STORE
