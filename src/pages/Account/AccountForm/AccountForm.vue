@@ -144,7 +144,7 @@ export default {
         this.form.feedbackMessages.error.push('An error occurred, please try again later.');
       }
       else {
-        // Set data to store
+        // Set User Data to store
         this.setUserData(this.form.values);
 
         // Set success message

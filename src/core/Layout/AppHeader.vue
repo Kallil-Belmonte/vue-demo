@@ -73,7 +73,7 @@ export default {
       localStorage.removeItem('authTokenVueDemo');
       localStorage.removeItem('expirationDateVueDemo');
 
-      // Reset user data on the store
+      // Reset User Data on the store
       this.logOut();
 
       // Redirect

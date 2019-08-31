@@ -74,7 +74,7 @@ export default {
     getCurrentPost() {
       this.$http.get(INSTANCES.jsonPlaceholder + ENDPOINTS.blog.posts + this.$route.params.id)
         .then(response => {
-          // Set current post to store
+          // Set Current Post to store
           this.setCurrentPost(response.data);
         })
         .catch(error => {

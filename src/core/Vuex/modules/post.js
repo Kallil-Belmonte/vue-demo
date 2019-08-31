@@ -1,7 +1,12 @@
 const post = {
   namespaced: true,
   state: {
-    currentPost: null,
+    currentPost: {
+      userId: null,
+      id: null,
+      title: null,
+      body:  null,
+    },
   },
   mutations: {
     setCurrentPost: (state, payload) => {

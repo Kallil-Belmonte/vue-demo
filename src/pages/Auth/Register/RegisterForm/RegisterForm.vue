@@ -143,7 +143,7 @@ export default {
             // Store session data
             sessionStorage.setItem('authTokenVueDemo', response.data.token);
 
-            // Set data to store
+            // Set User Data to store
             this.setUserData({
               firstName: response.data.firstName,
               lastName: response.data.lastName,

@@ -29,6 +29,8 @@
 
 
 <script>
+import { mapState, mapMutations } from 'vuex';
+
 import Utils from '@/shared/General/Utils';
 import { INSTANCES, ENDPOINTS } from '@/core/Resource/Resource';
 import Loader from '@/shared/Components/Loader';
@@ -37,7 +39,7 @@ export default {
   //==============================
   // GENERAL
   //==============================
-  name: 'ContactForm',
+  name: 'EditPostForm',
   components: {
     Loader,
   },
@@ -50,7 +52,6 @@ export default {
     return {
       Utils,
       loading: true,
-      currentPost: null,
       form: {
         state: {},
         values: {
@@ -59,6 +60,14 @@ export default {
         },
       },
     }
+  },
+
+
+  //==============================
+  // COMPUTED
+  //==============================
+  computed: {
+    ...mapState('post', ['currentPost']),
   },
 
 
@@ -74,12 +83,15 @@ export default {
   // METHODS
   //==============================
   methods: {
+    // MUTATIONS
+    ...mapMutations('post', ['setCurrentPost']),
+
     // GET CURRENT POST
     getCurrentPost(id) {
       this.$http.get(INSTANCES.jsonPlaceholder + ENDPOINTS.blog.posts + id)
         .then(response => {
           // Set Current Post
-          this.currentPost = response.data;
+          this.setCurrentPost(response.data);
 
           // Set initial Edit Post Form value
           this.form.values = {
@@ -111,16 +123,13 @@ export default {
 
       this.$http.put(INSTANCES.jsonPlaceholder + ENDPOINTS.blog.posts + this.$route.params.id, this.form.values)
         .then(() => {
-          // Update Current Post
-          this.currentPost = {
+          // Update Current Post to store
+          this.setCurrentPost({
             userId: this.currentPost.userId,
             id: this.currentPost.id,
             title: this.form.values.title,
-            body:  this.form.values.body
-          };
-
-          // Set data to reducer
-          // this.store.dispatch(new PostActions.EditCurrentPost(this.currentPost));
+            body:  this.form.values.body,
+          });
 
           // Redirect
           this.$router.push({ name: 'edit-post', params: { id: this.currentPost.id } });
