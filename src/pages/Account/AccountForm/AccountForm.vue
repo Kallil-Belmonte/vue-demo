@@ -55,6 +55,8 @@
 
 
 <script>
+import { mapState, mapMutations } from 'vuex';
+
 import Utils from '@/shared/General/Utils';
 import AlertDismissible from '@/shared/Components/AlertDismissible';
 
@@ -92,6 +94,16 @@ export default {
 
 
   //==============================
+  // COMPUTED
+  //==============================
+  computed: {
+    ...mapState('user', {
+      userData: 'data'
+    }),
+  },
+
+
+  //==============================
   // LIFECYCLE HOOKS
   //==============================
   mounted() {
@@ -103,18 +115,15 @@ export default {
   // METHODS
   //==============================
   methods: {
+    // MUTATIONS
+    ...mapMutations('user', {
+      setUserData: 'setData',
+    }),
+
     // GET USER DATA
     getUserData() {
-      // Get User Data Reducer from local storage
-      // this.localStorage.getItem('userData').subscribe(
-      //   (userData: UserModel) => {
-      //     this.form.value = {
-      //       firstName: ,
-      //       lastName: ,
-      //       email: ,
-      //     };
-      //   }
-      // );
+      // Get User Data from store
+      this.form.values = this.userData;
     },
 
     // ON SUBMIT
@@ -135,8 +144,8 @@ export default {
         this.form.feedbackMessages.error.push('An error occurred, please try again later.');
       }
       else {
-        // Set data to reducer
-        // this.store.dispatch(new AccountActions.EditUserData(this.form.values));
+        // Set data to store
+        this.setUserData(this.form.values);
 
         // Set success message
         this.form.feedbackMessages.success.push('Account saved successfully.');

@@ -52,9 +52,6 @@ export default {
         .then(response => {
           // Set Posts
           this.posts = [response.data[0], response.data[1], response.data[2]];
-
-          // Deactivate loader
-          this.loading = false;
         })
         .catch(error => {
           console.error(error);

@@ -16,6 +16,8 @@
 
 
 <script>
+import { mapState, mapMutations } from 'vuex';
+
 import ThemeFunctions from '@/shared/General/ThemeFunctions';
 import { INSTANCES, ENDPOINTS } from '@/core/Resource/Resource';
 import Loader from '@/shared/Components/Loader';
@@ -41,10 +43,15 @@ export default {
     return {
       loading: true,
       isModalOpen: false,
-
-      // Remover depois e usar do Vuex em: <post-body :data="currentPost"
-      currentPost: null,
     }
+  },
+
+
+  //==============================
+  // COMPUTED
+  //==============================
+  computed: {
+    ...mapState('post', ['currentPost']),
   },
 
 
@@ -60,15 +67,15 @@ export default {
   // METHODS
   //==============================
   methods: {
+    // MUTATIONS
+    ...mapMutations('post', ['setCurrentPost']),
+
     // GET CURRENT POST
     getCurrentPost() {
       this.$http.get(INSTANCES.jsonPlaceholder + ENDPOINTS.blog.posts + this.$route.params.id)
         .then(response => {
-          // Handle set post
-          // this.props.handleSetPost(response.data);
-
-          // Remover depois que estiver com o Vuex
-          this.currentPost = response.data;
+          // Set current post to store
+          this.setCurrentPost(response.data);
         })
         .catch(error => {
           console.error(error);

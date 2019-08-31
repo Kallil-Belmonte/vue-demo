@@ -10,6 +10,8 @@
 
 
 <script>
+import { mapGetters } from 'vuex';
+
 import AppHeader from './AppHeader';
 import AppFooter from './AppFooter';
 
@@ -25,31 +27,12 @@ export default {
 
 
   //==============================
-  // DATA
+  // COMPUTED
   //==============================
-  data() {
-    return {
-      fullName: 'Full Name',
-    }
+  computed: {
+    ...mapGetters('user', {
+      fullName: 'userFullName',
+    }),
   },
-
-
-  //==============================
-  // LIFECYCLE HOOKS
-  //==============================
-  mounted() {
-    this.getUserData();
-  },
-
-
-  //==============================
-  // METHODS
-  //==============================
-  methods: {
-    // GET USER DATA
-    getUserData() {
-      // Get User Data Reducer
-    },
-  }
 };
 </script>

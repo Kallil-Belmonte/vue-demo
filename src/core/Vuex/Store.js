@@ -1,16 +1,16 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import user from './modules/user';
+import blog from './modules/blog';
+import post from './modules/post';
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-
+  modules: {
+    user,
+    blog,
+    post,
   },
-  mutations: {
-
-  },
-  actions: {
-
-  }
 });

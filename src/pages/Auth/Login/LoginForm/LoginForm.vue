@@ -55,6 +55,8 @@
 
 
 <script>
+import { mapMutations } from 'vuex';
+
 import Utils from '@/shared/General/Utils';
 import { INSTANCES, ENDPOINTS } from '@/core/Resource/Resource';
 import Loader from '@/shared/Components/Loader';
@@ -98,6 +100,11 @@ export default {
   // METHODS
   //==============================
   methods: {
+    // MUTATIONS
+    ...mapMutations('user', {
+      setUserData: 'setData',
+    }),
+
     // ON SUBMIT
     onSubmit() {
       // Activate loader
@@ -130,15 +137,12 @@ export default {
               sessionStorage.setItem('authTokenVueDemo', response.data.idToken);
             }
 
-            // Set User Data
-            // const userData = {
-            //   firstName: response.data.firstName,
-            //   lastName: response.data.lastName,
-            //   email: response.data.email
-            // };
-
-            // Set data to reducer
-            // this.store.dispatch(new AccountActions.SetUserData(userData));
+            // Set data to store
+            this.setUserData({
+              firstName: response.data.firstName,
+              lastName: response.data.lastName,
+              email: response.data.email
+            });
 
             // Deactivate loader
             this.loading = false;

@@ -23,6 +23,8 @@
 
 
 <script>
+import { mapState, mapMutations } from 'vuex';
+
 import Utils from '@/shared/General/Utils';
 import { INSTANCES, ENDPOINTS } from '@/core/Resource/Resource';
 import Loader from '@/shared/Components/Loader';
@@ -58,10 +60,15 @@ export default {
       pagePosts: [],
       currentPage: 0,
       firstPaginationItem: 1,
-
-      // Remover depois e usar do Vuex em: <categories :data="categories"
-      categories: [],
     }
+  },
+
+
+  //==============================
+  // COMPUTED
+  //==============================
+  computed: {
+    ...mapState('blog', ['categories']),
   },
 
 
@@ -77,6 +84,9 @@ export default {
   // METHODS
   //==============================
   methods: {
+    // MUTATIONS
+    ...mapMutations('blog', ['setCategories', 'setPosts']),
+
     // RESET PAGINATION
     resetPagination() {
       // Remove active class
@@ -107,12 +117,9 @@ export default {
         this.getPosts(),
       ])
       .then(([categories, posts]) => {
-        // Handle set data
-        // this.props.handleSetPosts(posts);
-        // this.props.handleSetCategories(categories);
-
-        // Remover depois que estiver com o Vuex
-        this.categories = categories;
+        // Set data to store
+        this.setCategories(categories);
+        this.setPosts(posts);
 
         // Set Page Posts
         this.pagePosts = Utils.groupArrayItems(posts, this.postsPerPage);

@@ -45,6 +45,8 @@
 
 
 <script>
+import { mapMutations } from 'vuex';
+
 export default {
   //==============================
   // GENERAL
@@ -59,6 +61,11 @@ export default {
   // METHODS
   //==============================
   methods: {
+    // MUTATIONS
+    ...mapMutations('user', {
+      logOut: 'resetData',
+    }),
+
     // ON LOG OUT
     onLogOut() {
       // Remove token
@@ -66,8 +73,8 @@ export default {
       localStorage.removeItem('authTokenVueDemo');
       localStorage.removeItem('expirationDateVueDemo');
 
-      // Handle log out
-      // this.props.handleLogOut(); <- STORE
+      // Reset user data on the store
+      this.logOut();
 
       // Redirect
       this.$router.push({ name: 'login' });
