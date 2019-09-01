@@ -139,7 +139,7 @@ export default {
       this.loading = true;
 
       // Remove active class
-      for (let item of document.querySelectorAll('.list-group-item')) {
+      for (const item of document.querySelectorAll('.list-group-item')) {
         item.classList.remove('active');
       }
 
@@ -205,7 +205,7 @@ export default {
       const navigateBackAndForth = (back) => {
         if (activePageItem) activePageItem.classList.remove('active');
 
-        for (let item of document.querySelectorAll('.page-item .page-link')) {
+        for (const item of document.querySelectorAll('.page-item .page-link')) {
           if (back) {
             if (+item.innerText === this.currentPage + 2) item.parentNode.classList.add('active');
           } else {
