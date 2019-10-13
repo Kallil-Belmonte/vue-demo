@@ -5,7 +5,7 @@
     <vue-form class="edit-post-form" :state="form.state" @submit.prevent="onSubmit">
       <validate class="form-group">
         <label for="title">Title</label>
-        <input v-model="form.values.title" id="title" :class="Utils.setInputClassName(form.state.title)" type="text" name="title" required />
+        <input v-model="form.values.title" id="title" :class="Helpers.setInputClassName(form.state.title)" type="text" name="title" required />
 
         <field-messages name="title" show="$touched">
           <div slot="required" class="invalid-feedback d-block">Title is required</div>
@@ -14,7 +14,7 @@
 
       <validate class="form-group">
         <label for="body">Body</label>
-        <textarea v-model="form.values.body" id="body" :class="Utils.setInputClassName(form.state.body)" type="text" name="body" rows="6" required />
+        <textarea v-model="form.values.body" id="body" :class="Helpers.setInputClassName(form.state.body)" type="text" name="body" rows="6" required />
 
         <field-messages name="body" show="$touched">
           <div slot="required" class="invalid-feedback d-block">Body is required</div>
@@ -31,7 +31,7 @@
 <script>
 import { mapState, mapMutations } from 'vuex';
 
-import Utils from '@/shared/General/Utils';
+import * as Helpers from '@/shared/Helpers';
 import { INSTANCES, ENDPOINTS } from '@/core/Resource/Resource';
 import Loader from '@/shared/Components/Loader';
 
@@ -50,7 +50,7 @@ export default {
   //==============================
   data() {
     return {
-      Utils,
+      Helpers,
       loading: true,
       form: {
         state: {},

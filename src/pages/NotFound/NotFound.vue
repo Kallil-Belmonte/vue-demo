@@ -11,7 +11,7 @@
 
 
 <script>
-import Utils from '@/shared/General/Utils';
+import * as Helpers from '@/shared/Helpers';
 
 export default {
   //==============================
@@ -24,7 +24,7 @@ export default {
   // LIFECYCLE HOOKS
   //==============================
   mounted() {
-    Utils.setPageTitle('Error 404');
+    Helpers.setPageTitle('Error 404');
   },
 }
 </script>

@@ -14,7 +14,7 @@
 
 
 <script>
-import Utils from '@/shared/General/Utils';
+import * as Helpers from '@/shared/Helpers';
 import RegisterForm from '@/pages/Auth/Register/RegisterForm/RegisterForm';
 
 export default {
@@ -32,7 +32,7 @@ export default {
   //==============================
   mounted() {
     console.log('Utilize o e-mail: demo@demo.com para ver os alertas de erro.');
-    Utils.setPageTitle('Register');
+    Helpers.setPageTitle('Register');
   },
 }
 </script>

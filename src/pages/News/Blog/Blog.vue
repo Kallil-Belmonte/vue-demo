@@ -25,7 +25,7 @@
 <script>
 import { mapState, mapMutations } from 'vuex';
 
-import Utils from '@/shared/General/Utils';
+import * as Helpers from '@/shared/Helpers';
 import { INSTANCES, ENDPOINTS } from '@/core/Resource/Resource';
 import Loader from '@/shared/Components/Loader';
 import PageHeader from '@/shared/Components/PageHeader';
@@ -54,7 +54,7 @@ export default {
   //==============================
   data() {
     return {
-      Utils,
+      Helpers,
       loading: true,
       postsPerPage: 9,
       pagePosts: [],
@@ -122,7 +122,7 @@ export default {
         this.setPosts(posts);
 
         // Set Page Posts
-        this.pagePosts = Utils.groupArrayItems(posts, this.postsPerPage);
+        this.pagePosts = Helpers.groupArrayItems(posts, this.postsPerPage);
       })
       .catch((error) => {
         console.error(error);
@@ -167,7 +167,7 @@ export default {
           this.resetPagination();
 
           // Set page settings
-          this.pagePosts = Utils.groupArrayItems(this.posts, this.postsPerPage);
+          this.pagePosts = Helpers.groupArrayItems(this.posts, this.postsPerPage);
           this.currentPage = 0;
           this.firstPaginationItem = 1;
 
@@ -191,7 +191,7 @@ export default {
 
       // Set page settings
       this.postsPerPage = +filterOption.value;
-      this.pagePosts = Utils.groupArrayItems(this.posts, +filterOption.value);
+      this.pagePosts = Helpers.groupArrayItems(this.posts, +filterOption.value);
       this.currentPage = 0;
       this.firstPaginationItem = 1;
     },

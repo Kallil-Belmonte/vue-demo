@@ -18,7 +18,7 @@
 <script>
 import { mapState, mapMutations } from 'vuex';
 
-import ThemeFunctions from '@/shared/General/ThemeFunctions';
+import ThemeFunctions from '@/shared/Helpers/ThemeFunctions';
 import { INSTANCES, ENDPOINTS } from '@/core/Resource/Resource';
 import Loader from '@/shared/Components/Loader';
 import PostBody from '@/pages/News/Post/PostBody/PostBody';

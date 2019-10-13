@@ -6,7 +6,7 @@
 
 
 <script>
-import Utils from '@/shared/General/Utils';
+import * as Helpers from '@/shared/Helpers';
 
 export default {
   //==============================
@@ -32,9 +32,9 @@ export default {
       this.$router.afterEach(to => {
         if (to.name) {
           const pageUrl = to.name.split('-').join(' ');
-          const urlName = Utils.capitalizeFirstLetter(pageUrl);
+          const urlName = Helpers.capitalizeFirstLetter(pageUrl);
 
-          Utils.setPageTitle(urlName);
+          Helpers.setPageTitle(urlName);
         }
       });
     }

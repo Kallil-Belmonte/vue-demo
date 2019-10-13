@@ -3,7 +3,7 @@
     <loader v-if="loading"></loader>
 
     <vue-form :state="form.state" @submit.prevent="onSubmit">
-      <alert-dismissible v-for="(successMessage, index) in form.feedbackMessages.success" :key="successMessage" status="success" :dismissible="true" v-on:dismissAlert="Utils.clearFormMessage(form.feedbackMessages.success, index)">
+      <alert-dismissible v-for="(successMessage, index) in form.feedbackMessages.success" :key="successMessage" status="success" :dismissible="true" v-on:dismissAlert="Helpers.clearFormMessage(form.feedbackMessages.success, index)">
         {{ successMessage }}
       </alert-dismissible>
 
@@ -11,7 +11,7 @@
         <div class="col">
           <validate class="form-group">
             <label for="first-name">First name</label>
-            <input v-model="form.values.firstName" id="first-name" :class="Utils.setInputClassName(form.state.firstName)" type="text" name="firstName" required />
+            <input v-model="form.values.firstName" id="first-name" :class="Helpers.setInputClassName(form.state.firstName)" type="text" name="firstName" required />
 
             <field-messages name="firstName" show="$touched">
               <div slot="required" class="invalid-feedback d-block">First name is required</div>
@@ -23,7 +23,7 @@
         <div class="col">
           <validate class="form-group">
             <label for="last-name">Last name</label>
-            <input v-model="form.values.lastName" id="last-name" :class="Utils.setInputClassName(form.state.lastName)" type="text" name="lastName" required />
+            <input v-model="form.values.lastName" id="last-name" :class="Helpers.setInputClassName(form.state.lastName)" type="text" name="lastName" required />
 
             <field-messages name="lastName" show="$touched">
               <div slot="required" class="invalid-feedback d-block">Last name is required</div>
@@ -36,14 +36,14 @@
         <div class="col">
           <validate class="form-group">
             <label for="email">E-mail</label>
-            <input v-model="form.values.email" id="email" :class="Utils.setInputClassName(form.state.email)" type="email" name="email" required />
+            <input v-model="form.values.email" id="email" :class="Helpers.setInputClassName(form.state.email)" type="email" name="email" required />
 
             <field-messages name="email" show="$touched">
               <div slot="required" class="invalid-feedback d-block">E-mail is required</div>
               <div slot="email" class="invalid-feedback d-block">Invalid e-mail</div>
             </field-messages>
 
-            <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" status="danger" :dismissible="true" v-on:dismissAlert="Utils.clearFormMessage(form.feedbackMessages.email, index)">
+            <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" status="danger" :dismissible="true" v-on:dismissAlert="Helpers.clearFormMessage(form.feedbackMessages.email, index)">
               {{ errorMessage }}
             </alert-dismissible>
           </validate>
@@ -52,7 +52,7 @@
         <div class="col">
           <validate class="form-group">
             <label for="telephone">Telephone</label>
-            <input v-model="form.values.telephone" id="telephone" :class="Utils.setInputClassName(form.state.telephone)" type="tel" name="telephone" placeholder="(00) 0000 0000" v-mask="'(##) #### #####'" />
+            <input v-model="form.values.telephone" id="telephone" :class="Helpers.setInputClassName(form.state.telephone)" type="tel" name="telephone" placeholder="(00) 0000 0000" v-mask="'(##) #### #####'" />
 
             <field-messages name="telephone" show="$touched">
               <div slot="required" class="invalid-feedback d-block">Telephone is required</div>
@@ -96,7 +96,7 @@
 
       <validate class="form-group">
         <label for="message">Message</label>
-        <textarea v-model="form.values.message" id="message" :class="Utils.setInputClassName(form.state.message)" rows="3" name="message" required></textarea>
+        <textarea v-model="form.values.message" id="message" :class="Helpers.setInputClassName(form.state.message)" rows="3" name="message" required></textarea>
 
         <field-messages name="message" show="$touched">
           <div slot="required" class="invalid-feedback d-block">Message is required</div>
@@ -115,7 +115,7 @@
 
 
 <script>
-import Utils from '@/shared/General/Utils';
+import * as Helpers from '@/shared/Helpers';
 import { INSTANCES, ENDPOINTS } from '@/core/Resource/Resource';
 import Loader from '@/shared/Components/Loader';
 import AlertDismissible from '@/shared/Components/AlertDismissible';
@@ -136,7 +136,7 @@ export default {
   //==============================
   data() {
     return {
-      Utils,
+      Helpers,
       loading: true,
       favoriteColors: [],
       form: {

@@ -7,28 +7,28 @@
 
       <validate class="form-group">
         <label for="email">E-mail</label>
-        <input v-model="form.values.email" id="email" :class="Utils.setInputClassName(form.state.email)" type="email" name="email" required />
+        <input v-model="form.values.email" id="email" :class="Helpers.setInputClassName(form.state.email)" type="email" name="email" required />
 
         <field-messages name="email" show="$touched">
           <div slot="required" class="invalid-feedback d-block">E-mail is required</div>
           <div slot="email" class="invalid-feedback d-block">Invalid e-mail</div>
         </field-messages>
 
-        <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" status="danger" :dismissible="true" v-on:dismissAlert="Utils.clearFormMessage(form.feedbackMessages.email, index)">
+        <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" status="danger" :dismissible="true" v-on:dismissAlert="Helpers.clearFormMessage(form.feedbackMessages.email, index)">
           {{ errorMessage }}
         </alert-dismissible>
       </validate>
 
       <validate class="form-group">
         <label for="password">Password</label>
-        <input v-model="form.values.password" id="password" :class="Utils.setInputClassName(form.state.password)" type="password" name="password" minlength="3" required />
+        <input v-model="form.values.password" id="password" :class="Helpers.setInputClassName(form.state.password)" type="password" name="password" minlength="3" required />
 
         <field-messages name="password" show="$touched">
           <div slot="required" class="invalid-feedback d-block">Password is required</div>
           <div slot="minlength" class="invalid-feedback d-block">Minimum 3 characters required</div>
         </field-messages>
 
-        <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.password" :key="errorMessage" status="danger" :dismissible="true" v-on:dismissAlert="Utils.clearFormMessage(form.feedbackMessages.password, index)">
+        <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.password" :key="errorMessage" status="danger" :dismissible="true" v-on:dismissAlert="Helpers.clearFormMessage(form.feedbackMessages.password, index)">
           {{ errorMessage }}
         </alert-dismissible>
       </validate>
@@ -57,7 +57,7 @@
 <script>
 import { mapMutations } from 'vuex';
 
-import Utils from '@/shared/General/Utils';
+import * as Helpers from '@/shared/Helpers';
 import { INSTANCES, ENDPOINTS } from '@/core/Resource/Resource';
 import Loader from '@/shared/Components/Loader';
 import AlertDismissible from '@/shared/Components/AlertDismissible';
@@ -78,7 +78,7 @@ export default {
   //==============================
   data() {
     return {
-      Utils,
+      Helpers,
       loading: false,
       form: {
         state: {},
