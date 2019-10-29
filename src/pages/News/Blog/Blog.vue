@@ -122,7 +122,7 @@ export default {
         this.setPosts(posts);
 
         // Set Page Posts
-        this.pagePosts = Helpers.groupArrayItems(posts, this.postsPerPage);
+        this.pagePosts = Helpers.groupArrayItemsInArrays(posts, this.postsPerPage);
       })
       .catch((error) => {
         console.error(error);
@@ -167,7 +167,7 @@ export default {
           this.resetPagination();
 
           // Set page settings
-          this.pagePosts = Helpers.groupArrayItems(this.posts, this.postsPerPage);
+          this.pagePosts = Helpers.groupArrayItemsInArrays(this.posts, this.postsPerPage);
           this.currentPage = 0;
           this.firstPaginationItem = 1;
 
@@ -191,7 +191,7 @@ export default {
 
       // Set page settings
       this.postsPerPage = +filterOption.value;
-      this.pagePosts = Helpers.groupArrayItems(this.posts, +filterOption.value);
+      this.pagePosts = Helpers.groupArrayItemsInArrays(this.posts, +filterOption.value);
       this.currentPage = 0;
       this.firstPaginationItem = 1;
     },
