@@ -2,7 +2,7 @@
   <main>
     <loader v-if="loading"></loader>
 
-    <featured-posts :featuredPosts="posts"></featured-posts>
+    <featured-posts :posts="posts"></featured-posts>
   </main>
 </template>
 
@@ -47,19 +47,17 @@ export default {
   //==============================
   methods: {
     // GET FEATURED POSTS
-    getFeaturedPosts() {
-      this.$http.get(INSTANCES.jsonPlaceholder + ENDPOINTS.blog.posts)
-        .then(response => {
-          // Set Posts
-          this.posts = [response.data[0], response.data[1], response.data[2]];
-        })
-        .catch(error => {
-          console.error(error);
-        })
-        .then(() => {
-          // Deactivate loader
-          this.loading = false;
-        });
+    async getFeaturedPosts() {
+      try {
+        const response = await this.$http.get(`${INSTANCES.jsonPlaceholder}${ENDPOINTS.blog.posts}`);
+        const [firstPost, secondPost, thirdPost] = response.data;
+        this.posts = [firstPost, secondPost, thirdPost];
+      } catch (error) {
+        console.error(error);
+        throw error;
+      } finally {
+        this.loading = false;
+      }
     },
   },
 }

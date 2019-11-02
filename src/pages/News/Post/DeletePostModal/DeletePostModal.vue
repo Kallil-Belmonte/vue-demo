@@ -57,25 +57,26 @@ export default {
   // METHODS
   //==============================
   methods: {
+    // SET LOADING
+    setLoading(value) {
+      this.loading = value;
+    },
+
     // ON DELETE POST
-    onDeletePost() {
-      // Activate loader
-      this.loading = true;
+    async onDeletePost() {
+      this.setLoading(true);
 
-      this.$http.delete(INSTANCES.jsonPlaceholder + ENDPOINTS.blog.posts + this.$route.params.id)
-        .then(() => {
-          // Close modal
-          this.$emit('closeModal');
+      try {
+        await this.$http.delete(`${INSTANCES.jsonPlaceholder}${ENDPOINTS.blog.posts}${this.$route.params.id}`);
 
-          // Redirect
-          this.$router.push({ name: 'blog' });
-        })
-        .catch(error => {
-          console.error(error);
-
-          // Deactivate loader
-          this.loading = false;
-        });
+        this.$emit('closeModal');
+        this.$router.push({ name: 'blog' });
+      } catch (error) {
+        console.error(error);
+        throw error;
+      } finally {
+        this.setLoading(false);
+      }
     },
 
     // ON CLICK OUT MODAL

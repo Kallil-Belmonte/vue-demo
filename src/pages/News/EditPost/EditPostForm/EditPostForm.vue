@@ -86,26 +86,27 @@ export default {
     // MUTATIONS
     ...mapMutations('post', ['setCurrentPost']),
 
-    // GET CURRENT POST
-    getCurrentPost(id) {
-      this.$http.get(INSTANCES.jsonPlaceholder + ENDPOINTS.blog.posts + id)
-        .then(response => {
-          // Set Current Post
-          this.setCurrentPost(response.data);
+    // SET LOADING
+    setLoading(value) {
+      this.loading = value;
+    },
 
-          // Set initial Edit Post Form value
-          this.form.values = {
-            title: this.currentPost.title,
-            body: this.currentPost.body,
-          };
-        })
-        .catch(error => {
-          console.error(error);
-        })
-        .then(() => {
-          // Deactivate loader
-          this.loading = false;
-        });
+    // GET CURRENT POST
+    async getCurrentPost(id) {
+      try {
+        const response = await this.$http.get(`${INSTANCES.jsonPlaceholder}${ENDPOINTS.blog.posts}${id}`);
+
+        this.setCurrentPost(response.data);
+        this.form.values = {
+          title: this.currentPost.title,
+          body: this.currentPost.body,
+        };
+      } catch (error) {
+        console.error(error);
+        throw error;
+      } finally {
+        this.setLoading(false);
+      }
     },
 
     // ON RESET FORM
@@ -117,30 +118,29 @@ export default {
     },
 
     // ON SUBMIT
-    onSubmit() {
-      // Activate loader
-      this.loading = true;
+    async onSubmit() {
+      this.setLoading(true);
 
-      this.$http.put(INSTANCES.jsonPlaceholder + ENDPOINTS.blog.posts + this.$route.params.id, this.form.values)
-        .then(() => {
-          // Update Current Post to store
-          this.setCurrentPost({
-            userId: this.currentPost.userId,
-            id: this.currentPost.id,
-            title: this.form.values.title,
-            body:  this.form.values.body,
-          });
+      try {
+        await this.$http.put(
+          `${INSTANCES.jsonPlaceholder}${ENDPOINTS.blog.posts}${this.$route.params.id}`,
+          this.form.values,
+        );
 
-          // Redirect
-          this.$router.push({ name: 'edit-post', params: { id: this.currentPost.id } });
-        })
-        .catch(error => {
-          console.error(error);
-        })
-        .then(() => {
-          // Deactivate loader
-          this.loading = false;
+        this.setCurrentPost({
+          userId: this.currentPost.userId,
+          id: this.currentPost.id,
+          title: this.form.values.title,
+          body:  this.form.values.body,
         });
+
+        this.$router.push({ name: 'edit-post', params: { id: this.currentPost.id } });
+      } catch (error) {
+        console.error(error);
+        throw error;
+      } finally {
+        this.setLoading(false);
+      }
     },
   },
 };

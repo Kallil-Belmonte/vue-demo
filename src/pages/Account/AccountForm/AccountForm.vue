@@ -122,13 +122,11 @@ export default {
 
     // GET USER DATA
     getUserData() {
-      // Get User Data from store
       this.form.values = this.userData;
     },
 
     // ON SUBMIT
     onSubmit() {
-      // Clear messages
       this.form.feedbackMessages = {
         success: [],
         error: [],
@@ -136,18 +134,13 @@ export default {
       };
 
       if (this.form.values.email === 'john.doe@email.com') {
-        // Set field error messages
         this.form.feedbackMessages.email.push('This e-mail already exists.');
       }
       else if (this.form.values.email === 'demo@demo.com') {
-        // Set error messages
         this.form.feedbackMessages.error.push('An error occurred, please try again later.');
       }
       else {
-        // Set User Data to store
         this.setUserData(this.form.values);
-
-        // Set success message
         this.form.feedbackMessages.success.push('Account saved successfully.');
       }
     },

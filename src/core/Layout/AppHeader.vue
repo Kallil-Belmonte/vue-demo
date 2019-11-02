@@ -68,16 +68,12 @@ export default {
 
     // ON LOG OUT
     onLogOut() {
-      // Remove token
       sessionStorage.removeItem('authTokenVueDemo');
       localStorage.removeItem('authTokenVueDemo');
       localStorage.removeItem('expirationDateVueDemo');
 
-      // Reset User Data on the store
-      this.logOut();
-
-      // Redirect
       this.$router.push({ name: 'login' });
+      this.logOut();
     },
   }
 };

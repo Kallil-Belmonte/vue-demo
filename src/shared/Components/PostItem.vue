@@ -1,12 +1,12 @@
 <template>
   <div class="post-item">
-    <img v-if="data.image" class="img-fluid" :src="data.image" alt="Capa" />
+    <img v-if="post.image" class="img-fluid" :src="post.image" alt="Capa" />
     <div v-else class="img-placeholder">Não há imagem para esse post</div>
 
     <article>
-      <h3 class="title">{{ data.title }}</h3>
-      <p v-if="data.body" class="mb-0">{{ data.body | limitWords(8) }}</p>
-      <router-link class="btn btn-primary mt-3" :to="{ name: 'post', params: { id: data.id }}">
+      <h3 class="title">{{ post.title }}</h3>
+      <p v-if="post.body" class="mb-0">{{ post.body | limitWords(8) }}</p>
+      <router-link class="btn btn-primary mt-3" :to="{ name: 'post', params: { id: post.id }}">
         Read more
       </router-link>
     </article>
@@ -21,7 +21,7 @@ export default {
   //==============================
   name: 'PostItem',
   props: {
-    data: Object,
+    post: Object,
   }
 };
 </script>

@@ -2,7 +2,7 @@
   <section>
     <div class="row">
       <div class="col-md-4" v-for="post of data[page]" :key="post.id">
-        <post-item :data="post"></post-item>
+        <post-item :post="post"></post-item>
       </div>
     </div>
   </section>

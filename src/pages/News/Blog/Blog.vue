@@ -102,12 +102,12 @@ export default {
 
     // GET CATEGORIES
     getCategories() {
-      return this.$http.get(INSTANCES.mocky + ENDPOINTS.blog.categories).then(response => response.data);
+      return this.$http.get(`${INSTANCES.mocky}${ENDPOINTS.blog.categories}`).then(response => response.data);
     },
 
     // GET POSTS
     getPosts() {
-      return this.$http.get(INSTANCES.jsonPlaceholder + ENDPOINTS.blog.posts).then(response => response.data);
+      return this.$http.get(`${INSTANCES.jsonPlaceholder}${ENDPOINTS.blog.posts}`).then(response => response.data);
     },
 
     // GET ALL DATA

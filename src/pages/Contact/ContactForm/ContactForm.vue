@@ -103,7 +103,7 @@
         </field-messages>
       </validate>
 
-      <button class="btn btn-primary mr-2" type="submit" :disabled="!form.state.$valid || form.state.$pristine || form.values.favoriteColors === 'select'">
+      <button class="btn btn-primary mr-2" type="submit" :disabled="isSubmitButtonDisabled()">
         Send
       </button>
       <button class="btn btn-light" type="button" :disabled="form.state.$pristine" @click="onResetForm()">
@@ -172,19 +172,23 @@ export default {
   // METHODS
   //==============================
   methods: {
+    // IS SUBMIT BUTTON DISABLED
+    isSubmitButtonDisabled() {
+      const { state, values } = this.form;
+      return !state.$valid || state.$pristine || values.favoriteColor === 'select';
+    },
+
     // GET FAVORITE COLORS
-    getFavoriteColors() {
-      this.$http.get(INSTANCES.mocky + ENDPOINTS.contactForm.favoriteColors)
-        .then(response => {
-          this.favoriteColors = response.data;
-        })
-        .catch(error => {
-          console.error(error);
-        })
-        .then(() => {
-          // Deactivate loader
-          this.loading = false;
-        });
+    async getFavoriteColors() {
+      try {
+        const response =  await this.$http.get(`${INSTANCES.mocky}${ENDPOINTS.contactForm.favoriteColors}`);
+        this.favoriteColors = response.data;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      } finally {
+        this.loading = false;
+      }
     },
 
     // ON RESET FORM
@@ -205,10 +209,7 @@ export default {
     onSubmit() {
       console.log('Form submitted:', this.form.values);
 
-      // Set success message
       this.form.feedbackMessages.success.push('Message sent successfully.');
-
-      // Reset form
       this.onResetForm();
     },
   },

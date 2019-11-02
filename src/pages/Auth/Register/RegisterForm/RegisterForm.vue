@@ -116,54 +116,43 @@ export default {
       setUserData: 'setData',
     }),
 
-    // ON SUBMIT
-    onSubmit() {
-      // Activate loader
-      this.loading = true;
+    // SET LOADING
+    setLoading(value) {
+      this.loading = value;
+    },
 
-      // Clear messages
+    // ON SUBMIT
+    async onSubmit() {
+      this.setLoading(true);
+
       this.form.feedbackMessages = {
         email: [],
         password: [],
       };
 
-      this.$http.post(INSTANCES.mocky + ENDPOINTS.auth.register, this.form.values)
-        .then(response => {
-          if (this.form.values.email === 'demo@demo.com') {
+      try {
+        const response = await this.$http.post(`${INSTANCES.mocky}${ENDPOINTS.auth.register}`, this.form.values);
 
-            // Error simulation
-            this.form.feedbackMessages.email.push('This e-mail already exists.');
-            this.form.feedbackMessages.password.push('Your password is too weak.');
+        if (this.form.values.email === 'demo@demo.com') {
+          this.form.feedbackMessages.email.push('This e-mail already exists.');
+          this.form.feedbackMessages.password.push('Your password is too weak.');
+        } else {
+          sessionStorage.setItem('authTokenVueDemo', response.data.token);
 
-            // Deactivate loader
-            this.loading = false;
+          this.setUserData({
+            firstName: response.data.firstName,
+            lastName: response.data.lastName,
+            email: response.data.email
+          });
 
-          } else {
-
-            // Store session data
-            sessionStorage.setItem('authTokenVueDemo', response.data.token);
-
-            // Set User Data to store
-            this.setUserData({
-              firstName: response.data.firstName,
-              lastName: response.data.lastName,
-              email: response.data.email
-            });
-
-            // Deactivate loader
-            this.loading = false;
-
-            // Redirect
-            this.$router.push({ name: 'home' });
-
-          }
-        })
-        .catch(error => {
-          console.error(error);
-
-          // Deactivate loader
-          this.loading = false;
-        });
+          this.$router.push({ name: 'home' });
+        }
+      } catch (error) {
+        console.error(error);
+        throw error;
+      } finally {
+        this.setLoading(false);
+      }
     },
   }
 };
