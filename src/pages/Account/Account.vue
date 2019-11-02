@@ -1,10 +1,10 @@
 <template>
   <main>
-    <div class="container">
+    <b-container>
       <page-header icon="user">Account</page-header>
 
       <account-form></account-form>
-    </div>
+    </b-container>
   </main>
 </template>
 

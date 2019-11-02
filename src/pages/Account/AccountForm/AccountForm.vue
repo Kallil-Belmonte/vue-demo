@@ -1,56 +1,70 @@
 <template>
-  <div class="row">
-    <div class="offset-md-3 col-md-6">
-      <alert-dismissible v-for="(successMessage, index) in form.feedbackMessages.success" :key="successMessage" status="success" :dismissible="true" v-on:dismissAlert="Helpers.clearFormMessage(form.feedbackMessages.success, index)">
+  <b-row>
+    <b-col offset-md="3" md="6">
+      <alert-dismissible v-for="(successMessage, index) in form.feedbackMessages.success" :key="successMessage" variant="success" v-on:dismissAlert="Helpers.clearFormMessage(form.feedbackMessages.success, index)">
         {{ successMessage }}
       </alert-dismissible>
 
-      <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.error" :key="errorMessage" status="danger" :dismissible="true" v-on:dismissAlert="Helpers.clearFormMessage(form.feedbackMessages.error, index)">
+      <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.error" :key="errorMessage" variant="danger" v-on:dismissAlert="Helpers.clearFormMessage(form.feedbackMessages.error, index)">
         {{ errorMessage }}
       </alert-dismissible>
 
       <vue-form :state="form.state" @submit.prevent="onSubmit">
-        <validate class="form-group">
-          <label for="first-name">First name</label>
-          <input v-model="form.values.firstName" id="first-name" :class="Helpers.setInputClassName(form.state.firstName)" type="text" name="firstName" minlength="3" required />
+        <validate>
+          <b-form-group label-for="first-name" label="First name">
+            <b-form-input v-model="form.values.firstName" id="first-name" :class="Helpers.setInputClassName(form.state.firstName)" type="text" name="firstName" minlength="3" required />
 
-          <field-messages name="firstName" show="$touched">
-            <div slot="required" class="invalid-feedback d-block">First name is required</div>
-            <div slot="minlength" class="invalid-feedback d-block">Minimum 3 characters required</div>
-          </field-messages>
+            <field-messages name="firstName" show="$touched">
+              <b-form-invalid-feedback slot="required" force-show>
+                First name is required
+              </b-form-invalid-feedback>
+              <b-form-invalid-feedback slot="minlength" force-show>
+                Minimum 3 characters required
+              </b-form-invalid-feedback>
+            </field-messages>
+          </b-form-group>
         </validate>
 
-        <validate class="form-group">
-          <label for="last-name">Last name</label>
-          <input v-model="form.values.lastName" id="last-name" :class="Helpers.setInputClassName(form.state.lastName)" type="text" name="lastName" required />
+        <validate>
+          <b-form-group label-for="last-name" label="Last name">
+            <b-form-input v-model="form.values.lastName" id="last-name" :class="Helpers.setInputClassName(form.state.lastName)" type="text" name="lastName" required />
 
-          <field-messages name="lastName" show="$touched">
-            <div slot="required" class="invalid-feedback d-block">Last name is required</div>
-          </field-messages>
+            <field-messages name="lastName" show="$touched">
+              <b-form-invalid-feedback slot="required" force-show>
+                Last name is required
+              </b-form-invalid-feedback>
+            </field-messages>
+          </b-form-group>
         </validate>
 
-        <validate class="form-group">
-          <label for="email">E-mail</label>
-          <input v-model="form.values.email" id="email" :class="Helpers.setInputClassName(form.state.email)" type="email" name="email" required />
-          <field-messages name="email" show="$touched">
-            <div slot="required" class="invalid-feedback d-block">E-mail is required</div>
-            <div slot="email" class="invalid-feedback d-block">Invalid e-mail</div>
-          </field-messages>
+        <validate>
+          <b-form-group label-for="email" label="E-mail">
+            <b-form-input v-model="form.values.email" id="email" :class="Helpers.setInputClassName(form.state.email)" type="email" name="email" required />
 
-          <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" status="danger" :dismissible="true" v-on:dismissAlert="Helpers.clearFormMessage(form.feedbackMessages.email, index)">
+            <field-messages name="email" show="$touched">
+              <b-form-invalid-feedback slot="required" force-show>
+                E-mail is required
+              </b-form-invalid-feedback>
+              <b-form-invalid-feedback slot="email" force-show>
+                Invalid e-mail
+              </b-form-invalid-feedback>
+            </field-messages>
+          </b-form-group>
+
+          <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" variant="danger" v-on:dismissAlert="Helpers.clearFormMessage(form.feedbackMessages.email, index)">
             {{ errorMessage }}
           </alert-dismissible>
         </validate>
 
-        <button class="btn btn-primary mr-2" type="submit" :disabled="!form.state.$valid || form.state.$pristine">
+        <b-button variant="primary" class="mr-2" type="submit" :disabled="!form.state.$valid || form.state.$pristine">
           Save
-        </button>
-        <button class="btn btn-light" type="button" :disabled="form.state.$pristine" @click="getUserData()">
+        </b-button>
+        <b-button variant="light" :disabled="form.state.$pristine" @click="getUserData()">
           Reset form
-        </button>
+        </b-button>
       </vue-form>
-    </div>
-  </div>
+    </b-col>
+  </b-row>
 </template>
 
 
@@ -98,7 +112,7 @@ export default {
   //==============================
   computed: {
     ...mapState('user', {
-      userData: 'data'
+      userData: 'data',
     }),
   },
 

@@ -32,7 +32,7 @@
           <div slot="email" class="invalid-feedback d-block">Invalid e-mail</div>
         </field-messages>
 
-        <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" status="danger" :dismissible="true" v-on:dismissAlert="Helpers.clearFormMessage(form.feedbackMessages.email, index)">
+        <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" variant="danger" v-on:dismissAlert="Helpers.clearFormMessage(form.feedbackMessages.email, index)">
           {{ errorMessage }}
         </alert-dismissible>
       </validate>
@@ -46,7 +46,7 @@
           <div slot="minlength" class="invalid-feedback d-block">Minimum 3 characters required</div>
         </field-messages>
 
-        <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.password" :key="errorMessage" status="danger" :dismissible="true" v-on:dismissAlert="Helpers.clearFormMessage(form.feedbackMessages.password, index)">
+        <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.password" :key="errorMessage" variant="danger" v-on:dismissAlert="Helpers.clearFormMessage(form.feedbackMessages.password, index)">
           {{ errorMessage }}
         </alert-dismissible>
       </validate>
