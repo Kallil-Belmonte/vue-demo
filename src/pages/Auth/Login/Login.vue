@@ -1,14 +1,14 @@
 <template>
   <main>
-    <div class="container">
+    <b-container>
       <img class="logo d-block mx-auto" alt="Vue" src="@/assets/logo.svg">
 
-      <div class="row">
-        <div class="offset-md-3 col-md-6">
+      <b-row>
+        <b-col offset-md="3" md="6">
           <login-form></login-form>
-        </div>
-      </div>
-    </div>
+        </b-col>
+      </b-row>
+    </b-container>
   </main>
 </template>
 

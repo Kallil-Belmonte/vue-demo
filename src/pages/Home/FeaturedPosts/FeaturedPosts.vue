@@ -1,14 +1,14 @@
 <template>
   <section class="page-section">
-    <div class="container">
+    <b-container>
       <h2 class="section-title">Featured posts</h2>
 
-      <div class="row">
-        <div class="col-md-4" v-for="featuredPost in posts" :key="featuredPost.id">
+      <b-row>
+        <b-col md="4" v-for="featuredPost in posts" :key="featuredPost.id">
           <post-item :post="featuredPost"></post-item>
-        </div>
-      </div>
-    </div>
+        </b-col>
+      </b-row>
+    </b-container>
   </section>
 </template>
 

@@ -23,7 +23,7 @@ export const ENDPOINTS = {
     posts: 'posts/',
   },
   contactForm: {
-    favoriteColors: '5bbb65983100004d00149011/',
+    favoriteColors: '5dbf1e1f3300003972a0e512/',
   },
   auth: {
     login: '5bd312b23400002a00cfe028/',

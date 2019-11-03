@@ -5,55 +5,71 @@
     <vue-form class="register-form" :state="form.state" @submit.prevent="onSubmit">
       <h1 class="page-title">Register</h1>
 
-      <validate class="form-group">
-        <label for="first-name">First name</label>
-        <input v-model="form.values.firstName" id="first-name" :class="Helpers.setInputClassName(form.state.firstName)" type="text" name="firstName" required />
+      <validate>
+        <b-form-group label-for="first-name" label="First name">
+          <b-form-input v-model="form.model.firstName" id="first-name" :class="Helpers.setInputClassName(form.state.firstName)" type="text" name="firstName" required />
 
-        <field-messages name="firstName" show="$touched">
-          <div slot="required" class="invalid-feedback d-block">First name is required</div>
-        </field-messages>
+          <field-messages name="firstName" show="$touched">
+            <b-form-invalid-feedback slot="required" force-show>
+              First name is required
+            </b-form-invalid-feedback>
+          </field-messages>
+        </b-form-group>
       </validate>
 
-      <validate class="form-group">
-        <label for="last-name">Last name</label>
-        <input v-model="form.values.lastName" id="last-name" :class="Helpers.setInputClassName(form.state.lastName)" type="text" name="lastName" required />
+      <validate>
+        <b-form-group label-for="last-name" label="Last name">
+          <b-form-input v-model="form.model.lastName" id="last-name" :class="Helpers.setInputClassName(form.state.lastName)" type="text" name="lastName" required />
 
-        <field-messages name="lastName" show="$touched">
-          <div slot="required" class="invalid-feedback d-block">Last name is required</div>
-        </field-messages>
+          <field-messages name="lastName" show="$touched">
+            <b-form-invalid-feedback slot="required" force-show>
+              Last name is required
+            </b-form-invalid-feedback>
+          </field-messages>
+        </b-form-group>
       </validate>
 
-      <validate class="form-group">
-        <label for="email">E-mail</label>
-        <input v-model="form.values.email" id="email" :class="Helpers.setInputClassName(form.state.email)" type="email" name="email" required />
+      <validate>
+        <b-form-group label-for="email" label="E-mail">
+          <b-form-input v-model="form.model.email" id="email" :class="Helpers.setInputClassName(form.state.email)" type="email" name="email" required />
 
-        <field-messages name="email" show="$touched">
-          <div slot="required" class="invalid-feedback d-block">E-mail is required</div>
-          <div slot="email" class="invalid-feedback d-block">Invalid e-mail</div>
-        </field-messages>
+          <field-messages name="email" show="$touched">
+            <b-form-invalid-feedback slot="required" force-show>
+              E-mail is required
+            </b-form-invalid-feedback>
+            <b-form-invalid-feedback slot="email" force-show>
+              Invalid e-mail
+            </b-form-invalid-feedback>
+          </field-messages>
+        </b-form-group>
 
         <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" variant="danger" v-on:dismiss="Helpers.clearFormMessage(form.feedbackMessages.email, index)">
           {{ errorMessage }}
         </alert-dismissible>
       </validate>
 
-      <validate class="form-group">
-        <label for="password">Password</label>
-        <input v-model="form.values.password" id="password" :class="Helpers.setInputClassName(form.state.password)" type="password" name="password" minlength="3" required />
+      <validate>
+        <b-form-group label-for="password" label="Password">
+          <b-form-input v-model="form.model.password" id="password" :class="Helpers.setInputClassName(form.state.password)" type="password" name="password" required minlength="3" />
 
-        <field-messages name="password" show="$touched">
-          <div slot="required" class="invalid-feedback d-block">Password is required</div>
-          <div slot="minlength" class="invalid-feedback d-block">Minimum 3 characters required</div>
-        </field-messages>
+          <field-messages name="password" show="$touched">
+            <b-form-invalid-feedback slot="required" force-show>
+              Password is required
+            </b-form-invalid-feedback>
+            <b-form-invalid-feedback slot="minlength" force-show>
+              Minimum 3 characters required
+            </b-form-invalid-feedback>
+          </field-messages>
+        </b-form-group>
 
-        <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.password" :key="errorMessage" variant="danger" v-on:dismiss="Helpers.clearFormMessage(form.feedbackMessages.password, index)">
+        <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" variant="danger" v-on:dismiss="Helpers.clearFormMessage(form.feedbackMessages.email, index)">
           {{ errorMessage }}
         </alert-dismissible>
       </validate>
 
-      <button class="btn btn-primary d-block mx-auto" type="submit" :disabled="!form.state.$valid || form.state.$pristine">
-        Submit
-      </button>
+      <b-button variant="primary" class="d-block mx-auto" type="submit" :disabled="!form.state.$valid || form.state.$pristine">
+        Register
+      </b-button>
 
       <div class="text-center">
         <hr class="mt-4" />
@@ -92,7 +108,7 @@ export default {
       loading: false,
       form: {
         state: {},
-        values: {
+        model: {
           firstName: '',
           lastName: '',
           email: '',
@@ -131,20 +147,15 @@ export default {
       };
 
       try {
-        const response = await this.$http.post(`${INSTANCES.mocky}${ENDPOINTS.auth.register}`, this.form.values);
+        const response = await this.$http.post(`${INSTANCES.mocky}${ENDPOINTS.auth.register}`, this.form.model);
+        const { token, firstName, lastName, email } = response.data;
 
-        if (this.form.values.email === 'demo@demo.com') {
+        if (this.form.model.email === 'demo@demo.com') {
           this.form.feedbackMessages.email.push('This e-mail already exists.');
           this.form.feedbackMessages.password.push('Your password is too weak.');
         } else {
-          sessionStorage.setItem('authTokenVueDemo', response.data.token);
-
-          this.setUserData({
-            firstName: response.data.firstName,
-            lastName: response.data.lastName,
-            email: response.data.email
-          });
-
+          sessionStorage.setItem('authTokenVueDemo', token);
+          this.setUserData({ firstName, lastName, email });
           this.$router.push({ name: 'home' });
         }
       } catch (error) {

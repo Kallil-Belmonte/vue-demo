@@ -1,12 +1,12 @@
 <template>
   <main>
-    <div class="container">
-      <div class="row">
-        <div class="offset-md-2 col-md-8">
+    <b-container>
+      <b-row>
+        <b-col offset-md="2" md="8">
           <edit-post-form></edit-post-form>
-        </div>
-      </div>
-    </div>
+        </b-col>
+      </b-row>
+    </b-container>
   </main>
 </template>
 

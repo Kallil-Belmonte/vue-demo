@@ -2,13 +2,13 @@
   <main>
     <loader v-if="loading"></loader>
 
-    <div class="container">
-      <div class="row">
-        <div class="offset-md-2 col-md-8">
+    <b-container>
+      <b-row>
+        <b-col offset-md="2" md="8">
           <post-body v-if="currentPost" :data="currentPost" v-on:openModal="onToggleModal()"></post-body>
-        </div>
-      </div>
-    </div>
+        </b-col>
+      </b-row>
+    </b-container>
 
     <delete-post-modal :open="isModalOpen" v-on:closeModal="onToggleModal()"></delete-post-modal>
   </main>

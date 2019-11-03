@@ -6,7 +6,9 @@
     </article>
     <hr class="mt-4" />
     <div class="d-flex justify-content-end">
-      <button class="btn btn-danger mr-3" type="button" @click="$emit('openModal')">Delete</button>
+      <b-button variant="danger" class="mr-3" @click="$emit('openModal')">
+        Delete
+      </b-button>
       <router-link class="btn btn-light" :to="{ name: 'edit-post', params: { id: data.id }}">
         Edit
       </router-link>

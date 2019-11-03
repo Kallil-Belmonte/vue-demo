@@ -1,10 +1,10 @@
 <template>
   <main>
-    <div class="container">
+    <b-container>
       <page-header icon="envelope">Contact</page-header>
 
       <contact-form></contact-form>
-    </div>
+    </b-container>
   </main>
 </template>
 

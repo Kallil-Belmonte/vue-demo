@@ -12,7 +12,7 @@
       <vue-form :state="form.state" @submit.prevent="onSubmit">
         <validate>
           <b-form-group label-for="first-name" label="First name">
-            <b-form-input v-model="form.model.firstName" id="first-name" :class="Helpers.setInputClassName(form.state.firstName)" type="text" name="firstName" minlength="3" required />
+            <b-form-input v-model="form.model.firstName" id="first-name" :class="Helpers.setInputClassName(form.state.firstName)" type="text" name="firstName" required minlength="3" />
 
             <field-messages name="firstName" show="$touched">
               <b-form-invalid-feedback slot="required" force-show>
@@ -50,11 +50,11 @@
               </b-form-invalid-feedback>
             </field-messages>
           </b-form-group>
-        </validate>
 
-        <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" variant="danger" v-on:dismiss="Helpers.clearFormMessage(form.feedbackMessages.email, index)">
-          {{ errorMessage }}
-        </alert-dismissible>
+          <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" variant="danger" v-on:dismiss="Helpers.clearFormMessage(form.feedbackMessages.email, index)">
+            {{ errorMessage }}
+          </alert-dismissible>
+        </validate>
 
         <b-button variant="primary" class="mr-2" type="submit" :disabled="!form.state.$valid || form.state.$pristine">
           Save
