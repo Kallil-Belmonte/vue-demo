@@ -136,9 +136,8 @@ export default {
         this.$router.push({ name: 'post', params: { id } });
       } catch (error) {
         console.error(error);
-        throw error;
-      } finally {
         this.setLoading(false);
+        throw error;
       }
     },
   },

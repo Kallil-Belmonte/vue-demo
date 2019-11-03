@@ -72,8 +72,8 @@ export default {
       localStorage.removeItem('authTokenVueDemo');
       localStorage.removeItem('expirationDateVueDemo');
 
-      this.$router.push({ name: 'login' });
       this.logOut();
+      this.$router.push({ name: 'login' });
     },
   }
 };

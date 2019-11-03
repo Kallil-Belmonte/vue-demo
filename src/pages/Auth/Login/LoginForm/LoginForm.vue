@@ -134,6 +134,8 @@ export default {
         const { idToken, expiresIn, firstName, lastName, email } = response.data;
         const expirationDate = new Date(new Date().getTime() + expiresIn * 1000).toISOString();
 
+        this.setLoading(false);
+
         if (this.form.model.email === 'demo@demo.com') {
           this.form.feedbackMessages.email.push('This e-mail does not exists.');
           this.form.feedbackMessages.password.push('The password is incorrect.');
@@ -150,9 +152,8 @@ export default {
         }
       } catch (error) {
         console.error(error);
-        throw error;
-      } finally {
         this.setLoading(false);
+        throw error;
       }
     },
   }

@@ -150,6 +150,8 @@ export default {
         const response = await this.$http.post(`${INSTANCES.mocky}${ENDPOINTS.auth.register}`, this.form.model);
         const { token, firstName, lastName, email } = response.data;
 
+        this.setLoading(false);
+
         if (this.form.model.email === 'demo@demo.com') {
           this.form.feedbackMessages.email.push('This e-mail already exists.');
           this.form.feedbackMessages.password.push('Your password is too weak.');
@@ -160,9 +162,8 @@ export default {
         }
       } catch (error) {
         console.error(error);
-        throw error;
-      } finally {
         this.setLoading(false);
+        throw error;
       }
     },
   }

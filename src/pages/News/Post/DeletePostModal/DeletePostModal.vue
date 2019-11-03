@@ -73,9 +73,8 @@ export default {
         this.$router.push({ name: 'blog' });
       } catch (error) {
         console.error(error);
-        throw error;
-      } finally {
         this.setLoading(false);
+        throw error;
       }
     },
 
