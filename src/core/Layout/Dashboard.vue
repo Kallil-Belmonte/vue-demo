@@ -1,6 +1,6 @@
 <template>
   <fragment>
-    <app-header :userFullName="fullName"></app-header>
+    <app-header :userFullName="userFullName"></app-header>
 
     <router-view></router-view>
 
@@ -31,7 +31,7 @@ export default {
   //==============================
   computed: {
     ...mapGetters('user', {
-      fullName: 'userFullName',
+      userFullName: 'fullName',
     }),
   },
 };

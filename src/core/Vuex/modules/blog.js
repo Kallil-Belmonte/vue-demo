@@ -3,7 +3,6 @@ const blog = {
   state: {
     categories: [],
     posts: [],
-
   },
   mutations: {
     setCategories: (state, payload) => {

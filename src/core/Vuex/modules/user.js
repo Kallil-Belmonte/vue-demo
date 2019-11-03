@@ -8,11 +8,12 @@ const user = {
     },
   },
   getters: {
-    userFullName: state => `${state.data.firstName} ${state.data.lastName}`
+    fullName: state => `${state.data.firstName} ${state.data.lastName}`,
   },
   mutations: {
     setData: (state, payload) => {
-      state.data = payload;
+      const { firstName, lastName, email } = payload;
+      state.data = { firstName, lastName, email };
     },
 
     resetData: state => {

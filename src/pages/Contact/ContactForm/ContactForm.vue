@@ -3,7 +3,7 @@
     <loader v-if="loading"></loader>
 
     <vue-form :state="form.state" @submit.prevent="onSubmit">
-      <alert-dismissible v-for="(successMessage, index) in form.feedbackMessages.success" :key="successMessage" variant="success" v-on:dismissAlert="Helpers.clearFormMessage(form.feedbackMessages.success, index)">
+      <alert-dismissible v-for="(successMessage, index) in form.feedbackMessages.success" :key="successMessage" variant="success" v-on:dismiss="Helpers.clearFormMessage(form.feedbackMessages.success, index)">
         {{ successMessage }}
       </alert-dismissible>
 
@@ -43,7 +43,7 @@
               <div slot="email" class="invalid-feedback d-block">Invalid e-mail</div>
             </field-messages>
 
-            <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" variant="danger" v-on:dismissAlert="Helpers.clearFormMessage(form.feedbackMessages.email, index)">
+            <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" variant="danger" v-on:dismiss="Helpers.clearFormMessage(form.feedbackMessages.email, index)">
               {{ errorMessage }}
             </alert-dismissible>
           </validate>

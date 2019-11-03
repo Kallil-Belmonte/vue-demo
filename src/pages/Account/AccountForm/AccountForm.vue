@@ -1,18 +1,18 @@
 <template>
   <b-row>
     <b-col offset-md="3" md="6">
-      <alert-dismissible v-for="(successMessage, index) in form.feedbackMessages.success" :key="successMessage" variant="success" v-on:dismissAlert="Helpers.clearFormMessage(form.feedbackMessages.success, index)">
+      <alert-dismissible v-for="(successMessage, index) in form.feedbackMessages.success" :key="successMessage" variant="success" v-on:dismiss="Helpers.clearFormMessage(form.feedbackMessages.success, index)">
         {{ successMessage }}
       </alert-dismissible>
 
-      <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.error" :key="errorMessage" variant="danger" v-on:dismissAlert="Helpers.clearFormMessage(form.feedbackMessages.error, index)">
+      <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.error" :key="errorMessage" variant="danger" v-on:dismiss="Helpers.clearFormMessage(form.feedbackMessages.error, index)">
         {{ errorMessage }}
       </alert-dismissible>
 
       <vue-form :state="form.state" @submit.prevent="onSubmit">
         <validate>
           <b-form-group label-for="first-name" label="First name">
-            <b-form-input v-model="form.values.firstName" id="first-name" :class="Helpers.setInputClassName(form.state.firstName)" type="text" name="firstName" minlength="3" required />
+            <b-form-input v-model="form.model.firstName" id="first-name" :class="Helpers.setInputClassName(form.state.firstName)" type="text" name="firstName" minlength="3" required />
 
             <field-messages name="firstName" show="$touched">
               <b-form-invalid-feedback slot="required" force-show>
@@ -27,7 +27,7 @@
 
         <validate>
           <b-form-group label-for="last-name" label="Last name">
-            <b-form-input v-model="form.values.lastName" id="last-name" :class="Helpers.setInputClassName(form.state.lastName)" type="text" name="lastName" required />
+            <b-form-input v-model="form.model.lastName" id="last-name" :class="Helpers.setInputClassName(form.state.lastName)" type="text" name="lastName" required />
 
             <field-messages name="lastName" show="$touched">
               <b-form-invalid-feedback slot="required" force-show>
@@ -39,7 +39,7 @@
 
         <validate>
           <b-form-group label-for="email" label="E-mail">
-            <b-form-input v-model="form.values.email" id="email" :class="Helpers.setInputClassName(form.state.email)" type="email" name="email" required />
+            <b-form-input v-model="form.model.email" id="email" :class="Helpers.setInputClassName(form.state.email)" type="email" name="email" required />
 
             <field-messages name="email" show="$touched">
               <b-form-invalid-feedback slot="required" force-show>
@@ -50,11 +50,11 @@
               </b-form-invalid-feedback>
             </field-messages>
           </b-form-group>
-
-          <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" variant="danger" v-on:dismissAlert="Helpers.clearFormMessage(form.feedbackMessages.email, index)">
-            {{ errorMessage }}
-          </alert-dismissible>
         </validate>
+
+        <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" variant="danger" v-on:dismiss="Helpers.clearFormMessage(form.feedbackMessages.email, index)">
+          {{ errorMessage }}
+        </alert-dismissible>
 
         <b-button variant="primary" class="mr-2" type="submit" :disabled="!form.state.$valid || form.state.$pristine">
           Save
@@ -92,7 +92,7 @@ export default {
       Helpers,
       form: {
         state: {},
-        values: {
+        model: {
           firstName: null,
           lastName: null,
           email: null,
@@ -136,7 +136,8 @@ export default {
 
     // GET USER DATA
     getUserData() {
-      this.form.values = this.userData;
+      const { firstName, lastName, email } = this.userData;
+      this.form.model = { firstName, lastName, email };
     },
 
     // ON SUBMIT
@@ -147,14 +148,14 @@ export default {
         email: [],
       };
 
-      if (this.form.values.email === 'john.doe@email.com') {
+      if (this.form.model.email === 'john.doe@email.com') {
         this.form.feedbackMessages.email.push('This e-mail already exists.');
       }
-      else if (this.form.values.email === 'demo@demo.com') {
+      else if (this.form.model.email === 'demo@demo.com') {
         this.form.feedbackMessages.error.push('An error occurred, please try again later.');
       }
       else {
-        this.setUserData(this.form.values);
+        this.setUserData(this.form.model);
         this.form.feedbackMessages.success.push('Account saved successfully.');
       }
     },
