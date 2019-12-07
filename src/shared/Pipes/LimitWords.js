@@ -5,5 +5,5 @@ Vue.filter('limitWords', function (value, numberOfWords) {
     return value.split(' ').splice(0, numberOfWords).join(' ') + '...';
   }
 
-  return null;
+  return value;
 })
