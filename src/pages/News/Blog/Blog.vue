@@ -158,7 +158,7 @@ export default {
 
       // Get posts from the selected category
       // const category = document.querySelector('.list-group-item.active').getAttribute('data-name');;
-      this.$http.get(INSTANCES.jsonPlaceholder + ENDPOINTS.blog.posts)
+      this.$http.get(`${INSTANCES.jsonPlaceholder}${ENDPOINTS.blog.posts}`)
         .then(response => {
           // Set Posts
           this.posts = response.data;

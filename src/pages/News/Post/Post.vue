@@ -5,12 +5,12 @@
     <b-container>
       <b-row>
         <b-col offset-md="2" md="8">
-          <post-body v-if="currentPost" :data="currentPost" v-on:openModal="onToggleModal()"></post-body>
+          <post-body v-if="currentPost" :post="currentPost"></post-body>
         </b-col>
       </b-row>
     </b-container>
 
-    <delete-post-modal :open="isModalOpen" v-on:closeModal="onToggleModal()"></delete-post-modal>
+    <delete-post-modal></delete-post-modal>
   </main>
 </template>
 
@@ -18,7 +18,6 @@
 <script>
 import { mapState, mapMutations } from 'vuex';
 
-import ThemeFunctions from '@/shared/Helpers/ThemeFunctions';
 import { INSTANCES, ENDPOINTS } from '@/core/Resource/Resource';
 import Loader from '@/shared/Components/Loader';
 import PostBody from '@/pages/News/Post/PostBody/PostBody';
@@ -42,7 +41,6 @@ export default {
   data() {
     return {
       loading: true,
-      isModalOpen: false,
     }
   },
 
@@ -71,28 +69,15 @@ export default {
     ...mapMutations('post', ['setCurrentPost']),
 
     // GET CURRENT POST
-    getCurrentPost() {
-      this.$http.get(`${INSTANCES.jsonPlaceholder}${ENDPOINTS.blog.posts}${this.$route.params.id}`)
-        .then(response => {
-          // Set Current Post to store
-          this.setCurrentPost(response.data);
-        })
-        .catch(error => {
-          console.error(error);
-        })
-        .then(() => {
-          // Deactivate loader
-          this.loading = false;
-        });
-    },
-
-    // ON TOGGLE MODAL
-    onToggleModal() {
-      // Toggle styles
-      ThemeFunctions.toggleModalStyles(this.isModalOpen);
-
-      // Toggle modal
-      this.isModalOpen = !this.isModalOpen;
+    async getCurrentPost() {
+      try {
+        const response = await this.$http.get(`${INSTANCES.jsonPlaceholder}${ENDPOINTS.blog.posts}${this.$route.params.id}`);
+        this.setCurrentPost(response.data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        this.loading = false;
+      }
     },
   }
 }

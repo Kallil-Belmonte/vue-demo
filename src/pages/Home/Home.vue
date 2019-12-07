@@ -54,7 +54,6 @@ export default {
         this.posts = [firstPost, secondPost, thirdPost];
       } catch (error) {
         console.error(error);
-        throw error;
       } finally {
         this.loading = false;
       }

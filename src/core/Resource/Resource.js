@@ -42,7 +42,7 @@ Vue.http.interceptors.push((request, next) => {
     const authToken = sessionStorage.getItem('authTokenVueDemo') || localStorage.getItem('authTokenVueDemo');
 
     request.headers.set('Authorization', `Bearer ${authToken}`);
-    // request.url = request.url + '?authKey=' + localStorage.getItem('authTokenVueDemo');
+    // request.url = `${request.url}?authKey=${localStorage.getItem('authTokenVueDemo')}`;
   }
 
   next();

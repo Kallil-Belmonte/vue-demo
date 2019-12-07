@@ -196,7 +196,6 @@ export default {
         this.favoriteColors = response.data;
       } catch (error) {
         console.error(error);
-        throw error;
       } finally {
         this.loading = false;
       }

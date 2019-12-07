@@ -1,15 +1,15 @@
 <template>
   <section class="post-body">
     <article>
-      <h1 class="title text-center">{{ data.title }}</h1>
-      <p>{{ data.body }}</p>
+      <h1 class="title text-center">{{ post.title }}</h1>
+      <p>{{ post.body }}</p>
     </article>
     <hr class="mt-4" />
     <div class="d-flex justify-content-end">
-      <b-button variant="danger" class="mr-3" @click="$emit('openModal')">
+      <b-button variant="danger" class="mr-3" v-b-modal.delete-post-modal>
         Delete
       </b-button>
-      <router-link class="btn btn-light" :to="{ name: 'edit-post', params: { id: data.id }}">
+      <router-link class="btn btn-light" :to="{ name: 'edit-post', params: { id: post.id }}">
         Edit
       </router-link>
     </div>
@@ -24,7 +24,7 @@ export default {
   //==============================
   name: 'PostBody',
   props: {
-    data: Object,
+    post: Object,
   },
 };
 </script>

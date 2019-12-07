@@ -115,7 +115,6 @@ export default {
         this.onSetFormData();
       } catch (error) {
         console.error(error);
-        throw error;
       } finally {
         this.setLoading(false);
       }
@@ -137,7 +136,6 @@ export default {
       } catch (error) {
         console.error(error);
         this.setLoading(false);
-        throw error;
       }
     },
   },

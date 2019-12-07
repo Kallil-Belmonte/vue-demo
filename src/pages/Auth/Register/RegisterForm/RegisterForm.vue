@@ -163,7 +163,6 @@ export default {
       } catch (error) {
         console.error(error);
         this.setLoading(false);
-        throw error;
       }
     },
   }
