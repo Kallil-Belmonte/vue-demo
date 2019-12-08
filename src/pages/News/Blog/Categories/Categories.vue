@@ -6,7 +6,7 @@
         :key="category.name"
         :active="isCategoryActive(category.name)"
         class="d-flex justify-content-between align-items-center"
-        @click="onSelectCategory(category.name)"
+        @click="isCategoryActive(category.name) ? undefined : onSelectCategory(category.name)"
       >
         {{ category.name }}
         <b-badge variant="primary" pill>{{ category.posts }}</b-badge>

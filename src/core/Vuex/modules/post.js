@@ -2,10 +2,10 @@ const post = {
   namespaced: true,
   state: {
     currentPost: {
-      userId: null,
-      id: null,
-      title: null,
-      body:  null,
+      userId: undefined,
+      id: undefined,
+      title: undefined,
+      body:  undefined,
     },
   },
   mutations: {

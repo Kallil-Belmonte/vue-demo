@@ -9,7 +9,7 @@
         v-for="page in pageItems"
         :key="page"
         :class="{ 'page-item': true, 'active': isItemActive(page) }"
-        @click="isItemActive(page) ? null : $emit('paginate', Number(page))"
+        @click="isItemActive(page) ? undefined : $emit('paginate', Number(page))"
       >
         <button class="page-link" type="button">{{ page }}</button>
       </li>

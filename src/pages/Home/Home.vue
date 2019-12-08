@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       loading: true,
-      posts: null,
+      posts: undefined,
     }
   },
 

@@ -153,14 +153,14 @@ export default {
       form: {
         state: {},
         model: {
-          firstName: null,
-          lastName: null,
-          email: null,
-          telephone: null,
+          firstName: undefined,
+          lastName: undefined,
+          email: undefined,
+          telephone: undefined,
           sex: 'male',
           favoriteColor: 'select',
           employed: false,
-          message: null,
+          message: undefined,
         },
         feedbackMessages: {
           success: [],
@@ -204,14 +204,14 @@ export default {
     // ON RESET FORM
     onResetForm() {
       this.form.model = {
-        firstName: null,
-        lastName: null,
-        email: null,
-        telephone: null,
+        firstName: undefined,
+        lastName: undefined,
+        email: undefined,
+        telephone: undefined,
         sex: 'male',
         favoriteColor: 'select',
         employed: false,
-        message: null,
+        message: undefined,
       };
     },
 

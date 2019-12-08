@@ -65,8 +65,8 @@ export default {
       form: {
         state: {},
         model: {
-          title: null,
-          body: null,
+          title: undefined,
+          body: undefined,
         },
       },
     }

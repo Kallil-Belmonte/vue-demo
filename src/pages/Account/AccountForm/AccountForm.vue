@@ -93,9 +93,9 @@ export default {
       form: {
         state: {},
         model: {
-          firstName: null,
-          lastName: null,
-          email: null,
+          firstName: undefined,
+          lastName: undefined,
+          email: undefined,
         },
         feedbackMessages: {
           success: [],
