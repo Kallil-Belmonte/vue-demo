@@ -3,7 +3,7 @@
     <b-container>
       <page-header icon="envelope">Contact</page-header>
 
-      <contact-form></contact-form>
+      <contact-form />
     </b-container>
   </main>
 </template>

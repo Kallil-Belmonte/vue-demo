@@ -1,8 +1,8 @@
 <template>
   <section class="page-header">
-    <font-awesome-icon v-if="icon" :icon="icon" class="icon d-block mx-auto"></font-awesome-icon>
+    <font-awesome-icon v-if="icon" :icon="icon" class="icon d-block mx-auto" />
     <h1 class="title">
-      <slot></slot>
+      <slot />
     </h1>
   </section>
 </template>

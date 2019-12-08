@@ -8,28 +8,28 @@
       <ul>
         <router-link tag="li" active-class="active" to="/" exact>
           <a>
-            <font-awesome-icon icon="home"></font-awesome-icon>
+            <font-awesome-icon icon="home" />
             Home
           </a>
         </router-link>
 
         <router-link tag="li" active-class="active" to="/blog">
           <a>
-            <font-awesome-icon icon="newspaper"></font-awesome-icon>
+            <font-awesome-icon icon="newspaper" />
             Blog
           </a>
         </router-link>
 
         <router-link tag="li" active-class="active" to="/contact">
           <a>
-            <font-awesome-icon icon="envelope"></font-awesome-icon>
+            <font-awesome-icon icon="envelope" />
             Contact
           </a>
         </router-link>
 
         <router-link tag="li" active-class="active" to="/account">
           <a>
-            <font-awesome-icon icon="user"></font-awesome-icon>
+            <font-awesome-icon icon="user" />
             Account
           </a>
         </router-link>

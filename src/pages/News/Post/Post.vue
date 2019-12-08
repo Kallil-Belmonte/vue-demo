@@ -1,16 +1,16 @@
 <template>
   <main>
-    <loader v-if="loading"></loader>
+    <loader v-if="loading" />
 
     <b-container>
       <b-row>
         <b-col offset-md="2" md="8">
-          <post-body v-if="currentPost" :post="currentPost"></post-body>
+          <post-body v-if="currentPost" :post="currentPost" />
         </b-col>
       </b-row>
     </b-container>
 
-    <delete-post-modal></delete-post-modal>
+    <delete-post-modal />
   </main>
 </template>
 

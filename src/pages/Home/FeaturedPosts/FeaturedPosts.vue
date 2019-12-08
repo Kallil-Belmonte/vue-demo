@@ -5,7 +5,7 @@
 
       <b-row>
         <b-col md="4" v-for="featuredPost in posts" :key="featuredPost.id">
-          <post-item :post="featuredPost"></post-item>
+          <post-item :post="featuredPost" />
         </b-col>
       </b-row>
     </b-container>

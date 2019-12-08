@@ -1,6 +1,6 @@
 <template>
   <div :class="`alert alert-${variant} alert-dismissible fade show`" role="alert">
-    <slot></slot>
+    <slot />
 
     <button @click="$emit('dismiss')" type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>

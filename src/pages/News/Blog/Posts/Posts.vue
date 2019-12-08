@@ -1,8 +1,8 @@
 <template>
   <section>
     <div class="row">
-      <div class="col-md-4" v-for="post of data[page]" :key="post.id">
-        <post-item :post="post"></post-item>
+      <div class="col-md-4" v-for="post of pages[currentPage]" :key="post.id">
+        <post-item :post="post" />
       </div>
     </div>
   </section>
@@ -18,8 +18,8 @@ export default {
   //==============================
   name: 'Posts',
   props: {
-    data: Array,
-    page: Number,
+    pages: Object,
+    currentPage: Number,
   },
   components: {
     PostItem,

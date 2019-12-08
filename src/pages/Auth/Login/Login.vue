@@ -5,7 +5,7 @@
 
       <b-row>
         <b-col offset-md="3" md="6">
-          <login-form></login-form>
+          <login-form />
         </b-col>
       </b-row>
     </b-container>

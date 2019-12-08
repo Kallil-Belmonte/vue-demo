@@ -3,7 +3,7 @@
     <b-container>
       <page-header icon="user">Account</page-header>
 
-      <account-form></account-form>
+      <account-form />
     </b-container>
   </main>
 </template>

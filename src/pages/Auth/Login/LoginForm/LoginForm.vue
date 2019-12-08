@@ -1,6 +1,6 @@
 <template>
   <fragment>
-    <loader v-if="loading"></loader>
+    <loader v-if="loading" />
 
     <vue-form class="login-form" :state="form.state" @submit.prevent="onSubmit">
       <h1 class="page-title">Login</h1>

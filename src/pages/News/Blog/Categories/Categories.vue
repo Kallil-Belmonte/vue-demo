@@ -1,11 +1,17 @@
 <template>
   <aside>
-    <div class="list-group">
-      <button class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" type="button" :data-name="category.name" @click="$emit('selectCategory')" v-for="category in data" :key="category.name">
+    <b-list-group>
+      <b-list-group-item
+        :active="isCategoryActive(category.name)"
+        class="d-flex justify-content-between align-items-center"
+        v-for="category in categories"
+        :key="category.name"
+        @click="onSelectCategory(category.name)"
+      >
         {{ category.name }}
-        <span class="badge badge-primary badge-pill">{{ category.posts }}</span>
-      </button>
-    </div>
+        <b-badge variant="primary" pill>{{ category.posts }}</b-badge>
+      </b-list-group-item>
+    </b-list-group>
   </aside>
 </template>
 
@@ -17,7 +23,34 @@ export default {
   //==============================
   name: 'Categories',
   props: {
-    data: Array,
+    categories: Array,
+  },
+
+
+  //==============================
+  // DATA
+  //==============================
+  data() {
+    return {
+      activeCategory: undefined,
+    }
+  },
+
+
+  //==============================
+  // METHODS
+  //==============================
+  methods: {
+    // IS CATEGORY ACTIVE
+    isCategoryActive(category) {
+      return this.activeCategory === category;
+    },
+
+    // ON SELECT CATEGORY
+    onSelectCategory(category) {
+      this.activeCategory = category;
+      this.$emit('selectCategory', category);
+    }
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <fragment>
-    <loader v-if="loading"></loader>
+    <loader v-if="loading" />
 
     <vue-form :state="form.state" @submit.prevent="onSubmit">
       <alert-dismissible v-for="(successMessage, index) in form.feedbackMessages.success" :key="successMessage" variant="success" v-on:dismiss="Helpers.clearFormMessage(form.feedbackMessages.success, index)">

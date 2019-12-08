@@ -3,7 +3,7 @@
     <b-container>
       <b-row>
         <b-col offset-md="2" md="8">
-          <edit-post-form></edit-post-form>
+          <edit-post-form />
         </b-col>
       </b-row>
     </b-container>

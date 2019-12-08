@@ -1,8 +1,8 @@
 <template>
   <main>
-    <loader v-if="loading"></loader>
+    <loader v-if="loading" />
 
-    <featured-posts :posts="posts"></featured-posts>
+    <featured-posts :posts="posts" />
   </main>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <fragment>
-    <loader v-if="loading"></loader>
+    <loader v-if="loading" />
 
     <vue-form class="edit-post-form" :state="form.state" @submit.prevent="onSubmit">
       <validate>

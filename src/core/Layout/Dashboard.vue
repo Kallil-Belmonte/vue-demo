@@ -1,10 +1,10 @@
 <template>
   <fragment>
-    <app-header :userFullName="userFullName"></app-header>
+    <app-header :userFullName="userFullName" />
 
-    <router-view></router-view>
+    <router-view />
 
-    <app-footer></app-footer>
+    <app-footer />
   </fragment>
 </template>
 

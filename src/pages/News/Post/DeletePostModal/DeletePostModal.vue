@@ -1,6 +1,6 @@
 <template>
   <fragment>
-    <loader v-if="loading"></loader>
+    <loader v-if="loading" />
 
     <b-modal
       id="delete-post-modal"

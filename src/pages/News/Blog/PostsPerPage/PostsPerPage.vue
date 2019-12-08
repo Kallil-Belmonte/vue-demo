@@ -4,7 +4,7 @@
       <div class="col-md-2">
         <div class="form-group">
           <label for="filter">Posts per page:</label>
-          <select id="filter" class="form-control" @change="$emit('filterPosts')">
+          <select id="filter" class="form-control" @change="$emit('change', Number(event.target.value))">
             <option value="9">9</option>
             <option value="18">18</option>
             <option value="27">27</option>
@@ -22,7 +22,7 @@ export default {
   //==============================
   // GENERAL
   //==============================
-  name: 'PostsFilter',
+  name: 'PostsPerPage',
 };
 </script>
 
