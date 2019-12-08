@@ -1,10 +1,10 @@
 <template>
   <section>
-    <div class="row">
-      <div class="col-md-4" v-for="post of pages[currentPage]" :key="post.id">
+    <b-row>
+      <b-col md="4" v-for="post of pages[currentPage]" :key="post.id">
         <post-item :post="post" />
-      </div>
-    </div>
+      </b-col>
+    </b-row>
   </section>
 </template>
 

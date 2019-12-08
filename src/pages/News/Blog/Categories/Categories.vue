@@ -2,10 +2,10 @@
   <aside>
     <b-list-group>
       <b-list-group-item
-        :active="isCategoryActive(category.name)"
-        class="d-flex justify-content-between align-items-center"
         v-for="category in categories"
         :key="category.name"
+        :active="isCategoryActive(category.name)"
+        class="d-flex justify-content-between align-items-center"
         @click="onSelectCategory(category.name)"
       >
         {{ category.name }}

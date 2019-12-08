@@ -6,9 +6,10 @@
       </li>
 
       <li
-        v-for="page in pagesItems"
+        v-for="page in pageItems"
         :key="page"
         :class="{ 'page-item': true, 'active': isItemActive(page) }"
+        @click="isItemActive(page) ? null : $emit('paginate', Number(page))"
       >
         <button class="page-link" type="button">{{ page }}</button>
       </li>
@@ -30,7 +31,9 @@ export default {
   props: {
     pages: {
       type: Array,
-      default: [],
+      default() {
+        return []
+      },
     },
     firstItem: {
       type: Number,
@@ -42,22 +45,18 @@ export default {
 
 
   //==============================
-  // DATA
+  // COMPUTED
   //==============================
-  data() {
-    return {
-      startPages: undefined,
-      endPages: undefined,
-      pagesItems: [],
-    }
-  },
-
-
-  //==============================
-  // LIFECYCLE HOOKS
-  //==============================
-  mounted() {
-    this.setInitialData();
+  computed: {
+    startPages() {
+      return this.firstItem - 1;
+    },
+    endPages() {
+      return this.startPages + this.maxItem;
+    },
+    pageItems() {
+      return this.pages.slice(this.startPages, this.endPages);
+    },
   },
 
 
@@ -65,14 +64,8 @@ export default {
   // METHODS
   //==============================
   methods: {
-    setInitialData() {
-      this.startPages = this.firstItem - 1;
-      this.endPages = this.startPages + this.maxItem;
-      this.pagesItems = this.pages.slice(this.startPages, this.endPages);
-    },
-
     isItemActive(page) {
-      return page === this.currentPage;
+      return Number(page) === this.currentPage;
     },
   },
 };
