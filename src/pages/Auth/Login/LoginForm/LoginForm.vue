@@ -72,6 +72,9 @@ import { INSTANCES, ENDPOINTS } from '@/core/Resource/Resource';
 import Loader from '@/shared/Components/Loader';
 import AlertDismissible from '@/shared/Components/AlertDismissible';
 
+const { mocky } = INSTANCES;
+const { auth } = ENDPOINTS;
+
 export default {
   //==============================
   // GENERAL
@@ -130,7 +133,7 @@ export default {
       };
 
       try {
-        const response = await this.$http.post(`${INSTANCES.mocky}${ENDPOINTS.auth.login}`, this.form.model);
+        const response = await this.$http.post(`${mocky}${auth.login}`, this.form.model);
         const { idToken, expiresIn, firstName, lastName, email } = response.data;
         const expirationDate = new Date(new Date().getTime() + expiresIn * 1000).toISOString();
 

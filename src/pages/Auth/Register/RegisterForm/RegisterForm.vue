@@ -88,6 +88,9 @@ import { INSTANCES, ENDPOINTS } from '@/core/Resource/Resource';
 import Loader from '@/shared/Components/Loader';
 import AlertDismissible from '@/shared/Components/AlertDismissible';
 
+const { mocky } = INSTANCES;
+const { auth } = ENDPOINTS;
+
 export default {
   //==============================
   // GENERAL
@@ -147,7 +150,7 @@ export default {
       };
 
       try {
-        const response = await this.$http.post(`${INSTANCES.mocky}${ENDPOINTS.auth.register}`, this.form.model);
+        const response = await this.$http.post(`${mocky}${auth.register}`, this.form.model);
         const { token, firstName, lastName, email } = response.data;
 
         this.setLoading(false);

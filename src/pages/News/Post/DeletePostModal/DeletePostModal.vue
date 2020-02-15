@@ -20,6 +20,9 @@
 import { INSTANCES, ENDPOINTS } from '@/core/Resource/Resource';
 import Loader from '@/shared/Components/Loader';
 
+const { jsonPlaceholder } = INSTANCES;
+const { blog } = ENDPOINTS;
+
 export default {
   //==============================
   // GENERAL
@@ -53,7 +56,7 @@ export default {
       this.setLoading(true);
 
       try {
-        await this.$http.delete(`${INSTANCES.jsonPlaceholder}${ENDPOINTS.blog.posts}${this.$route.params.id}`);
+        await this.$http.delete(`${jsonPlaceholder}${blog.posts}${this.$route.params.id}`);
         this.$router.push({ name: 'blog' });
       } catch (error) {
         console.error(error);

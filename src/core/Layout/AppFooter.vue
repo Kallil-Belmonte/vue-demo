@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <div class="container">
+    <b-container>
       <div class="d-flex justify-content-center">
         <ul class="social-networks list-inline">
           <li class="list-inline-item">
@@ -21,7 +21,7 @@
       <div class="copyright text-center">
         <p class="mb-0">© Nome 2016 - Todos os Direitos Reservados</p>
       </div>
-    </div>
+    </b-container>
   </footer>
 </template>
 

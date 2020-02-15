@@ -23,6 +23,9 @@ import Loader from '@/shared/Components/Loader';
 import PostBody from '@/pages/News/Post/PostBody/PostBody';
 import DeletePostModal from '@/pages/News/Post/DeletePostModal/DeletePostModal';
 
+const { jsonPlaceholder } = INSTANCES;
+const { blog } = ENDPOINTS;
+
 export default {
   //==============================
   // GENERAL
@@ -71,7 +74,7 @@ export default {
     // GET CURRENT POST
     async getCurrentPost() {
       try {
-        const response = await this.$http.get(`${INSTANCES.jsonPlaceholder}${ENDPOINTS.blog.posts}${this.$route.params.id}`);
+        const response = await this.$http.get(`${jsonPlaceholder}${blog.posts}${this.$route.params.id}`);
         this.setCurrentPost(response.data);
       } catch (error) {
         console.error(error);

@@ -45,6 +45,9 @@ import * as Helpers from '@/shared/Helpers';
 import { INSTANCES, ENDPOINTS } from '@/core/Resource/Resource';
 import Loader from '@/shared/Components/Loader';
 
+const { jsonPlaceholder } = INSTANCES;
+const { blog } = ENDPOINTS;
+
 export default {
   //==============================
   // GENERAL
@@ -110,7 +113,7 @@ export default {
     // GET CURRENT POST
     async getCurrentPost(id) {
       try {
-        const response = await this.$http.get(`${INSTANCES.jsonPlaceholder}${ENDPOINTS.blog.posts}${id}`);
+        const response = await this.$http.get(`${jsonPlaceholder}${blog.posts}${id}`);
         this.setCurrentPost(response.data);
         this.onSetFormData();
       } catch (error) {
@@ -126,7 +129,7 @@ export default {
 
       try {
         await this.$http.put(
-          `${INSTANCES.jsonPlaceholder}${ENDPOINTS.blog.posts}${this.$route.params.id}`,
+          `${jsonPlaceholder}${blog.posts}${this.$route.params.id}`,
           this.form.model,
         );
         const { userId, id, title, body } = this.currentPost;

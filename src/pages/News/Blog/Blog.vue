@@ -46,6 +46,9 @@ import Posts from '@/pages/News/Blog/Posts/Posts';
 import BlogPagination from '@/pages/News/Blog/BlogPagination/BlogPagination';
 import Categories from '@/pages/News/Blog/Categories/Categories';
 
+const { mocky, jsonPlaceholder } = INSTANCES;
+const { blog } = ENDPOINTS;
+
 export default {
   //==============================
   // GENERAL
@@ -125,8 +128,8 @@ export default {
     // GET ALL DATA
     async getAllData() {
       try {
-        const categoriesResponse = await this.$http.get(`${INSTANCES.mocky}${ENDPOINTS.blog.categories}`);
-        const postsResponse = await this.$http.get(`${INSTANCES.jsonPlaceholder}${ENDPOINTS.blog.posts}`);
+        const categoriesResponse = await this.$http.get(`${mocky}${blog.categories}`);
+        const postsResponse = await this.$http.get(`${jsonPlaceholder}${blog.posts}`);
 
         this.setCategories(categoriesResponse.data);
         this.setPosts(postsResponse.data);
@@ -143,7 +146,7 @@ export default {
       this.setLoading(true);
 
       try {
-        const response = await this.$http.get(`${INSTANCES.jsonPlaceholder}${ENDPOINTS.blog.posts}`)
+        const response = await this.$http.get(`${jsonPlaceholder}${blog.posts}`)
 
         this.setPosts(response.data);
         this.setPaginationSettings(response.data);

@@ -131,6 +131,9 @@ import { INSTANCES, ENDPOINTS } from '@/core/Resource/Resource';
 import Loader from '@/shared/Components/Loader';
 import AlertDismissible from '@/shared/Components/AlertDismissible';
 
+const { mocky } = INSTANCES;
+const { contactForm } = ENDPOINTS;
+
 export default {
   //==============================
   // GENERAL
@@ -192,7 +195,7 @@ export default {
     // GET FAVORITE COLORS
     async getFavoriteColors() {
       try {
-        const response = await this.$http.get(`${INSTANCES.mocky}${ENDPOINTS.contactForm.favoriteColors}`);
+        const response = await this.$http.get(`${mocky}${contactForm.favoriteColors}`);
         this.favoriteColors = response.data;
       } catch (error) {
         console.error(error);
