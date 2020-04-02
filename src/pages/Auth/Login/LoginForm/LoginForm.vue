@@ -133,8 +133,8 @@ export default {
       };
 
       try {
-        const response = await this.$http.post(`${mocky}${auth.login}`, this.form.model);
-        const { idToken, expiresIn, firstName, lastName, email } = response.data;
+        const { data } = await this.$http.post(`${mocky}${auth.login}`, this.form.model);
+        const { idToken, expiresIn, firstName, lastName, email } = data;
         const expirationDate = new Date(new Date().getTime() + expiresIn * 1000).toISOString();
 
         this.setLoading(false);

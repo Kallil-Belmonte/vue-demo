@@ -146,10 +146,10 @@ export default {
       this.setLoading(true);
 
       try {
-        const response = await this.$http.get(`${jsonPlaceholder}${blog.posts}`)
+        const { data } = await this.$http.get(`${jsonPlaceholder}${blog.posts}`)
 
-        this.setPosts(response.data);
-        this.setPaginationSettings(response.data);
+        this.setPosts(data);
+        this.setPaginationSettings(data);
       } catch (error) {
         console.error(error);
       } finally {

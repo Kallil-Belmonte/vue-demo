@@ -195,8 +195,8 @@ export default {
     // GET FAVORITE COLORS
     async getFavoriteColors() {
       try {
-        const response = await this.$http.get(`${mocky}${contactForm.favoriteColors}`);
-        this.favoriteColors = response.data;
+        const { data } = await this.$http.get(`${mocky}${contactForm.favoriteColors}`);
+        this.favoriteColors = data;
       } catch (error) {
         console.error(error);
       } finally {

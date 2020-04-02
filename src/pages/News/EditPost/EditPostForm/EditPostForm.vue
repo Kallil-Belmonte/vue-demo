@@ -113,8 +113,8 @@ export default {
     // GET CURRENT POST
     async getCurrentPost(id) {
       try {
-        const response = await this.$http.get(`${jsonPlaceholder}${blog.posts}${id}`);
-        this.setCurrentPost(response.data);
+        const { data } = await this.$http.get(`${jsonPlaceholder}${blog.posts}${id}`);
+        this.setCurrentPost(data);
         this.onSetFormData();
       } catch (error) {
         console.error(error);

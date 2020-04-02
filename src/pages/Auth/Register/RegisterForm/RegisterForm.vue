@@ -150,8 +150,8 @@ export default {
       };
 
       try {
-        const response = await this.$http.post(`${mocky}${auth.register}`, this.form.model);
-        const { token, firstName, lastName, email } = response.data;
+        const { data } = await this.$http.post(`${mocky}${auth.register}`, this.form.model);
+        const { token, firstName, lastName, email } = data;
 
         this.setLoading(false);
 

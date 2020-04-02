@@ -52,8 +52,8 @@ export default {
     // GET FEATURED POSTS
     async getFeaturedPosts() {
       try {
-        const response = await this.$http.get(`${jsonPlaceholder}${blog.posts}`);
-        const [firstPost, secondPost, thirdPost] = response.data;
+        const { data } = await this.$http.get(`${jsonPlaceholder}${blog.posts}`);
+        const [firstPost, secondPost, thirdPost] = data;
         this.posts = [firstPost, secondPost, thirdPost];
       } catch (error) {
         console.error(error);

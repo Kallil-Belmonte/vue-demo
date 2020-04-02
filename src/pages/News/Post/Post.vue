@@ -74,8 +74,8 @@ export default {
     // GET CURRENT POST
     async getCurrentPost() {
       try {
-        const response = await this.$http.get(`${jsonPlaceholder}${blog.posts}${this.$route.params.id}`);
-        this.setCurrentPost(response.data);
+        const { data } = await this.$http.get(`${jsonPlaceholder}${blog.posts}${this.$route.params.id}`);
+        this.setCurrentPost(data);
       } catch (error) {
         console.error(error);
       } finally {
