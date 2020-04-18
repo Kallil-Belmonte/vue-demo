@@ -8,6 +8,8 @@
 <script>
 import * as Helpers from '@/shared/Helpers';
 
+const { capitalizeFirstLetter, setPageTitle } = Helpers;
+
 export default {
   //==============================
   // GENERAL
@@ -19,7 +21,7 @@ export default {
   // LIFECYCLE HOOKS
   //==============================
   mounted() {
-    this.setPageTitle();
+    this.onSetPageTitle();
   },
 
 
@@ -27,14 +29,16 @@ export default {
   // METHODS
   //==============================
   methods: {
-    // SET PAGE TITLE
-    setPageTitle() {
+    // ON SET PAGE TITLE
+    onSetPageTitle() {
       this.$router.afterEach(to => {
-        if (to.name) {
-          const pageUrl = to.name.split('-').join(' ');
-          const urlName = Helpers.capitalizeFirstLetter(pageUrl);
+        const { name } = to;
 
-          Helpers.setPageTitle(urlName);
+        if (name) {
+          const pageUrl = name.split('-').join(' ');
+          const urlName = capitalizeFirstLetter(pageUrl);
+
+          setPageTitle(urlName);
         }
       });
     }

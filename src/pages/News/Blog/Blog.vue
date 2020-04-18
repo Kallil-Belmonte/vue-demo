@@ -48,6 +48,7 @@ import Categories from '@/pages/News/Blog/Categories/Categories';
 
 const { mocky, jsonPlaceholder } = INSTANCES;
 const { blog } = ENDPOINTS;
+const { groupArrayItemsInArrays } = Helpers
 
 export default {
   //==============================
@@ -114,7 +115,7 @@ export default {
       const pages = {};
       const postsPerPage = quantPostsPerPage || 9;
 
-      Helpers.groupArrayItemsInArrays(posts, postsPerPage).forEach((item, index) => {
+      groupArrayItemsInArrays(posts, postsPerPage).forEach((item, index) => {
         pages[index + 1] = item;
       });
 

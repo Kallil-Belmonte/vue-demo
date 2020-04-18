@@ -23,12 +23,6 @@ export const groupArrayItemsInArrays = (array, itemsQuantity) => {
 };
 
 
-// CLEAR FORM MESSAGE
-export const clearFormMessage = (field, index) => {
-  field.splice(index, 1);
-};
-
-
 // SET INPUT CLASS NAME
 export const setInputClassName = (field, customClassNames = []) => {
   const classList = ['form-control', ...customClassNames];
@@ -36,4 +30,10 @@ export const setInputClassName = (field, customClassNames = []) => {
   if (field && field.$touched && field.$invalid) classList.push('is-invalid');
 
   return classList;
+};
+
+
+// CLEAR FIELD ERROR MESSAGE
+export const clearFieldErrorMessage = (field, index) => {
+  field.splice(index, 1);
 };

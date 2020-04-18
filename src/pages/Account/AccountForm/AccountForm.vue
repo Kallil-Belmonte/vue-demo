@@ -1,11 +1,11 @@
 <template>
   <b-row>
     <b-col offset-md="3" md="6">
-      <alert-dismissible v-for="(successMessage, index) in form.feedbackMessages.success" :key="successMessage" variant="success" v-on:dismiss="Helpers.clearFormMessage(form.feedbackMessages.success, index)">
+      <alert-dismissible v-for="(successMessage, index) in form.feedbackMessages.success" :key="successMessage" variant="success" v-on:dismiss="Helpers.clearFieldErrorMessage(form.feedbackMessages.success, index)">
         {{ successMessage }}
       </alert-dismissible>
 
-      <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.error" :key="errorMessage" variant="danger" v-on:dismiss="Helpers.clearFormMessage(form.feedbackMessages.error, index)">
+      <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.error" :key="errorMessage" variant="danger" v-on:dismiss="Helpers.clearFieldErrorMessage(form.feedbackMessages.error, index)">
         {{ errorMessage }}
       </alert-dismissible>
 
@@ -51,7 +51,7 @@
             </field-messages>
           </b-form-group>
 
-          <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" variant="danger" v-on:dismiss="Helpers.clearFormMessage(form.feedbackMessages.email, index)">
+          <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" variant="danger" v-on:dismiss="Helpers.clearFieldErrorMessage(form.feedbackMessages.email, index)">
             {{ errorMessage }}
           </alert-dismissible>
         </validate>

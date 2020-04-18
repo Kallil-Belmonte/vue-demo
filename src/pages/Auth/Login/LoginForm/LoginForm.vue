@@ -19,7 +19,7 @@
           </field-messages>
         </b-form-group>
 
-        <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" variant="danger" v-on:dismiss="Helpers.clearFormMessage(form.feedbackMessages.email, index)">
+        <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" variant="danger" v-on:dismiss="Helpers.clearFieldErrorMessage(form.feedbackMessages.email, index)">
           {{ errorMessage }}
         </alert-dismissible>
       </validate>
@@ -38,7 +38,7 @@
           </field-messages>
         </b-form-group>
 
-        <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" variant="danger" v-on:dismiss="Helpers.clearFormMessage(form.feedbackMessages.email, index)">
+        <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" variant="danger" v-on:dismiss="Helpers.clearFieldErrorMessage(form.feedbackMessages.email, index)">
           {{ errorMessage }}
         </alert-dismissible>
       </validate>

@@ -17,6 +17,8 @@
 import * as Helpers from '@/shared/Helpers';
 import LoginForm from '@/pages/Auth/Login/LoginForm/LoginForm';
 
+const { setPageTitle } = Helpers;
+
 export default {
   //==============================
   // GENERAL
@@ -32,7 +34,24 @@ export default {
   //==============================
   mounted() {
     console.log('Utilize o e-mail: demo@demo.com para ver os alertas de erro.');
-    Helpers.setPageTitle('Login');
+    setPageTitle('Login');
+    this.redirectLoggedUser();
+  },
+
+
+  //==============================
+  // METHODS
+  //==============================
+  methods: {
+    // REDIRECT LOGGED USER
+    redirectLoggedUser() {
+      const authToken = sessionStorage.getItem('authTokenVueDemo') || localStorage.getItem('authTokenVueDemo');
+      const expiredSession = new Date().getTime() > Date.parse(localStorage.getItem('expirationDateVueDemo'));
+
+      if (authToken && !expiredSession) {
+        this.$router.push('/');
+      }
+    },
   },
 }
 </script>

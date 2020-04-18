@@ -13,6 +13,8 @@
 <script>
 import * as Helpers from '@/shared/Helpers';
 
+const { setPageTitle } = Helpers;
+
 export default {
   //==============================
   // GENERAL
@@ -24,7 +26,7 @@ export default {
   // LIFECYCLE HOOKS
   //==============================
   mounted() {
-    Helpers.setPageTitle('Error 404');
+    setPageTitle('Error 404');
   },
 }
 </script>
