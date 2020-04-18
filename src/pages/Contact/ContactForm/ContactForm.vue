@@ -11,7 +11,7 @@
         <b-col>
           <validate>
             <b-form-group label-for="first-name" label="First name">
-              <b-form-input v-model="form.model.firstName" id="first-name" :class="Helpers.setInputClassName(form.state.firstName)" type="text" name="firstName" required minlength="3" />
+              <b-form-input v-model="form.model.firstName" id="first-name" :class="Helpers.setFieldClassName(form.state.firstName)" type="text" name="firstName" required minlength="3" />
 
               <field-messages name="firstName" show="$touched">
                 <b-form-invalid-feedback slot="required" force-show>
@@ -28,7 +28,7 @@
         <b-col>
           <validate>
             <b-form-group label-for="last-name" label="Last name">
-              <b-form-input v-model="form.model.lastName" id="last-name" :class="Helpers.setInputClassName(form.state.lastName)" type="text" name="lastName" required />
+              <b-form-input v-model="form.model.lastName" id="last-name" :class="Helpers.setFieldClassName(form.state.lastName)" type="text" name="lastName" required />
 
               <field-messages name="lastName" show="$touched">
                 <b-form-invalid-feedback slot="required" force-show>
@@ -44,7 +44,7 @@
         <b-col>
           <validate>
             <b-form-group label-for="email" label="E-mail">
-              <b-form-input v-model="form.model.email" id="email" :class="Helpers.setInputClassName(form.state.email)" type="email" name="email" required />
+              <b-form-input v-model="form.model.email" id="email" :class="Helpers.setFieldClassName(form.state.email)" type="email" name="email" required />
 
               <field-messages name="email" show="$touched">
                 <b-form-invalid-feedback slot="required" force-show>
@@ -65,7 +65,7 @@
         <b-col>
           <validate>
             <b-form-group label-for="telephone" label="Telephone">
-              <b-form-input v-model="form.model.telephone" id="telephone" :class="Helpers.setInputClassName(form.state.telephone)" type="tel" name="telephone" placeholder="(00) 0000 0000" v-mask="'(##) #### #####'" required />
+              <b-form-input v-model="form.model.telephone" id="telephone" :class="Helpers.setFieldClassName(form.state.telephone)" type="tel" name="telephone" placeholder="(00) 0000 0000" v-mask="'(##) #### #####'" required />
 
               <field-messages name="telephone" show="$touched">
                 <b-form-invalid-feedback slot="required" force-show>

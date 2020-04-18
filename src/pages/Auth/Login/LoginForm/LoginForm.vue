@@ -7,7 +7,7 @@
 
       <validate>
         <b-form-group label-for="email" label="E-mail">
-          <b-form-input v-model="form.model.email" id="email" :class="Helpers.setInputClassName(form.state.email)" type="email" name="email" required />
+          <b-form-input v-model="form.model.email" id="email" :class="Helpers.setFieldClassName(form.state.email)" type="email" name="email" required />
 
           <field-messages name="email" show="$touched">
             <b-form-invalid-feedback slot="required" force-show>
@@ -26,7 +26,7 @@
 
       <validate>
         <b-form-group label-for="password" label="Password">
-          <b-form-input v-model="form.model.password" id="password" :class="Helpers.setInputClassName(form.state.password)" type="password" name="password" required minlength="3" />
+          <b-form-input v-model="form.model.password" id="password" :class="Helpers.setFieldClassName(form.state.password)" type="password" name="password" required minlength="3" />
 
           <field-messages name="password" show="$touched">
             <b-form-invalid-feedback slot="required" force-show>

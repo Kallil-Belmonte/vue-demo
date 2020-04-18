@@ -5,7 +5,7 @@
     <vue-form class="edit-post-form" :state="form.state" @submit.prevent="onSubmit">
       <validate>
         <b-form-group label-for="title" label="Title">
-          <b-form-input v-model="form.model.title" id="title" :class="Helpers.setInputClassName(form.state.title)" type="text" name="title" required />
+          <b-form-input v-model="form.model.title" id="title" :class="Helpers.setFieldClassName(form.state.title)" type="text" name="title" required />
 
           <field-messages name="title" show="$touched">
             <b-form-invalid-feedback slot="required" force-show>

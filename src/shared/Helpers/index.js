@@ -1,7 +1,7 @@
 import {
   setPageTitle,
   groupArrayItemsInArrays,
-  setInputClassName,
+  setFieldClassName,
   clearFieldErrorMessage,
 } from './General';
 
@@ -15,7 +15,7 @@ export {
   // General
   setPageTitle,
   groupArrayItemsInArrays,
-  setInputClassName,
+  setFieldClassName,
   clearFieldErrorMessage,
 
   // Formatters
