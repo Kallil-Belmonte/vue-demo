@@ -8,7 +8,7 @@ Vue.use(VueResource);
 //==============================
 
 export const INSTANCES = {
-  jsonPlaceholder: 'https://jsonplaceholder.typicode.com/',
+  jsonPlaceholder: 'http://jsonplaceholder.typicode.com/',
   mocky: 'http://www.mocky.io/v2/',
 };
 
