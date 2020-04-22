@@ -1,3 +1,5 @@
+import { clearStorageData } from '@/core/Vuex/Store';
+
 const RouterGuard = (to, from, next) => {
   const authToken = sessionStorage.getItem('authTokenVueDemo') || localStorage.getItem('authTokenVueDemo');
   const expiredSession = new Date().getTime() > Date.parse(localStorage.getItem('expirationDateVueDemo'));
@@ -5,10 +7,7 @@ const RouterGuard = (to, from, next) => {
   if (authToken && !expiredSession) {
     next();
   } else {
-    sessionStorage.removeItem('authTokenVueDemo');
-    localStorage.removeItem('authTokenVueDemo');
-    localStorage.removeItem('expirationDateVueDemo');
-
+    clearStorageData();
     next({ name: 'login' })
   }
 };

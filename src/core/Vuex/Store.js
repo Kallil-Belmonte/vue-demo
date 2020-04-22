@@ -9,6 +9,12 @@ import post from './modules/post';
 
 Vue.use(Vuex);
 
+export const clearStorageData = () => {
+  sessionStorage.removeItem('authTokenVueDemo');
+  localStorage.removeItem('authTokenVueDemo');
+  localStorage.removeItem('expirationDateVueDemo');
+};
+
 export default new Vuex.Store({
   modules: {
     user,

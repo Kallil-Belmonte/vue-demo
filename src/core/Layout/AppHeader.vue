@@ -47,6 +47,8 @@
 <script>
 import { mapMutations } from 'vuex';
 
+import { clearStorageData } from '@/core/Vuex/Store';
+
 export default {
   //==============================
   // GENERAL
@@ -68,10 +70,7 @@ export default {
 
     // ON LOG OUT
     onLogOut() {
-      sessionStorage.removeItem('authTokenVueDemo');
-      localStorage.removeItem('authTokenVueDemo');
-      localStorage.removeItem('expirationDateVueDemo');
-
+      clearStorageData();
       this.logOut();
       this.$router.push({ name: 'login' });
     },
