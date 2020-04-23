@@ -111,16 +111,15 @@ export default {
 
 
     // SET PAGINATION SETTINGS
-    setPaginationSettings(posts, quantPostsPerPage) {
+    setPaginationSettings(posts, quantPostsPerPage = 9) {
       const pages = {};
-      const postsPerPage = quantPostsPerPage || 9;
 
-      groupArrayItemsInArrays(posts, postsPerPage).forEach((item, index) => {
+      groupArrayItemsInArrays(posts, quantPostsPerPage).forEach((item, index) => {
         pages[index + 1] = item;
       });
 
       this.pages = pages;
-      this.postsPerPage = postsPerPage;
+      this.postsPerPage = quantPostsPerPage;
       this.firstPaginationItem = 1;
       this.maxPaginationItem = 5;
       this.currentPage = 1;
