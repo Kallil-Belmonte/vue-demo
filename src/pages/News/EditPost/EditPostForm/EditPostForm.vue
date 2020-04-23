@@ -1,6 +1,6 @@
 <template>
   <fragment>
-    <loader v-if="loading" />
+    <loader v-if="isLoading" />
 
     <vue-form class="edit-post-form" :state="form.state" @submit.prevent="onSubmit">
       <validate>
@@ -64,7 +64,7 @@ export default {
   data() {
     return {
       Helpers,
-      loading: true,
+      isLoading: true,
       form: {
         state: {},
         model: {
@@ -101,7 +101,7 @@ export default {
 
     // SET LOADING
     setLoading(value) {
-      this.loading = value;
+      this.isLoading = value;
     },
 
     // ON SET FORM DATA
@@ -113,8 +113,8 @@ export default {
     // GET CURRENT POST
     async getCurrentPost(id) {
       try {
-        const { data } = await this.$http.get(`${jsonPlaceholder}${blog.posts}${id}`);
-        this.setCurrentPost(data);
+        const { data: post } = await this.$http.get(`${jsonPlaceholder}${blog.posts}${id}`);
+        this.setCurrentPost(post);
         this.onSetFormData();
       } catch (error) {
         console.error(error);

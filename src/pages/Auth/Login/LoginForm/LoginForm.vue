@@ -1,6 +1,6 @@
 <template>
   <fragment>
-    <loader v-if="loading" />
+    <loader v-if="isLoading" />
 
     <vue-form class="login-form" :state="form.state" @submit.prevent="onSubmit">
       <h1 class="page-title">Login</h1>
@@ -92,7 +92,7 @@ export default {
   data() {
     return {
       Helpers,
-      loading: false,
+      isLoading: false,
       form: {
         state: {},
         model: {
@@ -120,7 +120,7 @@ export default {
 
     // SET LOADING
     setLoading(value) {
-      this.loading = value;
+      this.isLoading = value;
     },
 
     // ON SUBMIT

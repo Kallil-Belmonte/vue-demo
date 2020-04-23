@@ -1,6 +1,6 @@
 <template>
   <fragment>
-    <loader v-if="loading" />
+    <loader v-if="isLoading" />
 
     <b-modal
       id="delete-post-modal"
@@ -37,7 +37,7 @@ export default {
   //==============================
   data() {
     return {
-      loading: false,
+      isLoading: false,
     }
   },
 
@@ -48,7 +48,7 @@ export default {
   methods: {
     // SET LOADING
     setLoading(value) {
-      this.loading = value;
+      this.isLoading = value;
     },
 
     // ON DELETE POST

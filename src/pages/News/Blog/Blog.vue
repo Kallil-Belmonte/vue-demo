@@ -1,6 +1,6 @@
 <template>
   <main>
-    <loader v-if="loading" />
+    <loader v-if="isLoading" />
 
     <b-container>
       <page-header icon="newspaper">Blog</page-header>
@@ -71,7 +71,7 @@ export default {
   data() {
     return {
       Helpers,
-      loading: true,
+      isLoading: true,
       pages: {},
       postsPerPage: 9,
       firstPaginationItem: 1,
@@ -106,7 +106,7 @@ export default {
 
     // SET LOADING
     setLoading(value) {
-      this.loading = value;
+      this.isLoading = value;
     },
 
 
@@ -129,12 +129,12 @@ export default {
     // GET ALL DATA
     async getAllData() {
       try {
-        const categoriesResponse = await this.$http.get(`${mocky}${blog.categories}`);
-        const postsResponse = await this.$http.get(`${jsonPlaceholder}${blog.posts}`);
+        const { data: categories} = await this.$http.get(`${mocky}${blog.categories}`);
+        const { data: posts } = await this.$http.get(`${jsonPlaceholder}${blog.posts}`);
 
-        this.setCategories(categoriesResponse.data);
-        this.setPosts(postsResponse.data);
-        this.setPaginationSettings(postsResponse.data);
+        this.setCategories(categories);
+        this.setPosts(posts);
+        this.setPaginationSettings(posts);
       } catch (error) {
         console.error(error);
       } finally {
@@ -147,10 +147,10 @@ export default {
       this.setLoading(true);
 
       try {
-        const { data } = await this.$http.get(`${jsonPlaceholder}${blog.posts}`)
+        const { data: posts } = await this.$http.get(`${jsonPlaceholder}${blog.posts}`)
 
-        this.setPosts(data);
-        this.setPaginationSettings(data);
+        this.setPosts(posts);
+        this.setPaginationSettings(posts);
       } catch (error) {
         console.error(error);
       } finally {

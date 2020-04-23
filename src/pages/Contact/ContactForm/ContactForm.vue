@@ -1,6 +1,6 @@
 <template>
   <fragment>
-    <loader v-if="loading" />
+    <loader v-if="isLoading" />
 
     <vue-form :state="form.state" @submit.prevent="onSubmit">
       <alert-dismissible v-for="(successMessage, index) in form.feedbackMessages.success" :key="successMessage" variant="success" v-on:dismiss="Helpers.clearFieldErrorMessage(form.feedbackMessages.success, index)">
@@ -151,7 +151,7 @@ export default {
   data() {
     return {
       Helpers,
-      loading: true,
+      isLoading: true,
       favoriteColors: [],
       form: {
         state: {},
@@ -200,7 +200,7 @@ export default {
       } catch (error) {
         console.error(error);
       } finally {
-        this.loading = false;
+        this.isLoading = false;
       }
     },
 

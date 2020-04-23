@@ -1,6 +1,6 @@
 <template>
   <main>
-    <loader v-if="loading" />
+    <loader v-if="isLoading" />
 
     <b-container>
       <b-row>
@@ -43,7 +43,7 @@ export default {
   //==============================
   data() {
     return {
-      loading: true,
+      isLoading: true,
     }
   },
 
@@ -74,12 +74,12 @@ export default {
     // GET CURRENT POST
     async getCurrentPost() {
       try {
-        const { data } = await this.$http.get(`${jsonPlaceholder}${blog.posts}${this.$route.params.id}`);
-        this.setCurrentPost(data);
+        const { data: post } = await this.$http.get(`${jsonPlaceholder}${blog.posts}${this.$route.params.id}`);
+        this.setCurrentPost(post);
       } catch (error) {
         console.error(error);
       } finally {
-        this.loading = false;
+        this.isLoading = false;
       }
     },
   }

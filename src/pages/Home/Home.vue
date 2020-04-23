@@ -1,6 +1,6 @@
 <template>
   <main>
-    <loader v-if="loading" />
+    <loader v-if="isLoading" />
 
     <featured-posts :posts="posts" />
   </main>
@@ -31,7 +31,7 @@ export default {
   //==============================
   data() {
     return {
-      loading: true,
+      isLoading: true,
       posts: undefined,
     }
   },
@@ -52,13 +52,13 @@ export default {
     // GET FEATURED POSTS
     async getFeaturedPosts() {
       try {
-        const { data } = await this.$http.get(`${jsonPlaceholder}${blog.posts}`);
-        const [firstPost, secondPost, thirdPost] = data;
+        const { data: posts } = await this.$http.get(`${jsonPlaceholder}${blog.posts}`);
+        const [firstPost, secondPost, thirdPost] = posts;
         this.posts = [firstPost, secondPost, thirdPost];
       } catch (error) {
         console.error(error);
       } finally {
-        this.loading = false;
+        this.isLoading = false;
       }
     },
   },
