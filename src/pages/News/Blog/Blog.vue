@@ -169,7 +169,7 @@ export default {
           break;
 
         default:
-          this.currentPage = target;
+          this.currentPage = Number(target);
       }
     },
   },
