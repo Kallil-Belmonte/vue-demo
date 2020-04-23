@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import Dashboard from '@/core/Layout/Dashboard';
+import Dashboard from '@/layout/Dashboard';
 import Home from '@/pages/Home/Home';
 import Blog from '@/pages/News/Blog/Blog';
 import Post from '@/pages/News/Post/Post';

@@ -80,7 +80,7 @@ export default {
 
 
 <style lang="scss" scoped>
-@import "../../assets/scss/helpers/helpers";
+@import "../assets/scss/helpers/helpers";
 
 header {
   color: #FFF;
