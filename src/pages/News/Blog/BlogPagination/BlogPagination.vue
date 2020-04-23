@@ -64,6 +64,7 @@ export default {
   // METHODS
   //==============================
   methods: {
+    // IS ITEM ACTIVE
     isItemActive(page) {
       return Number(page) === this.currentPage;
     },
