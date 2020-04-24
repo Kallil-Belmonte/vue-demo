@@ -6,7 +6,7 @@
         :key="category.name"
         :active="isCategoryActive(category.name)"
         class="d-flex justify-content-between align-items-center"
-        @click="isCategoryActive(category.name) ? undefined : onSelectCategory(category.name)"
+        @click="onSelectCategory(category.name)"
       >
         {{ category.name }}
         <b-badge variant="primary" pill>{{ category.posts }}</b-badge>
@@ -48,9 +48,27 @@ export default {
 
     // ON SELECT CATEGORY
     onSelectCategory(category) {
-      this.activeCategory = category;
+      this.activeCategory = category === this.activeCategory ? undefined : category;
       this.$emit('selectCategory', category);
     }
   },
 };
 </script>
+
+
+<style lang="scss" scoped>
+@import "../../../../assets/scss/helpers/bootstrap-helpers";
+
+.list-group {
+  cursor: pointer;
+
+  .list-group-item {
+    &.active {
+      .badge-primary {
+        color: $primary;
+        background-color: #FFF;
+      }
+    }
+  }
+}
+</style>
