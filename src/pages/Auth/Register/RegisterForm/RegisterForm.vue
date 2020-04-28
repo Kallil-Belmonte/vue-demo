@@ -135,14 +135,9 @@ export default {
       setUserData: 'setData',
     }),
 
-    // SET LOADING
-    setLoading(value) {
-      this.isLoading = value;
-    },
-
     // ON SUBMIT
     async onSubmit() {
-      this.setLoading(true);
+      this.isLoading = true;
 
       this.form.feedbackMessages = {
         email: [],
@@ -153,7 +148,7 @@ export default {
         const { data } = await this.$http.post(`${mocky}${auth.register}`, this.form.model);
         const { token, firstName, lastName, email } = data;
 
-        this.setLoading(false);
+        this.isLoading = false;
 
         if (this.form.model.email === 'demo@demo.com') {
           this.form.feedbackMessages.email.push('This e-mail already exists.');
@@ -165,7 +160,7 @@ export default {
         }
       } catch (error) {
         console.error(error);
-        this.setLoading(false);
+        this.isLoading = false;
       }
     },
   }

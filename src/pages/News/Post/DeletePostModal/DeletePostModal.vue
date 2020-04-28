@@ -46,21 +46,16 @@ export default {
   // METHODS
   //==============================
   methods: {
-    // SET LOADING
-    setLoading(value) {
-      this.isLoading = value;
-    },
-
     // ON DELETE POST
     async onDeletePost() {
-      this.setLoading(true);
+      this.isLoading = true;
 
       try {
         await this.$http.delete(`${jsonPlaceholder}${blog.posts}${this.$route.params.id}`);
         this.$router.push({ name: 'blog' });
       } catch (error) {
         console.error(error);
-        this.setLoading(false);
+        this.isLoading = false;
       }
     },
   },

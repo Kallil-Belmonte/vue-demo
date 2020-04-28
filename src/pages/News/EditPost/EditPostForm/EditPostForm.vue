@@ -99,11 +99,6 @@ export default {
     // MUTATIONS
     ...mapMutations('post', ['setCurrentPost']),
 
-    // SET LOADING
-    setLoading(value) {
-      this.isLoading = value;
-    },
-
     // ON SET FORM DATA
     onSetFormData() {
       const { title, body } = this.currentPost;
@@ -114,18 +109,18 @@ export default {
     async getCurrentPost(id) {
       try {
         const { data: post } = await this.$http.get(`${jsonPlaceholder}${blog.posts}${id}`);
-        this.setCurrentPost(post);
         this.onSetFormData();
+        this.setCurrentPost(post);
       } catch (error) {
         console.error(error);
       } finally {
-        this.setLoading(false);
+        this.isLoading = false;
       }
     },
 
     // ON SUBMIT
     async onSubmit() {
-      this.setLoading(true);
+      this.isLoading = true;
 
       try {
         await this.$http.put(
@@ -138,7 +133,7 @@ export default {
         this.$router.push({ name: 'post', params: { id } });
       } catch (error) {
         console.error(error);
-        this.setLoading(false);
+        this.isLoading = false;
       }
     },
   },

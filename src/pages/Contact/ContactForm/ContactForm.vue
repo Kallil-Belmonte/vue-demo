@@ -221,7 +221,6 @@ export default {
     // ON SUBMIT
     onSubmit() {
       console.log('Form submitted:', this.form.model);
-
       this.form.feedbackMessages.success.push('Message sent successfully.');
       this.onResetForm();
     },

@@ -2,7 +2,7 @@
   <header>
     <img class="logo" src="@/assets/logo.svg" alt="Vue">
 
-    <h1 class="title">Vue Demo</h1>
+    <h1 class="title">{{ projectTitle }}</h1>
 
     <nav class="main-menu">
       <ul>
@@ -49,6 +49,8 @@ import { mapMutations } from 'vuex';
 
 import { clearStorageData } from '@/core/Vuex/Store';
 
+import { PROJECT_TITLE } from '@/shared/Files/Consts';
+
 export default {
   //==============================
   // GENERAL
@@ -56,6 +58,16 @@ export default {
   name: 'AppHeader',
   props: {
     userFullName: String,
+  },
+
+
+  //==============================
+  // DATA
+  //==============================
+  data() {
+    return {
+      projectTitle: PROJECT_TITLE,
+    }
   },
 
 

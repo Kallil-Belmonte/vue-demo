@@ -118,14 +118,9 @@ export default {
       setUserData: 'setData',
     }),
 
-    // SET LOADING
-    setLoading(value) {
-      this.isLoading = value;
-    },
-
     // ON SUBMIT
     async onSubmit() {
-      this.setLoading(true);
+      this.isLoading = true;
 
       this.form.feedbackMessages = {
         email: [],
@@ -137,7 +132,7 @@ export default {
         const { idToken, expiresIn, firstName, lastName, email } = data;
         const expirationDate = new Date(new Date().getTime() + expiresIn * 1000).toISOString();
 
-        this.setLoading(false);
+        this.isLoading = false;
 
         if (this.form.model.email === 'demo@demo.com') {
           this.form.feedbackMessages.email.push('This e-mail does not exists.');
@@ -155,7 +150,7 @@ export default {
         }
       } catch (error) {
         console.error(error);
-        this.setLoading(false);
+        this.isLoading = false;
       }
     },
   }

@@ -104,12 +104,6 @@ export default {
     // MUTATIONS
     ...mapMutations('blog', ['setCategories', 'setPosts']),
 
-    // SET LOADING
-    setLoading(value) {
-      this.isLoading = value;
-    },
-
-
     // SET PAGINATION SETTINGS
     setPaginationSettings(posts, quantPostsPerPage = 9) {
       const pages = {};
@@ -137,13 +131,13 @@ export default {
       } catch (error) {
         console.error(error);
       } finally {
-        this.setLoading(false);
+        this.isLoading = false;
       }
     },
 
     // ON SELECT CATEGORY
     async onSelectCategory(/* category */) {
-      this.setLoading(true);
+      this.isLoading = true;
 
       try {
         const { data: posts } = await this.$http.get(`${jsonPlaceholder}${blog.posts}`)
@@ -153,7 +147,7 @@ export default {
       } catch (error) {
         console.error(error);
       } finally {
-        this.setLoading(false);
+        this.isLoading = false;
       }
     },
 

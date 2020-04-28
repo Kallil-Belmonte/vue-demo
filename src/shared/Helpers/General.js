@@ -1,6 +1,8 @@
+import { PROJECT_TITLE } from '../Files/Consts';
+
 // SET PAGE TITLE
 export const setPageTitle = (title) => {
-  document.title = `Vue Demo | ${title}`;
+  document.title = `${PROJECT_TITLE} | ${title}`;
 };
 
 
