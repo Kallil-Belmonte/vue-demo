@@ -109,8 +109,8 @@ export default {
     async getCurrentPost(id) {
       try {
         const { data: post } = await this.$http.get(`${jsonPlaceholder}${blog.posts}${id}`);
-        this.onSetFormData();
         this.setCurrentPost(post);
+        this.onSetFormData();
       } catch (error) {
         console.error(error);
       } finally {
