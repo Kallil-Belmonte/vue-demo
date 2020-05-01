@@ -4,8 +4,8 @@
       <h2 class="section-title">Featured posts</h2>
 
       <b-row>
-        <b-col md="4" v-for="featuredPost in posts" :key="featuredPost.id">
-          <post-item :post="featuredPost" />
+        <b-col md="4" v-for="post in posts" :key="post.id">
+          <post-item :post="post" />
         </b-col>
       </b-row>
     </b-container>

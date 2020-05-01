@@ -2,13 +2,11 @@ import {
   setPageTitle,
   groupArrayItemsInArrays,
   setFieldClassName,
-  clearFieldErrorMessage,
+  clearFormMessage,
 } from './General';
 
 import {
   capitalizeFirstLetter,
-  capitalizeText,
-  limitWords,
 } from './Formatters';
 
 export {
@@ -16,10 +14,8 @@ export {
   setPageTitle,
   groupArrayItemsInArrays,
   setFieldClassName,
-  clearFieldErrorMessage,
+  clearFormMessage,
 
   // Formatters
   capitalizeFirstLetter,
-  capitalizeText,
-  limitWords,
 };

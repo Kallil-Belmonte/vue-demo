@@ -122,12 +122,17 @@ export default {
     // GET ALL DATA
     async getAllData() {
       try {
-        const { data: categories} = await this.$http.get(`${mocky}${blog.categories}`);
-        const { data: posts } = await this.$http.get(`${jsonPlaceholder}${blog.posts}`);
+        if (!this.categories.length) {
+          const { data: categories} = await this.$http.get(`${mocky}${blog.categories}`);
+          this.setCategories(categories);
+        }
 
-        this.setCategories(categories);
-        this.setPosts(posts);
-        this.setPaginationSettings(posts);
+        if (!this.posts.length) {
+          const { data: posts } = await this.$http.get(`${jsonPlaceholder}${blog.posts}`);
+          this.setPosts(posts);
+        }
+
+        this.setPaginationSettings(this.posts);
       } catch (error) {
         console.error(error);
       } finally {

@@ -2,12 +2,14 @@
   <main>
     <loader v-if="isLoading" />
 
-    <featured-posts :posts="posts" />
+    <featured-posts :posts="featuredPosts" />
   </main>
 </template>
 
 
 <script>
+import { mapState, mapMutations } from 'vuex';
+
 import { INSTANCES, ENDPOINTS } from '@/core/Resource/Resource';
 import Loader from '@/shared/Components/Loader';
 import FeaturedPosts from '@/pages/Home/FeaturedPosts/FeaturedPosts'
@@ -31,9 +33,17 @@ export default {
   //==============================
   data() {
     return {
-      isLoading: true,
-      posts: undefined,
+      isLoading: false,
+      featuredPosts: undefined,
     }
+  },
+
+
+  //==============================
+  // COMPUTED
+  //==============================
+  computed: {
+    ...mapState('blog', ['posts']),
   },
 
 
@@ -49,16 +59,27 @@ export default {
   // METHODS
   //==============================
   methods: {
+    // MUTATIONS
+    ...mapMutations('blog', ['setPosts']),
+
     // GET FEATURED POSTS
     async getFeaturedPosts() {
-      try {
-        const { data: posts } = await this.$http.get(`${jsonPlaceholder}${blog.posts}`);
-        const [firstPost, secondPost, thirdPost] = posts;
-        this.posts = [firstPost, secondPost, thirdPost];
-      } catch (error) {
-        console.error(error);
-      } finally {
-        this.isLoading = false;
+      if (this.posts.length) {
+        const [firstPost, secondPost, thirdPost] = this.posts;
+        this.featuredPosts = [firstPost, secondPost, thirdPost];
+      } else {
+        this.isLoading = true;
+
+        try {
+          const { data: posts } = await this.$http.get(`${jsonPlaceholder}${blog.posts}`);
+          const [firstPost, secondPost, thirdPost] = posts;
+          this.featuredPosts = [firstPost, secondPost, thirdPost];
+          this.setPosts(posts);
+        } catch (error) {
+          console.error(error);
+        } finally {
+          this.isLoading = false;
+        }
       }
     },
   },

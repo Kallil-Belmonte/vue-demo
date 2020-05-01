@@ -19,7 +19,7 @@
           </field-messages>
         </b-form-group>
 
-        <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" variant="danger" v-on:dismiss="Helpers.clearFieldErrorMessage(form.feedbackMessages.email, index)">
+        <alert-dismissible v-for="(errorMessage, index) in form.errorMessages.email" :key="errorMessage" variant="danger" v-on:dismiss="Helpers.clearFormMessage(form.errorMessages.email, index)">
           {{ errorMessage }}
         </alert-dismissible>
       </validate>
@@ -38,7 +38,7 @@
           </field-messages>
         </b-form-group>
 
-        <alert-dismissible v-for="(errorMessage, index) in form.feedbackMessages.email" :key="errorMessage" variant="danger" v-on:dismiss="Helpers.clearFieldErrorMessage(form.feedbackMessages.email, index)">
+        <alert-dismissible v-for="(errorMessage, index) in form.errorMessages.password" :key="errorMessage" variant="danger" v-on:dismiss="Helpers.clearFormMessage(form.errorMessages.password, index)">
           {{ errorMessage }}
         </alert-dismissible>
       </validate>
@@ -100,7 +100,7 @@ export default {
           password: undefined,
           keepLogged: false,
         },
-        feedbackMessages: {
+        errorMessages: {
           email: [],
           password: [],
         },
@@ -122,7 +122,7 @@ export default {
     async onSubmit() {
       this.isLoading = true;
 
-      this.form.feedbackMessages = {
+      this.form.errorMessages = {
         email: [],
         password: [],
       };
@@ -135,8 +135,8 @@ export default {
         this.isLoading = false;
 
         if (this.form.model.email === 'demo@demo.com') {
-          this.form.feedbackMessages.email.push('This e-mail does not exists.');
-          this.form.feedbackMessages.password.push('The password is incorrect.');
+          this.form.errorMessages.email.push('This e-mail does not exists.');
+          this.form.errorMessages.password.push('The password is incorrect.');
         } else {
           if (this.form.model.keepLogged) {
             localStorage.setItem('authTokenVueDemo', idToken);
