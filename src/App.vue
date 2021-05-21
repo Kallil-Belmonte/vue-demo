@@ -1,30 +1,41 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
   <router-view />
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script lang="ts">
+import { defineComponent } from 'vue';
 
-#nav {
-  padding: 30px;
+import { capitalizeFirstLetter, setPageTitle } from '@/shared/helpers';
 
-     a {
-    font-weight: bold;
-    color: #2c3e50;
+export default defineComponent({
+  //==============================
+  // GENERAL
+  //==============================
+  name: 'App',
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
+  //==============================
+  // LIFECYCLE HOOKS
+  //==============================
+  mounted() {
+    this.onSetPageTitle();
+  },
+
+  //==============================
+  // METHODS
+  //==============================
+  methods: {
+    // ON SET PAGE TITLE
+    onSetPageTitle(): void {
+      this.$router.afterEach((to) => {
+        const { name } = to;
+
+        if (name) {
+          const pageUrl: string = String(name).split('-').join(' ');
+          const urlName: string = capitalizeFirstLetter(pageUrl);
+          setPageTitle(urlName);
+        }
+      });
+    },
+  },
+});
+</script>
