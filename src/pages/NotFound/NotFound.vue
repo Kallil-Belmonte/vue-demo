@@ -9,9 +9,8 @@
   </main>
 </template>
 
-
-<script>
-import * as Helpers from '@/shared/Helpers';
+<script lang="ts">
+import * as Helpers from '@/shared/helpers';
 
 const { setPageTitle } = Helpers;
 
@@ -21,25 +20,23 @@ export default {
   //==============================
   name: 'NotFound',
 
-
   //==============================
   // LIFECYCLE HOOKS
   //==============================
   mounted() {
     setPageTitle('Error 404');
   },
-}
+};
 </script>
 
-
 <style lang="scss" scoped>
-@import "../../assets/scss/helpers/mixins";
+@import '../../assets/scss/helpers/mixins';
 
 main {
-  color: #FFF;
+  color: #fff;
   @include size(100%, 100vh);
   padding: 100px 0;
-  background-color: #2A2C2E;
+  background-color: #2a2c2e;
 }
 
 .page-title {

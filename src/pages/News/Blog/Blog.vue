@@ -1,20 +1,20 @@
 <template>
   <main>
-    <loader v-if="isLoading" />
+    <AppLoader v-if="isLoading" />
 
     <b-container>
-      <page-header icon="newspaper">Blog</page-header>
+      <AppPageHeader icon="newspaper">Blog</AppPageHeader>
 
-      <posts-per-page
+      <PostsPerPage
         :postsPerPage="postsPerPage"
         v-on:change="(value) => setPaginationSettings(this.posts, value)"
       />
 
       <b-row>
         <b-col md="9">
-          <posts :pages="pages" :currentPage="currentPage" />
+          <Posts :pages="pages" :currentPage="currentPage" />
 
-          <blog-pagination
+          <Pagination
             :pages="Object.keys(pages)"
             :firstItem="firstPaginationItem"
             :maxItem="maxPaginationItem"
@@ -23,7 +23,7 @@
           />
         </b-col>
         <b-col md="3">
-          <categories
+          <Categories
             :categories="categories"
             v-on:selectCategory="(category) => onSelectCategory(category)"
           />
@@ -33,22 +33,20 @@
   </main>
 </template>
 
-
-<script>
+<script lang="ts">
 import { mapState, mapMutations } from 'vuex';
 
-import * as Helpers from '@/shared/Helpers';
-import { INSTANCES, ENDPOINTS } from '@/core/Resource/Resource';
-import Loader from '@/shared/Components/Loader';
-import PageHeader from '@/shared/Components/PageHeader';
-import PostsPerPage from '@/pages/News/Blog/PostsPerPage/PostsPerPage';
-import Posts from '@/pages/News/Blog/Posts/Posts';
-import BlogPagination from '@/pages/News/Blog/BlogPagination/BlogPagination';
-import Categories from '@/pages/News/Blog/Categories/Categories';
+import axios, { MOCKY_INSTANCE, ENDPOINTS } from '@/core/api';
+import * as Helpers from '@/shared/helpers';
+import AppLoader from '@/shared/components/AppLoader.vue';
+import AppPageHeader from '@/shared/components/AppPageHeader.vue';
+import PostsPerPage from '@/pages/News/Blog/PostsPerPage/PostsPerPage.vue';
+import Posts from '@/pages/News/Blog/Posts/Posts.vue';
+import Pagination from '@/pages/News/Blog/Pagination/Pagination.vue';
+import Categories from '@/pages/News/Blog/Categories/Categories.vue';
 
-const { mocky, jsonPlaceholder } = INSTANCES;
 const { blog } = ENDPOINTS;
-const { groupArrayItemsInArrays } = Helpers
+const { groupArrayItemsInArrays } = Helpers;
 
 export default {
   //==============================
@@ -56,14 +54,13 @@ export default {
   //==============================
   name: 'Blog',
   components: {
-    Loader,
-    PageHeader,
+    AppLoader,
+    AppPageHeader,
     PostsPerPage,
     Posts,
-    BlogPagination,
+    Pagination,
     Categories,
   },
-
 
   //==============================
   // DATA
@@ -77,9 +74,8 @@ export default {
       firstPaginationItem: 1,
       maxPaginationItem: 5,
       currentPage: 1,
-    }
+    };
   },
-
 
   //==============================
   // COMPUTED
@@ -88,14 +84,12 @@ export default {
     ...mapState('blog', ['categories', 'posts']),
   },
 
-
   //==============================
   // LIFECYCLE HOOKS
   //==============================
   mounted() {
     this.getAllData();
   },
-
 
   //==============================
   // METHODS
@@ -123,12 +117,12 @@ export default {
     async getAllData() {
       try {
         if (!this.categories.length) {
-          const { data: categories} = await this.$http.get(`${mocky}${blog.categories}`);
+          const { data: categories } = await MOCKY_INSTANCE.get(blog.categories);
           this.setCategories(categories);
         }
 
         if (!this.posts.length) {
-          const { data: posts } = await this.$http.get(`${jsonPlaceholder}${blog.posts}`);
+          const { data: posts } = await axios.get(blog.posts);
           this.setPosts(posts);
         }
 
@@ -145,7 +139,7 @@ export default {
       this.isLoading = true;
 
       try {
-        const { data: posts } = await this.$http.get(`${jsonPlaceholder}${blog.posts}`)
+        const { data: posts } = await axios.get(blog.posts);
 
         this.setPosts(posts);
         this.setPaginationSettings(posts);
@@ -158,7 +152,7 @@ export default {
 
     // ON PAGINATE
     onPaginate(target) {
-      switch(target) {
+      switch (target) {
         case 'previous':
           this.firstPaginationItem = --this.firstPaginationItem;
           break;
@@ -172,9 +166,8 @@ export default {
       }
     },
   },
-}
+};
 </script>
-
 
 <style lang="scss" scoped>
 main {

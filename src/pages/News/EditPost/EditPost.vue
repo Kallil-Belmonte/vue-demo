@@ -3,15 +3,14 @@
     <b-container>
       <b-row>
         <b-col offset-md="2" md="8">
-          <edit-post-form />
+          <EditPostForm />
         </b-col>
       </b-row>
     </b-container>
   </main>
 </template>
 
-
-<script>
+<script lang="ts">
 import EditPostForm from '@/pages/News/EditPost/EditPostForm/EditPostForm';
 
 export default {
@@ -22,5 +21,5 @@ export default {
   components: {
     EditPostForm,
   },
-}
+};
 </script>

@@ -1,20 +1,18 @@
 <template>
   <main>
-    <loader v-if="isLoading" />
+    <AppLoader v-if="isLoading" />
 
-    <featured-posts :posts="featuredPosts" />
+    <FeaturedPosts :posts="featuredPosts" />
   </main>
 </template>
 
-
-<script>
+<script lang="ts">
 import { mapState, mapMutations } from 'vuex';
 
-import { INSTANCES, ENDPOINTS } from '@/core/Resource/Resource';
-import Loader from '@/shared/Components/Loader';
-import FeaturedPosts from '@/pages/Home/FeaturedPosts/FeaturedPosts'
+import axios, { ENDPOINTS } from '@/core/api';
+import AppLoader from '@/shared/components/AppLoader.vue';
+import FeaturedPosts from '@/pages/Home/FeaturedPosts/FeaturedPosts.vue';
 
-const { jsonPlaceholder } = INSTANCES;
 const { blog } = ENDPOINTS;
 
 export default {
@@ -23,10 +21,9 @@ export default {
   //==============================
   name: 'Home',
   components: {
-    Loader,
+    AppLoader,
     FeaturedPosts,
   },
-
 
   //==============================
   // DATA
@@ -35,9 +32,8 @@ export default {
     return {
       isLoading: false,
       featuredPosts: undefined,
-    }
+    };
   },
-
 
   //==============================
   // COMPUTED
@@ -46,14 +42,12 @@ export default {
     ...mapState('blog', ['posts']),
   },
 
-
   //==============================
   // LIFECYCLE HOOKS
   //==============================
   mounted() {
     this.getFeaturedPosts();
   },
-
 
   //==============================
   // METHODS
@@ -71,7 +65,7 @@ export default {
         this.isLoading = true;
 
         try {
-          const { data: posts } = await this.$http.get(`${jsonPlaceholder}${blog.posts}`);
+          const { data: posts } = await axios.get(blog.posts);
           const [firstPost, secondPost, thirdPost] = posts;
           this.featuredPosts = [firstPost, secondPost, thirdPost];
           this.setPosts(posts);
@@ -83,5 +77,5 @@ export default {
       }
     },
   },
-}
+};
 </script>

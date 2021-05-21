@@ -1,29 +1,27 @@
 <template>
   <main>
-    <loader v-if="isLoading" />
+    <AppLoader v-if="isLoading" />
 
     <b-container>
       <b-row>
         <b-col offset-md="2" md="8">
-          <post-body v-if="currentPost" :post="currentPost" />
+          <PostBody v-if="currentPost" :post="currentPost" />
         </b-col>
       </b-row>
     </b-container>
 
-    <delete-post-modal />
+    <DeletePostModal />
   </main>
 </template>
 
-
-<script>
+<script lang="ts">
 import { mapState, mapMutations } from 'vuex';
 
-import { INSTANCES, ENDPOINTS } from '@/core/Resource/Resource';
-import Loader from '@/shared/Components/Loader';
-import PostBody from '@/pages/News/Post/PostBody/PostBody';
-import DeletePostModal from '@/pages/News/Post/DeletePostModal/DeletePostModal';
+import axios, { ENDPOINTS } from '@/core/api';
+import AppLoader from '@/shared/components/AppLoader.vue';
+import PostBody from '@/pages/News/Post/PostBody/PostBody.vue';
+import DeletePostModal from '@/pages/News/Post/DeletePostModal/DeletePostModal.vue';
 
-const { jsonPlaceholder } = INSTANCES;
 const { blog } = ENDPOINTS;
 
 export default {
@@ -32,11 +30,10 @@ export default {
   //==============================
   name: 'Post',
   components: {
-    Loader,
+    AppLoader,
     PostBody,
     DeletePostModal,
   },
-
 
   //==============================
   // DATA
@@ -44,9 +41,8 @@ export default {
   data() {
     return {
       isLoading: true,
-    }
+    };
   },
-
 
   //==============================
   // COMPUTED
@@ -55,14 +51,12 @@ export default {
     ...mapState('post', ['currentPost']),
   },
 
-
   //==============================
   // LIFECYCLE HOOKS
   //==============================
   mounted() {
     this.getCurrentPost();
   },
-
 
   //==============================
   // METHODS
@@ -74,7 +68,7 @@ export default {
     // GET CURRENT POST
     async getCurrentPost() {
       try {
-        const { data: post } = await this.$http.get(`${jsonPlaceholder}${blog.posts}${this.$route.params.id}`);
+        const { data: post } = await axios.get(`${blog.posts}${this.$route.params.id}`);
         this.setCurrentPost(post);
       } catch (error) {
         console.error(error);
@@ -82,6 +76,6 @@ export default {
         this.isLoading = false;
       }
     },
-  }
-}
+  },
+};
 </script>

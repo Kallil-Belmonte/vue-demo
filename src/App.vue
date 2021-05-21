@@ -1,47 +1,30 @@
 <template>
-  <div id="app">
-    <router-view />
+  <div id="nav">
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link>
   </div>
+  <router-view />
 </template>
 
+<style lang="scss">
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
 
-<script>
-import * as Helpers from '@/shared/Helpers';
+#nav {
+  padding: 30px;
 
-const { capitalizeFirstLetter, setPageTitle } = Helpers;
+     a {
+    font-weight: bold;
+    color: #2c3e50;
 
-export default {
-  //==============================
-  // GENERAL
-  //==============================
-  name: 'App',
-
-
-  //==============================
-  // LIFECYCLE HOOKS
-  //==============================
-  mounted() {
-    this.onSetPageTitle();
-  },
-
-
-  //==============================
-  // METHODS
-  //==============================
-  methods: {
-    // ON SET PAGE TITLE
-    onSetPageTitle() {
-      this.$router.afterEach(to => {
-        const { name } = to;
-
-        if (name) {
-          const pageUrl = name.split('-').join(' ');
-          const urlName = capitalizeFirstLetter(pageUrl);
-
-          setPageTitle(urlName);
-        }
-      });
+    &.router-link-exact-active {
+      color: #42b983;
     }
   }
-};
-</script>
+}
+</style>

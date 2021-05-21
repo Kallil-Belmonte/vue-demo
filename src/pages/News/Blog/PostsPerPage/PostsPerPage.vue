@@ -15,8 +15,7 @@
   </section>
 </template>
 
-
-<script>
+<script lang="ts">
 export default {
   //==============================
   // GENERAL
@@ -27,7 +26,6 @@ export default {
   },
 };
 </script>
-
 
 <style lang="scss" scoped>
 .post-filter {

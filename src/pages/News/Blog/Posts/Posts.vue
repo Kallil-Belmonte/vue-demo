@@ -2,15 +2,14 @@
   <section>
     <b-row>
       <b-col md="4" v-for="post of pages[currentPage]" :key="post.id">
-        <post-item :post="post" />
+        <AppPostItem :post="post" />
       </b-col>
     </b-row>
   </section>
 </template>
 
-
-<script>
-import PostItem from '@/shared/Components/PostItem';
+<script lang="ts">
+import AppPostItem from '@/shared/components/AppPostItem.vue';
 
 export default {
   //==============================
@@ -22,7 +21,7 @@ export default {
     currentPage: Number,
   },
   components: {
-    PostItem,
+    AppPostItem,
   },
 };
 </script>

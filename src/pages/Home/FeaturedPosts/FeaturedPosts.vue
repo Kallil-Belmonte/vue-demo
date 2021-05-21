@@ -5,16 +5,15 @@
 
       <b-row>
         <b-col md="4" v-for="post in posts" :key="post.id">
-          <post-item :post="post" />
+          <AppPostItem :post="post" />
         </b-col>
       </b-row>
     </b-container>
   </section>
 </template>
 
-
-<script>
-import PostItem from '@/shared/Components/PostItem';
+<script lang="ts">
+import AppPostItem from '@/shared/components/AppPostItem.vue';
 
 export default {
   //==============================
@@ -25,7 +24,7 @@ export default {
     posts: Array,
   },
   components: {
-    PostItem,
+    AppPostItem,
   },
-}
+};
 </script>

@@ -1,17 +1,16 @@
 <template>
   <main>
     <b-container>
-      <page-header icon="envelope">Contact</page-header>
+      <AppPageHeader icon="envelope">Contact</AppPageHeader>
 
-      <contact-form />
+      <ContactForm />
     </b-container>
   </main>
 </template>
 
-
-<script>
-import PageHeader from '@/shared/Components/PageHeader';
-import ContactForm from '@/pages/Contact/ContactForm/ContactForm';
+<script lang="ts">
+import AppPageHeader from '@/shared/components/AppPageHeader.vue';
+import ContactForm from '@/pages/Contact/ContactForm/ContactForm.vue';
 
 export default {
   //==============================
@@ -19,12 +18,11 @@ export default {
   //==============================
   name: 'Contact',
   components: {
-    PageHeader,
+    AppPageHeader,
     ContactForm,
   },
-}
+};
 </script>
-
 
 <style lang="scss" scoped>
 main {

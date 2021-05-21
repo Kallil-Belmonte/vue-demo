@@ -1,51 +1,60 @@
 <template>
-  <fragment>
-    <loader v-if="isLoading" />
+  <AppLoader v-if="isLoading" />
 
-    <vue-form class="edit-post-form" :state="form.state" @submit.prevent="onSubmit">
-      <validate>
-        <b-form-group label-for="title" label="Title">
-          <b-form-input v-model="form.model.title" id="title" :class="Helpers.setFieldClassName(form.state.title)" type="text" name="title" required />
+  <vue-form class="edit-post-form" :state="form.state" @submit.prevent="onSubmit">
+    <validate>
+      <b-form-group label-for="title" label="Title">
+        <b-form-input
+          v-model="form.model.title"
+          id="title"
+          :class="Helpers.setFieldClassName(form.state.title)"
+          type="text"
+          name="title"
+          required
+        />
 
-          <field-messages name="title" show="$touched">
-            <b-form-invalid-feedback slot="required" force-show>
-              Title is required
-            </b-form-invalid-feedback>
-          </field-messages>
-        </b-form-group>
-      </validate>
+        <field-messages name="title" show="$touched">
+          <b-form-invalid-feedback v-slot="required" force-show>
+            Title is required
+          </b-form-invalid-feedback>
+        </field-messages>
+      </b-form-group>
+    </validate>
 
-      <validate>
-        <b-form-group label-for="body" label="Message">
-          <b-form-textarea v-model="form.model.body" id="body" name="body" rows="6" required />
+    <validate>
+      <b-form-group label-for="body" label="Message">
+        <b-form-textarea v-model="form.model.body" id="body" name="body" rows="6" required />
 
-          <field-messages name="body" show="$touched">
-            <b-form-invalid-feedback slot="required" force-show>
-              Body is required
-            </b-form-invalid-feedback>
-          </field-messages>
-        </b-form-group>
-      </validate>
+        <field-messages name="body" show="$touched">
+          <b-form-invalid-feedback v-slot="required" force-show>
+            Body is required
+          </b-form-invalid-feedback>
+        </field-messages>
+      </b-form-group>
+    </validate>
 
-      <b-button variant="primary" class="mr-2" type="submit" :disabled="!form.state.$valid || form.state.$pristine">
-        Edit
-      </b-button>
-      <b-button variant="light" @click="onSetFormData()" :disabled="form.state.$pristine">
-        Reset form
-      </b-button>
-    </vue-form>
-  </fragment>
+    <b-button
+      variant="primary"
+      class="mr-2"
+      type="submit"
+      :disabled="!form.state.$valid || form.state.$pristine"
+    >
+      Edit
+    </b-button>
+    <b-button variant="light" @click="onSetFormData()" :disabled="form.state.$pristine">
+      Reset form
+    </b-button>
+  </vue-form>
 </template>
 
-
-<script>
+<script lang="ts">
 import { mapState, mapMutations } from 'vuex';
 
-import * as Helpers from '@/shared/Helpers';
-import { INSTANCES, ENDPOINTS } from '@/core/Resource/Resource';
-import Loader from '@/shared/Components/Loader';
+import axios, { ENDPOINTS } from '@/core/api';
+import * as Helpers from '@/shared/helpers';
 
-const { jsonPlaceholder } = INSTANCES;
+import AppLoader from '@/shared/components/AppLoader.vue';
+
 const { blog } = ENDPOINTS;
 
 export default {
@@ -54,9 +63,8 @@ export default {
   //==============================
   name: 'EditPostForm',
   components: {
-    Loader,
+    AppLoader,
   },
-
 
   //==============================
   // DATA
@@ -72,9 +80,8 @@ export default {
           body: undefined,
         },
       },
-    }
+    };
   },
-
 
   //==============================
   // COMPUTED
@@ -83,14 +90,12 @@ export default {
     ...mapState('post', ['currentPost']),
   },
 
-
   //==============================
   // LIFECYCLE HOOKS
   //==============================
   mounted() {
     this.getCurrentPost(this.$route.params.id);
   },
-
 
   //==============================
   // METHODS
@@ -108,7 +113,7 @@ export default {
     // GET CURRENT POST
     async getCurrentPost(id) {
       try {
-        const { data: post } = await this.$http.get(`${jsonPlaceholder}${blog.posts}${id}`);
+        const { data: post } = await axios.get(`${blog.posts}${id}`);
         this.setCurrentPost(post);
         this.onSetFormData();
       } catch (error) {
@@ -123,10 +128,7 @@ export default {
       this.isLoading = true;
 
       try {
-        await this.$http.put(
-          `${jsonPlaceholder}${blog.posts}${this.$route.params.id}`,
-          this.form.model,
-        );
+        await axios.put(`${blog.posts}${this.$route.params.id}`, this.form.model);
         const { userId, id, title, body } = this.currentPost;
 
         this.setCurrentPost({ userId, id, title, body });
@@ -139,7 +141,6 @@ export default {
   },
 };
 </script>
-
 
 <style lang="scss" scoped>
 .edit-post-form {

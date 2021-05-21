@@ -1,30 +1,30 @@
 <template>
   <main>
     <b-container>
-      <page-header icon="user">Account</page-header>
+      <AppPageHeader icon="user">Account</AppPageHeader>
 
-      <account-form />
+      <Form />
     </b-container>
   </main>
 </template>
 
+<script lang="ts">
+import { defineComponent } from 'vue';
 
-<script>
-import PageHeader from '@/shared/Components/PageHeader';
-import AccountForm from '@/pages/Account/AccountForm/AccountForm';
+import AppPageHeader from '@/shared/components/AppPageHeader.vue';
+import Form from '@/pages/Account/Form/Form.vue';
 
-export default {
+export default defineComponent({
   //==============================
   // GENERAL
   //==============================
   name: 'Account',
   components: {
-    PageHeader,
-    AccountForm,
+    AppPageHeader,
+    Form,
   },
-}
+});
 </script>
-
 
 <style lang="scss" scoped>
 main {

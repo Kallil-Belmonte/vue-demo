@@ -1,33 +1,34 @@
 <template>
   <main>
     <b-container>
-      <img class="logo d-block mx-auto" alt="Vue" src="@/assets/logo.svg">
+      <img class="logo d-block mx-auto" alt="Vue" src="@/assets/logo.svg" />
 
       <b-row>
         <b-col offset-md="3" md="6">
-          <register-form />
+          <Form />
         </b-col>
       </b-row>
     </b-container>
   </main>
 </template>
 
+<script lang="ts">
+import { defineComponent } from 'vue';
 
-<script>
-import * as Helpers from '@/shared/Helpers';
-import RegisterForm from '@/pages/Auth/Register/RegisterForm/RegisterForm';
+import { AUTH_TOKEN, EXPIRATION_DATE } from '@/shared/files/consts';
+import * as Helpers from '@/shared/helpers';
+import Form from '@/pages/Auth/Register/Form/Form.vue';
 
 const { setPageTitle } = Helpers;
 
-export default {
+export default defineComponent({
   //==============================
   // GENERAL
   //==============================
   name: 'Register',
   components: {
-    RegisterForm,
+    Form,
   },
-
 
   //==============================
   // LIFECYCLE HOOKS
@@ -38,24 +39,23 @@ export default {
     this.redirectLoggedUser();
   },
 
-
   //==============================
   // METHODS
   //==============================
   methods: {
     // REDIRECT LOGGED USER
     redirectLoggedUser() {
-      const authToken = sessionStorage.getItem('authTokenVueDemo') || localStorage.getItem('authTokenVueDemo');
-      const expiredSession = new Date().getTime() > Date.parse(localStorage.getItem('expirationDateVueDemo'));
+      const authToken = sessionStorage.getItem(AUTH_TOKEN) || localStorage.getItem(AUTH_TOKEN);
+      const expiredSession =
+        new Date().getTime() > Date.parse(localStorage.getItem(EXPIRATION_DATE) || '');
 
       if (authToken && !expiredSession) {
         this.$router.push('/');
       }
     },
   },
-}
+});
 </script>
-
 
 <style lang="scss" scoped>
 .logo {

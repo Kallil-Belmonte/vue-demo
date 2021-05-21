@@ -15,8 +15,7 @@
   </aside>
 </template>
 
-
-<script>
+<script lang="ts">
 export default {
   //==============================
   // GENERAL
@@ -26,16 +25,14 @@ export default {
     categories: Array,
   },
 
-
   //==============================
   // DATA
   //==============================
   data() {
     return {
       activeCategory: undefined,
-    }
+    };
   },
-
 
   //==============================
   // METHODS
@@ -50,14 +47,13 @@ export default {
     onSelectCategory(category) {
       this.activeCategory = category === this.activeCategory ? undefined : category;
       this.$emit('selectCategory', category);
-    }
+    },
   },
 };
 </script>
 
-
 <style lang="scss" scoped>
-@import "../../../../assets/scss/helpers/bootstrap-helpers";
+@import '../../../../assets/scss/helpers/bootstrap-helpers';
 
 .list-group {
   cursor: pointer;
@@ -66,7 +62,7 @@ export default {
     &.active {
       .badge-primary {
         color: $primary;
-        background-color: #FFF;
+        background-color: #fff;
       }
     }
   }
