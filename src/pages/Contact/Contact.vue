@@ -3,25 +3,27 @@
     <b-container>
       <AppPageHeader icon="envelope">Contact</AppPageHeader>
 
-      <ContactForm />
+      <Form />
     </b-container>
   </main>
 </template>
 
 <script lang="ts">
-import AppPageHeader from '@/shared/components/AppPageHeader.vue';
-import ContactForm from '@/pages/Contact/ContactForm/ContactForm.vue';
+import { defineComponent } from 'vue';
 
-export default {
+import AppPageHeader from '@/shared/components/AppPageHeader.vue';
+import Form from '@/pages/Contact/Form/Form.vue';
+
+export default defineComponent({
   //==============================
   // GENERAL
   //==============================
   name: 'Contact',
   components: {
     AppPageHeader,
-    ContactForm,
+    Form,
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

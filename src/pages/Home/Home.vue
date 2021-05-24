@@ -7,15 +7,18 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
+
 import { mapState, mapMutations } from 'vuex';
 
 import axios, { ENDPOINTS } from '@/core/api';
+import { HomeData } from './_files/types';
 import AppLoader from '@/shared/components/AppLoader.vue';
 import FeaturedPosts from '@/pages/Home/FeaturedPosts/FeaturedPosts.vue';
 
 const { blog } = ENDPOINTS;
 
-export default {
+export default defineComponent({
   //==============================
   // GENERAL
   //==============================
@@ -28,10 +31,10 @@ export default {
   //==============================
   // DATA
   //==============================
-  data() {
+  data(): HomeData {
     return {
       isLoading: false,
-      featuredPosts: undefined,
+      featuredPosts: [],
     };
   },
 
@@ -77,5 +80,5 @@ export default {
       }
     },
   },
-};
+});
 </script>

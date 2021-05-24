@@ -7,14 +7,15 @@
         <b-form-input
           v-model="form.model.title"
           id="title"
-          :class="Helpers.setFieldClassName(form.state.title)"
+          :class="setFieldClassName(form.state.title)"
           type="text"
           name="title"
           required
+          :state="required"
         />
 
         <field-messages name="title" show="$touched">
-          <b-form-invalid-feedback v-slot="required" force-show>
+          <b-form-invalid-feedback :state="required" force-show>
             Title is required
           </b-form-invalid-feedback>
         </field-messages>
@@ -23,10 +24,17 @@
 
     <validate>
       <b-form-group label-for="body" label="Message">
-        <b-form-textarea v-model="form.model.body" id="body" name="body" rows="6" required />
+        <b-form-textarea
+          v-model="form.model.body"
+          id="body"
+          name="body"
+          rows="6"
+          required
+          :state="required"
+        />
 
         <field-messages name="body" show="$touched">
-          <b-form-invalid-feedback v-slot="required" force-show>
+          <b-form-invalid-feedback :state="required" force-show>
             Body is required
           </b-form-invalid-feedback>
         </field-messages>
@@ -48,16 +56,18 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
+
 import { mapState, mapMutations } from 'vuex';
 
 import axios, { ENDPOINTS } from '@/core/api';
-import * as Helpers from '@/shared/helpers';
-
+import { required, setFieldClassName } from '@/shared/helpers';
 import AppLoader from '@/shared/components/AppLoader.vue';
+import { EditPostFormData } from '../../_files/types';
 
 const { blog } = ENDPOINTS;
 
-export default {
+export default defineComponent({
   //==============================
   // GENERAL
   //==============================
@@ -69,15 +79,16 @@ export default {
   //==============================
   // DATA
   //==============================
-  data() {
+  data(): EditPostFormData {
     return {
-      Helpers,
+      setFieldClassName,
+      required,
       isLoading: true,
       form: {
         state: {},
         model: {
-          title: undefined,
-          body: undefined,
+          title: '',
+          body: '',
         },
       },
     };
@@ -94,7 +105,7 @@ export default {
   // LIFECYCLE HOOKS
   //==============================
   mounted() {
-    this.getCurrentPost(this.$route.params.id);
+    this.getCurrentPost(String(this.$route.params.id));
   },
 
   //==============================
@@ -105,13 +116,13 @@ export default {
     ...mapMutations('post', ['setCurrentPost']),
 
     // ON SET FORM DATA
-    onSetFormData() {
+    onSetFormData(): void {
       const { title, body } = this.currentPost;
       this.form.model = { title, body };
     },
 
     // GET CURRENT POST
-    async getCurrentPost(id) {
+    async getCurrentPost(id: string): Promise<void> {
       try {
         const { data: post } = await axios.get(`${blog.posts}${id}`);
         this.setCurrentPost(post);
@@ -124,7 +135,7 @@ export default {
     },
 
     // ON SUBMIT
-    async onSubmit() {
+    async onSubmit(): Promise<void> {
       this.isLoading = true;
 
       try {
@@ -139,7 +150,7 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

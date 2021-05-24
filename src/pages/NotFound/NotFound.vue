@@ -10,11 +10,11 @@
 </template>
 
 <script lang="ts">
-import * as Helpers from '@/shared/helpers';
+import { defineComponent } from 'vue';
 
-const { setPageTitle } = Helpers;
+import { setPageTitle } from '@/shared/helpers';
 
-export default {
+export default defineComponent({
   //==============================
   // GENERAL
   //==============================
@@ -26,7 +26,7 @@ export default {
   mounted() {
     setPageTitle('Error 404');
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

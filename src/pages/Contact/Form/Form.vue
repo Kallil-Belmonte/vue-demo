@@ -6,7 +6,7 @@
       v-for="(successMessage, index) in form.feedbackMessages.success"
       :key="successMessage"
       variant="success"
-      v-on:dismiss="Helpers.clearFormMessage(form.feedbackMessages.success, index)"
+      v-on:dismiss="clearFormMessage(form.feedbackMessages.success, index)"
     >
       {{ successMessage }}
     </AppAlertDismissible>
@@ -18,18 +18,18 @@
             <b-form-input
               v-model="form.model.firstName"
               id="first-name"
-              :class="Helpers.setFieldClassName(form.state.firstName)"
+              :class="setFieldClassName(form.state.firstName)"
               type="text"
               name="firstName"
               required
-              minlength="3"
+              :state="required && minLength3"
             />
 
             <field-messages name="firstName" show="$touched">
-              <b-form-invalid-feedback v-slot="required" force-show>
+              <b-form-invalid-feedback :state="required" force-show>
                 First name is required
               </b-form-invalid-feedback>
-              <b-form-invalid-feedback v-slot="minlength" force-show>
+              <b-form-invalid-feedback :state="minLength3" force-show>
                 Minimum 3 characters required
               </b-form-invalid-feedback>
             </field-messages>
@@ -43,14 +43,15 @@
             <b-form-input
               v-model="form.model.lastName"
               id="last-name"
-              :class="Helpers.setFieldClassName(form.state.lastName)"
+              :class="setFieldClassName(form.state.lastName)"
               type="text"
               name="lastName"
               required
+              :state="required"
             />
 
             <field-messages name="lastName" show="$touched">
-              <b-form-invalid-feedback v-slot="required" force-show>
+              <b-form-invalid-feedback :state="required" force-show>
                 Last name is required
               </b-form-invalid-feedback>
             </field-messages>
@@ -66,17 +67,18 @@
             <b-form-input
               v-model="form.model.email"
               id="email"
-              :class="Helpers.setFieldClassName(form.state.email)"
+              :class="setFieldClassName(form.state.email)"
               type="email"
               name="email"
               required
+              :state="required && email"
             />
 
             <field-messages name="email" show="$touched">
-              <b-form-invalid-feedback v-slot="required" force-show>
+              <b-form-invalid-feedback :state="required" force-show>
                 E-mail is required
               </b-form-invalid-feedback>
-              <b-form-invalid-feedback v-slot="email" force-show>
+              <b-form-invalid-feedback :state="email" force-show>
                 Invalid e-mail
               </b-form-invalid-feedback>
             </field-messages>
@@ -90,16 +92,17 @@
             <b-form-input
               v-model="form.model.telephone"
               id="telephone"
-              :class="Helpers.setFieldClassName(form.state.telephone)"
+              :class="setFieldClassName(form.state.telephone)"
               type="tel"
               name="telephone"
               placeholder="(00) 0000 0000"
               v-mask="'(##) #### #####'"
               required
+              :state="required"
             />
 
             <field-messages name="telephone" show="$touched">
-              <b-form-invalid-feedback v-slot="required" force-show>
+              <b-form-invalid-feedback :state="required" force-show>
                 Telephone is required
               </b-form-invalid-feedback>
             </field-messages>
@@ -126,7 +129,7 @@
 
       <b-col class="mt-4">
         <p-check v-model="form.model.employed" class="p-svg p-curve" color="primary">
-          <svg v-slot="extra" class="svg svg-icon" viewBox="0 0 20 20">
+          <svg class="svg svg-icon" viewBox="0 0 20 20">
             <path
               d="M7.629,14.566c0.125,0.125,0.291,0.188,0.456,0.188c0.164,0,0.329-0.062,0.456-0.188l8.219-8.221c0.252-0.252,0.252-0.659,0-0.911c-0.252-0.252-0.659-0.252-0.911,0l-7.764,7.763L4.152,9.267c-0.252-0.251-0.66-0.251-0.911,0c-0.252,0.252-0.252,0.66,0,0.911L7.629,14.566z"
               style="stroke: white; fill: white"
@@ -145,17 +148,18 @@
           name="message"
           rows="3"
           required
+          :state="required"
         />
 
         <field-messages name="message" show="$touched">
-          <b-form-invalid-feedback v-slot="required" force-show>
+          <b-form-invalid-feedback :state="required" force-show>
             Message is required
           </b-form-invalid-feedback>
         </field-messages>
       </b-form-group>
     </validate>
 
-    <b-button variant="primary" class="mr-2" type="submit" :disabled="isSubmitButtonDisabled()">
+    <b-button variant="primary" class="mr-2" type="submit" :disabled="isSubmitButtonDisabled">
       Send
     </b-button>
     <b-button variant="light" @click="onResetForm()" :disabled="form.state.$pristine">
@@ -165,18 +169,21 @@
 </template>
 
 <script lang="ts">
-import * as Helpers from '@/shared/helpers';
+import { defineComponent } from 'vue';
+
 import { MOCKY_INSTANCE, ENDPOINTS } from '@/core/api';
+import { clearFormMessage, setFieldClassName, required, minLength, email } from '@/shared/helpers';
 import AppLoader from '@/shared/components/AppLoader.vue';
 import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
+import { FormData } from '../_files/types';
 
 const { contactForm } = ENDPOINTS;
 
-export default {
+export default defineComponent({
   //==============================
   // GENERAL
   //==============================
-  name: 'ContactForm',
+  name: 'Form',
   components: {
     AppLoader,
     AppAlertDismissible,
@@ -185,28 +192,48 @@ export default {
   //==============================
   // DATA
   //==============================
-  data() {
+  data(): FormData {
     return {
-      Helpers,
+      clearFormMessage,
+      setFieldClassName,
+      required,
+      minLength,
+      email,
       isLoading: true,
       favoriteColors: [],
       form: {
         state: {},
         model: {
-          firstName: undefined,
-          lastName: undefined,
-          email: undefined,
-          telephone: undefined,
+          firstName: '',
+          lastName: '',
+          email: '',
+          telephone: '',
           sex: 'male',
           favoriteColor: 'select',
           employed: false,
-          message: undefined,
+          message: '',
         },
         feedbackMessages: {
           success: [],
         },
       },
     };
+  },
+
+  //==============================
+  // COMPUTED
+  //==============================
+  computed: {
+    // MIN LENGTH 3
+    minLength3(): boolean {
+      return minLength(this.form.model.firstName, 3);
+    },
+
+    // IS SUBMIT BUTTON DISABLED
+    isSubmitButtonDisabled(): boolean {
+      const { state, model } = this.form;
+      return !state.$valid || state.$pristine || model.favoriteColor === 'select';
+    },
   },
 
   //==============================
@@ -220,14 +247,8 @@ export default {
   // METHODS
   //==============================
   methods: {
-    // IS SUBMIT BUTTON DISABLED
-    isSubmitButtonDisabled() {
-      const { state, model } = this.form;
-      return !state.$valid || state.$pristine || model.favoriteColor === 'select';
-    },
-
     // GET FAVORITE COLORS
-    async getFavoriteColors() {
+    async getFavoriteColors(): Promise<void> {
       try {
         const { data } = await MOCKY_INSTANCE.get(contactForm.favoriteColors);
         this.favoriteColors = data;
@@ -239,25 +260,25 @@ export default {
     },
 
     // ON RESET FORM
-    onResetForm() {
+    onResetForm(): void {
       this.form.model = {
-        firstName: undefined,
-        lastName: undefined,
-        email: undefined,
-        telephone: undefined,
+        firstName: '',
+        lastName: '',
+        email: '',
+        telephone: '',
         sex: 'male',
         favoriteColor: 'select',
         employed: false,
-        message: undefined,
+        message: '',
       };
     },
 
     // ON SUBMIT
-    onSubmit() {
+    onSubmit(): void {
       console.log('Form submitted:', this.form.model);
       this.form.feedbackMessages.success.push('Message sent successfully.');
       this.onResetForm();
     },
   },
-};
+});
 </script>

@@ -3,7 +3,7 @@
     <b-container>
       <b-row>
         <b-col offset-md="2" md="8">
-          <EditPostForm />
+          <Form />
         </b-col>
       </b-row>
     </b-container>
@@ -11,15 +11,17 @@
 </template>
 
 <script lang="ts">
-import EditPostForm from '@/pages/News/EditPost/EditPostForm/EditPostForm';
+import { defineComponent } from 'vue';
 
-export default {
+import Form from '@/pages/News/EditPost/Form/Form.vue';
+
+export default defineComponent({
   //==============================
   // GENERAL
   //==============================
   name: 'EditPost',
   components: {
-    EditPostForm,
+    Form,
   },
-};
+});
 </script>
