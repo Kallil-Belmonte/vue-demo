@@ -29,14 +29,14 @@
               type="text"
               name="firstName"
               required
-              minlength="3"
+              :state="required && minLength3"
             />
 
             <field-messages name="firstName" show="$touched">
-              <b-form-invalid-feedback v-slot="required" force-show>
+              <b-form-invalid-feedback :state="required" force-show>
                 First name is required
               </b-form-invalid-feedback>
-              <b-form-invalid-feedback v-slot="minlength" force-show>
+              <b-form-invalid-feedback :state="minLength3" force-show>
                 Minimum 3 characters required
               </b-form-invalid-feedback>
             </field-messages>
@@ -52,10 +52,11 @@
               type="text"
               name="lastName"
               required
+              :state="required"
             />
 
             <field-messages name="lastName" show="$touched">
-              <b-form-invalid-feedback v-slot="required" force-show>
+              <b-form-invalid-feedback :state="required" force-show>
                 Last name is required
               </b-form-invalid-feedback>
             </field-messages>
@@ -71,13 +72,14 @@
               type="email"
               name="email"
               required
+              :state="required && email"
             />
 
             <field-messages name="email" show="$touched">
-              <b-form-invalid-feedback v-slot="required" force-show>
+              <b-form-invalid-feedback :state="required" force-show>
                 E-mail is required
               </b-form-invalid-feedback>
-              <b-form-invalid-feedback v-slot="email" force-show>
+              <b-form-invalid-feedback :state="email" force-show>
                 Invalid e-mail
               </b-form-invalid-feedback>
             </field-messages>
@@ -114,7 +116,7 @@ import { defineComponent } from 'vue';
 
 import { mapState, mapMutations } from 'vuex';
 
-import { clearFormMessage, setFieldClassName } from '@/shared/helpers';
+import { clearFormMessage, setFieldClassName, required, minLength, email } from '@/shared/helpers';
 import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
 import { FormData } from '../_files/types';
 
@@ -134,6 +136,9 @@ export default defineComponent({
     return {
       clearFormMessage,
       setFieldClassName,
+      required,
+      minLength,
+      email,
       form: {
         state: {},
         model: {
@@ -156,9 +161,12 @@ export default defineComponent({
   // COMPUTED
   //==============================
   computed: {
-    ...mapState('user', {
-      userData: 'data',
-    }),
+    ...mapState('user', { userData: 'data' }),
+
+    // MIN LENGTH 3
+    minLength3() {
+      return minLength(this.form.model.firstName, 3);
+    },
   },
 
   //==============================
