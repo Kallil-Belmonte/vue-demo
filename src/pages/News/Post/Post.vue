@@ -15,16 +15,19 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
+
 import { mapState, mapMutations } from 'vuex';
 
 import axios, { ENDPOINTS } from '@/core/api';
 import AppLoader from '@/shared/components/AppLoader.vue';
 import PostBody from '@/pages/News/Post/PostBody/PostBody.vue';
 import DeletePostModal from '@/pages/News/Post/DeletePostModal/DeletePostModal.vue';
+import { Data } from './_files/types';
 
 const { blog } = ENDPOINTS;
 
-export default {
+export default defineComponent({
   //==============================
   // GENERAL
   //==============================
@@ -38,7 +41,7 @@ export default {
   //==============================
   // DATA
   //==============================
-  data() {
+  data(): Data {
     return {
       isLoading: true,
     };
@@ -66,7 +69,7 @@ export default {
     ...mapMutations('post', ['setCurrentPost']),
 
     // GET CURRENT POST
-    async getCurrentPost() {
+    async getCurrentPost(): Promise<void> {
       try {
         const { data: post } = await axios.get(`${blog.posts}${this.$route.params.id}`);
         this.setCurrentPost(post);
@@ -77,5 +80,5 @@ export default {
       }
     },
   },
-};
+});
 </script>

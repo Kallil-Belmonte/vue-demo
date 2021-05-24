@@ -14,12 +14,15 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
+
 import axios, { ENDPOINTS } from '@/core/api';
 import AppLoader from '@/shared/components/AppLoader.vue';
+import { DeletePostModalData } from '../_files/types';
 
 const { blog } = ENDPOINTS;
 
-export default {
+export default defineComponent({
   //==============================
   // GENERAL
   //==============================
@@ -31,7 +34,7 @@ export default {
   //==============================
   // DATA
   //==============================
-  data() {
+  data(): DeletePostModalData {
     return {
       isLoading: false,
     };
@@ -54,5 +57,5 @@ export default {
       }
     },
   },
-};
+});
 </script>

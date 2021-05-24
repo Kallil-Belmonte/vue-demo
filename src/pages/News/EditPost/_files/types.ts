@@ -1,4 +1,4 @@
-export type EditPostFormData = {
+export type FormData = {
   setFieldClassName: (field: any, customClassNames: string[]) => string[];
   required: (value: string) => boolean;
   isLoading: boolean;

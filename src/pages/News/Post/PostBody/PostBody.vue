@@ -15,7 +15,9 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   //==============================
   // GENERAL
   //==============================
@@ -23,7 +25,7 @@ export default {
   props: {
     post: Object,
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

@@ -63,7 +63,7 @@ import { mapState, mapMutations } from 'vuex';
 import axios, { ENDPOINTS } from '@/core/api';
 import { required, setFieldClassName } from '@/shared/helpers';
 import AppLoader from '@/shared/components/AppLoader.vue';
-import { EditPostFormData } from '../../_files/types';
+import { FormData } from '../_files/types';
 
 const { blog } = ENDPOINTS;
 
@@ -79,7 +79,7 @@ export default defineComponent({
   //==============================
   // DATA
   //==============================
-  data(): EditPostFormData {
+  data(): FormData {
     return {
       setFieldClassName,
       required,
