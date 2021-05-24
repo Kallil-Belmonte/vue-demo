@@ -1,3 +1,11 @@
+import { Post } from './blog';
+
+// TYPES
+type State = {
+  currentPost: Post;
+};
+
+// MODULE
 const post = {
   namespaced: true,
   state: {
@@ -5,11 +13,11 @@ const post = {
       userId: undefined,
       id: undefined,
       title: undefined,
-      body:  undefined,
+      body: undefined,
     },
   },
   mutations: {
-    setCurrentPost: (state, payload) => {
+    setCurrentPost: (state: State, payload: Post): void => {
       state.currentPost = payload;
     },
   },

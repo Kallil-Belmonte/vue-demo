@@ -13,13 +13,14 @@
           type="email"
           name="email"
           required
+          :state="required && email"
         />
 
         <field-messages name="email" show="$touched">
-          <b-form-invalid-feedback v-slot="required" force-show>
+          <b-form-invalid-feedback :state="required" force-show>
             E-mail is required
           </b-form-invalid-feedback>
-          <b-form-invalid-feedback v-slot="email" force-show>
+          <b-form-invalid-feedback :state="email" force-show>
             Invalid e-mail
           </b-form-invalid-feedback>
         </field-messages>
@@ -44,14 +45,14 @@
           type="password"
           name="password"
           required
-          minlength="3"
+          :state="required && minLength3"
         />
 
         <field-messages name="password" show="$touched">
-          <b-form-invalid-feedback v-slot="required" force-show>
+          <b-form-invalid-feedback :state="required" force-show>
             Password is required
           </b-form-invalid-feedback>
-          <b-form-invalid-feedback v-slot="minlength" force-show>
+          <b-form-invalid-feedback :state="minLength3" force-show>
             Minimum 3 characters required
           </b-form-invalid-feedback>
         </field-messages>
@@ -69,7 +70,7 @@
 
     <b-form-group>
       <p-check v-model="form.model.keepLogged" class="p-svg p-curve" color="primary">
-        <svg v-slot="extra" class="svg svg-icon" viewBox="0 0 20 20">
+        <svg class="svg svg-icon" viewBox="0 0 20 20">
           <path
             d="M7.629,14.566c0.125,0.125,0.291,0.188,0.456,0.188c0.164,0,0.329-0.062,0.456-0.188l8.219-8.221c0.252-0.252,0.252-0.659,0-0.911c-0.252-0.252-0.659-0.252-0.911,0l-7.764,7.763L4.152,9.267c-0.252-0.251-0.66-0.251-0.911,0c-0.252,0.252-0.252,0.66,0,0.911L7.629,14.566z"
             style="stroke: white; fill: white"
@@ -102,7 +103,7 @@ import { mapMutations } from 'vuex';
 
 import { MOCKY_INSTANCE, ENDPOINTS } from '@/core/api';
 import { AUTH_TOKEN, EXPIRATION_DATE } from '@/shared/files/consts';
-import { clearFormMessage, setFieldClassName } from '@/shared/helpers';
+import { clearFormMessage, setFieldClassName, required, minLength, email } from '@/shared/helpers';
 import AppLoader from '@/shared/components/AppLoader.vue';
 import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
 import { FormData } from '../_files/types';
@@ -126,6 +127,9 @@ export default defineComponent({
     return {
       clearFormMessage,
       setFieldClassName,
+      required,
+      minLength,
+      email,
       isLoading: false,
       form: {
         state: {},
@@ -140,6 +144,16 @@ export default defineComponent({
         },
       },
     };
+  },
+
+  //==============================
+  // COMPUTED
+  //==============================
+  computed: {
+    // MIN LENGTH 3
+    minLength3(): boolean {
+      return minLength(this.form.model.password, 3);
+    },
   },
 
   //==============================

@@ -13,10 +13,11 @@
           type="text"
           name="firstName"
           required
+          :state="required"
         />
 
         <field-messages name="firstName" show="$touched">
-          <b-form-invalid-feedback v-slot="required" force-show>
+          <b-form-invalid-feedback :state="required" force-show>
             First name is required
           </b-form-invalid-feedback>
         </field-messages>
@@ -32,10 +33,11 @@
           type="text"
           name="lastName"
           required
+          :state="required"
         />
 
         <field-messages name="lastName" show="$touched">
-          <b-form-invalid-feedback v-slot="required" force-show>
+          <b-form-invalid-feedback :state="required" force-show>
             Last name is required
           </b-form-invalid-feedback>
         </field-messages>
@@ -51,13 +53,14 @@
           type="email"
           name="email"
           required
+          :state="required && email"
         />
 
         <field-messages name="email" show="$touched">
-          <b-form-invalid-feedback v-slot="required" force-show>
+          <b-form-invalid-feedback :state="required" force-show>
             E-mail is required
           </b-form-invalid-feedback>
-          <b-form-invalid-feedback v-slot="email" force-show>
+          <b-form-invalid-feedback :state="email" force-show>
             Invalid e-mail
           </b-form-invalid-feedback>
         </field-messages>
@@ -82,14 +85,14 @@
           type="password"
           name="password"
           required
-          minlength="3"
+          :state="required && minLength3"
         />
 
         <field-messages name="password" show="$touched">
-          <b-form-invalid-feedback v-slot="required" force-show>
+          <b-form-invalid-feedback :state="required" force-show>
             Password is required
           </b-form-invalid-feedback>
-          <b-form-invalid-feedback v-slot="minlength" force-show>
+          <b-form-invalid-feedback :state="minLength3" force-show>
             Minimum 3 characters required
           </b-form-invalid-feedback>
         </field-messages>
@@ -122,18 +125,20 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
+
 import { mapMutations } from 'vuex';
 
 import { MOCKY_INSTANCE, ENDPOINTS } from '@/core/api';
 import { AUTH_TOKEN } from '@/shared/files/consts';
-import { clearFormMessage, setFieldClassName } from '@/shared/helpers';
+import { clearFormMessage, setFieldClassName, required, minLength, email } from '@/shared/helpers';
 import AppLoader from '@/shared/components/AppLoader.vue';
 import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
 import { FormData } from '../_files/types';
 
 const { auth } = ENDPOINTS;
 
-export default {
+export default defineComponent({
   //==============================
   // GENERAL
   //==============================
@@ -150,6 +155,9 @@ export default {
     return {
       clearFormMessage,
       setFieldClassName,
+      required,
+      minLength,
+      email,
       isLoading: false,
       form: {
         state: {},
@@ -165,6 +173,16 @@ export default {
         },
       },
     };
+  },
+
+  //==============================
+  // COMPUTED
+  //==============================
+  computed: {
+    // MIN LENGTH 3
+    minLength3(): boolean {
+      return minLength(this.form.model.password, 3);
+    },
   },
 
   //==============================
@@ -201,7 +219,7 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

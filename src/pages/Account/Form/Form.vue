@@ -164,7 +164,7 @@ export default defineComponent({
     ...mapState('user', { userData: 'data' }),
 
     // MIN LENGTH 3
-    minLength3() {
+    minLength3(): boolean {
       return minLength(this.form.model.firstName, 3);
     },
   },

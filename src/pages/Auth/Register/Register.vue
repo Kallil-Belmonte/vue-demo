@@ -16,10 +16,8 @@
 import { defineComponent } from 'vue';
 
 import { AUTH_TOKEN, EXPIRATION_DATE } from '@/shared/files/consts';
-import * as Helpers from '@/shared/helpers';
+import { setPageTitle } from '@/shared/helpers';
 import Form from '@/pages/Auth/Register/Form/Form.vue';
-
-const { setPageTitle } = Helpers;
 
 export default defineComponent({
   //==============================
@@ -44,9 +42,12 @@ export default defineComponent({
   //==============================
   methods: {
     // REDIRECT LOGGED USER
-    redirectLoggedUser() {
-      const authToken = sessionStorage.getItem(AUTH_TOKEN) || localStorage.getItem(AUTH_TOKEN);
-      const expiredSession =
+    redirectLoggedUser(): void {
+      const { getItem: getSessionItem } = sessionStorage;
+      const { getItem: getLocalItem } = localStorage;
+
+      const authToken: string | null = getSessionItem(AUTH_TOKEN) || getLocalItem(AUTH_TOKEN);
+      const expiredSession: boolean =
         new Date().getTime() > Date.parse(localStorage.getItem(EXPIRATION_DATE) || '');
 
       if (authToken && !expiredSession) {
