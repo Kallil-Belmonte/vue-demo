@@ -16,15 +16,20 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   //==============================
   // GENERAL
   //==============================
   name: 'PostsPerPage',
   props: {
-    postsPerPage: Number,
+    postsPerPage: {
+      type: Number,
+      required: true,
+    },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

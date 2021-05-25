@@ -16,21 +16,28 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue';
+
+import { CategoriesData } from '../_files/types';
+
+export default defineComponent({
   //==============================
   // GENERAL
   //==============================
   name: 'Categories',
   props: {
-    categories: Array,
+    categories: {
+      type: Array,
+      required: true,
+    },
   },
 
   //==============================
   // DATA
   //==============================
-  data() {
+  data(): CategoriesData {
     return {
-      activeCategory: undefined,
+      activeCategory: '',
     };
   },
 
@@ -39,17 +46,17 @@ export default {
   //==============================
   methods: {
     // IS CATEGORY ACTIVE
-    isCategoryActive(category) {
+    isCategoryActive(category: string) {
       return this.activeCategory === category;
     },
 
     // ON SELECT CATEGORY
-    onSelectCategory(category) {
-      this.activeCategory = category === this.activeCategory ? undefined : category;
+    onSelectCategory(category: string) {
+      this.activeCategory = category === this.activeCategory ? '' : category;
       this.$emit('selectCategory', category);
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

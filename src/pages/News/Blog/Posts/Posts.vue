@@ -9,19 +9,27 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
+
 import AppPostItem from '@/shared/components/AppPostItem.vue';
 
-export default {
+export default defineComponent({
   //==============================
   // GENERAL
   //==============================
   name: 'Posts',
   props: {
-    pages: Object,
-    currentPage: Number,
+    pages: {
+      type: Object,
+      required: true,
+    },
+    currentPage: {
+      type: Number,
+      required: true,
+    },
   },
   components: {
     AppPostItem,
   },
-};
+});
 </script>

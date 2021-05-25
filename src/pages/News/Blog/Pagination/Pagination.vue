@@ -24,7 +24,9 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   //==============================
   // GENERAL
   //==============================
@@ -35,26 +37,34 @@ export default {
       default() {
         return [];
       },
+      required: true,
     },
     firstItem: {
       type: Number,
       default: 1,
+      required: true,
     },
-    maxItem: Number,
-    currentPage: Number,
+    maxItem: {
+      type: Number,
+      required: true,
+    },
+    currentPage: {
+      type: Number,
+      required: true,
+    },
   },
 
   //==============================
   // COMPUTED
   //==============================
   computed: {
-    startPages() {
+    startPages(): number {
       return this.firstItem - 1;
     },
-    endPages() {
+    endPages(): number {
       return this.startPages + this.maxItem;
     },
-    pageItems() {
+    pageItems(): number[] {
       return this.pages.slice(this.startPages, this.endPages);
     },
   },
@@ -64,9 +74,9 @@ export default {
   //==============================
   methods: {
     // IS ITEM ACTIVE
-    isItemActive(page) {
+    isItemActive(page: string | number) {
       return Number(page) === this.currentPage;
     },
   },
-};
+});
 </script>
