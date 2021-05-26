@@ -18,6 +18,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+import { Category } from '@/core/vuex/modules/blog';
 import { CategoriesData } from '../_files/types';
 
 export default defineComponent({
@@ -27,7 +28,7 @@ export default defineComponent({
   name: 'Categories',
   props: {
     categories: {
-      type: Array,
+      type: Array as () => Category[],
       required: true,
     },
   },
@@ -46,12 +47,12 @@ export default defineComponent({
   //==============================
   methods: {
     // IS CATEGORY ACTIVE
-    isCategoryActive(category: string) {
+    isCategoryActive(category: Category['name']): boolean {
       return this.activeCategory === category;
     },
 
     // ON SELECT CATEGORY
-    onSelectCategory(category: string) {
+    onSelectCategory(category: Category['name']): void {
       this.activeCategory = category === this.activeCategory ? '' : category;
       this.$emit('selectCategory', category);
     },

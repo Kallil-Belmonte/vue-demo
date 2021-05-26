@@ -15,6 +15,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+import { Post } from '@/core/vuex/modules/blog';
 import AppPostItem from '@/shared/components/AppPostItem.vue';
 
 export default defineComponent({
@@ -24,7 +25,7 @@ export default defineComponent({
   name: 'FeaturedPosts',
   props: {
     posts: {
-      type: Array,
+      type: Array as () => Post[],
       required: true,
     },
   },

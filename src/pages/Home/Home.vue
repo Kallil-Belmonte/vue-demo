@@ -12,9 +12,9 @@ import { defineComponent } from 'vue';
 import { mapState, mapMutations } from 'vuex';
 
 import axios, { ENDPOINTS } from '@/core/api';
-import { HomeData } from './_files/types';
 import AppLoader from '@/shared/components/AppLoader.vue';
 import FeaturedPosts from '@/pages/Home/FeaturedPosts/FeaturedPosts.vue';
+import { HomeData } from './_files/types';
 
 const { blog } = ENDPOINTS;
 
@@ -60,7 +60,7 @@ export default defineComponent({
     ...mapMutations('blog', ['setPosts']),
 
     // GET FEATURED POSTS
-    async getFeaturedPosts() {
+    async getFeaturedPosts(): Promise<void> {
       if (this.posts.length) {
         const [firstPost, secondPost, thirdPost] = this.posts;
         this.featuredPosts = [firstPost, secondPost, thirdPost];

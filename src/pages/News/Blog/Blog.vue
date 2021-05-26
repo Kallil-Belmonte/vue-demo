@@ -38,17 +38,18 @@ import { defineComponent } from 'vue';
 
 import { mapState, mapMutations } from 'vuex';
 
+import { Post } from '@/core/vuex/modules/blog';
 import axios, { MOCKY_INSTANCE, ENDPOINTS } from '@/core/api';
-import * as Helpers from '@/shared/helpers';
+import { groupArrayItemsInArrays } from '@/shared/helpers';
 import AppLoader from '@/shared/components/AppLoader.vue';
 import AppPageHeader from '@/shared/components/AppPageHeader.vue';
 import PostsPerPage from '@/pages/News/Blog/PostsPerPage/PostsPerPage.vue';
 import Posts from '@/pages/News/Blog/Posts/Posts.vue';
 import Pagination from '@/pages/News/Blog/Pagination/Pagination.vue';
 import Categories from '@/pages/News/Blog/Categories/Categories.vue';
+import { BlogData } from './_files/types';
 
 const { blog } = ENDPOINTS;
-const { groupArrayItemsInArrays } = Helpers;
 
 export default defineComponent({
   //==============================
@@ -67,9 +68,9 @@ export default defineComponent({
   //==============================
   // DATA
   //==============================
-  data() {
+  data(): BlogData {
     return {
-      Helpers,
+      groupArrayItemsInArrays,
       isLoading: true,
       pages: {},
       postsPerPage: 9,
@@ -101,8 +102,8 @@ export default defineComponent({
     ...mapMutations('blog', ['setCategories', 'setPosts']),
 
     // SET PAGINATION SETTINGS
-    setPaginationSettings(posts, quantPostsPerPage = 9) {
-      const pages = {};
+    setPaginationSettings(posts: Post[], quantPostsPerPage = 9): void {
+      const pages: BlogData['pages'] = {};
 
       groupArrayItemsInArrays(posts, quantPostsPerPage).forEach((item, index) => {
         pages[index + 1] = item;
@@ -116,7 +117,7 @@ export default defineComponent({
     },
 
     // GET ALL DATA
-    async getAllData() {
+    async getAllData(): Promise<void> {
       try {
         if (!this.categories.length) {
           const { data: categories } = await MOCKY_INSTANCE.get(blog.categories);
@@ -137,7 +138,7 @@ export default defineComponent({
     },
 
     // ON SELECT CATEGORY
-    async onSelectCategory(/* category */) {
+    async onSelectCategory(/* category */): Promise<void> {
       this.isLoading = true;
 
       try {
@@ -153,7 +154,7 @@ export default defineComponent({
     },
 
     // ON PAGINATE
-    onPaginate(target) {
+    onPaginate(target: string): void {
       switch (target) {
         case 'previous':
           this.firstPaginationItem = --this.firstPaginationItem;

@@ -33,10 +33,8 @@ export default defineComponent({
   name: 'Pagination',
   props: {
     pages: {
-      type: Array,
-      default() {
-        return [];
-      },
+      type: Array as () => number[],
+      default: () => [],
       required: true,
     },
     firstItem: {
@@ -74,7 +72,7 @@ export default defineComponent({
   //==============================
   methods: {
     // IS ITEM ACTIVE
-    isItemActive(page: string | number) {
+    isItemActive(page: string | number): boolean {
       return Number(page) === this.currentPage;
     },
   },

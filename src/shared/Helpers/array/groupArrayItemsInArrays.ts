@@ -8,7 +8,7 @@
 const groupArrayItemsInArrays = (
   array: any[],
   itemsQuantity: number,
-  repeatLastItem: boolean,
+  repeatLastItem?: boolean,
 ): [any[]] => {
   const matrix: [any[]] = [[]];
 
@@ -18,7 +18,7 @@ const groupArrayItemsInArrays = (
     let endSlice: number = itemsQuantity;
 
     while (counter <= array.length) {
-      const lastIndex = matrix.length - 1;
+      const lastIndex: number = matrix.length - 1;
 
       if (!matrix[lastIndex].length) {
         matrix[lastIndex].push(...array.slice(startSlice, endSlice));

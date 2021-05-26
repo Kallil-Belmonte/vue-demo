@@ -1,5 +1,5 @@
 // TYPES
-type Category = {
+export type Category = {
   name: string;
   posts: number;
 };
