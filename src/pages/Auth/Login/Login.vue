@@ -34,8 +34,8 @@ export default defineComponent({
   // LIFECYCLE HOOKS
   //==============================
   mounted() {
-    console.log('Para logar, utilize qualquer e-mail e senha.');
-    console.log('Para ver os alertas de erro, utilize o e-mail: demo@demo.com');
+    console.log('Para logar utilize qualquer e-mail e senha.');
+    console.log('Para ver os alertas de erro utilize o e-mail: demo@demo.com');
     setPageTitle('Login');
     this.redirectLoggedUser();
   },

@@ -32,7 +32,6 @@ export default defineComponent({
   // LIFECYCLE HOOKS
   //==============================
   mounted() {
-    console.log('Utilize o e-mail: demo@demo.com para ver os alertas de erro.');
     setPageTitle('Register');
     this.redirectLoggedUser();
   },
