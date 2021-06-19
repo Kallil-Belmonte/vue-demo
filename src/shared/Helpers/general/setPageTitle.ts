@@ -2,11 +2,11 @@ import { PROJECT_TITLE } from '@/shared/files/consts';
 
 /**
  * setPageTitle
- * @param { string } pageTitle
+ * @param { string } title
  */
 
-const setPageTitle = (pageTitle: string): void => {
-  document.title = `${PROJECT_TITLE} | ${pageTitle}`;
+const setPageTitle = (title: string): void => {
+  document.title = `${PROJECT_TITLE} | ${title}`;
 };
 
 export default setPageTitle;

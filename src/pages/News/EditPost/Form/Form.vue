@@ -7,7 +7,7 @@
         <b-form-input
           v-model="form.model.title"
           id="title"
-          :class="setFieldClassName(form.state.title)"
+          :class="getFieldClass(form.state.title)"
           type="text"
           name="title"
           required
@@ -61,7 +61,7 @@ import { defineComponent } from 'vue';
 import { mapState, mapMutations } from 'vuex';
 
 import axios, { ENDPOINTS } from '@/core/api';
-import { required, setFieldClassName } from '@/shared/helpers';
+import { required, getFieldClass } from '@/shared/helpers';
 import AppLoader from '@/shared/components/AppLoader.vue';
 import { FormData } from '../_files/types';
 
@@ -81,7 +81,7 @@ export default defineComponent({
   //==============================
   data(): FormData {
     return {
-      setFieldClassName,
+      getFieldClass,
       required,
       isLoading: true,
       form: {

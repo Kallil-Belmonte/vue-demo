@@ -3,7 +3,7 @@ export { default as groupArrayItemsInArrays } from './array/groupArrayItemsInArr
 
 // GENERAL
 export { default as clearFormMessage } from './general/clearFormMessage';
-export { default as setFieldClassName } from './general/setFieldClassName';
+export { default as getFieldClass } from './general/getFieldClass';
 export { default as setPageTitle } from './general/setPageTitle';
 export * from './general/validations';
 

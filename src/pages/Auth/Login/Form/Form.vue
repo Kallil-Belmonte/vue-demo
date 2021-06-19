@@ -9,7 +9,7 @@
         <b-form-input
           v-model="form.model.email"
           id="email"
-          :class="setFieldClassName(form.state.email)"
+          :class="getFieldClass(form.state.email)"
           type="email"
           name="email"
           required
@@ -41,7 +41,7 @@
         <b-form-input
           v-model="form.model.password"
           id="password"
-          :class="setFieldClassName(form.state.password)"
+          :class="getFieldClass(form.state.password)"
           type="password"
           name="password"
           required
@@ -103,7 +103,7 @@ import { mapMutations } from 'vuex';
 
 import { MOCKY_INSTANCE, ENDPOINTS } from '@/core/api';
 import { AUTH_TOKEN, EXPIRATION_DATE } from '@/shared/files/consts';
-import { clearFormMessage, setFieldClassName, required, minLength, email } from '@/shared/helpers';
+import { clearFormMessage, getFieldClass, required, minLength, email } from '@/shared/helpers';
 import AppLoader from '@/shared/components/AppLoader.vue';
 import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
 import { FormData } from '../_files/types';
@@ -126,7 +126,7 @@ export default defineComponent({
   data(): FormData {
     return {
       clearFormMessage,
-      setFieldClassName,
+      getFieldClass,
       required,
       minLength,
       email,
