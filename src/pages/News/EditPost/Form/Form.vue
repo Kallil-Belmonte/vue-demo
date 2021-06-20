@@ -112,16 +112,13 @@ export default defineComponent({
   // METHODS
   //==============================
   methods: {
-    // MUTATIONS
     ...mapMutations('post', ['setCurrentPost']),
 
-    // ON SET FORM DATA
     onSetFormData(): void {
       const { title, body } = this.currentPost;
       this.form.model = { title, body };
     },
 
-    // GET CURRENT POST
     async getCurrentPost(id: string): Promise<void> {
       try {
         const { data: post } = await axios.get(`${blog.posts}${id}`);
@@ -134,7 +131,6 @@ export default defineComponent({
       }
     },
 
-    // ON SUBMIT
     async onSubmit(): Promise<void> {
       this.isLoading = true;
 

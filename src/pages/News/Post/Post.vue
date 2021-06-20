@@ -65,10 +65,8 @@ export default defineComponent({
   // METHODS
   //==============================
   methods: {
-    // MUTATIONS
     ...mapMutations('post', ['setCurrentPost']),
 
-    // GET CURRENT POST
     async getCurrentPost(): Promise<void> {
       try {
         const { data: post } = await axios.get(`${blog.posts}${this.$route.params.id}`);

@@ -44,7 +44,6 @@ export default defineComponent({
   // METHODS
   //==============================
   methods: {
-    // ON DELETE POST
     async onDeletePost(): Promise<void> {
       this.isLoading = true;
 

@@ -71,7 +71,6 @@ export default defineComponent({
   // METHODS
   //==============================
   methods: {
-    // IS ITEM ACTIVE
     isItemActive(page: string | number): boolean {
       return Number(page) === this.currentPage;
     },

@@ -56,10 +56,8 @@ export default defineComponent({
   // METHODS
   //==============================
   methods: {
-    // MUTATIONS
     ...mapMutations('blog', ['setPosts']),
 
-    // GET FEATURED POSTS
     async getFeaturedPosts(): Promise<void> {
       if (this.posts.length) {
         const [firstPost, secondPost, thirdPost] = this.posts;

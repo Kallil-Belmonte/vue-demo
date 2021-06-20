@@ -224,12 +224,10 @@ export default defineComponent({
   // COMPUTED
   //==============================
   computed: {
-    // MIN LENGTH 3
     minLength3(): boolean {
       return minLength(this.form.model.firstName, 3);
     },
 
-    // IS SUBMIT BUTTON DISABLED
     isSubmitButtonDisabled(): boolean {
       const { state, model } = this.form;
       return !state.$valid || state.$pristine || model.favoriteColor === 'select';
@@ -247,7 +245,6 @@ export default defineComponent({
   // METHODS
   //==============================
   methods: {
-    // GET FAVORITE COLORS
     async getFavoriteColors(): Promise<void> {
       try {
         const { data } = await MOCKY_INSTANCE.get(contactForm.favoriteColors);
@@ -259,7 +256,6 @@ export default defineComponent({
       }
     },
 
-    // ON RESET FORM
     onResetForm(): void {
       this.form.model = {
         firstName: '',
@@ -273,7 +269,6 @@ export default defineComponent({
       };
     },
 
-    // ON SUBMIT
     onSubmit(): void {
       console.log('Form submitted:', this.form.model);
       this.form.feedbackMessages.success.push('Message sent successfully.');

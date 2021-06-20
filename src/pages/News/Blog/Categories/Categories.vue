@@ -46,12 +46,10 @@ export default defineComponent({
   // METHODS
   //==============================
   methods: {
-    // IS CATEGORY ACTIVE
     isCategoryActive(category: Category['name']): boolean {
       return this.activeCategory === category;
     },
 
-    // ON SELECT CATEGORY
     onSelectCategory(category: Category['name']): void {
       this.activeCategory = category === this.activeCategory ? '' : category;
       this.$emit('selectCategory', category);

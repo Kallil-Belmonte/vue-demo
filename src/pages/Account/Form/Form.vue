@@ -163,7 +163,6 @@ export default defineComponent({
   computed: {
     ...mapState('user', { userData: 'data' }),
 
-    // MIN LENGTH 3
     minLength3(): boolean {
       return minLength(this.form.model.firstName, 3);
     },
@@ -180,16 +179,13 @@ export default defineComponent({
   // METHODS
   //==============================
   methods: {
-    // MUTATIONS
     ...mapMutations('user', { setUserData: 'setData' }),
 
-    // GET USER DATA
     getUserData(): void {
       const { firstName, lastName, email } = this.userData;
       this.form.model = { firstName, lastName, email };
     },
 
-    // ON SUBMIT
     onSubmit(): void {
       const { model, errors, feedback } = this.form;
 

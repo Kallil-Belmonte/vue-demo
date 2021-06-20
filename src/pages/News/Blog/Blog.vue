@@ -7,7 +7,7 @@
 
       <PostsPerPage
         :postsPerPage="postsPerPage"
-        v-on:change="(value) => setPaginationSettings(this.posts, value)"
+        v-on:change="value => setPaginationSettings(this.posts, value)"
       />
 
       <b-row>
@@ -19,13 +19,13 @@
             :firstItem="firstPaginationItem"
             :maxItem="maxPaginationItem"
             :currentPage="currentPage"
-            v-on:paginate="(target) => onPaginate(target)"
+            v-on:paginate="target => onPaginate(target)"
           />
         </b-col>
         <b-col md="3">
           <Categories
             :categories="categories"
-            v-on:selectCategory="(category) => onSelectCategory(category)"
+            v-on:selectCategory="category => onSelectCategory(category)"
           />
         </b-col>
       </b-row>
@@ -98,10 +98,8 @@ export default defineComponent({
   // METHODS
   //==============================
   methods: {
-    // MUTATIONS
     ...mapMutations('blog', ['setCategories', 'setPosts']),
 
-    // SET PAGINATION SETTINGS
     setPaginationSettings(posts: Post[], quantPostsPerPage = 9): void {
       const pages: BlogData['pages'] = {};
 
@@ -116,7 +114,6 @@ export default defineComponent({
       this.currentPage = 1;
     },
 
-    // GET ALL DATA
     async getAllData(): Promise<void> {
       try {
         if (!this.categories.length) {
@@ -137,7 +134,6 @@ export default defineComponent({
       }
     },
 
-    // ON SELECT CATEGORY
     async onSelectCategory(/* category */): Promise<void> {
       this.isLoading = true;
 
@@ -153,7 +149,6 @@ export default defineComponent({
       }
     },
 
-    // ON PAGINATE
     onPaginate(target: string): void {
       switch (target) {
         case 'previous':

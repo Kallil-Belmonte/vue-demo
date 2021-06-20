@@ -40,7 +40,6 @@ export default defineComponent({
   // METHODS
   //==============================
   methods: {
-    // REDIRECT LOGGED USER
     redirectLoggedUser(): void {
       const { getItem: getSessionItem } = sessionStorage;
       const { getItem: getLocalItem } = localStorage;

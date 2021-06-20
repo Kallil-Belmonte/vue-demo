@@ -13,8 +13,8 @@ const groupArrayItemsInArrays = (
   const matrix: [any[]] = [[]];
 
   if (repeatLastItem && itemsQuantity > 1) {
-    let counter: number = 0;
-    let startSlice: number = 0;
+    let counter = 0;
+    let startSlice = 0;
     let endSlice: number = itemsQuantity;
 
     while (counter <= array.length) {
@@ -26,7 +26,7 @@ const groupArrayItemsInArrays = (
         const ultimoItem: any = matrix[matrix.length - 1];
         const ultimoItemLastIndex: number = ultimoItem.length - 1;
 
-        startSlice = array.findIndex((item) => item === ultimoItem[ultimoItemLastIndex]);
+        startSlice = array.findIndex(item => item === ultimoItem[ultimoItemLastIndex]);
         endSlice = startSlice + itemsQuantity;
 
         if (ultimoItem.length < itemsQuantity) {
@@ -39,7 +39,7 @@ const groupArrayItemsInArrays = (
       counter += 1;
     }
   } else {
-    array.forEach((item) => {
+    array.forEach(item => {
       const lastIndex: number = matrix.length - 1;
 
       if (matrix[lastIndex].length < itemsQuantity) {

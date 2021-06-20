@@ -150,7 +150,6 @@ export default defineComponent({
   // COMPUTED
   //==============================
   computed: {
-    // MIN LENGTH 3
     minLength3(): boolean {
       return minLength(this.form.model.password, 3);
     },
@@ -160,10 +159,8 @@ export default defineComponent({
   // METHODS
   //==============================
   methods: {
-    // MUTATIONS
     ...mapMutations('user', { setUserData: 'setData' }),
 
-    // ON SUBMIT
     async onSubmit(): Promise<void> {
       const { model, errors } = this.form;
 

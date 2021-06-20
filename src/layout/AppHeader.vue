@@ -48,7 +48,7 @@ import { defineComponent } from 'vue';
 
 import { mapMutations } from 'vuex';
 
-import { clearStorageData } from '@/core/Vuex/Store';
+import { clearStorageData } from '@/core/vuex/store';
 
 import { PROJECT_TITLE } from '@/shared/files/consts';
 
