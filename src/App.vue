@@ -26,7 +26,7 @@ export default defineComponent({
   methods: {
     // ON SET PAGE TITLE
     onSetPageTitle(): void {
-      this.$router.afterEach((to) => {
+      this.$router.afterEach(to => {
         const { name } = to;
 
         if (name) {

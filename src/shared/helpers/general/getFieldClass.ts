@@ -1,15 +1,12 @@
 /**
  * getFieldClass
  * @param { any } field
- * @param { string[] } customClassNames
+ * @param { string[] } customClass
  */
 
-export const getFieldClass = (field: any, customClassNames: string[] = []): string[] => {
-  const classList: string[] = ['form-control', ...customClassNames];
-
-  if (field && field.$touched && field.$invalid) classList.push('is-invalid');
-
-  return classList;
+export const getFieldClass = (field: any, customClass: string[] = []): string[] => {
+  const isInvalid: boolean = field?.$touched && field?.$invalid;
+  return ['form-control', isInvalid ? 'is-invalid' : '', ...customClass];
 };
 
 export default getFieldClass;
