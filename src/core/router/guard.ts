@@ -1,6 +1,6 @@
 import { RouteLocationNormalized, NavigationGuardNext } from 'vue-router/dist/vue-router.d';
 
-import { AUTH_TOKEN, EXPIRATION_DATE } from '@/shared/files/consts';
+import { AUTH_TOKEN_KEY, EXPIRATION_DATE_KEY } from '@/shared/files/consts';
 import { clearStorageData } from '@/core/vuex/store';
 
 const guard = (
@@ -8,9 +8,9 @@ const guard = (
   from: RouteLocationNormalized,
   next: NavigationGuardNext,
 ): void => {
-  const authToken = sessionStorage.getItem(AUTH_TOKEN) || localStorage.getItem(AUTH_TOKEN);
+  const authToken = sessionStorage.getItem(AUTH_TOKEN_KEY) || localStorage.getItem(AUTH_TOKEN_KEY);
   const expiredSession =
-    new Date().getTime() > Date.parse(localStorage.getItem(EXPIRATION_DATE) || '');
+    new Date().getTime() > Date.parse(localStorage.getItem(EXPIRATION_DATE_KEY) || '');
 
   if (authToken && !expiredSession) {
     next();

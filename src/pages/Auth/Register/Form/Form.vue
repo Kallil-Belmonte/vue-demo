@@ -130,7 +130,7 @@ import { defineComponent } from 'vue';
 import { mapMutations } from 'vuex';
 
 import { MOCKY_INSTANCE, ENDPOINTS } from '@/core/api';
-import { AUTH_TOKEN } from '@/shared/files/consts';
+import { AUTH_TOKEN_KEY } from '@/shared/files/consts';
 import { clearFormMessage, getFieldClass, required, minLength, email } from '@/shared/helpers';
 import AppLoader from '@/shared/components/AppLoader.vue';
 import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
@@ -206,7 +206,7 @@ export default defineComponent({
           feedback.email.push('This e-mail already exists.');
           feedback.password.push('Your password is too weak.');
         } else {
-          sessionStorage.setItem(AUTH_TOKEN, token);
+          sessionStorage.setItem(AUTH_TOKEN_KEY, token);
           this.setUserData({ firstName, lastName, email });
           this.$router.push({ name: 'home' });
         }

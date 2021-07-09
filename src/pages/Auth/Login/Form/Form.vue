@@ -102,7 +102,7 @@ import { defineComponent } from 'vue';
 import { mapMutations } from 'vuex';
 
 import { MOCKY_INSTANCE, ENDPOINTS } from '@/core/api';
-import { AUTH_TOKEN, EXPIRATION_DATE } from '@/shared/files/consts';
+import { AUTH_TOKEN_KEY, EXPIRATION_DATE_KEY } from '@/shared/files/consts';
 import { clearFormMessage, getFieldClass, required, minLength, email } from '@/shared/helpers';
 import AppLoader from '@/shared/components/AppLoader.vue';
 import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
@@ -179,10 +179,10 @@ export default defineComponent({
           errors.password.push('The password is incorrect.');
         } else {
           if (model.keepLogged) {
-            localStorage.setItem(AUTH_TOKEN, idToken);
-            localStorage.setItem(EXPIRATION_DATE, expirationDate);
+            localStorage.setItem(AUTH_TOKEN_KEY, idToken);
+            localStorage.setItem(EXPIRATION_DATE_KEY, expirationDate);
           } else {
-            sessionStorage.setItem(AUTH_TOKEN, idToken);
+            sessionStorage.setItem(AUTH_TOKEN_KEY, idToken);
           }
 
           this.setUserData({ firstName, lastName, email });

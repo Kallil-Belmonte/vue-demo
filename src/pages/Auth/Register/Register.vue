@@ -15,8 +15,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import { AUTH_TOKEN, EXPIRATION_DATE } from '@/shared/files/consts';
-import { setPageTitle } from '@/shared/helpers';
+import { AUTH_TOKEN_KEY, EXPIRATION_DATE_KEY } from '@/shared/files/consts';
 import Form from '@/pages/Auth/Register/Form/Form.vue';
 
 export default defineComponent({
@@ -32,7 +31,6 @@ export default defineComponent({
   // LIFECYCLE HOOKS
   //==============================
   mounted() {
-    setPageTitle('Register');
     this.redirectLoggedUser();
   },
 
@@ -44,9 +42,10 @@ export default defineComponent({
       const { getItem: getSessionItem } = sessionStorage;
       const { getItem: getLocalItem } = localStorage;
 
-      const authToken: string | null = getSessionItem(AUTH_TOKEN) || getLocalItem(AUTH_TOKEN);
+      const authToken: string | null =
+        getSessionItem(AUTH_TOKEN_KEY) || getLocalItem(AUTH_TOKEN_KEY);
       const expiredSession: boolean =
-        new Date().getTime() > Date.parse(localStorage.getItem(EXPIRATION_DATE) || '');
+        new Date().getTime() > Date.parse(localStorage.getItem(EXPIRATION_DATE_KEY) || '');
 
       if (authToken && !expiredSession) {
         this.$router.push('/');

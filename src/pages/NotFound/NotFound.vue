@@ -12,20 +12,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import { setPageTitle } from '@/shared/helpers';
-
 export default defineComponent({
   //==============================
   // GENERAL
   //==============================
   name: 'NotFound',
-
-  //==============================
-  // LIFECYCLE HOOKS
-  //==============================
-  mounted() {
-    setPageTitle('Error 404');
-  },
 });
 </script>
 

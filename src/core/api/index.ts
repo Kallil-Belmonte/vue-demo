@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
-import { AUTH_TOKEN } from '@/shared/files/consts';
+import { AUTH_TOKEN_KEY } from '@/shared/files/consts';
 
 //==============================
 // INSTANCES
@@ -13,10 +13,11 @@ const JSON_PLACEHOLDER_INSTANCE = axios.create({
 
 JSON_PLACEHOLDER_INSTANCE.interceptors.request.use(
   (config: AxiosRequestConfig) => {
-    const authToken = sessionStorage.getItem(AUTH_TOKEN) || localStorage.getItem(AUTH_TOKEN);
+    const authToken =
+      sessionStorage.getItem(AUTH_TOKEN_KEY) || localStorage.getItem(AUTH_TOKEN_KEY);
 
     config.headers['Authorization'] = `Bearer ${authToken}`;
-    // config.url = `${request.url}?authKey=${localStorage.getItem(AUTH_TOKEN)}`;
+    // config.url = `${request.url}?authKey=${localStorage.getItem(AUTH_TOKEN_KEY)}`;
 
     return config;
   },
