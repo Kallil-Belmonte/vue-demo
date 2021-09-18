@@ -254,6 +254,11 @@ assert-never@^1.2.1:
   resolved "https://registry.yarnpkg.com/assert-never/-/assert-never-1.2.1.tgz#11f0e363bf146205fb08193b5c7b90f4d1cf44fe"
   integrity sha512-TaTivMB6pYI1kXwrFlEhLeGfOqoDNdTxjCdwRfFFkEA30Eu+k48W34nlok2EYWJfFFzqaEmichdNM7th6M5HNw==
 
+async-validator@^3.4.0:
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/async-validator/-/async-validator-3.5.2.tgz#68e866a96824e8b2694ff7a831c1a25c44d5e500"
+  integrity sha512-8eLCg00W9pIRZSB781UUX/H6Oskmm8xloZfr09lz5bikRpBVDlJ3hRVuxxP1SxcwsEYfJ4IU8Q19Y8/893r3rQ==
+
 axios@^0.21.4:
   version "0.21.4"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.4.tgz#c67b90dc0568e5c1cf2b0b858c43ba28e2eda575"
@@ -417,11 +422,6 @@ estree-walker@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-2.0.2.tgz#52f010178c2a4c117a7757cfe942adb7d2da4cac"
   integrity sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==
-
-extend@3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.2.tgz#f8b1136b4071fbd8eb140aff858b1019ec2915fa"
-  integrity sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==
 
 fill-range@^7.0.1:
   version "7.0.1"
@@ -607,6 +607,31 @@ lodash.camelcase@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz#b28aa6288a2b9fc651035c7711f65ab6190331a6"
   integrity sha1-soqmKIorn8ZRA1x3EfZathkDMaY=
+
+lodash.get@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
+  integrity sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk=
+
+lodash.merge@^4.6.2:
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
+  integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
+
+lodash.set@^4.3.2:
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/lodash.set/-/lodash.set-4.3.2.tgz#d8757b1da807dde24816b0d6a84bea1a76230b23"
+  integrity sha1-2HV7HagH3eJIFrDWqEvqGnYjCyM=
+
+lodash.setwith@^4.3.2:
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/lodash.setwith/-/lodash.setwith-4.3.2.tgz#1bcc057e62d90f5a6b9b9470ae2ab9d89edd8e6f"
+  integrity sha1-G8wFfmLZD1prm5Rwriq52J7djm8=
+
+lodash.topath@^4.5.2:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/lodash.topath/-/lodash.topath-4.5.2.tgz#3616351f3bba61994a0931989660bd03254fd009"
+  integrity sha1-NhY1Hzu6YZlKCTGYlmC9AyVP0Ak=
 
 lru-cache@^5.1.1:
   version "5.1.1"
@@ -874,11 +899,6 @@ sass@^1.41.1:
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
 
-scope-eval@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/scope-eval/-/scope-eval-1.0.0.tgz#e182db1a1ef26f3e79d4bf48423b25e22839f0ff"
-  integrity sha1-4YLbGh7ybz551L9IQjsl4ig58P8=
-
 semver@^7.3.5:
   version "7.3.5"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.5.tgz#0b621c879348d8998e4b0e4be94b3f12e6018ef7"
@@ -1089,13 +1109,17 @@ vscode-vue-languageservice@^0.27.0:
     vscode-pug-languageservice "^0.27.21"
     vscode-typescript-languageservice "^0.27.20"
 
-vue-form@^4.10.3:
-  version "4.10.3"
-  resolved "https://registry.yarnpkg.com/vue-form/-/vue-form-4.10.3.tgz#0172aa86cb751cb74bb0dc268b157a8eb0af3c4f"
-  integrity sha512-qkdgmbBIz9ZgQUvU3Wx/kttqGoVtUjXCDl7X0KzWqU9gKHG9aRqVZZyC0Bb9BtP3CjAnjDYTxUVt9vRxO3RFxA==
+vue-hooks-form@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/vue-hooks-form/-/vue-hooks-form-0.2.2.tgz#f43eb50c26f74c2342243feb643f7b1ff039ea0c"
+  integrity sha512-1k8KznS3W2pAJNkKKUz7uV0vAWRL2o2CJryqSBNeONToDDt1XQ6fGeWANfQF06BzCx0A9tJMbF65f6/k51RUqA==
   dependencies:
-    extend "3.0.2"
-    scope-eval "1.0.0"
+    async-validator "^3.4.0"
+    lodash.get "^4.4.2"
+    lodash.merge "^4.6.2"
+    lodash.set "^4.3.2"
+    lodash.setwith "^4.3.2"
+    lodash.topath "^4.5.2"
 
 vue-router@4:
   version "4.0.11"
@@ -1103,11 +1127,6 @@ vue-router@4:
   integrity sha512-sha6I8fx9HWtvTrFZfxZkiQQBpqSeT+UCwauYjkdOQYRvwsGwimlQQE2ayqUwuuXGzquFpCPoXzYKWlzL4OuXg==
   dependencies:
     "@vue/devtools-api" "^6.0.0-beta.14"
-
-vue-the-mask@^0.11.1:
-  version "0.11.1"
-  resolved "https://registry.yarnpkg.com/vue-the-mask/-/vue-the-mask-0.11.1.tgz#91ee01008354ae57bccc79bb61b65f32d971d9d5"
-  integrity sha512-UquSfnSWejD0zAfcD+3jJ1chUAkOAyoxya9Lxh9acCRtrlmGcAIvd0cQYraWqKenbuZJUdum+S174atv2AuEHQ==
 
 vue-tsc@^0.2.2:
   version "0.2.3"
@@ -1124,11 +1143,6 @@ vue@^3.2.6:
     "@vue/compiler-dom" "3.2.12"
     "@vue/runtime-dom" "3.2.12"
     "@vue/shared" "3.2.12"
-
-vuejs-storage@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/vuejs-storage/-/vuejs-storage-3.1.0.tgz#c65d55fa0287f3ac2df6388124b4b9025ce28abb"
-  integrity sha512-Xctkv9hSDaVRHcCJEvqQuBPdnXn4AI1GRXhJxTCR3MiudWlZZEXXPAmk0SEGtitlst1Pn2BR3VotgtNNjt0nxQ==
 
 vuex@^4.0.2:
   version "4.0.2"

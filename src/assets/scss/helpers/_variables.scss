@@ -1,18 +1,9 @@
-//---------- SUMMARY ----------//
-// BOOTSTRAP
-// COLORS
-// BODY
-// FONTS
-// CUSTOM
-// PLUGINS
-// ELEMENTS
-//---------- END SUMMARY ----------//
-
 //==============================
 // BOOTSTRAP
 //==============================
 
 // COLORS
+
 $gray-100: #f8f9fa;
 $gray-200: #e9ecef;
 $gray-300: #dee2e6;
@@ -34,7 +25,7 @@ $green: #37c991;
 $teal: #2cd5ce;
 $cyan: #5dd7ea;
 
-$primary: #dd0031;
+$primary: #41b883;
 $secondary: #628ee5;
 $success: $green;
 $info: $cyan;
@@ -44,10 +35,12 @@ $light: #eff3f6;
 $dark: #343a40;
 
 // BODY
+
 $body-bg: #f9f9f9;
 $body-color: $gray-700;
 
 // FONTS
+
 $font-family-base: 'Roboto', Arial, sans-serif;
 $font-size-base: 1rem;
 
@@ -56,16 +49,5 @@ $text-muted: $gray-600;
 //==============================
 // CUSTOM
 //==============================
-
-// PLUGINS
-
-// Pretty Checkbox
-$pretty--color-default: #bdc3c7;
-$pretty--color-primary: $primary;
-$pretty--color-info: $info;
-$pretty--color-success: $success;
-$pretty--color-warning: $warning;
-$pretty--color-danger: $danger;
-$pretty--color-dark: $dark;
 
 // ELEMENTS

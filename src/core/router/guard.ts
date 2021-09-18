@@ -7,7 +7,7 @@ const guard = (
   to: RouteLocationNormalized,
   from: RouteLocationNormalized,
   next: NavigationGuardNext,
-): void => {
+) => {
   const authToken = sessionStorage.getItem(AUTH_TOKEN_KEY) || localStorage.getItem(AUTH_TOKEN_KEY);
   const expiredSession =
     new Date().getTime() > Date.parse(localStorage.getItem(EXPIRATION_DATE_KEY) || '');

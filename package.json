@@ -11,10 +11,8 @@
     "axios": "^0.21.4",
     "bootstrap": "^5.1.1",
     "vue": "^3.2.6",
-    "vue-form": "^4.10.3",
+    "vue-hooks-form": "^0.2.2",
     "vue-router": "4",
-    "vue-the-mask": "^0.11.1",
-    "vuejs-storage": "^3.1.0",
     "vuex": "^4.0.2"
   },
   "devDependencies": {

@@ -1,18 +1,29 @@
 <template>
-  <button ref="teste" type="button" class="btn btn-primary" @click="modal.show()">
-    Launch demo modal
-  </button>
+  <!-- Binding -->
+  <input type="text" v-model="state.valor" />
+  <h1>{{ state.valor }}</h1>
 
-  <div class="modal fade" ref="modal" tabindex="-1" aria-hidden="true">
+  <!-- Componente -->
+  <AppAlertDismissible variant="primary" @dismiss="teste">Teste</AppAlertDismissible>
+
+  <!-- Modal -->
+  <button type="button" class="btn btn-primary" @click="modalRef.show">Launch demo modal</button>
+
+  <div class="modal fade" ref="modalRef" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" @click="modal.hide()" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            aria-label="Close"
+            @click="modalRef.hide"
+          ></button>
         </div>
         <div class="modal-body">Conteúdo aqui</div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="modal.hide()">Close</button>
+          <button type="button" class="btn btn-secondary" @click="modalRef.hide">Close</button>
           <button type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
@@ -21,14 +32,24 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 
 import { Modal } from 'bootstrap';
 
-let modal = ref();
+import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
+
+const state = reactive({
+  valor: '',
+});
+
+const modalRef = ref();
+
+const teste = () => {
+  console.log('Foi');
+};
 
 onMounted(() => {
-  modal.value = new Modal(modal.value);
+  modalRef.value = new Modal(modalRef.value);
 });
 </script>
 

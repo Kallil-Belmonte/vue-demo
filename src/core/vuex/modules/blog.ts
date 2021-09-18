@@ -24,11 +24,11 @@ const blog = {
     posts: [],
   },
   mutations: {
-    setCategories: (state: State, payload: Category[]): void => {
+    setCategories: (state: State, payload: Category[]) => {
       state.categories = payload;
     },
 
-    setPosts: (state: State, payload: Post[]): void => {
+    setPosts: (state: State, payload: Post[]) => {
       state.posts = payload;
     },
   },

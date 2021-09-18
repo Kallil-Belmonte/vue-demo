@@ -17,7 +17,7 @@ const post = {
     },
   },
   mutations: {
-    setCurrentPost: (state: State, payload: Post): void => {
+    setCurrentPost: (state: State, payload: Post) => {
       state.currentPost = payload;
     },
   },

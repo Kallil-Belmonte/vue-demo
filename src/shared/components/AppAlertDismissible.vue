@@ -1,34 +1,29 @@
 <template>
-  <div :class="`alert alert-${variant} alert-dismissible fade show`" role="alert">
+  <div :class="`alert alert-${$props.variant} alert-dismissible fade show`" role="alert">
     <slot />
-
     <button
       type="button"
-      class="close"
-      data-dismiss="alert"
+      class="btn-close"
+      data-bs-dismiss="alert"
       aria-label="Close"
       @click="$emit('dismiss')"
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
+    ></button>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+import { defineProps, defineEmits } from 'vue';
 
-export default defineComponent({
-  //==============================
-  // GENERAL
-  //==============================
-  name: 'AppAlertDismissible',
-  props: {
-    variant: {
-      type: String,
-      required: true,
-    },
+import { BOOTSTRAP_VARIANTS } from '@/shared/files/consts';
+
+const props = defineProps({
+  variant: {
+    type: String,
+    required: true,
+    validator: (value: string) => BOOTSTRAP_VARIANTS.includes(value),
   },
 });
+const emits = defineEmits(['dismiss']);
 </script>
 
 <style lang="scss" scoped>

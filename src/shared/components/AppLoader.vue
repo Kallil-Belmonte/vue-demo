@@ -8,17 +8,6 @@
   </section>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  //==============================
-  // GENERAL
-  //==============================
-  name: 'AppLoader',
-});
-</script>
-
 <style lang="scss" scoped>
 @import '../../assets/scss/helpers/helpers';
 

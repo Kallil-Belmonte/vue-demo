@@ -1,3 +1,7 @@
+/**
+ * @name validations
+ */
+
 // required
 export const required = (value: string): boolean => !!value;
 

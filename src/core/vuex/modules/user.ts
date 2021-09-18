@@ -23,12 +23,12 @@ const user = {
     fullName: (state: State): string => `${state.data.firstName} ${state.data.lastName}`,
   },
   mutations: {
-    setData: (state: State, payload: Data): void => {
+    setData: (state: State, payload: Data) => {
       const { firstName, lastName, email } = payload;
       state.data = { firstName, lastName, email };
     },
 
-    resetData: (state: State): void => {
+    resetData: (state: State) => {
       state.data = {
         firstName: '',
         lastName: '',

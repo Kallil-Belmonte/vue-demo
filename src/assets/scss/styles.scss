@@ -2,25 +2,16 @@
 HELPERS
 ==============================*/
 
-@import "helpers/helpers";
-
+@import 'helpers/helpers';
 
 /*==============================
 BOOTSTRAP
 ==============================*/
 
-@import "../../../node_modules/bootstrap/scss/bootstrap";
-
-
-/*==============================
-PLUGINS
-==============================*/
-
-@import "plugins/plugins";
-
+@import '../../../node_modules/bootstrap/scss/bootstrap';
 
 /*==============================
 LAYOUT
 ==============================*/
 
-@import "layout/layout";
+@import 'layout/layout';

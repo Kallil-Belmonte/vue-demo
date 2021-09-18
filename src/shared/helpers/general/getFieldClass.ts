@@ -1,7 +1,5 @@
 /**
- * getFieldClass
- * @param { any } field
- * @param { string[] } customClass
+ * @name getFieldClass
  */
 
 export const getFieldClass = (field: any, customClass: string[] = []): string[] => {
