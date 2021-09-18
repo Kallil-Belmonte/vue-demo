@@ -57,5 +57,3 @@ onMounted(() => {
   modalRef.value = new Modal(modalRef.value);
 });
 </script>
-
-<style lang="scss" scoped></style>
