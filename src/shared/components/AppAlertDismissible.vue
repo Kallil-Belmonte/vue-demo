@@ -12,8 +12,6 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, defineEmits } from 'vue';
-
 import { BOOTSTRAP_VARIANTS } from '@/shared/files/consts';
 
 const props = defineProps({
@@ -23,6 +21,7 @@ const props = defineProps({
     validator: (value: string) => BOOTSTRAP_VARIANTS.includes(value),
   },
 });
+
 const emits = defineEmits(['dismiss']);
 </script>
 

@@ -4,7 +4,8 @@
   <h1>{{ state.valor }}</h1>
 
   <!-- Componente -->
-  <AppAlertDismissible variant="primary" @dismiss="teste">Teste</AppAlertDismissible>
+  <!-- <AppAlertDismissible variant="primary">Conteúdo</AppAlertDismissible> -->
+  <!-- <AppPageHeader icon="HomeSolid">Page Header</AppPageHeader> -->
 
   <!-- Modal -->
   <button type="button" class="btn btn-primary" @click="modalRef.show">Launch demo modal</button>
@@ -36,7 +37,14 @@ import { ref, reactive, onMounted } from 'vue';
 
 import { Modal } from 'bootstrap';
 
-import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
+// import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
+// import AppPageHeader from '@/shared/components/AppPageHeader.vue';
+
+const props = defineProps({
+  icon: {
+    type: String,
+  },
+});
 
 const state = reactive({
   valor: '',
@@ -44,10 +52,7 @@ const state = reactive({
 
 const modalRef = ref();
 
-const teste = () => {
-  console.log('Foi');
-};
-
+// LIFECYCLE HOOKS
 onMounted(() => {
   modalRef.value = new Modal(modalRef.value);
 });

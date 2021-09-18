@@ -1,25 +1,19 @@
 <template>
   <section class="page-header">
-    <font-awesome-icon v-if="icon" :icon="icon" class="icon d-block mx-auto" />
+    <AppIcon v-if="icon" class="d-block mx-auto" :icon="icon" :width="32" />
+
     <h1 class="title">
       <slot />
     </h1>
   </section>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+import AppIcon from './AppIcon/AppIcon.vue';
 
-export default defineComponent({
-  //==============================
-  // GENERAL
-  //==============================
-  name: 'AppPageHeader',
-  props: {
-    icon: {
-      type: String,
-      required: true,
-    },
+const props = defineProps({
+  icon: {
+    type: String,
   },
 });
 </script>
@@ -27,7 +21,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 .page-header {
   .icon {
-    font-size: 32px;
     margin-bottom: 15px;
   }
 
