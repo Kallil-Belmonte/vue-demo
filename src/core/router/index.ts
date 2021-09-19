@@ -90,7 +90,7 @@ const router = createRouter({
       meta: {
         title: 'Not Found',
       },
-      component: () => import('@/ModalExemplo.vue'),
+      component: () => import('@/pages/Exemplo.vue'),
     },
   ],
 });
