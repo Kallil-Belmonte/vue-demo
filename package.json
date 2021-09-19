@@ -1,6 +1,7 @@
 {
   "name": "vue-demo",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
@@ -8,7 +9,6 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.10.1",
-    "axios": "^0.21.4",
     "bootstrap": "^5.1.1",
     "vue": "^3.2.6",
     "vue-hooks-form": "^0.2.2",
@@ -18,11 +18,12 @@
   "devDependencies": {
     "@rollup/plugin-alias": "^3.1.5",
     "@types/bootstrap": "^5.1.5",
-    "@vitejs/plugin-vue": "^1.6.1",
-    "@vue/compiler-sfc": "^3.2.6",
+    "@vitejs/plugin-vue": "^1.8.0",
+    "@vue/compiler-sfc": "^3.2.12",
+    "path": "^0.12.7",
     "sass": "^1.41.1",
     "typescript": "^4.3.2",
-    "vite": "^2.5.4",
-    "vue-tsc": "^0.2.2"
+    "vite": "^2.5.10",
+    "vue-tsc": "^0.3.0"
   }
 }

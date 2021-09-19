@@ -39,6 +39,7 @@ import { Modal } from 'bootstrap';
 
 // import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
 // import AppPageHeader from '@/shared/components/AppPageHeader.vue';
+import { getPosts } from '@/core/services';
 
 const props = defineProps({
   icon: {
@@ -53,7 +54,10 @@ const state = reactive({
 const modalRef = ref();
 
 // LIFECYCLE HOOKS
-onMounted(() => {
+onMounted(async () => {
   modalRef.value = new Modal(modalRef.value);
+
+  const response = await getPosts();
+  console.log(response);
 });
 </script>
