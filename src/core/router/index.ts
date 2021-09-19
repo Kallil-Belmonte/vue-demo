@@ -7,7 +7,7 @@ const router = createRouter({
   routes: [
     // {
     //   path: '/',
-    //   component: () => import('@/layout/Dashboard.vue'),
+    //   component: () => import('src/layout/Dashboard.vue'),
     //   beforeEnter: guard,
     //   children: [
     //     {
@@ -16,7 +16,7 @@ const router = createRouter({
     //       meta: {
     //         title: 'Home',
     //       },
-    //       component: () => import('@/pages/Home/Home.vue'),
+    //       component: () => import('src/pages/Home/Home.vue'),
     //     },
     //     {
     //       path: '/blog',
@@ -24,7 +24,7 @@ const router = createRouter({
     //       meta: {
     //         title: 'Blog',
     //       },
-    //       component: () => import('@/pages/News/Blog/Blog.vue'),
+    //       component: () => import('src/pages/News/Blog/Blog.vue'),
     //     },
     //     {
     //       path: '/post/:id',
@@ -32,7 +32,7 @@ const router = createRouter({
     //       meta: {
     //         title: 'Post',
     //       },
-    //       component: () => import('@/pages/News/Post/Post.vue'),
+    //       component: () => import('src/pages/News/Post/Post.vue'),
     //     },
     //     {
     //       path: '/edit-post/:id',
@@ -40,7 +40,7 @@ const router = createRouter({
     //       meta: {
     //         title: 'Edit Post',
     //       },
-    //       component: () => import('@/pages/News/EditPost/EditPost.vue'),
+    //       component: () => import('src/pages/News/EditPost/EditPost.vue'),
     //     },
     //     {
     //       path: '/contact',
@@ -48,7 +48,7 @@ const router = createRouter({
     //       meta: {
     //         title: 'Contact',
     //       },
-    //       component: () => import('@/pages/Contact/Contact.vue'),
+    //       component: () => import('src/pages/Contact/Contact.vue'),
     //     },
     //     {
     //       path: '/account',
@@ -56,7 +56,7 @@ const router = createRouter({
     //       meta: {
     //         title: 'Account',
     //       },
-    //       component: () => import('@/pages/Account/Account.vue'),
+    //       component: () => import('src/pages/Account/Account.vue'),
     //     },
     //   ],
     // },
@@ -66,7 +66,7 @@ const router = createRouter({
     //   meta: {
     //     title: 'Login',
     //   },
-    //   component: () => import('@/pages/Auth/Login/Login.vue'),
+    //   component: () => import('src/pages/Auth/Login/Login.vue'),
     // },
     // {
     //   path: '/register',
@@ -74,7 +74,7 @@ const router = createRouter({
     //   meta: {
     //     title: 'Register',
     //   },
-    //   component: () => import('@/pages/Auth/Register/Register.vue'),
+    //   component: () => import('src/pages/Auth/Register/Register.vue'),
     // },
     // {
     //   path: '/:pathMatch(.*)*',
@@ -82,7 +82,7 @@ const router = createRouter({
     //   meta: {
     //     title: 'Not Found',
     //   },
-    //   component: () => import('@/pages/NotFound/NotFound.vue'),
+    //   component: () => import('src/pages/NotFound/NotFound.vue'),
     // },
     {
       path: '/:pathMatch(.*)*',
@@ -90,7 +90,7 @@ const router = createRouter({
       meta: {
         title: 'Not Found',
       },
-      component: () => import('@/ModalExemplo.vue'),
+      component: () => import('src/ModalExemplo.vue'),
     },
   ],
 });

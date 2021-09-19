@@ -8,24 +8,15 @@
 <script lang="ts" setup>
 import { shallowRef, onMounted } from 'vue';
 
-const props = defineProps({
-  class: {
-    type: String,
-  },
-  icon: {
-    type: String,
-    required: true,
-  },
-  width: {
-    type: Number,
-  },
-  height: {
-    type: Number,
-  },
-  fill: {
-    type: String,
-  },
-});
+type Props = {
+  class?: string;
+  icon: string;
+  width?: number;
+  height?: number;
+  fill?: string;
+};
+
+const props = defineProps<Props>();
 
 const iconComponent = shallowRef();
 

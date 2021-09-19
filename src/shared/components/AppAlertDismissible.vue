@@ -12,16 +12,13 @@
 </template>
 
 <script lang="ts" setup>
-import { BOOTSTRAP_VARIANTS } from '@/shared/files/consts';
+import { BootstrapVariants } from 'src/shared/files/types';
 
-const props = defineProps({
-  variant: {
-    type: String,
-    required: true,
-    validator: (value: string) => BOOTSTRAP_VARIANTS.includes(value),
-  },
-});
+type Props = {
+  variant: BootstrapVariants;
+};
 
+const props = defineProps<Props>();
 const emits = defineEmits(['dismiss']);
 </script>
 

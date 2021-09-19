@@ -1,4 +1,4 @@
-import { PROJECT_TITLE } from '@/shared/files/consts';
+import { PROJECT_TITLE } from 'src/shared/files/consts';
 
 /**
  * @name setPageTitle

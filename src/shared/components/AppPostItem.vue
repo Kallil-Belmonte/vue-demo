@@ -14,14 +14,14 @@
 </template>
 
 <script lang="ts" setup>
-import { limitWords } from '@/shared/helpers';
+import { Post } from 'src/core/state/blog';
+import { limitWords } from 'src/shared/helpers';
 
-const props = defineProps({
-  post: {
-    type: Object,
-    required: true,
-  },
-});
+type Props = {
+  post: Post;
+};
+
+const props = defineProps<Props>();
 
 defineExpose({
   limitWords,

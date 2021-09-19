@@ -6,7 +6,7 @@
   <!-- Componente -->
   <!-- <AppAlertDismissible variant="primary">Conteúdo</AppAlertDismissible> -->
   <!-- <AppPageHeader icon="HomeSolid">Page Header</AppPageHeader> -->
-  <!-- <AppPostItem :post="state.post"></AppPostItem> -->
+  <!-- <AppPostItem :post="state.post" /> -->
 
   <!-- Modal -->
   <button type="button" class="btn btn-primary" @click="modalRef.show">Launch demo modal</button>
@@ -38,16 +38,10 @@ import { ref, reactive, onMounted } from 'vue';
 
 import { Modal } from 'bootstrap';
 
-// import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
-// import AppPageHeader from '@/shared/components/AppPageHeader.vue';
-// import AppPostItem from '@/shared/components/AppPostItem.vue';
-// import { getPosts } from '@/core/services';
-
-const props = defineProps({
-  icon: {
-    type: String,
-  },
-});
+// import AppAlertDismissible from 'src/shared/components/AppAlertDismissible.vue';
+// import AppPageHeader from 'src/shared/components/AppPageHeader.vue';
+// import AppPostItem from 'src/shared/components/AppPostItem.vue';
+// import { getPosts } from 'src/core/services';
 
 const state = reactive({
   valor: '',

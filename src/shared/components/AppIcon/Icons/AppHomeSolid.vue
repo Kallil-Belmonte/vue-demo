@@ -19,19 +19,14 @@
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
-  class: {
-    type: String,
-  },
-  width: {
-    type: Number,
-  },
-  height: {
-    type: Number,
-  },
-  fill: {
-    type: String,
-    default: 'currentColor',
-  },
+type Props = {
+  class?: string;
+  width?: number;
+  height?: number;
+  fill?: string;
+};
+
+const props = withDefaults(defineProps<Props>(), {
+  fill: 'currentColor',
 });
 </script>

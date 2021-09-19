@@ -11,11 +11,11 @@
 <script lang="ts" setup>
 import AppIcon from './AppIcon/AppIcon.vue';
 
-const props = defineProps({
-  icon: {
-    type: String,
-  },
-});
+type Props = {
+  icon: string;
+};
+
+const props = defineProps<Props>();
 </script>
 
 <style lang="scss" scoped>
