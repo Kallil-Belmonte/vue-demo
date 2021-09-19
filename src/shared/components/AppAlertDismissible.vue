@@ -1,12 +1,12 @@
 <template>
-  <div :class="`alert alert-${$props.variant} alert-dismissible fade show`" role="alert">
+  <div :class="`alert alert-${variant} alert-dismissible fade show`" role="alert">
     <slot />
     <button
       type="button"
       class="btn-close"
       data-bs-dismiss="alert"
       aria-label="Close"
-      @click="$emit('dismiss')"
+      @click="emits('dismiss')"
     ></button>
   </div>
 </template>

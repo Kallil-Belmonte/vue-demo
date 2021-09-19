@@ -1,7 +1,7 @@
 <template>
   <component
     :is="iconComponent"
-    v-bind="{ class: $props.class, width: $props.width, height: $props.height, fill: $props.fill }"
+    v-bind="{ class: $props.class, width: width, height: height, fill: fill }"
   ></component>
 </template>
 
