@@ -6,6 +6,7 @@
   <!-- Componente -->
   <!-- <AppAlertDismissible variant="primary">Conteúdo</AppAlertDismissible> -->
   <!-- <AppPageHeader icon="HomeSolid">Page Header</AppPageHeader> -->
+  <AppPostItem :post="state.post"></AppPostItem>
 
   <!-- Modal -->
   <button type="button" class="btn btn-primary" @click="modalRef.show">Launch demo modal</button>
@@ -39,7 +40,8 @@ import { Modal } from 'bootstrap';
 
 // import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
 // import AppPageHeader from '@/shared/components/AppPageHeader.vue';
-import { getPosts } from '@/core/services';
+// import AppPostItem from '@/shared/components/AppPostItem.vue';
+// import { getPosts } from '@/core/services';
 
 const props = defineProps({
   icon: {
@@ -49,6 +51,12 @@ const props = defineProps({
 
 const state = reactive({
   valor: '',
+  post: {
+    userId: 1,
+    id: 1,
+    title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+    body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto',
+  },
 });
 
 const modalRef = ref();
@@ -56,8 +64,5 @@ const modalRef = ref();
 // LIFECYCLE HOOKS
 onMounted(async () => {
   modalRef.value = new Modal(modalRef.value);
-
-  const response = await getPosts();
-  console.log(response);
 });
 </script>

@@ -1,8 +1,8 @@
 import { createApp } from 'vue';
 
+import App from '@/App.vue';
 import store from '@/core/vuex/store';
 import router from '@/core/router';
-import App from '@/App.vue';
 import '@/assets/scss/styles.scss';
 
 // APP

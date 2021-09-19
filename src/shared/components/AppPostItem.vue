@@ -13,35 +13,18 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
+<script lang="ts" setup>
 import { limitWords } from '@/shared/helpers';
 
-type Data = {
-  limitWords: (value: string, numberOfWords: number) => string;
-};
-
-export default defineComponent({
-  //==============================
-  // GENERAL
-  //==============================
-  name: 'AppPostItem',
-  props: {
-    post: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  post: {
+    type: Object,
+    required: true,
   },
+});
 
-  //==============================
-  // DATA
-  //==============================
-  data(): Data {
-    return {
-      limitWords,
-    };
-  },
+defineExpose({
+  limitWords,
 });
 </script>
 
