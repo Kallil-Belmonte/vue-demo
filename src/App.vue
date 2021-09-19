@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-// import { capitalizeFirstLetter, setPageTitle } from 'src/shared/helpers';
+// import { capitalizeFirstLetter, setPageTitle } from '@/shared/helpers';
 
 // VER ISSO: https://www.freecodecamp.org/news/build-accessible-vue-applications/
 // const onSetPageTitle = () => {

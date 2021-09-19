@@ -38,10 +38,10 @@ import { ref, reactive, onMounted } from 'vue';
 
 import { Modal } from 'bootstrap';
 
-// import AppAlertDismissible from 'src/shared/components/AppAlertDismissible.vue';
-// import AppPageHeader from 'src/shared/components/AppPageHeader.vue';
-// import AppPostItem from 'src/shared/components/AppPostItem.vue';
-// import { getPosts } from 'src/core/services';
+// import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
+// import AppPageHeader from '@/shared/components/AppPageHeader.vue';
+// import AppPostItem from '@/shared/components/AppPostItem.vue';
+// import { getPosts } from '@/core/services';
 
 const state = reactive({
   valor: '',

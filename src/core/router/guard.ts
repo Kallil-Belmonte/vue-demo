@@ -1,6 +1,6 @@
 import { RouteLocationNormalized, NavigationGuardNext } from 'vue-router/dist/vue-router.d';
 
-import { AUTH_TOKEN_KEY, EXPIRATION_DATE_KEY } from 'src/shared/files/consts';
+import { AUTH_TOKEN_KEY, EXPIRATION_DATE_KEY } from '@/shared/files/consts';
 
 const clearStorageData = () => {
   sessionStorage.removeItem(AUTH_TOKEN_KEY);
