@@ -6,7 +6,7 @@
   <!-- Componente -->
   <!-- <AppAlertDismissible variant="primary">Conteúdo</AppAlertDismissible> -->
   <!-- <AppPageHeader icon="HomeSolid">Page Header</AppPageHeader> -->
-  <AppPostItem :post="state.post"></AppPostItem>
+  <!-- <AppPostItem :post="state.post"></AppPostItem> -->
 
   <!-- Modal -->
   <button type="button" class="btn btn-primary" @click="modalRef.show">Launch demo modal</button>
