@@ -12,8 +12,7 @@
     "bootstrap": "^5.1.1",
     "vue": "^3.2.6",
     "vue-hooks-form": "^0.2.2",
-    "vue-router": "4",
-    "vuex": "^4.0.2"
+    "vue-router": "4"
   },
   "devDependencies": {
     "@rollup/plugin-alias": "^3.1.5",
