@@ -22,10 +22,6 @@ type Props = {
 };
 
 const props = defineProps<Props>();
-
-defineExpose({
-  limitWords,
-});
 </script>
 
 <style lang="scss" scoped>

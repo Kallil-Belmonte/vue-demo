@@ -60,14 +60,14 @@ const router = createRouter({
     //     },
     //   ],
     // },
-    // {
-    //   path: '/login',
-    //   name: 'login',
-    //   meta: {
-    //     title: 'Login',
-    //   },
-    //   component: () => import('@/pages/Auth/Login/Login.vue'),
-    // },
+    {
+      path: '/login',
+      name: 'login',
+      meta: {
+        title: 'Login',
+      },
+      component: () => import('@/pages/Auth/Login/Login.vue'),
+    },
     // {
     //   path: '/register',
     //   name: 'register',

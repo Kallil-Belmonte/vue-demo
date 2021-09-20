@@ -2,8 +2,8 @@
 export { default as groupArrayItemsInArrays } from './array/groupArrayItemsInArrays';
 
 // GENERAL
-export { default as clearFormMessage } from './general/clearFormMessage';
-export { default as getFieldClass } from './general/getFieldClass';
+export { getFieldClass } from './general/form';
+export { default as getAuthToken } from './general/getAuthToken';
 export { default as setPageTitle } from './general/setPageTitle';
 export * from './general/validations';
 

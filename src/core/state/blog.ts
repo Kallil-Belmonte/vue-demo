@@ -8,6 +8,7 @@ export type Category = {
 export type Post = {
   userId: number;
   id: number;
+  image?: string;
   title: string;
   body: string;
 };

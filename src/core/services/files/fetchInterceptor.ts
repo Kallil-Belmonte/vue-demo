@@ -6,7 +6,7 @@ const fetchInterceptor = async () => {
   window.fetch = async (input, init = {}) => {
     const authToken =
       sessionStorage.getItem('authTokenVueDemo') || localStorage.getItem('authTokenVueDemo');
-    let url = `${input}`;
+    const url = `${input}`;
 
     if (url.includes(JSON_PLACEHOLDER_URL)) {
       // url = `${url}?authKey=${authToken}`;
