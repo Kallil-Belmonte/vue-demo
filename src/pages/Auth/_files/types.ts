@@ -1,6 +1,6 @@
 import { VueHooksFormField } from '@/shared/files/types';
 
-export type FormState = {
+export type LoginFormState = {
   isLoading: boolean;
   email: VueHooksFormField;
   password: VueHooksFormField;
@@ -9,4 +9,8 @@ export type FormState = {
     email: string[];
     password: string[];
   };
+};
+
+export type RegisterFormState = {
+  isLoading: boolean;
 };

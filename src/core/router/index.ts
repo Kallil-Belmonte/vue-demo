@@ -68,14 +68,14 @@ const router = createRouter({
       },
       component: () => import('@/pages/Auth/Login/Login.vue'),
     },
-    // {
-    //   path: '/register',
-    //   name: 'register',
-    //   meta: {
-    //     title: 'Register',
-    //   },
-    //   component: () => import('@/pages/Auth/Register/Register.vue'),
-    // },
+    {
+      path: '/register',
+      name: 'register',
+      meta: {
+        title: 'Register',
+      },
+      component: () => import('@/pages/Auth/Register/Register.vue'),
+    },
     // {
     //   path: '/:pathMatch(.*)*',
     //   name: 'not-found',

@@ -6,6 +6,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:vue/vue3-recommended',
+    '@vue/standard',
   ],
   rules: {
     'no-duplicate-imports': ['error', { includeExports: true }],

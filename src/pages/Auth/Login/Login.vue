@@ -1,55 +1,166 @@
 <template>
-  <main>
-    <div class="container">
-      <img class="logo d-block mx-auto" alt="Vue" src="@/assets/logo.svg" />
+  <Auth>
+    <AppLoader v-if="isLoading" />
 
-      <div class="row">
-        <div class="col-md-6 offset-md-3">
-          <Form />
-          <p class="disclaimer text-center mt-2 mb-0">Use any e-mail and password</p>
-          <p class="disclaimer text-center mb-0">
-            To see the error alerts use the e-mail: demo@demo.com
-          </p>
+    <form class="login-form" @submit.prevent="submit">
+      <h1 class="page-title">Login</h1>
+
+      <div class="mb-3">
+        <label class="form-label" for="email">Email address</label>
+        <input
+          id="email"
+          :class="getFieldClass(email)"
+          type="email"
+          v-model="email.value"
+          ref="email.ref"
+        />
+        <div class="invalid-feedback" v-if="email.error">
+          {{ email.error?.message }}
         </div>
       </div>
-    </div>
-  </main>
+
+      <AppAlertDismissible
+        v-for="(errorMessage, index) in serverErrors.email"
+        :key="errorMessage"
+        variant="danger"
+        @dismiss="clearFormMessage(serverErrors.email, index)"
+      >
+        {{ errorMessage }}
+      </AppAlertDismissible>
+
+      <div class="mb-3">
+        <label class="form-label" for="password">Password</label>
+        <input
+          id="password"
+          :class="getFieldClass(password)"
+          type="password"
+          v-model="password.value"
+          ref="password.ref"
+        />
+        <div class="invalid-feedback" v-if="password.error">
+          {{ password.error?.message }}
+        </div>
+      </div>
+
+      <AppAlertDismissible
+        v-for="(errorMessage, index) in serverErrors.password"
+        :key="errorMessage"
+        variant="danger"
+        @dismiss="clearFormMessage(serverErrors.password, index)"
+      >
+        {{ errorMessage }}
+      </AppAlertDismissible>
+
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="keep-logged"
+          v-model="keepLogged.value"
+          ref="keepLogged.ref"
+        />
+        <label class="form-check-label" for="keep-logged">Keep Logged</label>
+      </div>
+
+      <button class="btn btn-primary d-block mx-auto" type="submit">Login</button>
+
+      <!-- <div class="text-center">
+      <hr class="mt-4" />
+      Don't have an account? <router-link to="/register">Register</router-link>
+    </div> -->
+    </form>
+  </Auth>
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from 'vue';
+console.log('DESCOMENTAR O HTML DE CIMA');
+import { reactive, toRefs } from 'vue';
 
 import { useRouter } from 'vue-router';
+import { useForm } from 'vue-hooks-form';
 
-import { EXPIRATION_DATE_KEY } from '@/shared/files/consts';
-import { getAuthToken } from '@/shared/helpers';
-import Form from './Form/Form.vue';
+import { LoginFormState } from '@/pages/Auth/_files/types';
+import { AUTH_TOKEN_KEY, EXPIRATION_DATE_KEY } from '@/shared/files/consts';
+import { LoginUserPayload } from '@/core/services/auth/types';
+import { getFieldClass, clearFormMessage } from '@/shared/helpers';
+import { loginUser } from '@/core/services';
+import { setUser } from '@/core/state/auth';
+import AppLoader from '@/shared/components/AppLoader.vue';
+import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
+import Auth from '../Auth.vue';
 
 const router = useRouter();
 
-const redirectLoggedUser = () => {
-  const expiredSession: boolean =
-    new Date().getTime() > Date.parse(localStorage.getItem(EXPIRATION_DATE_KEY) || '');
+const { useField } = useForm({
+  defaultValues: {},
+});
 
-  if (getAuthToken() && !expiredSession) {
-    console.log('DESCOMENTAR ESSA LINHA DE BAIXO');
-    // router.push('/');
+const state = reactive<LoginFormState>({
+  isLoading: false,
+  email: useField('email', {
+    rule: { required: true },
+  }),
+  password: useField('password', {
+    rule: {
+      required: true,
+      min: 3,
+    },
+  }),
+  keepLogged: useField('keepLogged'),
+  serverErrors: { email: [], password: [] },
+});
+const { isLoading, email, password, keepLogged, serverErrors } = toRefs(state);
+
+const submit = async () => {
+  isLoading.value = true;
+  serverErrors.value = { email: [], password: [] };
+
+  const payload: LoginUserPayload = {
+    email: state.email.value,
+    password: state.password.value,
+    keepLogged: state.keepLogged.value,
+  };
+
+  try {
+    const response = await loginUser(payload);
+    const { token, expiresIn, firstName, lastName, email } = response;
+
+    const expirationDate = new Date(new Date().getTime() + Number(expiresIn) * 1000).toISOString();
+
+    isLoading.value = false;
+
+    if (state.email.value === 'demo@demo.com') {
+      state.serverErrors.email.push('This e-mail does not exists.');
+      state.serverErrors.password.push('The password is incorrect.');
+    } else {
+      if (state.keepLogged.value) {
+        localStorage.setItem(AUTH_TOKEN_KEY, token);
+        localStorage.setItem(EXPIRATION_DATE_KEY, expirationDate);
+      } else {
+        sessionStorage.setItem(AUTH_TOKEN_KEY, token);
+      }
+
+      setUser({ firstName, lastName, email });
+      router.push({ name: 'home' });
+    }
+  } catch (error) {
+    console.error(error);
+    isLoading.value = false;
   }
 };
-
-// LIFECYCLE HOOKS
-onMounted(() => {
-  redirectLoggedUser();
-});
 </script>
 
 <style lang="scss" scoped>
-.logo {
-  height: 100px;
+.login-form {
+  padding: 40px 40px 15px 40px;
+  border-radius: 10px;
+  background-color: #fff;
   margin-top: 50px;
-}
 
-.disclaimer {
-  font-size: 12px;
+  .page-title {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+  }
 }
 </style>
