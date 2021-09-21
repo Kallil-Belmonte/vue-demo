@@ -62,18 +62,26 @@
         <label class="form-check-label" for="keep-logged">Keep Logged</label>
       </div>
 
+      <AppAlertDismissible
+        v-for="(errorMessage, index) in serverErrors.request"
+        :key="errorMessage"
+        variant="danger"
+        @dismiss="clearFormMessage(serverErrors.request, index)"
+      >
+        {{ errorMessage }}
+      </AppAlertDismissible>
+
       <button class="btn btn-primary d-block mx-auto" type="submit">Login</button>
 
-      <!-- <div class="text-center">
-      <hr class="mt-4" />
-      Don't have an account? <router-link to="/register">Register</router-link>
-    </div> -->
+      <div class="text-center">
+        <hr class="mt-4" />
+        Don't have an account? <router-link to="/register">Register</router-link>
+      </div>
     </form>
   </Auth>
 </template>
 
 <script lang="ts" setup>
-console.log('DESCOMENTAR O HTML DE CIMA');
 import { reactive, toRefs } from 'vue';
 
 import { useRouter } from 'vue-router';
@@ -107,27 +115,25 @@ const state = reactive<LoginFormState>({
     },
   }),
   keepLogged: useField('keepLogged'),
-  serverErrors: { email: [], password: [] },
+  serverErrors: { email: [], password: [], request: [] },
 });
 const { isLoading, email, password, keepLogged, serverErrors } = toRefs(state);
 
 const submit = async () => {
   isLoading.value = true;
-  serverErrors.value = { email: [], password: [] };
-
-  const payload: LoginUserPayload = {
-    email: state.email.value,
-    password: state.password.value,
-    keepLogged: state.keepLogged.value,
-  };
+  serverErrors.value = { email: [], password: [], request: [] };
 
   try {
+    const payload: LoginUserPayload = {
+      email: state.email.value,
+      password: state.password.value,
+      keepLogged: state.keepLogged.value,
+    };
+
     const response = await loginUser(payload);
     const { token, expiresIn, firstName, lastName, email } = response;
 
     const expirationDate = new Date(new Date().getTime() + Number(expiresIn) * 1000).toISOString();
-
-    isLoading.value = false;
 
     if (state.email.value === 'demo@demo.com') {
       state.serverErrors.email.push('This e-mail does not exists.');
@@ -143,8 +149,9 @@ const submit = async () => {
       setUser({ firstName, lastName, email });
       router.push({ name: 'home' });
     }
-  } catch (error) {
-    console.error(error);
+  } catch (error: any) {
+    state.serverErrors.request.push(error.message);
+  } finally {
     isLoading.value = false;
   }
 };

@@ -10,7 +10,7 @@ const { stringify } = JSON;
 
 export const registerUser = async (body: RegisterUserPayload): Promise<RegisterUserResponse> => {
   try {
-    const response = await fetch(`${MOCKY_URL}/937dd5d6-8b1d-4e6e-8ae6-52ce820d6983`, {
+    const response = await fetch(`${MOCKY_URL}/97336d76-9f9a-4aa4-bd4a-e3e2170decb7`, {
       method: 'POST',
       body: stringify(body),
     });

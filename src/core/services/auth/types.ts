@@ -11,7 +11,7 @@ export type RegisterUserResponse = {
   firstName: string;
   lastName: string;
   email: string;
-  idToken: string;
+  token: string;
   registered: true;
   refreshToken: string;
   expiresIn: string;

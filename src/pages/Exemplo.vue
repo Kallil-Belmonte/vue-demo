@@ -4,7 +4,7 @@
   <h1>{{ state.valor }}</h1>
 
   <!-- Componente -->
-  <!-- <AppAlertDismissible variant="primary">Conteúdo</AppAlertDismissible> -->
+  <AppAlertDismissible variant="primary">Conteúdo</AppAlertDismissible>
   <!-- <AppPageHeader icon="HomeSolid">Page Header</AppPageHeader> -->
   <!-- <AppPostItem :post="state.post" /> -->
 
@@ -38,7 +38,7 @@ import { ref, reactive, onMounted } from 'vue';
 
 import { Modal } from 'bootstrap';
 
-// import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
+import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
 // import AppPageHeader from '@/shared/components/AppPageHeader.vue';
 // import AppPostItem from '@/shared/components/AppPostItem.vue';
 // import { getPosts } from '@/core/services';
