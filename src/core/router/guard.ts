@@ -8,10 +8,10 @@ const guard = (
   from: RouteLocationNormalized,
   next: NavigationGuardNext,
 ) => {
-  const expiredSession =
+  const isExpiredSession =
     new Date().getTime() > Date.parse(localStorage.getItem(EXPIRATION_DATE_KEY) || '');
 
-  if (getAuthToken() && !expiredSession) {
+  if (getAuthToken() && !isExpiredSession) {
     next();
   } else {
     clearStorageData();

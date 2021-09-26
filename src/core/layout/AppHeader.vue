@@ -42,20 +42,39 @@
 </template>
 
 <script lang="ts" setup>
+import { onMounted } from 'vue';
+
 import { useRouter } from 'vue-router';
 
 import { PROJECT_TITLE } from '@/shared/files/consts';
 import { clearStorageData } from '@/shared/helpers';
-import { fullName, resetUser } from '@/core/state/auth';
+import { fullName, setUser, resetUser } from '@/core/state/auth';
+import { getUser } from '@/core/services/auth';
 import AppIcon from '@/shared/components/AppIcon/AppIcon.vue';
 
 const router = useRouter();
+
+const getUserData = async () => {
+  if (fullName.value.trim()) return;
+
+  try {
+    const response = await getUser('id');
+    setUser(response);
+  } catch (error: any) {
+    console.error(error.message);
+  }
+};
 
 const logOut = () => {
   clearStorageData();
   resetUser();
   router.push({ name: 'login' });
 };
+
+// LIFECYCLE HOOKS
+onMounted(async () => {
+  getUserData();
+});
 </script>
 
 <style lang="scss" scoped>

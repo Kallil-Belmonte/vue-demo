@@ -30,3 +30,9 @@ export type LoginUser = {
   token: string;
   expiresIn: string;
 };
+
+export type User = {
+  firstName: string;
+  lastName: string;
+  email: string;
+};

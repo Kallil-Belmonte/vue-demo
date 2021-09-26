@@ -56,7 +56,7 @@ const state = reactive({
 const modalRef = ref();
 
 // LIFECYCLE HOOKS
-onMounted(async () => {
+onMounted(() => {
   modalRef.value = new Modal(modalRef.value);
 });
 </script>

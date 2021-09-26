@@ -3,17 +3,16 @@
 </template>
 
 <script setup lang="ts">
-// import { capitalizeFirstLetter, setPageTitle } from '@/shared/helpers';
+import { useRouter } from 'vue-router';
 
-// VER ISSO: https://www.freecodecamp.org/news/build-accessible-vue-applications/
-// const onSetPageTitle = () => {
-// this.$router.afterEach(to => {
-//   const { name } = to;
-//   if (name) {
-//     const pageUrl: string = String(name).split('-').join(' ');
-//     const urlName: string = capitalizeFirstLetter(pageUrl);
-//     setPageTitle(urlName);
-//   }
-// });
-// };
+import { setPageTitle } from '@/shared/helpers';
+
+const router = useRouter();
+
+router.afterEach(to => {
+  const {
+    meta: { title },
+  } = to;
+  setPageTitle(String(title));
+});
 </script>

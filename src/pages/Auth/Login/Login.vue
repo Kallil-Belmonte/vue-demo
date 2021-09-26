@@ -130,8 +130,7 @@ const submit = async () => {
       keepLogged: state.keepLogged.value,
     };
 
-    const response = await loginUser(payload);
-    const { token, expiresIn, firstName, lastName, email } = response;
+    const { token, expiresIn, firstName, lastName, email } = await loginUser(payload);
 
     const expirationDate = new Date(new Date().getTime() + Number(expiresIn) * 1000).toISOString();
 

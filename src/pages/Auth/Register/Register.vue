@@ -150,8 +150,7 @@ const submit = async () => {
       password: state.password.value,
     };
 
-    const response = await registerUser(payload);
-    const { token, firstName, lastName, email } = response;
+    const { token, firstName, lastName, email } = await registerUser(payload);
 
     if (state.email.value === 'demo@demo.com') {
       state.serverErrors.email.push('This e-mail already exists.');
