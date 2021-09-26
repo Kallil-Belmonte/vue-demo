@@ -12,7 +12,8 @@
     "bootstrap": "^5.1.1",
     "vue": "^3.2.6",
     "vue-hooks-form": "^0.2.2",
-    "vue-router": "4"
+    "vue-router": "4",
+    "vue-tsc": "^0.3.0"
   },
   "devDependencies": {
     "@rollup/plugin-alias": "^3.1.5",
@@ -26,7 +27,6 @@
     "path": "^0.12.7",
     "sass": "^1.41.1",
     "typescript": "^4.4.3",
-    "vite": "^2.5.10",
-    "vue-tsc": "^0.3.0"
+    "vite": "^2.5.10"
   }
 }

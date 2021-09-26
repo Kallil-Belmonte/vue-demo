@@ -14,8 +14,7 @@ const redirectLoggedUser = () => {
     new Date().getTime() > Date.parse(localStorage.getItem(EXPIRATION_DATE_KEY) || '');
 
   if (getAuthToken() && !expiredSession) {
-    console.log('DESCOMENTAR A LINHA DE BAIXO');
-    // router.push('/');
+    router.push('/');
   }
 };
 

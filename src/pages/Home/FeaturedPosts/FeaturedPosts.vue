@@ -4,9 +4,9 @@
       <h2 class="section-title">Featured posts</h2>
 
       <div class="row">
-        <div class="col-md-4" v-for="post in posts" :key="post.id">
+        <!-- <div class="col-md-4" v-for="post in posts" :key="post.id">
           <AppPostItem :post="post" />
-        </div>
+        </div> -->
       </div>
     </div>
   </section>

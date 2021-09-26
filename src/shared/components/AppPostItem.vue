@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Post } from '@/core/state/blog';
+import { Post } from '@/core/services/blog/types';
 import { limitWords } from '@/shared/helpers';
 
 type Props = {
