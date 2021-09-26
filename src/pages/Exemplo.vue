@@ -4,9 +4,10 @@
   <h1>{{ state.valor }}</h1>
 
   <!-- Componente -->
-  <AppAlertDismissible variant="primary">Conteúdo</AppAlertDismissible>
+  <!-- <AppAlertDismissible variant="primary">Conteúdo</AppAlertDismissible> -->
   <!-- <AppPageHeader icon="HomeSolid">Page Header</AppPageHeader> -->
   <!-- <AppPostItem :post="state.post" /> -->
+  <!-- <FeaturedPosts :posts="[state.post]" /> -->
 
   <!-- Modal -->
   <button type="button" class="btn btn-primary" @click="modalRef.show">Launch demo modal</button>
@@ -38,8 +39,9 @@ import { ref, reactive, onMounted } from 'vue';
 
 import { Modal } from 'bootstrap';
 
-import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
+// import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
 // import AppPageHeader from '@/shared/components/AppPageHeader.vue';
+// import FeaturedPosts from '@/pages/Home/FeaturedPosts/FeaturedPosts.vue';
 // import AppPostItem from '@/shared/components/AppPostItem.vue';
 // import { getPosts } from '@/core/services';
 
