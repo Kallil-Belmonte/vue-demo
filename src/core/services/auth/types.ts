@@ -5,7 +5,7 @@ export type RegisterUserPayload = {
   password: string;
 };
 
-export type RegisterUserResponse = {
+export type RegisterUser = {
   kind: string;
   localId: string;
   firstName: string;
@@ -23,7 +23,7 @@ export type LoginUserPayload = {
   keepLogged: boolean;
 };
 
-export type LoginUserResponse = {
+export type LoginUser = {
   firstName: string;
   lastName: string;
   email: string;

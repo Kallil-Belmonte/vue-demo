@@ -1,17 +1,6 @@
 import { reactive, computed } from 'vue';
 
-export type Category = {
-  name: string;
-  posts: number;
-};
-
-export type Post = {
-  userId: number;
-  id: number;
-  image?: string;
-  title: string;
-  body: string;
-};
+import { Category, Post } from '@/core/services/blog/types';
 
 type State = {
   categories: Category[];

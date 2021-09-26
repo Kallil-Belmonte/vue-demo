@@ -5,61 +5,61 @@ import guard from './guard';
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    // {
-    //   path: '/',
-    //   component: () => import('@/layout/Dashboard.vue'),
-    //   beforeEnter: guard,
-    //   children: [
-    //     {
-    //       path: '',
-    //       name: 'home',
-    //       meta: {
-    //         title: 'Home',
-    //       },
-    //       component: () => import('@/pages/Home/Home.vue'),
-    //     },
-    //     {
-    //       path: '/blog',
-    //       name: 'blog',
-    //       meta: {
-    //         title: 'Blog',
-    //       },
-    //       component: () => import('@/pages/News/Blog/Blog.vue'),
-    //     },
-    //     {
-    //       path: '/post/:id',
-    //       name: 'post',
-    //       meta: {
-    //         title: 'Post',
-    //       },
-    //       component: () => import('@/pages/News/Post/Post.vue'),
-    //     },
-    //     {
-    //       path: '/edit-post/:id',
-    //       name: 'edit-post',
-    //       meta: {
-    //         title: 'Edit Post',
-    //       },
-    //       component: () => import('@/pages/News/EditPost/EditPost.vue'),
-    //     },
-    //     {
-    //       path: '/contact',
-    //       name: 'contact',
-    //       meta: {
-    //         title: 'Contact',
-    //       },
-    //       component: () => import('@/pages/Contact/Contact.vue'),
-    //     },
-    //     {
-    //       path: '/account',
-    //       name: 'account',
-    //       meta: {
-    //         title: 'Account',
-    //       },
-    //       component: () => import('@/pages/Account/Account.vue'),
-    //     },
-    //   ],
-    // },
+    {
+      path: '/',
+      component: () => import('@/layout/Dashboard.vue'),
+      beforeEnter: guard,
+      //   children: [
+      //     {
+      //       path: '',
+      //       name: 'home',
+      //       meta: {
+      //         title: 'Home',
+      //       },
+      //       component: () => import('@/pages/Home/Home.vue'),
+      //     },
+      //     {
+      //       path: '/blog',
+      //       name: 'blog',
+      //       meta: {
+      //         title: 'Blog',
+      //       },
+      //       component: () => import('@/pages/News/Blog/Blog.vue'),
+      //     },
+      //     {
+      //       path: '/post/:id',
+      //       name: 'post',
+      //       meta: {
+      //         title: 'Post',
+      //       },
+      //       component: () => import('@/pages/News/Post/Post.vue'),
+      //     },
+      //     {
+      //       path: '/edit-post/:id',
+      //       name: 'edit-post',
+      //       meta: {
+      //         title: 'Edit Post',
+      //       },
+      //       component: () => import('@/pages/News/EditPost/EditPost.vue'),
+      //     },
+      //     {
+      //       path: '/contact',
+      //       name: 'contact',
+      //       meta: {
+      //         title: 'Contact',
+      //       },
+      //       component: () => import('@/pages/Contact/Contact.vue'),
+      //     },
+      //     {
+      //       path: '/account',
+      //       name: 'account',
+      //       meta: {
+      //         title: 'Account',
+      //       },
+      //       component: () => import('@/pages/Account/Account.vue'),
+      //     },
+      //   ],
+    },
     {
       path: '/login',
       name: 'login',
@@ -85,7 +85,7 @@ const router = createRouter({
     //   component: () => import('@/pages/NotFound/NotFound.vue'),
     // },
     {
-      path: '/:pathMatch(.*)*',
+      path: '/:pathMatch(.*)*', // Deletar depois
       name: 'not-found',
       meta: {
         title: 'Not Found',
