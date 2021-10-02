@@ -25,15 +25,16 @@ const router = createRouter({
         //         title: 'Blog',
         //       },
         //       component: () => import('@/pages/News/Blog/Blog.vue'),
+        //       children: [BOTAR O "/post/:id" E "/edit-post/:id" AQUI],
         //     },
-        //     {
-        //       path: '/post/:id',
-        //       name: 'post',
-        //       meta: {
-        //         title: 'Post',
-        //       },
-        //       component: () => import('@/pages/News/Post/Post.vue'),
-        //     },
+        {
+          path: '/post/:id',
+          name: 'post',
+          meta: {
+            title: 'Post',
+          },
+          component: () => import('@/pages/News/Post/Post.vue'),
+        },
         //     {
         //       path: '/edit-post/:id',
         //       name: 'edit-post',

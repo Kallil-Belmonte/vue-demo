@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Post } from '@/core/services/blog/types';
+import { Post } from '@/core/services/news/types';
 import AppPostItem from '@/shared/components/AppPostItem.vue';
 
 type Props = {

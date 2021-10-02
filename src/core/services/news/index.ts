@@ -18,3 +18,23 @@ export const getPosts = async (): Promise<Post[]> => {
     throw error;
   }
 };
+
+export const getPost = async (id: string): Promise<Post> => {
+  try {
+    const response = await fetch(`${JSON_PLACEHOLDER_URL}/posts/${id}`);
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deletePost = async (id: string): Promise<Post> => {
+  try {
+    const response = await fetch(`${JSON_PLACEHOLDER_URL}/posts/${id}`, {
+      method: 'DELETE',
+    });
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};

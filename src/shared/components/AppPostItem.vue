@@ -6,15 +6,15 @@
     <article>
       <h3 class="title">{{ post.title }}</h3>
       <p v-if="post.body" class="mb-0">{{ limitWords(post.body, 8) }}</p>
-      <!-- <router-link class="btn btn-primary mt-3" :to="{ name: 'post', params: { id: post.id } }">
+      <router-link class="btn btn-primary mt-3" :to="{ name: 'post', params: { id: post.id } }">
         Read more
-      </router-link> -->
+      </router-link>
     </article>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { Post } from '@/core/services/blog/types';
+import { Post } from '@/core/services/news/types';
 import { limitWords } from '@/shared/helpers';
 
 type Props = {

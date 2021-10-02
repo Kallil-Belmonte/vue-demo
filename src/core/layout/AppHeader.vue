@@ -12,7 +12,6 @@
             Home
           </router-link>
         </li>
-        <!-- 
         <li>
           <router-link class="d-flex align-items-center" active-class="active" to="/blog">
             <AppIcon icon="Newspaper" />
@@ -30,7 +29,7 @@
             <AppIcon icon="User" />
             Account
           </router-link>
-        </li> -->
+        </li>
       </ul>
     </nav>
 
@@ -111,6 +110,7 @@ header {
 
         a {
           color: #fff;
+          text-decoration: none;
           transition: color 0.3s ease;
 
           &:hover,

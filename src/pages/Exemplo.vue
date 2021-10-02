@@ -10,7 +10,7 @@
   <!-- <FeaturedPosts :posts="[state.post]" /> -->
 
   <!-- Modal -->
-  <button type="button" class="btn btn-primary" @click="modalRef.show">Launch demo modal</button>
+  <button type="button" class="btn btn-primary" @click="modalRef.show()">Launch demo modal</button>
 
   <div class="modal fade" ref="modalRef" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
@@ -21,12 +21,20 @@
             type="button"
             class="btn-close"
             aria-label="Close"
-            @click="modalRef.hide"
+            data-bs-dismiss="modal"
+            @click="modalRef.hide()"
           ></button>
         </div>
         <div class="modal-body">Conteúdo aqui</div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="modalRef.hide">Close</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            @click="modalRef.hide()"
+          >
+            Close
+          </button>
           <button type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
