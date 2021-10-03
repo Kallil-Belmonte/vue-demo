@@ -6,10 +6,10 @@
     </article>
     <hr class="mt-4" />
     <div class="d-flex justify-content-end">
-      <button type="button" class="btn btn-danger mr-3" @click="emits('delete')">Delete</button>
-      <!-- <router-link class="btn btn-light" :to="{ name: 'edit-post', params: { id: post.id } }">
+      <router-link class="btn btn-light me-3" :to="{ name: 'edit-post', params: { id: post.id } }">
         Edit
-      </router-link> -->
+      </router-link>
+      <button type="button" class="btn btn-danger" @click="emits('delete')">Delete</button>
     </div>
   </section>
 </template>

@@ -36,7 +36,7 @@
 <script lang="ts" setup>
 import { ref, reactive, toRefs, onMounted, watch } from 'vue';
 
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { Modal } from 'bootstrap';
 
 import { deletePost } from '@/core/services/news';
@@ -47,8 +47,8 @@ type Props = {
   isVisible: boolean;
 };
 
-const route = useRoute();
 const router = useRouter();
+const route = useRoute();
 
 const props = defineProps<Props>();
 const emits = defineEmits(['cancel']);
@@ -66,14 +66,14 @@ const setUpModal = () => {
 };
 
 const confirmDeletePost = async () => {
-  isLoading.value = true;
+  state.isLoading = true;
 
   try {
     await deletePost(String(route.params.id));
     router.push({ name: 'blog' });
   } catch (error) {
     console.error(error);
-    isLoading.value = false;
+    state.isLoading = false;
   }
 };
 

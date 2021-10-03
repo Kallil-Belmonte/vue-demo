@@ -11,6 +11,7 @@
           id="email"
           :class="getFieldClass(email)"
           type="email"
+          name="email"
           v-model="email.value"
           ref="email.ref"
         />
@@ -34,6 +35,7 @@
           id="password"
           :class="getFieldClass(password)"
           type="password"
+          name="password"
           v-model="password.value"
           ref="password.ref"
         />
@@ -99,9 +101,7 @@ import Auth from '../Auth.vue';
 
 const router = useRouter();
 
-const { useField } = useForm({
-  defaultValues: {},
-});
+const { useField } = useForm({ defaultValues: {} });
 
 const state = reactive<LoginFormState>({
   isLoading: false,
@@ -120,8 +120,8 @@ const state = reactive<LoginFormState>({
 const { isLoading, email, password, keepLogged, serverErrors } = toRefs(state);
 
 const submit = async () => {
-  isLoading.value = true;
-  serverErrors.value = { email: [], password: [], request: [] };
+  state.isLoading = true;
+  state.serverErrors = { email: [], password: [], request: [] };
 
   try {
     const payload: LoginUserPayload = {
@@ -151,7 +151,7 @@ const submit = async () => {
   } catch (error: any) {
     state.serverErrors.request.push(error.message);
   } finally {
-    isLoading.value = false;
+    state.isLoading = false;
   }
 };
 </script>

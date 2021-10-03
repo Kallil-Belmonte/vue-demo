@@ -24,19 +24,19 @@ const { isLoading, featuredPosts } = toRefs(state);
 const getFeaturedPosts = async () => {
   if (posts.value.length) {
     const [firstPost, secondPost, thirdPost] = posts.value;
-    featuredPosts.value = [firstPost, secondPost, thirdPost];
+    state.featuredPosts = [firstPost, secondPost, thirdPost];
   } else {
-    isLoading.value = true;
+    state.isLoading = true;
 
     try {
       const posts = await getPosts();
       const [firstPost, secondPost, thirdPost] = posts;
-      featuredPosts.value = [firstPost, secondPost, thirdPost];
+      state.featuredPosts = [firstPost, secondPost, thirdPost];
       setPosts(posts);
     } catch (error) {
       console.error(error);
     } finally {
-      isLoading.value = false;
+      state.isLoading = false;
     }
   }
 };

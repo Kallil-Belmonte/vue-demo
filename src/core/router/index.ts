@@ -35,14 +35,14 @@ const router = createRouter({
           },
           component: () => import('@/pages/News/Post/Post.vue'),
         },
-        //     {
-        //       path: '/edit-post/:id',
-        //       name: 'edit-post',
-        //       meta: {
-        //         title: 'Edit Post',
-        //       },
-        //       component: () => import('@/pages/News/EditPost/EditPost.vue'),
-        //     },
+        {
+          path: '/edit-post/:id',
+          name: 'edit-post',
+          meta: {
+            title: 'Edit Post',
+          },
+          component: () => import('@/pages/News/EditPost/EditPost.vue'),
+        },
         //     {
         //       path: '/contact',
         //       name: 'contact',

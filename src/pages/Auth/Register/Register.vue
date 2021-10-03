@@ -9,8 +9,9 @@
         <label class="form-label" for="first-name">First name</label>
         <input
           id="first-name"
-          :class="getFieldClass(email)"
+          :class="getFieldClass(firstName)"
           type="firstName"
+          name="firstName"
           v-model="firstName.value"
           ref="firstName.ref"
         />
@@ -23,8 +24,9 @@
         <label class="form-label" for="last-name">Last name</label>
         <input
           id="last-name"
-          :class="getFieldClass(email)"
+          :class="getFieldClass(lastName)"
           type="lastName"
+          name="lastName"
           v-model="lastName.value"
           ref="lastName.ref"
         />
@@ -39,6 +41,7 @@
           id="email"
           :class="getFieldClass(email)"
           type="email"
+          name="email"
           v-model="email.value"
           ref="email.ref"
         />
@@ -62,6 +65,7 @@
           id="password"
           :class="getFieldClass(password)"
           type="password"
+          name="password"
           v-model="password.value"
           ref="password.ref"
         />
@@ -116,9 +120,7 @@ import Auth from '../Auth.vue';
 
 const router = useRouter();
 
-const { useField } = useForm({
-  defaultValues: {},
-});
+const { useField } = useForm({ defaultValues: {} });
 
 const state = reactive<RegisterFormState>({
   isLoading: false,
@@ -139,8 +141,8 @@ const state = reactive<RegisterFormState>({
 const { isLoading, firstName, lastName, email, password, serverErrors } = toRefs(state);
 
 const submit = async () => {
-  isLoading.value = true;
-  serverErrors.value = { email: [], password: [], request: [] };
+  state.isLoading = true;
+  state.serverErrors = { email: [], password: [], request: [] };
 
   try {
     const payload: RegisterUserPayload = {
@@ -163,7 +165,7 @@ const submit = async () => {
   } catch (error: any) {
     state.serverErrors.request.push(error.message);
   } finally {
-    isLoading.value = false;
+    state.isLoading = false;
   }
 };
 </script>

@@ -1,5 +1,7 @@
 import { JSON_PLACEHOLDER_URL, MOCKY_URL } from '@/core/services/files/endpoints';
-import { Category, Post } from './types';
+import { Category, Post, EditPostPayload } from './types';
+
+const { stringify } = JSON;
 
 export const getCategories = async (): Promise<Category[]> => {
   try {
@@ -22,6 +24,18 @@ export const getPosts = async (): Promise<Post[]> => {
 export const getPost = async (id: string): Promise<Post> => {
   try {
     const response = await fetch(`${JSON_PLACEHOLDER_URL}/posts/${id}`);
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const editPost = async (body: Post): Promise<Post> => {
+  try {
+    const response = await fetch(`${JSON_PLACEHOLDER_URL}/posts/${body.id}`, {
+      method: 'PUT',
+      body: stringify(body),
+    });
     return await response.json();
   } catch (error) {
     throw error;

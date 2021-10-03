@@ -5,13 +5,18 @@ import { Category, Post } from '@/core/services/news/types';
 type State = {
   categories: Category[];
   posts: Post[];
-  currentPost?: Post;
+  currentPost: Post;
 };
 
 const state = reactive<State>({
   categories: [],
   posts: [],
-  currentPost: undefined,
+  currentPost: {
+    userId: 0,
+    id: 0,
+    title: '',
+    body: '',
+  },
 });
 
 const categories = computed(() => state.categories);

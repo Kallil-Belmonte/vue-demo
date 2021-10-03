@@ -35,7 +35,7 @@ const state = reactive<PostState>({
 const { isLoading, isDeleteModalVisible } = toRefs(state);
 
 const toogleDeleteModal = (value: boolean) => {
-  isDeleteModalVisible.value = value;
+  state.isDeleteModalVisible = value;
 };
 
 const getCurrentPost = async () => {
@@ -45,7 +45,7 @@ const getCurrentPost = async () => {
   } catch (error) {
     console.error(error);
   } finally {
-    isLoading.value = false;
+    state.isLoading = false;
   }
 };
 
