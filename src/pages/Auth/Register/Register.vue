@@ -110,17 +110,19 @@ import { useForm } from 'vue-hooks-form';
 
 import { RegisterFormState } from '@/pages/Auth/_files/types';
 import { RegisterUserPayload } from '@/core/services/auth/types';
-import { AUTH_TOKEN_KEY, EXPIRATION_DATE_KEY } from '@/shared/files/consts';
-import { getFieldClass, clearFormMessage } from '@/shared/helpers';
+import { AUTH_TOKEN_KEY } from '@/shared/files/consts';
+import { getFieldClass, clearFormMessage, validateFields } from '@/shared/helpers';
 import { registerUser } from '@/core/services';
 import { setUser } from '@/core/state/auth';
 import AppLoader from '@/shared/components/AppLoader.vue';
 import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
 import Auth from '../Auth.vue';
 
+const fields = ['First name', 'Last name', 'E-mail', 'Password'];
+
 const router = useRouter();
 
-const { useField } = useForm({ defaultValues: {} });
+const { useField, validateField } = useForm({ defaultValues: {} });
 
 const state = reactive<RegisterFormState>({
   isLoading: false,
@@ -141,6 +143,9 @@ const state = reactive<RegisterFormState>({
 const { isLoading, firstName, lastName, email, password, serverErrors } = toRefs(state);
 
 const submit = async () => {
+  const errors = await validateFields(fields, validateField);
+  if (errors.length) return;
+
   state.isLoading = true;
   state.serverErrors = { email: [], password: [], request: [] };
 

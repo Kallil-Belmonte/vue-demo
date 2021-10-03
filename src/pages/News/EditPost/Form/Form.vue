@@ -44,16 +44,18 @@ import { useRouter, useRoute } from 'vue-router';
 import { useForm } from 'vue-hooks-form';
 
 import { Post } from '@/core/services/news/types';
-import { getFieldClass } from '@/shared/helpers';
+import { getFieldClass, validateFields } from '@/shared/helpers';
 import { getPost, editPost } from '@/core/services';
 import { currentPost, setCurrentPost } from '@/core/state/news';
 import AppLoader from '@/shared/components/AppLoader.vue';
 import { EditPostFormState } from '../_files/types';
 
+const fields = ['Title', 'Body'];
+
 const router = useRouter();
 const route = useRoute();
 
-const { useField, set } = useForm({ defaultValues: {} });
+const { useField, set, validateField } = useForm({ defaultValues: {} });
 
 const state = reactive<EditPostFormState>({
   isLoading: true,
@@ -84,6 +86,9 @@ const getCurrentPost = async () => {
 };
 
 const submit = async () => {
+  const errors = await validateFields(fields, validateField);
+  if (errors.length) return;
+
   state.isLoading = true;
 
   try {
