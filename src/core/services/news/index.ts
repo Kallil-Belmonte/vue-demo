@@ -1,5 +1,5 @@
-import { JSON_PLACEHOLDER_URL, MOCKY_URL } from '@/core/services/files/endpoints';
-import { Category, Post, EditPostPayload } from './types';
+import { JSON_PLACEHOLDER_URL, MOCKY_URL } from '@/core/services/_files/endpoints';
+import { Category, Post } from './types';
 
 const { stringify } = JSON;
 

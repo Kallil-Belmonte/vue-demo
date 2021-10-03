@@ -18,7 +18,7 @@
     </div>
 
     <div class="mb-3">
-      <label class="form-label" for="title">Body</label>
+      <label class="form-label" for="body">Body</label>
       <textarea
         id="body"
         :class="getFieldClass(body)"
@@ -57,18 +57,18 @@ const { useField, set } = useForm({ defaultValues: {} });
 
 const state = reactive<EditPostFormState>({
   isLoading: true,
-  title: useField('title', {
+  title: useField('Title', {
     rule: { required: true },
   }),
-  body: useField('body', {
+  body: useField('Body', {
     rule: { required: true },
   }),
 });
 const { isLoading, title, body } = toRefs(state);
 
 const setFormData = () => {
-  set('title', currentPost.value.title);
-  set('body', currentPost.value.body);
+  set('Title', currentPost.value.title);
+  set('Body', currentPost.value.body);
 };
 
 const getCurrentPost = async () => {

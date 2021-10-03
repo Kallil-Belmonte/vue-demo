@@ -6,7 +6,7 @@
       <h1 class="page-title">Login</h1>
 
       <div class="mb-3">
-        <label class="form-label" for="email">Email address</label>
+        <label class="form-label" for="email">E-mail address</label>
         <input
           id="email"
           :class="getFieldClass(email)"
@@ -61,7 +61,7 @@
           v-model="keepLogged.value"
           ref="keepLogged.ref"
         />
-        <label class="form-check-label" for="keep-logged">Keep Logged</label>
+        <label class="form-check-label" for="keep-logged">Keep logged</label>
       </div>
 
       <AppAlertDismissible
@@ -105,16 +105,13 @@ const { useField } = useForm({ defaultValues: {} });
 
 const state = reactive<LoginFormState>({
   isLoading: false,
-  email: useField('email', {
+  email: useField('E-mail', {
     rule: { required: true },
   }),
-  password: useField('password', {
-    rule: {
-      required: true,
-      min: 3,
-    },
+  password: useField('Password', {
+    rule: { required: true },
   }),
-  keepLogged: useField('keepLogged'),
+  keepLogged: useField('Keep logged'),
   serverErrors: { email: [], password: [], request: [] },
 });
 const { isLoading, email, password, keepLogged, serverErrors } = toRefs(state);

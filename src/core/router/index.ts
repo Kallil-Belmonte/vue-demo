@@ -43,14 +43,14 @@ const router = createRouter({
           },
           component: () => import('@/pages/News/EditPost/EditPost.vue'),
         },
-        //     {
-        //       path: '/contact',
-        //       name: 'contact',
-        //       meta: {
-        //         title: 'Contact',
-        //       },
-        //       component: () => import('@/pages/Contact/Contact.vue'),
-        //     },
+        {
+          path: '/contact',
+          name: 'contact',
+          meta: {
+            title: 'Contact',
+          },
+          component: () => import('@/pages/Contact/Contact.vue'),
+        },
         //     {
         //       path: '/account',
         //       name: 'account',

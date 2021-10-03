@@ -1,4 +1,4 @@
-import { MOCKY_URL } from '@/core/services/files/endpoints';
+import { MOCKY_URL } from '@/core/services/_files/endpoints';
 import { RegisterUserPayload, RegisterUser, LoginUserPayload, LoginUser, User } from './types';
 
 const { stringify } = JSON;

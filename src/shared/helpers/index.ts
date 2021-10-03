@@ -9,6 +9,8 @@ export { default as redirectLoggedUser } from './auth/redirectLoggedUser';
 // FORM
 export { default as clearFormMessage } from './form/clearFormMessage';
 export { default as getFieldClass } from './form/getFieldClass';
+export { default as validateFields } from './form/validateFields';
+export * from './form/validators';
 
 // GENERAL
 export { default as setPageTitle } from './general/setPageTitle';

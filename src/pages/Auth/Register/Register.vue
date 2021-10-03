@@ -10,7 +10,7 @@
         <input
           id="first-name"
           :class="getFieldClass(firstName)"
-          type="firstName"
+          type="text"
           name="firstName"
           v-model="firstName.value"
           ref="firstName.ref"
@@ -25,7 +25,7 @@
         <input
           id="last-name"
           :class="getFieldClass(lastName)"
-          type="lastName"
+          type="text"
           name="lastName"
           v-model="lastName.value"
           ref="lastName.ref"
@@ -36,7 +36,7 @@
       </div>
 
       <div class="mb-3">
-        <label class="form-label" for="email">Email address</label>
+        <label class="form-label" for="email">E-mail address</label>
         <input
           id="email"
           :class="getFieldClass(email)"
@@ -124,17 +124,17 @@ const { useField } = useForm({ defaultValues: {} });
 
 const state = reactive<RegisterFormState>({
   isLoading: false,
-  firstName: useField('firstName', {
+  firstName: useField('First name', {
+    rule: { required: true, min: 2 },
+  }),
+  lastName: useField('Last name', {
+    rule: { required: true, min: 2 },
+  }),
+  email: useField('E-mail', {
     rule: { required: true },
   }),
-  lastName: useField('lastName', {
-    rule: { required: true },
-  }),
-  email: useField('email', {
-    rule: { required: true },
-  }),
-  password: useField('password', {
-    rule: { required: true },
+  password: useField('Password', {
+    rule: { required: true, min: 3 },
   }),
   serverErrors: { email: [], password: [], request: [] },
 });

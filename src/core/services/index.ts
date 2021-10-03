@@ -1,4 +1,4 @@
-import fetchInterceptor from './files/fetchInterceptor';
+import fetchInterceptor from './_files/fetchInterceptor';
 
 fetchInterceptor();
 
