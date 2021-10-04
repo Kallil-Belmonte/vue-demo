@@ -51,14 +51,14 @@ const router = createRouter({
           },
           component: () => import('@/pages/Contact/Contact.vue'),
         },
-        //     {
-        //       path: '/account',
-        //       name: 'account',
-        //       meta: {
-        //         title: 'Account',
-        //       },
-        //       component: () => import('@/pages/Account/Account.vue'),
-        //     },
+        {
+          path: '/account',
+          name: 'account',
+          meta: {
+            title: 'Account',
+          },
+          component: () => import('@/pages/Account/Account.vue'),
+        },
       ],
     },
     {
