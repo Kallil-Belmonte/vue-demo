@@ -18,15 +18,15 @@ const router = createRouter({
           },
           component: () => import('@/pages/Home/Home.vue'),
         },
-        //     {
-        //       path: '/blog',
-        //       name: 'blog',
-        //       meta: {
-        //         title: 'Blog',
-        //       },
-        //       component: () => import('@/pages/News/Blog/Blog.vue'),
-        //       children: [BOTAR O "/post/:id" E "/edit-post/:id" AQUI],
-        //     },
+        {
+          path: '/blog',
+          name: 'blog',
+          meta: {
+            title: 'Blog',
+          },
+          component: () => import('@/pages/News/Blog/Blog.vue'),
+          // children: [BOTAR O "/post/:id" E "/edit-post/:id" AQUI],
+        },
         {
           path: '/post/:id',
           name: 'post',
