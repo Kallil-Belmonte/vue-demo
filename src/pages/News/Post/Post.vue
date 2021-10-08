@@ -5,12 +5,12 @@
     <div class="container">
       <div class="row">
         <div class="col-md-8 offset-md-2">
-          <PostBody v-if="currentPost" :post="currentPost" @delete="toogleDeleteModal(true)" />
+          <PostBody v-if="currentPost" :post="currentPost" />
         </div>
       </div>
     </div>
 
-    <DeletePostModal :isVisible="isDeleteModalVisible" @cancel="toogleDeleteModal(false)" />
+    <DeletePostModal />
   </main>
 </template>
 

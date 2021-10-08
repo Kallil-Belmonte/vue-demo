@@ -9,7 +9,14 @@
       <router-link class="btn btn-light me-3" :to="{ name: 'edit-post', params: { id: post.id } }">
         Edit
       </router-link>
-      <button type="button" class="btn btn-danger" @click="emits('delete')">Delete</button>
+      <button
+        type="button"
+        class="btn btn-danger"
+        data-bs-toggle="modal"
+        data-bs-target="#deletePostModal"
+      >
+        Delete
+      </button>
     </div>
   </section>
 </template>
@@ -22,7 +29,6 @@ export type Props = {
 };
 
 const props = defineProps<Props>();
-const emits = defineEmits(['delete']);
 </script>
 
 <style lang="scss" scoped>

@@ -75,7 +75,7 @@
         </AppAlertDismissible>
 
         <button class="btn btn-primary me-2" type="submit">Save</button>
-        <button class="btn btn-light" type="button" @click="getUserData()">Reset form</button>
+        <button class="btn btn-light" type="button" @click="getUserData">Reset form</button>
       </form>
     </div>
   </div>

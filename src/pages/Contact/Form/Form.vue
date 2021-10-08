@@ -161,7 +161,7 @@
     </div>
 
     <button class="btn btn-primary me-2" type="submit">Send</button>
-    <button class="btn btn-light" type="button" @click="reset()">Reset form</button>
+    <button class="btn btn-light" type="button" @click="reset">Reset form</button>
   </form>
 </template>
 

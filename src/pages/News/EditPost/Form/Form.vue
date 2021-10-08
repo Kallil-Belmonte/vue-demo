@@ -33,7 +33,7 @@
     </div>
 
     <button class="btn btn-primary me-2" type="submit">Edit</button>
-    <button class="btn btn-light" type="button" @click="setFormData()">Reset form</button>
+    <button class="btn btn-light" type="button" @click="setFormData">Reset form</button>
   </form>
 </template>
 
