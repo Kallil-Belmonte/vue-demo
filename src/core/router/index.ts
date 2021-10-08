@@ -19,16 +19,20 @@ const router = createRouter({
           component: () => import('@/pages/Home/Home.vue'),
         },
         {
-          path: '/blog',
-          name: 'blog',
-          meta: {
-            title: 'Blog',
-          },
-          component: () => import('@/pages/News/Blog/Blog.vue'),
+          path: 'blog',
+          component: () => import('@/pages/News/News.vue'),
           children: [
             {
-              path: '/post/:id',
-              name: 'post',
+              path: '',
+              name: 'blog',
+              meta: {
+                title: 'Blog',
+              },
+              component: () => import('@/pages/News/Blog/Blog.vue'),
+            },
+            {
+              path: 'post/:id',
+              name: '/post',
               meta: {
                 title: 'Post',
               },
@@ -78,21 +82,13 @@ const router = createRouter({
       },
       component: () => import('@/pages/Auth/Register/Register.vue'),
     },
-    // {
-    //   path: '/:pathMatch(.*)*',
-    //   name: 'not-found',
-    //   meta: {
-    //     title: 'Not Found',
-    //   },
-    //   component: () => import('@/pages/NotFound/NotFound.vue'),
-    // },
     {
-      path: '/:pathMatch(.*)*', // Deletar depois
+      path: '/:pathMatch(.*)*',
       name: 'not-found',
       meta: {
         title: 'Not Found',
       },
-      component: () => import('@/pages/Exemplo.vue'),
+      component: () => import('@/pages/NotFound/NotFound.vue'),
     },
   ],
 });
