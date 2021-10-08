@@ -111,7 +111,7 @@ import { useForm } from 'vue-hooks-form';
 import { RegisterFormState } from '@/pages/Auth/_files/types';
 import { RegisterUserPayload } from '@/core/services/auth/types';
 import { AUTH_TOKEN_KEY } from '@/shared/files/consts';
-import { getFieldClass, clearFormMessage, validateFields } from '@/shared/helpers';
+import { getFieldClass, clearFormMessage, validateFields, emailValidator } from '@/shared/helpers';
 import { registerUser } from '@/core/services';
 import { setUser } from '@/core/state/auth';
 import AppLoader from '@/shared/components/AppLoader.vue';
@@ -133,7 +133,7 @@ const state = reactive<RegisterFormState>({
     rule: { required: true, min: 2 },
   }),
   email: useField('E-mail', {
-    rule: { required: true },
+    rule: { required: true, validator: emailValidator },
   }),
   password: useField('Password', {
     rule: { required: true, min: 3 },

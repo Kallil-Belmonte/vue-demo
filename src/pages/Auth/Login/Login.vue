@@ -92,7 +92,7 @@ import { useForm } from 'vue-hooks-form';
 import { LoginFormState } from '@/pages/Auth/_files/types';
 import { AUTH_TOKEN_KEY, EXPIRATION_DATE_KEY } from '@/shared/files/consts';
 import { LoginUserPayload } from '@/core/services/auth/types';
-import { getFieldClass, clearFormMessage, validateFields } from '@/shared/helpers';
+import { getFieldClass, clearFormMessage, validateFields, emailValidator } from '@/shared/helpers';
 import { loginUser } from '@/core/services';
 import { setUser } from '@/core/state/auth';
 import AppLoader from '@/shared/components/AppLoader.vue';
@@ -108,10 +108,10 @@ const { useField, validateField } = useForm({ defaultValues: {} });
 const state = reactive<LoginFormState>({
   isLoading: false,
   email: useField('E-mail', {
-    rule: { required: true },
+    rule: { required: true, validator: emailValidator },
   }),
   password: useField('Password', {
-    rule: { required: true },
+    rule: { required: true, min: 3 },
   }),
   keepLogged: useField('Keep logged'),
   serverErrors: { email: [], password: [], request: [] },

@@ -75,7 +75,7 @@
         </AppAlertDismissible>
 
         <button class="btn btn-primary me-2" type="submit">Save</button>
-        <button class="btn btn-light" type="button" @click="reset()">Reset form</button>
+        <button class="btn btn-light" type="button" @click="getUserData()">Reset form</button>
       </form>
     </div>
   </div>
@@ -89,117 +89,59 @@ import { useForm } from 'vue-hooks-form';
 
 import { AccountFormState } from '@/pages/Account/_files/types';
 import { getFieldClass, clearFormMessage, validateFields, emailValidator } from '@/shared/helpers';
+import { user, setUser } from '@/core/state/auth';
 import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
+
+const fields = ['First name', 'Last name', 'E-mail'];
 
 const { useField, set, validateField } = useForm({ defaultValues: {} });
 
-const state = reactive<AccountFormState>({});
-const {} = toRefs(state);
+const state = reactive<AccountFormState>({
+  firstName: useField('First name', {
+    rule: { required: true, min: 2 },
+  }),
+  lastName: useField('Last name', {
+    rule: { required: true, min: 2 },
+  }),
+  email: useField('E-mail', {
+    rule: { required: true, validator: emailValidator },
+  }),
+  successMessages: [],
+  serverErrors: { email: [], request: [] },
+});
+const { firstName, lastName, email, successMessages, serverErrors } = toRefs(state);
 
 const getUserData = () => {
-  const { firstName, lastName, email } = this.userData;
-  this.form.model = { firstName, lastName, email };
+  const { firstName, lastName, email } = user.value;
+  set('First name', firstName);
+  set('Last name', lastName);
+  set('E-mail', email);
 };
 
-const reset = () => {};
+const submit = async () => {
+  const errors = await validateFields(fields, validateField);
+  if (errors.length) return;
 
-const submit = () => {};
+  state.successMessages = [];
+  state.serverErrors = { email: [], request: [] };
 
+  if (state.email.value === 'john.doe@email.com') {
+    state.serverErrors.email.push('This e-mail already exists.');
+  } else if (state.email.value === 'demo@demo.com') {
+    state.serverErrors.request.push('An error occurred, please try again later.');
+  } else {
+    setUser({
+      firstName: state.firstName.value,
+      lastName: state.lastName.value,
+      email: state.email.value,
+    });
+
+    state.successMessages.push('Account saved successfully.');
+  }
+};
+
+// LIFECYCLE HOOKS
 onMounted(() => {
   getUserData();
 });
 </script>
-
-<!-- <script lang="ts">
-import { defineComponent } from 'vue';
-
-import { mapState, mapMutations } from 'vuex';
-
-import { clearFormMessage, getFieldClass, required, minLength, email } from '@/shared/helpers';
-import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
-import { FormData } from '../_files/types';
-
-export default defineComponent({
-  //==============================
-  // GENERAL
-  //==============================
-  name: 'Form',
-  components: {
-    AppAlertDismissible,
-  },
-
-  //==============================
-  // DATA
-  //==============================
-  data(): FormData {
-    return {
-      clearFormMessage,
-      getFieldClass,
-      required,
-      minLength,
-      email,
-      form: {
-        state: {},
-        model: {
-          firstName: '',
-          lastName: '',
-          email: '',
-        },
-        errors: {
-          email: [],
-        },
-        feedback: {
-          success: [],
-          error: [],
-        },
-      },
-    };
-  },
-
-  //==============================
-  // COMPUTED
-  //==============================
-  computed: {
-    ...mapState('user', { userData: 'data' }),
-
-    minLength3(): boolean {
-      return minLength(this.form.model.firstName, 3);
-    },
-  },
-
-  //==============================
-  // LIFECYCLE HOOKS
-  //==============================
-  mounted() {
-    this.getUserData();
-  },
-
-  //==============================
-  // METHODS
-  //==============================
-  methods: {
-    ...mapMutations('user', { setUserData: 'setData' }),
-
-    getUserData(): void {
-      const { firstName, lastName, email } = this.userData;
-      this.form.model = { firstName, lastName, email };
-    },
-
-    onSubmit(): void {
-      const { model, errors, feedback } = this.form;
-
-      this.form.errors = { email: [] };
-      this.form.feedback = { success: [], error: [] };
-
-      if (model.email === 'john.doe@email.com') {
-        errors.email.push('This e-mail already exists.');
-      } else if (model.email === 'demo@demo.com') {
-        feedback.error.push('An error occurred, please try again later.');
-      } else {
-        this.setUserData(model);
-        feedback.success.push('Account saved successfully.');
-      }
-    },
-  },
-});
-</script> -->

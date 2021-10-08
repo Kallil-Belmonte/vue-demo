@@ -71,7 +71,7 @@ const logOut = () => {
 };
 
 // LIFECYCLE HOOKS
-onMounted(async () => {
+onMounted(() => {
   getUserData();
 });
 </script>
