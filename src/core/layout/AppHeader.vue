@@ -7,7 +7,7 @@
     <nav class="main-menu">
       <ul>
         <li>
-          <router-link class="d-flex align-items-center" active-class="active" to="/" exact>
+          <router-link class="d-flex align-items-center" to="/" exact>
             <AppIcon icon="Home" />
             Home
           </router-link>

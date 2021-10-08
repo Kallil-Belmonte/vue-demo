@@ -31,8 +31,8 @@ const router = createRouter({
               component: () => import('@/pages/News/Blog/Blog.vue'),
             },
             {
-              path: 'post/:id',
-              name: '/post',
+              path: '/post/:id',
+              name: 'post',
               meta: {
                 title: 'Post',
               },
