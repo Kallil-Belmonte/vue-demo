@@ -5,14 +5,6 @@ export type PostState = {
   isDeleteModalVisible: boolean;
 };
 
-export type PostBodyProps = {
-  post: Post;
-};
-
-export type DeletePostModalProps = {
-  isVisible: boolean;
-};
-
 export type DeletePostModalState = {
   isLoading: boolean;
 };

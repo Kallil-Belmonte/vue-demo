@@ -41,12 +41,16 @@ import { Modal } from 'bootstrap';
 
 import { deletePost } from '@/core/services/news';
 import AppLoader from '@/shared/components/AppLoader.vue';
-import { DeletePostModalProps, DeletePostModalState } from '../_files/types';
+import { DeletePostModalState } from '../_files/types';
+
+export type Props = {
+  isVisible: boolean;
+};
 
 const router = useRouter();
 const route = useRoute();
 
-const props = defineProps<DeletePostModalProps>();
+const props = defineProps<Props>();
 const emits = defineEmits(['cancel']);
 
 const modalRef = ref();

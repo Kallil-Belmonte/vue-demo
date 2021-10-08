@@ -2,16 +2,16 @@
   <main>
     <AppLoader v-if="isLoading" />
 
-    <b-container>
+    <div class="container">
       <AppPageHeader icon="newspaper">Blog</AppPageHeader>
 
       <PostsPerPage
         :postsPerPage="postsPerPage"
-        v-on:change="value => setPaginationSettings(this.posts, value)"
+        @change="(value: number) => setPaginationSettings(posts, value)"
       />
 
-      <b-row>
-        <b-col md="9">
+      <div class="row">
+        <div class="col-md-9">
           <Posts :pages="pages" :currentPage="currentPage" />
 
           <Pagination
@@ -19,151 +19,110 @@
             :firstItem="firstPaginationItem"
             :maxItem="maxPaginationItem"
             :currentPage="currentPage"
-            v-on:paginate="target => onPaginate(target)"
+            @paginate="paginate"
           />
-        </b-col>
-        <b-col md="3">
-          <Categories
-            :categories="categories"
-            v-on:selectCategory="category => onSelectCategory(category)"
-          />
-        </b-col>
-      </b-row>
-    </b-container>
+        </div>
+        <div class="col-md-3">
+          <Categories :categories="categories" @selectCategory="selectCategory" />
+        </div>
+      </div>
+    </div>
   </main>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+import { reactive, toRefs, onMounted } from 'vue';
 
-import { mapState, mapMutations } from 'vuex';
-
-import { Post } from '@/core/vuex/modules/blog';
-import axios, { MOCKY_INSTANCE, ENDPOINTS } from '@/core/api';
+import { Post } from '@/core/services/news/types';
 import { groupArrayItemsInArrays } from '@/shared/helpers';
+import { categories, posts, setCategories, setPosts } from '@/core/state/news';
+import { getCategories, getPosts } from '@/core/services';
 import AppLoader from '@/shared/components/AppLoader.vue';
 import AppPageHeader from '@/shared/components/AppPageHeader.vue';
-import PostsPerPage from '@/pages/News/Blog/PostsPerPage/PostsPerPage.vue';
-import Posts from '@/pages/News/Blog/Posts/Posts.vue';
-import Pagination from '@/pages/News/Blog/Pagination/Pagination.vue';
-import Categories from '@/pages/News/Blog/Categories/Categories.vue';
-import { BlogData } from './_files/types';
+import PostsPerPage from './PostsPerPage/PostsPerPage.vue';
+import Posts from './Posts/Posts.vue';
+import Pagination from './Pagination/Pagination.vue';
+import Categories from './Categories/Categories.vue';
+import { BlogState } from './_files/types';
 
-const { blog } = ENDPOINTS;
+const state = reactive<BlogState>({
+  isLoading: true,
+  pages: {},
+  postsPerPage: 9,
+  firstPaginationItem: 1,
+  maxPaginationItem: 5,
+  currentPage: 1,
+});
+const { isLoading, pages, postsPerPage, firstPaginationItem, maxPaginationItem, currentPage } =
+  toRefs(state);
 
-export default defineComponent({
-  //==============================
-  // GENERAL
-  //==============================
-  name: 'Blog',
-  components: {
-    AppLoader,
-    AppPageHeader,
-    PostsPerPage,
-    Posts,
-    Pagination,
-    Categories,
-  },
+const setPaginationSettings = (posts: Post[], quantPostsPerPage = 9) => {
+  const pages: BlogState['pages'] = {};
 
-  //==============================
-  // DATA
-  //==============================
-  data(): BlogData {
-    return {
-      groupArrayItemsInArrays,
-      isLoading: true,
-      pages: {},
-      postsPerPage: 9,
-      firstPaginationItem: 1,
-      maxPaginationItem: 5,
-      currentPage: 1,
-    };
-  },
+  groupArrayItemsInArrays(posts, quantPostsPerPage).forEach((item, index) => {
+    pages[index + 1] = item;
+  });
 
-  //==============================
-  // COMPUTED
-  //==============================
-  computed: {
-    ...mapState('blog', ['categories', 'posts']),
-  },
+  state.pages = pages;
+  state.postsPerPage = quantPostsPerPage;
+  state.firstPaginationItem = 1;
+  state.maxPaginationItem = 5;
+  state.currentPage = 1;
+};
 
-  //==============================
-  // LIFECYCLE HOOKS
-  //==============================
-  mounted() {
-    this.getAllData();
-  },
+const getAllData = async () => {
+  try {
+    if (!categories.value.length) {
+      const response = await getCategories();
+      setCategories(response);
+    }
 
-  //==============================
-  // METHODS
-  //==============================
-  methods: {
-    ...mapMutations('blog', ['setCategories', 'setPosts']),
+    if (!posts.value.length) {
+      const response = await getPosts();
+      setPosts(response);
+    }
 
-    setPaginationSettings(posts: Post[], quantPostsPerPage = 9): void {
-      const pages: BlogData['pages'] = {};
+    setPaginationSettings(posts.value);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    state.isLoading = false;
+  }
+};
 
-      groupArrayItemsInArrays(posts, quantPostsPerPage).forEach((item, index) => {
-        pages[index + 1] = item;
-      });
+const selectCategory = async (category: string) => {
+  console.log(category);
+  state.isLoading = true;
 
-      this.pages = pages;
-      this.postsPerPage = quantPostsPerPage;
-      this.firstPaginationItem = 1;
-      this.maxPaginationItem = 5;
-      this.currentPage = 1;
-    },
+  try {
+    const response = await getPosts();
+    setPosts(response);
+    setPaginationSettings(response);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    state.isLoading = false;
+  }
+};
 
-    async getAllData(): Promise<void> {
-      try {
-        if (!this.categories.length) {
-          const { data: categories } = await MOCKY_INSTANCE.get(blog.categories);
-          this.setCategories(categories);
-        }
+const paginate = (target: string) => {
+  switch (target) {
+    case 'previous':
+      state.firstPaginationItem = --state.firstPaginationItem;
+      break;
 
-        if (!this.posts.length) {
-          const { data: posts } = await axios.get(blog.posts);
-          this.setPosts(posts);
-        }
+    case 'next':
+      state.firstPaginationItem = ++state.firstPaginationItem;
+      break;
 
-        this.setPaginationSettings(this.posts);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        this.isLoading = false;
-      }
-    },
+    default:
+      state.currentPage = Number(target);
+  }
+};
 
-    async onSelectCategory(/* category */): Promise<void> {
-      this.isLoading = true;
-
-      try {
-        const { data: posts } = await axios.get(blog.posts);
-
-        this.setPosts(posts);
-        this.setPaginationSettings(posts);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        this.isLoading = false;
-      }
-    },
-
-    onPaginate(target: string): void {
-      switch (target) {
-        case 'previous':
-          this.firstPaginationItem = --this.firstPaginationItem;
-          break;
-
-        case 'next':
-          this.firstPaginationItem = ++this.firstPaginationItem;
-          break;
-
-        default:
-          this.currentPage = Number(target);
-      }
-    },
-  },
+// LIFECYCLE HOOKS
+onMounted(() => {
+  getAllData();
 });
 </script>
 

@@ -2,10 +2,12 @@
   <aside>
     <ul class="list-group">
       <li
-        class="list-group-item d-flex justify-content-between align-items-center"
+        :class="{
+          'list-group-item d-flex justify-content-between align-items-center': true,
+          active: isActive(category.name),
+        }"
         v-for="category in categories"
         :key="category.name"
-        :active="isCategoryActive(category.name)"
         @click="selectCategory(category.name)"
       >
         {{ category.name }}
@@ -18,16 +20,22 @@
 import { reactive } from 'vue';
 
 import { Category } from '@/core/services/news/types';
-import { CategoriesProps, CategoriesState } from '../_files/types';
+import { CategoriesState } from '../_files/types';
 
-const props = defineProps<CategoriesProps>();
+export type Props = {
+  categories: Category[];
+};
+
+const props = withDefaults<Props, any>(defineProps<Props>(), {
+  categories: [],
+});
 const emits = defineEmits(['selectCategory']);
 
 const state = reactive<CategoriesState>({
   activeCategory: '',
 });
 
-const isCategoryActive = (category: Category['name']) => state.activeCategory === category;
+const isActive = (category: Category['name']) => state.activeCategory === category;
 
 const selectCategory = (category: Category['name']) => {
   state.activeCategory = category === state.activeCategory ? '' : category;

@@ -2,7 +2,7 @@
   <nav class="pagination d-inline-block" aria-label="Blog Pagination">
     <ul class="pagination mb-0">
       <li class="page-item" v-if="firstItem > 1">
-        <button class="page-link" type="button" @click="$emit('paginate', 'previous')">
+        <button class="page-link" type="button" @click="emits('paginate', 'previous')">
           Previous
         </button>
       </li>
@@ -11,69 +11,37 @@
         v-for="page in pageItems"
         :key="page"
         :class="{ 'page-item': true, active: isItemActive(page) }"
-        @click="isItemActive(page) ? undefined : $emit('paginate', page)"
+        @click="isItemActive(page) ? undefined : emits('paginate', page)"
       >
         <button class="page-link" type="button">{{ page }}</button>
       </li>
 
       <li class="page-item" v-if="endPages < pages.length">
-        <button class="page-link" type="button" @click="$emit('paginate', 'next')">Next</button>
+        <button class="page-link" type="button" @click="emits('paginate', 'next')">Next</button>
       </li>
     </ul>
   </nav>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+import { computed } from 'vue';
 
-export default defineComponent({
-  //==============================
-  // GENERAL
-  //==============================
-  name: 'Pagination',
-  props: {
-    pages: {
-      type: Array as () => number[],
-      default: () => [],
-      required: true,
-    },
-    firstItem: {
-      type: Number,
-      default: 1,
-      required: true,
-    },
-    maxItem: {
-      type: Number,
-      required: true,
-    },
-    currentPage: {
-      type: Number,
-      required: true,
-    },
-  },
+export type Props = {
+  pages: string[];
+  firstItem: number;
+  maxItem: number;
+  currentPage: number;
+};
 
-  //==============================
-  // COMPUTED
-  //==============================
-  computed: {
-    startPages(): number {
-      return this.firstItem - 1;
-    },
-    endPages(): number {
-      return this.startPages + this.maxItem;
-    },
-    pageItems(): number[] {
-      return this.pages.slice(this.startPages, this.endPages);
-    },
-  },
-
-  //==============================
-  // METHODS
-  //==============================
-  methods: {
-    isItemActive(page: string | number): boolean {
-      return Number(page) === this.currentPage;
-    },
-  },
+const props = withDefaults<Props, any>(defineProps<Props>(), {
+  pages: [],
+  firstItem: 1,
 });
+const emits = defineEmits(['paginate']);
+
+const startPages = computed(() => props.firstItem - 1);
+const endPages = computed(() => startPages.value + props.maxItem);
+const pageItems = computed(() => props.pages.slice(startPages.value, endPages.value));
+
+const isItemActive = (page: string | number) => Number(page) === props.currentPage;
 </script>

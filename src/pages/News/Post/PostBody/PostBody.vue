@@ -15,9 +15,13 @@
 </template>
 
 <script lang="ts" setup>
-import { PostBodyProps } from '../_files/types';
+import { Post } from '@/core/services/news/types';
 
-const props = defineProps<PostBodyProps>();
+export type Props = {
+  post: Post;
+};
+
+const props = defineProps<Props>();
 const emits = defineEmits(['delete']);
 </script>
 
