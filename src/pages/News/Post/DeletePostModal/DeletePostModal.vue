@@ -1,7 +1,7 @@
 <template>
   <AppLoader v-if="isLoading" />
 
-  <div id="deletePostModal" class="modal fade" tabindex="-1" ref="modalRef">
+  <div id="delete-post-modal" class="modal fade" tabindex="-1" ref="modalRef">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">

@@ -13,7 +13,7 @@
         type="button"
         class="btn btn-danger"
         data-bs-toggle="modal"
-        data-bs-target="#deletePostModal"
+        data-bs-target="#delete-post-modal"
       >
         Delete
       </button>
