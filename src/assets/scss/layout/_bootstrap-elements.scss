@@ -1,4 +1,4 @@
-/* BUTTONS */
+// BUTTONS
 
 button,
 .btn {
@@ -30,7 +30,7 @@ button,
   }
 }
 
-/* ALERTS */
+// ALERTS
 
 .alert-primary,
 .alert-secondary,
@@ -43,61 +43,61 @@ button,
   border: none;
 }
 
-/* Primary */
+// Primary
 
 .alert-primary {
   background-color: $primary;
 }
 
-/* Secondary */
+// Secondary
 
 .alert-secondary {
   background-color: $secondary;
 }
 
-/* Success */
+// Success
 
 .alert-success {
   background-color: $success;
 }
 
-/* Info */
+// Info
 
 .alert-info {
   background-color: $info;
 }
 
-/* Warning */
+// Warning
 
 .alert-warning {
   background-color: $warning;
 }
 
-/* Danger */
+// Danger
 
 .alert-danger {
   background-color: $danger;
 }
 
-/* Light */
+// Light
 
 .alert-light {
   background-color: $light;
 }
 
-/* Dark */
+// Dark
 
 .alert-dark {
   background-color: $dark;
 }
 
-/* BADGES */
+// BADGES
 
 .badge:not(.badge-light) {
   color: #fff;
 }
 
-/* TOOLTIPS */
+// TOOLTIPS
 
 .tooltip-inner {
   background-color: $primary;
@@ -123,15 +123,15 @@ button,
   border-left-color: $primary;
 }
 
-/* FORMS */
+// FORMS
 
-/* Alert */
+// Alert
 
 .form-group > .alert {
   margin-top: 1rem;
 }
 
-/* Input */
+// Input
 
 .form-control {
   &,
@@ -154,7 +154,7 @@ button,
   }
 }
 
-/* Invalid */
+// Invalid
 
 .invalid-feedback:first-letter {
   text-transform: uppercase;
@@ -167,7 +167,7 @@ button,
   box-shadow: none;
 }
 
-/* LIST GROUP */
+// LIST GROUP
 
 .list-group {
   .list-group-item-action {
