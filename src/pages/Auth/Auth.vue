@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="container">
-      <img class="logo d-block mx-auto" alt="Vue" src="@/assets/logo.svg" />
+      <img class="logo d-block mx-auto" alt="Vue" src="@/assets/icons/brand/logo.svg" />
 
       <div class="row">
         <div class="col-md-6 offset-md-3">

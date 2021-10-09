@@ -1,6 +1,6 @@
 <template>
   <header>
-    <img class="logo" src="@/assets/logo.svg" alt="Vue" />
+    <img class="logo" src="@/assets/icons/brand/logo.svg" alt="Vue" />
 
     <h1 class="title">{{ PROJECT_TITLE }}</h1>
 
