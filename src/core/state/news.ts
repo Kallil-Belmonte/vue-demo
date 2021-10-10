@@ -23,15 +23,15 @@ const categories = computed(() => state.categories);
 const posts = computed(() => state.posts);
 const currentPost = computed(() => state.currentPost);
 
-const setCategories = (payload: Category[]) => {
+const setCategories = (payload: NewsState['categories']) => {
   state.categories = payload;
 };
 
-const setPosts = (payload: Post[]) => {
+const setPosts = (payload: NewsState['posts']) => {
   state.posts = payload;
 };
 
-const setCurrentPost = (payload: Post) => {
+const setCurrentPost = (payload: NewsState['currentPost']) => {
   state.currentPost = payload;
 };
 
