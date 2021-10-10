@@ -44,7 +44,7 @@ const selectCategory = (category: Category['name']) => {
 </script>
 
 <style lang="scss" scoped>
-@import '../../../../assets/scss/helpers/bootstrap-helpers';
+@import '@/assets/scss/helpers/bootstrap-helpers';
 
 .list-group {
   cursor: pointer;

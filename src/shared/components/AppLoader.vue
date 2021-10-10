@@ -9,7 +9,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '../../assets/scss/helpers/helpers';
+@import '@/assets/scss/helpers/helpers';
 
 @keyframes orbit-spinner-orbit-one-animation {
   0% {
