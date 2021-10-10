@@ -3,9 +3,8 @@
     aria-hidden="true"
     role="img"
     focusable="false"
-    data-prefix="fas"
     data-icon="user"
-    :class="`svg-inline--fa fa-user fa-w-14 ${$props.class}`"
+    :class="`icon-user ${$props.class}`"
     :width="width"
     :height="height"
     :fill="fill"
@@ -27,6 +26,7 @@ type Props = {
 };
 
 const props = withDefaults(defineProps<Props>(), {
+  class: '',
   fill: 'currentColor',
 });
 </script>

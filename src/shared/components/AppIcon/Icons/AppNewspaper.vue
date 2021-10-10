@@ -3,9 +3,8 @@
     aria-hidden="true"
     role="img"
     focusable="false"
-    data-prefix="fas"
     data-icon="newspaper"
-    :class="`svg-inline--fa fa-newspaper fa-w-18 ${$props.class}`"
+    :class="`icon-newspaper ${$props.class}`"
     :width="width"
     :height="height"
     :fill="fill"
@@ -27,6 +26,7 @@ type Props = {
 };
 
 const props = withDefaults(defineProps<Props>(), {
+  class: '',
   fill: 'currentColor',
 });
 </script>
