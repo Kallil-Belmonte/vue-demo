@@ -20,8 +20,8 @@
 <script lang="ts" setup>
 type Props = {
   class?: string;
-  width?: number;
-  height?: number;
+  width?: string;
+  height?: string;
   fill?: string;
 };
 

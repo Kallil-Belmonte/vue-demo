@@ -11,8 +11,8 @@ import { shallowRef, onMounted } from 'vue';
 type Props = {
   class?: string;
   icon: string;
-  width?: number;
-  height?: number;
+  width?: string;
+  height?: string;
   fill?: string;
 };
 
