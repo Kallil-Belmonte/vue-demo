@@ -2,13 +2,13 @@ import { reactive, computed } from 'vue';
 
 import { Category, Post } from '@/core/services/news/types';
 
-type State = {
+type NewsState = {
   categories: Category[];
   posts: Post[];
   currentPost: Post;
 };
 
-const state = reactive<State>({
+const state = reactive<NewsState>({
   categories: [],
   posts: [],
   currentPost: {

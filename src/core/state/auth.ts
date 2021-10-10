@@ -4,11 +4,11 @@ import { LoginUser } from '@/core/services/auth/types';
 
 type User = Pick<LoginUser, 'firstName' | 'lastName' | 'email'>;
 
-type State = {
+type AuthState = {
   user: User;
 };
 
-const state = reactive<State>({
+const state = reactive<AuthState>({
   user: {
     firstName: '',
     lastName: '',
