@@ -34,7 +34,7 @@
     </nav>
 
     <div class="welcome-box d-flex align-items-center position-absolute">
-      <p class="mb-0 mr-3">Hello {{ fullName }}!</p>
+      <p class="mb-0 me-3">Hello {{ fullName }}!</p>
       <button class="btn btn-dark" type="button" @click="logOut">Log out</button>
     </div>
   </header>
@@ -134,10 +134,6 @@ header {
   .welcome-box {
     top: 20px;
     right: 20px;
-
-    .btn {
-      margin-left: 20px;
-    }
   }
 }
 </style>
