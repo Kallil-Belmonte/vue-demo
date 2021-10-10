@@ -7,7 +7,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: () => import('@/core/layout/Dashboard.vue'),
+      component: () => import('@/core/layout/AppDashboard.vue'),
       beforeEnter: guard,
       children: [
         {
