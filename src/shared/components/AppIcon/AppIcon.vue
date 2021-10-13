@@ -1,7 +1,11 @@
 <template>
   <component
     :is="iconComponent"
-    v-bind="{ class: $props.class, width: width, height: height, fill: fill }"
+    v-bind="{
+      class: `${$props.class} d-flex align-items-center justify-content-center`,
+      style: { width: size, height: size },
+      fill: fill,
+    }"
   ></component>
 </template>
 
@@ -11,12 +15,14 @@ import { shallowRef, onMounted } from 'vue';
 type Props = {
   class?: string;
   icon: string;
-  width?: string;
-  height?: string;
+  size?: string;
   fill?: string;
 };
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  class: '',
+  fill: 'currentColor',
+});
 
 const iconComponent = shallowRef();
 
