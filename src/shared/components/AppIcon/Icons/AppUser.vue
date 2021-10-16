@@ -26,9 +26,3 @@ type Props = {
 
 const props = defineProps<Props>();
 </script>
-
-<styled lang="scss" scoped>
-[data-element='icon'] {
-  margin: 0;
-}
-</styled>
