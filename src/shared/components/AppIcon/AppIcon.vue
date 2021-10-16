@@ -12,9 +12,11 @@
 <script lang="ts" setup>
 import { shallowRef, onMounted } from 'vue';
 
+import { Icons } from './types';
+
 type Props = {
   class?: string;
-  icon: string;
+  icon: Icons;
   size?: string;
   fill?: string;
 };
