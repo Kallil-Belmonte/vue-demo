@@ -9,10 +9,11 @@
 </template>
 
 <script lang="ts" setup>
+import { Icons } from '@/shared/components/AppIcon/types';
 import AppIcon from './AppIcon/AppIcon.vue';
 
 type Props = {
-  icon: string;
+  icon?: Icons;
 };
 
 const props = defineProps<Props>();
