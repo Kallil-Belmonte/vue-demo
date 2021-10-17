@@ -77,10 +77,10 @@
 
     <div class="row">
       <div class="col mb-3">
-        <div class="form-check form-check-inline">
+        <div :class="['form-check form-check-inline', sex.error ? 'is-invalid' : '']">
           <input
             id="male"
-            class="form-check-input"
+            :class="['form-check-input', sex.error ? 'is-invalid' : '']"
             type="radio"
             name="male"
             value="male"
@@ -89,10 +89,10 @@
           />
           <label class="form-check-label" for="male">Male</label>
         </div>
-        <div class="form-check form-check-inline">
+        <div :class="['form-check form-check-inline', sex.error ? 'is-invalid' : '']">
           <input
             id="female"
-            class="form-check-input"
+            :class="['form-check-input', sex.error ? 'is-invalid' : '']"
             type="radio"
             name="female"
             value="female"
@@ -100,6 +100,9 @@
             ref="sex.ref"
           />
           <label class="form-check-label" for="female">Female</label>
+        </div>
+        <div class="invalid-feedback" v-if="sex.error">
+          {{ sex.error?.message }}
         </div>
       </div>
     </div>
@@ -195,7 +198,6 @@ const fields = [
 
 const { useField, set, validateField, values } = useForm({
   defaultValues: {
-    Sex: 'male',
     'Favorite color': 'select',
   },
 });
@@ -262,7 +264,7 @@ const reset = () => {
   set('Last name', '');
   set('E-mail', '');
   set('Telephone', '');
-  set('Sex', 'male');
+  set('Sex', '');
   set('Favorite color', 'select');
   set('Employed', false);
   set('Message', '');
