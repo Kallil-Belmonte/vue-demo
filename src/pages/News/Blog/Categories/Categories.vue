@@ -20,7 +20,7 @@
 import { reactive } from 'vue';
 
 import { Category } from '@/core/services/news/types';
-import { CategoriesState } from '../_files/types';
+import { CategoriesState } from '@/pages/News/Blog/_files/types';
 
 export type Props = {
   categories: Category[];

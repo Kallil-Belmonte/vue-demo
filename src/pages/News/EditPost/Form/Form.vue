@@ -44,11 +44,11 @@ import { useRouter, useRoute } from 'vue-router';
 import { useForm } from 'vue-hooks-form';
 
 import { Post } from '@/core/services/news/types';
+import { EditPostFormState } from '@/pages/News/EditPost/_files/types';
 import { getFieldClass, validateFields } from '@/shared/helpers';
 import { getPost, editPost } from '@/core/services';
 import { currentPost, setCurrentPost } from '@/core/state/news';
 import AppLoader from '@/shared/components/AppLoader.vue';
-import { EditPostFormState } from '../_files/types';
 
 const fields = ['Title', 'Body'];
 

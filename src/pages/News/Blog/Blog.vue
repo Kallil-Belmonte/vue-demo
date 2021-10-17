@@ -3,7 +3,7 @@
     <AppLoader v-if="isLoading" />
 
     <div class="container">
-      <AppPageHeader icon="newspaper">Blog</AppPageHeader>
+      <AppPageHeader icon="Newspaper">Blog</AppPageHeader>
 
       <PostsPerPage
         :postsPerPage="postsPerPage"
@@ -34,6 +34,7 @@
 import { reactive, toRefs, onMounted } from 'vue';
 
 import { Post } from '@/core/services/news/types';
+import { BlogState } from '@/pages/News/Blog/_files/types';
 import { groupArrayItemsInArrays } from '@/shared/helpers';
 import { categories, posts, setCategories, setPosts } from '@/core/state/news';
 import { getCategories, getPosts } from '@/core/services';
@@ -43,7 +44,6 @@ import PostsPerPage from './PostsPerPage/PostsPerPage.vue';
 import Posts from './Posts/Posts.vue';
 import Pagination from './Pagination/Pagination.vue';
 import Categories from './Categories/Categories.vue';
-import { BlogState } from './_files/types';
 
 const state = reactive<BlogState>({
   isLoading: true,
