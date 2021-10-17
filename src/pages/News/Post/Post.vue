@@ -30,13 +30,8 @@ const route = useRoute();
 
 const state = reactive<PostState>({
   isLoading: true,
-  isDeleteModalVisible: false,
 });
-const { isLoading, isDeleteModalVisible } = toRefs(state);
-
-const toogleDeleteModal = (value: boolean) => {
-  state.isDeleteModalVisible = value;
-};
+const { isLoading } = toRefs(state);
 
 const getCurrentPost = async () => {
   try {
