@@ -33,7 +33,7 @@
 <script lang="ts" setup>
 import { reactive, toRefs, onMounted } from 'vue';
 
-import { Post } from '@/core/services/news/types';
+import { Category, Post } from '@/core/services/news/types';
 import { BlogState } from '@/pages/News/Blog/_files/types';
 import { groupArrayItemsInArrays } from '@/shared/helpers';
 import { categories, posts, setCategories, setPosts } from '@/core/state/news';
@@ -90,7 +90,7 @@ const getAllData = async () => {
   }
 };
 
-const selectCategory = async (category: string) => {
+const selectCategory = async (category: Category['name']) => {
   console.log(category);
   state.isLoading = true;
 
