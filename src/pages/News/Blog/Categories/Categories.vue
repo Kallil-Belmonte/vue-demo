@@ -8,7 +8,7 @@
         }"
         v-for="category in categories"
         :key="category.name"
-        @click="selectCategory(category.name)"
+        @click="select(category.name)"
       >
         {{ category.name }}
       </li>
@@ -37,7 +37,7 @@ const state = reactive<CategoriesState>({
 
 const isActive = (category: Category['name']) => state.activeCategory === category;
 
-const selectCategory = (category: Category['name']) => {
+const select = (category: Category['name']) => {
   state.activeCategory = category === state.activeCategory ? '' : category;
   emits('selectCategory', category);
 };
