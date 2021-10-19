@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="container">
-      <AppPageHeader icon="envelope">Contact</AppPageHeader>
+      <AppPageHeader icon="Envelope">Contact</AppPageHeader>
 
       <Form />
     </div>
