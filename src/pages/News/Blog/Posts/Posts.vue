@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 import { Post } from '@/core/services/news/types';
-import AppPostItem from '@/shared/components/AppPostItem.vue';
+import { AppPostItem } from '@/shared/components';
 
 export type Props = {
   pages: { [key: string]: Post[] };

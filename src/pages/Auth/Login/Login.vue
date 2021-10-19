@@ -95,8 +95,7 @@ import { LoginUserPayload } from '@/core/services/auth/types';
 import { getFieldClass, clearFormMessage, validateFields, emailValidator } from '@/shared/helpers';
 import { loginUser } from '@/core/services';
 import { setUser } from '@/core/state/auth';
-import AppLoader from '@/shared/components/AppLoader.vue';
-import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
+import { AppAlertDismissible, AppLoader } from '@/shared/components';
 import Auth from '../Auth.vue';
 
 const fields = ['E-mail', 'Password', 'Keep logged'];

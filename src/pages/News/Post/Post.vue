@@ -22,7 +22,7 @@ import { useRoute } from 'vue-router';
 import { PostState } from '@/pages/News/Post/_files/types';
 import { currentPost, setCurrentPost } from '@/core/state/news';
 import { getPost } from '@/core/services';
-import AppLoader from '@/shared/components/AppLoader.vue';
+import { AppLoader } from '@/shared/components';
 import PostBody from './PostBody/PostBody.vue';
 import DeletePostModal from './DeletePostModal/DeletePostModal.vue';
 

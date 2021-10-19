@@ -90,7 +90,7 @@ import { useForm } from 'vue-hooks-form';
 import { AccountFormState } from '@/pages/Account/_files/types';
 import { getFieldClass, clearFormMessage, validateFields, emailValidator } from '@/shared/helpers';
 import { user, setUser } from '@/core/state/auth';
-import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
+import { AppAlertDismissible } from '@/shared/components';
 
 const fields = ['First name', 'Last name', 'E-mail'];
 

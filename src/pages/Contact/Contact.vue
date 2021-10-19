@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-import AppPageHeader from '@/shared/components/AppPageHeader.vue';
+import { AppPageHeader } from '@/shared/components';
 import Form from '@/pages/Contact/Form/Form.vue';
 </script>
 

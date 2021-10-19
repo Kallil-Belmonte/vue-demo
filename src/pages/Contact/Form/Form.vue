@@ -182,8 +182,7 @@ import {
   selectValidator,
 } from '@/shared/helpers';
 import { getFavoriteColors } from '@/core/services';
-import AppLoader from '@/shared/components/AppLoader.vue';
-import AppAlertDismissible from '@/shared/components/AppAlertDismissible.vue';
+import { AppAlertDismissible, AppLoader } from '@/shared/components';
 
 const fields = [
   'First name',

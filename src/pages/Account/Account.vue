@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="container">
-      <AppPageHeader icon="user">Account</AppPageHeader>
+      <AppPageHeader icon="User">Account</AppPageHeader>
 
       <Form />
     </div>
@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-import AppPageHeader from '@/shared/components/AppPageHeader.vue';
+import { AppPageHeader } from '@/shared/components';
 import Form from '@/pages/Account/Form/Form.vue';
 </script>
 

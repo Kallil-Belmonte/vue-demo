@@ -49,7 +49,7 @@ import { PROJECT_TITLE } from '@/shared/files/consts';
 import { clearStorageData } from '@/shared/helpers';
 import { fullName, setUser, resetUser } from '@/core/state/auth';
 import { getUser } from '@/core/services/auth';
-import AppIcon from '@/shared/components/AppIcon/AppIcon.vue';
+import { AppIcon } from '@/shared/components';
 
 const router = useRouter();
 

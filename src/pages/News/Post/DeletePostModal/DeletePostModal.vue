@@ -33,7 +33,7 @@ import { Modal } from 'bootstrap';
 
 import { DeletePostModalState } from '@/pages/News/Post/_files/types';
 import { deletePost } from '@/core/services/news';
-import AppLoader from '@/shared/components/AppLoader.vue';
+import { AppLoader } from '@/shared/components';
 
 const router = useRouter();
 const route = useRoute();
