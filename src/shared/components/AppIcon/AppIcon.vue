@@ -45,9 +45,6 @@ onMounted(() => {
 
 <styled lang="scss" scoped>
 [data-element='icon'] {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   margin: 0;
 }
 </styled>
