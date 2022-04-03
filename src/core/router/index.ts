@@ -16,11 +16,11 @@ const router = createRouter({
           meta: {
             title: 'Home',
           },
-          component: () => import('@/pages/Home/Home.vue'),
+          component: () => import('@/pages/PageHome/PageHome.vue'),
         },
         {
           path: 'blog',
-          component: () => import('@/pages/News/News.vue'),
+          component: () => import('@/pages/ModuleNews/ModuleNews.vue'),
           children: [
             {
               path: '',
@@ -28,7 +28,7 @@ const router = createRouter({
               meta: {
                 title: 'Blog',
               },
-              component: () => import('@/pages/News/Blog/Blog.vue'),
+              component: () => import('@/pages/ModuleNews/PageBlog/PageBlog.vue'),
             },
             {
               path: '/post/:id',
@@ -36,7 +36,7 @@ const router = createRouter({
               meta: {
                 title: 'Post',
               },
-              component: () => import('@/pages/News/Post/Post.vue'),
+              component: () => import('@/pages/ModuleNews/PagePost/PagePost.vue'),
             },
             {
               path: '/edit-post/:id',
@@ -44,7 +44,7 @@ const router = createRouter({
               meta: {
                 title: 'Edit Post',
               },
-              component: () => import('@/pages/News/EditPost/EditPost.vue'),
+              component: () => import('@/pages/ModuleNews/PageEditPost/PageEditPost.vue'),
             },
           ],
         },
@@ -54,7 +54,7 @@ const router = createRouter({
           meta: {
             title: 'Contact',
           },
-          component: () => import('@/pages/Contact/Contact.vue'),
+          component: () => import('@/pages/PageContact/PageContact.vue'),
         },
         {
           path: '/account',
@@ -62,7 +62,7 @@ const router = createRouter({
           meta: {
             title: 'Account',
           },
-          component: () => import('@/pages/Account/Account.vue'),
+          component: () => import('@/pages/PageAccount/PageAccount.vue'),
         },
       ],
     },
@@ -72,7 +72,7 @@ const router = createRouter({
       meta: {
         title: 'Login',
       },
-      component: () => import('@/pages/Auth/Login/Login.vue'),
+      component: () => import('@/pages/PageAuth/PageLogin/PageLogin.vue'),
     },
     {
       path: '/register',
@@ -80,7 +80,7 @@ const router = createRouter({
       meta: {
         title: 'Register',
       },
-      component: () => import('@/pages/Auth/Register/Register.vue'),
+      component: () => import('@/pages/PageAuth/PageRegister/PageRegister.vue'),
     },
     {
       path: '/:pathMatch(.*)*',
@@ -88,7 +88,7 @@ const router = createRouter({
       meta: {
         title: 'Not Found',
       },
-      component: () => import('@/pages/NotFound/NotFound.vue'),
+      component: () => import('@/pages/PageNotFound/PageNotFound.vue'),
     },
   ],
 });

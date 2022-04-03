@@ -1,6 +1,6 @@
 <template>
   <section class="page-header">
-    <AppIcon v-if="icon" class="d-block mx-auto" :icon="icon" size="32px" />
+    <app-icon v-if="icon" class="d-block mx-auto" :icon="icon" size="32px"></app-icon>
 
     <h1 class="title">
       <slot />
