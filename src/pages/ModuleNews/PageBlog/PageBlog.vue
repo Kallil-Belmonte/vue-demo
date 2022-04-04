@@ -37,7 +37,7 @@
 import { reactive, toRefs, onMounted } from 'vue';
 
 import { Category, Post } from '@/core/services/news/types';
-import { BlogState } from '@/pages/ModuleNews/Blog/_files/types';
+import { BlogState } from '@/pages/ModuleNews/PageBlog/_files/types';
 import { groupArrayItemsInArrays } from '@/shared/helpers';
 import { categories, posts, setCategories, setPosts } from '@/core/state/news';
 import { getCategories, getPosts } from '@/core/services';
