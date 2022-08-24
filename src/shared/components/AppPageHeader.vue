@@ -3,7 +3,7 @@
     <AppIcon v-if="icon" class="d-block mx-auto" :icon="icon" size="32px" />
 
     <h1 class="title">
-      <slot />
+      <slot></slot>
     </h1>
   </section>
 </template>

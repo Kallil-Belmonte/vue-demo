@@ -1,6 +1,6 @@
 <template>
   <div :class="`alert alert-${variant} alert-dismissible fade show`" role="alert">
-    <slot />
+    <slot></slot>
     <button
       type="button"
       class="btn-close"
