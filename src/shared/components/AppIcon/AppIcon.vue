@@ -2,7 +2,7 @@
   <component
     :is="iconComponent"
     v-bind="{
-      class: `${$props.class} d-flex align-items-center justify-content-center`,
+      class: `${props.class} d-flex align-items-center justify-content-center`,
       style: { width: size, height: size },
       fill: fill,
     }"
