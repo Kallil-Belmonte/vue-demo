@@ -1,5 +1,5 @@
 <template>
-  <AppLoader v-if="isLoading" />
+  <Loader v-if="isLoading" />
 
   <form class="edit-post-form" @submit.prevent="submit">
     <div class="mb-3">
@@ -48,7 +48,7 @@ import { EditPostFormState } from '@/pages/News/EditPost/_files/types';
 import { getFieldClass, validateFields } from '@/shared/helpers';
 import { getPost, editPost } from '@/core/services';
 import { currentPost, setCurrentPost } from '@/core/state/news';
-import { AppLoader } from '@/shared/components';
+import { Loader } from '@/shared/components';
 
 const fields = ['Title', 'Body'];
 

@@ -1,6 +1,6 @@
 <template>
   <section class="page-header">
-    <AppIcon v-if="icon" class="d-block mx-auto" :icon="icon" size="32px" />
+    <Icon v-if="icon" class="d-block mx-auto" :icon="icon" size="32px" />
 
     <h1 class="title">
       <slot></slot>
@@ -9,8 +9,8 @@
 </template>
 
 <script lang="ts" setup>
-import { Icons } from './AppIcon/types';
-import AppIcon from './AppIcon/AppIcon.vue';
+import { Icons } from './Icon/types';
+import Icon from './Icon/Icon.vue';
 
 type Props = {
   icon?: Icons;

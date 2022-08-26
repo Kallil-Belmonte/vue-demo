@@ -1,23 +1,23 @@
 <template>
   <div class="row">
     <div class="col-md-6 offset-md-3">
-      <AppAlertDismissible
+      <AlertDismissible
         v-for="(successMessage, index) in successMessages"
         :key="successMessage"
         variant="success"
         @dismiss="clearFormMessage(successMessages, index)"
       >
         {{ successMessage }}
-      </AppAlertDismissible>
+      </AlertDismissible>
 
-      <AppAlertDismissible
+      <AlertDismissible
         v-for="(errorMessage, index) in serverErrors.request"
         :key="errorMessage"
         variant="danger"
         @dismiss="clearFormMessage(serverErrors.request, index)"
       >
         {{ errorMessage }}
-      </AppAlertDismissible>
+      </AlertDismissible>
 
       <form @submit.prevent="submit">
         <div class="mb-3">
@@ -65,14 +65,14 @@
           </div>
         </div>
 
-        <AppAlertDismissible
+        <AlertDismissible
           v-for="(errorMessage, index) in serverErrors.email"
           :key="errorMessage"
           variant="danger"
           @dismiss="clearFormMessage(serverErrors.email, index)"
         >
           {{ errorMessage }}
-        </AppAlertDismissible>
+        </AlertDismissible>
 
         <button class="btn btn-primary me-2" type="submit">Save</button>
         <button class="btn btn-light" type="button" @click="getUserData">Reset form</button>
@@ -90,7 +90,7 @@ import { useForm } from 'vue-hooks-form';
 import { AccountFormState } from '@/pages/Account/_files/types';
 import { getFieldClass, clearFormMessage, validateFields, emailValidator } from '@/shared/helpers';
 import { user, setUser } from '@/core/state/auth';
-import { AppAlertDismissible } from '@/shared/components';
+import { AlertDismissible } from '@/shared/components';
 
 const fields = ['First name', 'Last name', 'E-mail'];
 

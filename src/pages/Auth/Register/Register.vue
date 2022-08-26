@@ -1,6 +1,6 @@
 <template>
   <Auth>
-    <AppLoader v-if="isLoading" />
+    <Loader v-if="isLoading" />
 
     <form class="register-form" @submit.prevent="submit">
       <h1 class="page-title">Register</h1>
@@ -50,14 +50,14 @@
         </div>
       </div>
 
-      <AppAlertDismissible
+      <AlertDismissible
         v-for="(errorMessage, index) in serverErrors.email"
         :key="errorMessage"
         variant="danger"
         @dismiss="clearFormMessage(serverErrors.email, index)"
       >
         {{ errorMessage }}
-      </AppAlertDismissible>
+      </AlertDismissible>
 
       <div class="mb-3">
         <label class="form-label" for="password">Password</label>
@@ -74,23 +74,23 @@
         </div>
       </div>
 
-      <AppAlertDismissible
+      <AlertDismissible
         v-for="(errorMessage, index) in serverErrors.password"
         :key="errorMessage"
         variant="danger"
         @dismiss="clearFormMessage(serverErrors.password, index)"
       >
         {{ errorMessage }}
-      </AppAlertDismissible>
+      </AlertDismissible>
 
-      <AppAlertDismissible
+      <AlertDismissible
         v-for="(errorMessage, index) in serverErrors.request"
         :key="errorMessage"
         variant="danger"
         @dismiss="clearFormMessage(serverErrors.request, index)"
       >
         {{ errorMessage }}
-      </AppAlertDismissible>
+      </AlertDismissible>
 
       <button class="btn btn-primary d-block mx-auto" type="submit">Register</button>
 
@@ -114,7 +114,7 @@ import { AUTH_TOKEN_KEY } from '@/shared/files/consts';
 import { getFieldClass, clearFormMessage, validateFields, emailValidator } from '@/shared/helpers';
 import { registerUser } from '@/core/services';
 import { setUser } from '@/core/state/auth';
-import { AppAlertDismissible, AppLoader } from '@/shared/components';
+import { AlertDismissible, Loader } from '@/shared/components';
 import Auth from '../Auth.vue';
 
 const fields = ['First name', 'Last name', 'E-mail', 'Password'];

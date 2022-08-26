@@ -1,15 +1,15 @@
 <template>
-  <AppLoader v-if="isLoading" />
+  <Loader v-if="isLoading" />
 
   <form @submit.prevent="submit">
-    <AppAlertDismissible
+    <AlertDismissible
       v-for="(successMessage, index) in successMessages"
       :key="successMessage"
       variant="success"
       @dismiss="clearFormMessage(successMessages, index)"
     >
       {{ successMessage }}
-    </AppAlertDismissible>
+    </AlertDismissible>
 
     <div class="row">
       <div class="col mb-3">
@@ -182,7 +182,7 @@ import {
   selectValidator,
 } from '@/shared/helpers';
 import { getFavoriteColors } from '@/core/services';
-import { AppAlertDismissible, AppLoader } from '@/shared/components';
+import { AlertDismissible, Loader } from '@/shared/components';
 
 const fields = [
   'First name',

@@ -5,7 +5,7 @@
 
       <div class="row">
         <div class="col-md-4" v-for="post in posts" :key="post.id">
-          <AppPostItem :post="post" />
+          <PostItem :post="post" />
         </div>
       </div>
     </div>
@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
 import { Post } from '@/core/services/news/types';
-import { AppPostItem } from '@/shared/components';
+import { PostItem } from '@/shared/components';
 
 type Props = {
   posts: Post[];

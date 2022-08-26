@@ -1,5 +1,5 @@
 <template>
-  <AppLoader v-if="isLoading" />
+  <Loader v-if="isLoading" />
 
   <div id="delete-post-modal" class="modal fade" tabindex="-1" ref="modalRef">
     <div class="modal-dialog">
@@ -33,7 +33,7 @@ import { Modal } from 'bootstrap';
 
 import { DeletePostModalState } from '@/pages/News/Post/_files/types';
 import { deletePost } from '@/core/services/news';
-import { AppLoader } from '@/shared/components';
+import { Loader } from '@/shared/components';
 
 const router = useRouter();
 const route = useRoute();

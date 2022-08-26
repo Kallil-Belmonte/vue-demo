@@ -1,6 +1,6 @@
 <template>
   <Auth>
-    <AppLoader v-if="isLoading" />
+    <Loader v-if="isLoading" />
 
     <form class="login-form" @submit.prevent="submit">
       <h1 class="page-title">Login</h1>
@@ -20,14 +20,14 @@
         </div>
       </div>
 
-      <AppAlertDismissible
+      <AlertDismissible
         v-for="(errorMessage, index) in serverErrors.email"
         :key="errorMessage"
         variant="danger"
         @dismiss="clearFormMessage(serverErrors.email, index)"
       >
         {{ errorMessage }}
-      </AppAlertDismissible>
+      </AlertDismissible>
 
       <div class="mb-3">
         <label class="form-label" for="password">Password</label>
@@ -44,14 +44,14 @@
         </div>
       </div>
 
-      <AppAlertDismissible
+      <AlertDismissible
         v-for="(errorMessage, index) in serverErrors.password"
         :key="errorMessage"
         variant="danger"
         @dismiss="clearFormMessage(serverErrors.password, index)"
       >
         {{ errorMessage }}
-      </AppAlertDismissible>
+      </AlertDismissible>
 
       <div class="form-check">
         <input
@@ -64,14 +64,14 @@
         <label class="form-check-label" for="keep-logged">Keep logged</label>
       </div>
 
-      <AppAlertDismissible
+      <AlertDismissible
         v-for="(errorMessage, index) in serverErrors.request"
         :key="errorMessage"
         variant="danger"
         @dismiss="clearFormMessage(serverErrors.request, index)"
       >
         {{ errorMessage }}
-      </AppAlertDismissible>
+      </AlertDismissible>
 
       <button class="btn btn-primary d-block mx-auto" type="submit">Login</button>
 
@@ -95,7 +95,7 @@ import { LoginUserPayload } from '@/core/services/auth/types';
 import { getFieldClass, clearFormMessage, validateFields, emailValidator } from '@/shared/helpers';
 import { loginUser } from '@/core/services';
 import { setUser } from '@/core/state/auth';
-import { AppAlertDismissible, AppLoader } from '@/shared/components';
+import { AlertDismissible, Loader } from '@/shared/components';
 import Auth from '../Auth.vue';
 
 const fields = ['E-mail', 'Password', 'Keep logged'];

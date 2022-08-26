@@ -1,9 +1,9 @@
 <template>
   <main>
-    <AppLoader v-if="isLoading" />
+    <Loader v-if="isLoading" />
 
     <div class="container">
-      <AppPageHeader icon="Newspaper">Blog</AppPageHeader>
+      <PageHeader icon="Newspaper">Blog</PageHeader>
 
       <PostsPerPage
         :postsPerPage="postsPerPage"
@@ -38,7 +38,7 @@ import { BlogState } from '@/pages/News/Blog/_files/types';
 import { groupArrayItemsInArrays } from '@/shared/helpers';
 import { categories, posts, setCategories, setPosts } from '@/core/state/news';
 import { getCategories, getPosts } from '@/core/services';
-import { AppLoader, AppPageHeader } from '@/shared/components';
+import { Loader, PageHeader } from '@/shared/components';
 import PostsPerPage from './PostsPerPage/PostsPerPage.vue';
 import Posts from './Posts/Posts.vue';
 import Pagination from './Pagination/Pagination.vue';

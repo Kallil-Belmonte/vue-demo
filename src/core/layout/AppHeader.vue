@@ -8,25 +8,25 @@
       <ul>
         <li>
           <router-link class="d-flex align-items-center" to="/" exact>
-            <AppIcon icon="Home" />
+            <Icon icon="Home" />
             Home
           </router-link>
         </li>
         <li>
           <router-link class="d-flex align-items-center" active-class="active" to="/blog">
-            <AppIcon icon="Newspaper" />
+            <Icon icon="Newspaper" />
             Blog
           </router-link>
         </li>
         <li>
           <router-link class="d-flex align-items-center" active-class="active" to="/contact">
-            <AppIcon icon="Envelope" />
+            <Icon icon="Envelope" />
             Contact
           </router-link>
         </li>
         <li>
           <router-link class="d-flex align-items-center" active-class="active" to="/account">
-            <AppIcon icon="User" />
+            <Icon icon="User" />
             Account
           </router-link>
         </li>
@@ -49,7 +49,7 @@ import { PROJECT_TITLE } from '@/shared/files/consts';
 import { clearStorageData } from '@/shared/helpers';
 import { fullName, setUser, resetUser } from '@/core/state/auth';
 import { getUser } from '@/core/services/auth';
-import { AppIcon } from '@/shared/components';
+import { Icon } from '@/shared/components';
 
 const router = useRouter();
 

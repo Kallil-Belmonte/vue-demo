@@ -30,7 +30,7 @@ const iconComponent = shallowRef();
 
 const setIconComponent = async () => {
   try {
-    const module = await import(`./Icons/App${props.icon}.vue`);
+    const module = await import(`./Icons/${props.icon}Icon.vue`);
     iconComponent.value = module.default;
   } catch (error) {
     console.error(error);

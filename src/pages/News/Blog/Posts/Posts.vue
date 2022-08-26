@@ -2,7 +2,7 @@
   <section>
     <div class="row">
       <div class="col-md-4" v-for="post of pages[currentPage]" :key="post.id">
-        <AppPostItem :post="post" />
+        <PostItem :post="post" />
       </div>
     </div>
   </section>
@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 import { Post } from '@/core/services/news/types';
-import { AppPostItem } from '@/shared/components';
+import { PostItem } from '@/shared/components';
 
 export type Props = {
   pages: { [key: string]: Post[] };

@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="container">
-      <AppPageHeader icon="Envelope">Contact</AppPageHeader>
+      <PageHeader icon="Envelope">Contact</PageHeader>
 
       <Form />
     </div>
@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-import { AppPageHeader } from '@/shared/components';
+import { PageHeader } from '@/shared/components';
 import Form from '@/pages/Contact/Form/Form.vue';
 </script>
 

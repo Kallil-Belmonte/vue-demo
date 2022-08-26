@@ -1,5 +1,5 @@
-export { default as AppAlertDismissible } from './AppAlertDismissible.vue';
-export { default as AppIcon } from './AppIcon/AppIcon.vue';
-export { default as AppLoader } from './AppLoader.vue';
-export { default as AppPageHeader } from './AppPageHeader.vue';
-export { default as AppPostItem } from './AppPostItem.vue';
+export { default as AlertDismissible } from './AlertDismissible.vue';
+export { default as Icon } from './Icon/Icon.vue';
+export { default as Loader } from './Loader.vue';
+export { default as PageHeader } from './PageHeader.vue';
+export { default as PostItem } from './PostItem.vue';
