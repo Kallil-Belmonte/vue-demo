@@ -1,5 +1,5 @@
 <template>
-  <figure :class="`icon-user ${props.class}`" :style="style">
+  <figure :class="`icon icon-user ${props.class}`" :style="style">
     <svg
       aria-hidden="true"
       role="img"
