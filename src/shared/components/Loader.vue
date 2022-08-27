@@ -46,7 +46,7 @@
     @include square(55px);
     border-radius: 50%;
     perspective: 800px;
-    @extend %center-absolute;
+    @extend %absolute-center;
 
     .orbit {
       position: absolute;
