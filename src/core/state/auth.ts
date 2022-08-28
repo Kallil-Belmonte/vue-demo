@@ -24,8 +24,8 @@ export const user = computed(() => state.user);
 export const fullName = computed(() => `${state.user.firstName} ${state.user.lastName}`);
 
 // ACTIONS
-export const setUser = (payload: AuthState['user']) => {
-  state.user = payload;
+export const setUser = (user: AuthState['user']) => {
+  state.user = user;
 };
 
 export const resetUser = () => {

@@ -28,14 +28,14 @@ export const posts = computed(() => state.posts);
 export const currentPost = computed(() => state.currentPost);
 
 // ACTIONS
-export const setCategories = (payload: NewsState['categories']) => {
-  state.categories = payload;
+export const setCategories = (categories: NewsState['categories']) => {
+  state.categories = categories;
 };
 
-export const setPosts = (payload: NewsState['posts']) => {
-  state.posts = payload;
+export const setPosts = (posts: NewsState['posts']) => {
+  state.posts = posts;
 };
 
-export const setCurrentPost = (payload: NewsState['currentPost']) => {
-  state.currentPost = payload;
+export const setCurrentPost = (currentPost: NewsState['currentPost']) => {
+  state.currentPost = currentPost;
 };
