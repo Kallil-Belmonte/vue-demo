@@ -19,20 +19,18 @@ const state = reactive<NewsState>({
   },
 });
 
-const categories = computed(() => state.categories);
-const posts = computed(() => state.posts);
-const currentPost = computed(() => state.currentPost);
+export const categories = computed(() => state.categories);
+export const posts = computed(() => state.posts);
+export const currentPost = computed(() => state.currentPost);
 
-const setCategories = (payload: NewsState['categories']) => {
+export const setCategories = (payload: NewsState['categories']) => {
   state.categories = payload;
 };
 
-const setPosts = (payload: NewsState['posts']) => {
+export const setPosts = (payload: NewsState['posts']) => {
   state.posts = payload;
 };
 
-const setCurrentPost = (payload: NewsState['currentPost']) => {
+export const setCurrentPost = (payload: NewsState['currentPost']) => {
   state.currentPost = payload;
 };
-
-export { categories, posts, currentPost, setCategories, setPosts, setCurrentPost };

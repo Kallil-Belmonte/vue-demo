@@ -16,19 +16,17 @@ const state = reactive<AuthState>({
   },
 });
 
-const user = computed(() => state.user);
-const fullName = computed(() => `${state.user.firstName} ${state.user.lastName}`);
+export const user = computed(() => state.user);
+export const fullName = computed(() => `${state.user.firstName} ${state.user.lastName}`);
 
-const setUser = (payload: AuthState['user']) => {
+export const setUser = (payload: AuthState['user']) => {
   state.user = payload;
 };
 
-const resetUser = () => {
+export const resetUser = () => {
   state.user = {
     firstName: '',
     lastName: '',
     email: '',
   };
 };
-
-export { user, fullName, setUser, resetUser };
