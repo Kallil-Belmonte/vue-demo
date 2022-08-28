@@ -8,25 +8,25 @@
       <ul>
         <li>
           <router-link class="d-flex align-items-center" to="/" exact>
-            <Icon icon="Home" />
+            <Icon name="Home" />
             Home
           </router-link>
         </li>
         <li>
           <router-link class="d-flex align-items-center" active-class="active" to="/blog">
-            <Icon icon="Newspaper" />
+            <Icon name="Newspaper" />
             Blog
           </router-link>
         </li>
         <li>
           <router-link class="d-flex align-items-center" active-class="active" to="/contact">
-            <Icon icon="Envelope" />
+            <Icon name="Envelope" />
             Contact
           </router-link>
         </li>
         <li>
           <router-link class="d-flex align-items-center" active-class="active" to="/account">
-            <Icon icon="User" />
+            <Icon name="User" />
             Account
           </router-link>
         </li>

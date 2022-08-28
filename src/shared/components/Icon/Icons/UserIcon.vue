@@ -22,7 +22,7 @@
 <script lang="ts" setup>
 import { Style } from '@/shared/files/types';
 
-type Props = {
+export type Props = {
   class: string;
   style: Style;
   ariaLabel: string;

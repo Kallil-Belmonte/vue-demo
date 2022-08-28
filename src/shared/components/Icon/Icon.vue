@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-import { shallowRef, computed, onMounted } from 'vue';
+import { shallowRef, computed, watchEffect } from 'vue';
 
 import { Icons } from './types';
 
@@ -26,7 +26,6 @@ const props = withDefaults(defineProps<Props>(), {
   class: '',
   fill: 'currentColor',
 });
-const { name } = props;
 
 const iconComponent = shallowRef();
 
@@ -35,7 +34,7 @@ const iconClass = computed(() => {
     const result = index && letter.match(/[A-Z]/) ? `-${letter}` : letter;
     return result.toLowerCase();
   };
-  const iconName = name.split('').map(convertLetters).join('');
+  const iconName = props.name.split('').map(convertLetters).join('');
   return `${iconName}-icon`;
 });
 
@@ -46,7 +45,7 @@ const ariaLabel = computed(() => {
 
 const setIconComponent = async () => {
   try {
-    const module = await import(`./Icons/${name}Icon.vue`);
+    const module = await import(`./Icons/${props.name}Icon.vue`);
     iconComponent.value = module.default;
   } catch (error) {
     console.error(error);
@@ -54,7 +53,7 @@ const setIconComponent = async () => {
 };
 
 // LIFECYCLE HOOKS
-onMounted(() => {
+watchEffect(() => {
   setIconComponent();
 });
 </script>
