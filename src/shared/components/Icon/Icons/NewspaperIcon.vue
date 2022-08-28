@@ -1,7 +1,8 @@
 <template>
-  <figure :class="`icon icon-newspaper ${props.class}`" :style="style">
+  <figure :class="`icon ${props.class}`" :style="style">
     <svg
       role="img"
+      :aria-label="ariaLabel"
       viewBox="0 0 576 512"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
@@ -19,10 +20,13 @@
 </template>
 
 <script lang="ts" setup>
+import { Style } from '@/shared/files/types';
+
 type Props = {
-  class?: string;
-  style?: { [key: string]: string };
-  fill?: string;
+  class: string;
+  style: Style;
+  ariaLabel: string;
+  fill: string;
 };
 
 const props = defineProps<Props>();

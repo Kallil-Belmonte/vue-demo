@@ -1,4 +1,7 @@
-import { FieldNode } from 'node_modules/vue-hooks-form/dist/src/utils.d';
+import { StyleValue } from '@vue/runtime-dom';
+import { FieldNode } from 'vue-hooks-form/dist/src/utils.d';
+
+export type Style = StyleValue;
 
 export type BootstrapVariants =
   | 'primary'
