@@ -23,7 +23,7 @@
           ref="firstName.ref"
         />
         <div class="invalid-feedback" v-if="firstName.error">
-          {{ firstName.error?.message }}
+          {{ (firstName.error as any).message }}
         </div>
       </div>
 
@@ -38,7 +38,7 @@
           ref="lastName.ref"
         />
         <div class="invalid-feedback" v-if="lastName.error">
-          {{ lastName.error?.message }}
+          {{ (lastName.error as any).message }}
         </div>
       </div>
     </div>
@@ -55,7 +55,7 @@
           ref="email.ref"
         />
         <div class="invalid-feedback" v-if="email.error">
-          {{ email.error?.message }}
+          {{ (email.error as any).message }}
         </div>
       </div>
 
@@ -70,7 +70,7 @@
           ref="telephone.ref"
         />
         <div class="invalid-feedback" v-if="telephone.error">
-          {{ telephone.error?.message }}
+          {{ (telephone.error as any).message }}
         </div>
       </div>
     </div>
@@ -102,7 +102,7 @@
           <label class="form-check-label" for="female">Female</label>
         </div>
         <div class="invalid-feedback" v-if="sex.error">
-          {{ sex.error?.message }}
+          {{ (sex.error as any).message }}
         </div>
       </div>
     </div>
@@ -127,7 +127,7 @@
           </option>
         </select>
         <div class="invalid-feedback" v-if="favoriteColor.error">
-          {{ favoriteColor.error?.message }}
+          {{ (favoriteColor.error as any).message }}
         </div>
       </div>
       <div class="col mt-4">
@@ -158,7 +158,7 @@
           ref="message.ref"
         />
         <div class="invalid-feedback" v-if="message.error">
-          {{ message.error?.message }}
+          {{ (message.error as any).message }}
         </div>
       </div>
     </div>
@@ -201,7 +201,7 @@ const { useField, set, validateField, values } = useForm({
   },
 });
 
-const state = reactive<ContactFormState>({
+const initialState: ContactFormState = {
   isLoading: true,
   favoriteColors: [],
   firstName: useField('First name', {
@@ -232,7 +232,9 @@ const state = reactive<ContactFormState>({
     rule: { required: true },
   }),
   successMessages: [],
-});
+};
+
+const state = reactive(initialState);
 const {
   isLoading,
   favoriteColors,

@@ -28,9 +28,11 @@ import DeletePostModal from './DeletePostModal/DeletePostModal.vue';
 
 const route = useRoute();
 
-const state = reactive<PostState>({
+const initialState: PostState = {
   isLoading: true,
-});
+};
+
+const state = reactive(initialState);
 const { isLoading } = toRefs(state);
 
 const getCurrentPost = async () => {

@@ -13,7 +13,7 @@
         ref="title.ref"
       />
       <div class="invalid-feedback" v-if="title.error">
-        {{ title.error?.message }}
+        {{ (title.error as any).message }}
       </div>
     </div>
 
@@ -28,7 +28,7 @@
         ref="body.ref"
       />
       <div class="invalid-feedback" v-if="body.error">
-        {{ body.error?.message }}
+        {{ (body.error as any).message }}
       </div>
     </div>
 
@@ -57,7 +57,7 @@ const route = useRoute();
 
 const { useField, set, validateField } = useForm({ defaultValues: {} });
 
-const state = reactive<EditPostFormState>({
+const initialState: EditPostFormState = {
   isLoading: true,
   title: useField('Title', {
     rule: { required: true },
@@ -65,7 +65,9 @@ const state = reactive<EditPostFormState>({
   body: useField('Body', {
     rule: { required: true },
   }),
-});
+};
+
+const state = reactive(initialState);
 const { isLoading, title, body } = toRefs(state);
 
 const setFormData = () => {

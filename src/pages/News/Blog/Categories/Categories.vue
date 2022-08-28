@@ -31,9 +31,11 @@ const props = withDefaults<Props, any>(defineProps<Props>(), {
 });
 const emits = defineEmits(['selectCategory']);
 
-const state = reactive<CategoriesState>({
+const initialState: CategoriesState = {
   activeCategory: '',
-});
+};
+
+const state = reactive(initialState);
 
 const isActive = (category: Category['name']) => state.activeCategory === category;
 

@@ -44,14 +44,16 @@ import Posts from './Posts/Posts.vue';
 import Pagination from './Pagination/Pagination.vue';
 import Categories from './Categories/Categories.vue';
 
-const state = reactive<BlogState>({
+const initialState: BlogState = {
   isLoading: true,
   pages: {},
   postsPerPage: 9,
   firstPaginationItem: 1,
   maxPaginationItem: 5,
   currentPage: 1,
-});
+};
+
+const state = reactive(initialState);
 const { isLoading, pages, postsPerPage, firstPaginationItem, maxPaginationItem, currentPage } =
   toRefs(state);
 

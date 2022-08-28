@@ -15,10 +15,12 @@ import { getPosts } from '@/core/services/news';
 import { Loader } from '@/shared/components';
 import FeaturedPosts from './FeaturedPosts/FeaturedPosts.vue';
 
-const state = reactive<HomeState>({
+const initialState: HomeState = {
   isLoading: false,
   featuredPosts: [],
-});
+};
+
+const state = reactive(initialState);
 const { isLoading, featuredPosts } = toRefs(state);
 
 const getFeaturedPosts = async () => {

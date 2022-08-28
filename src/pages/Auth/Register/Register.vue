@@ -16,7 +16,7 @@
           ref="firstName.ref"
         />
         <div class="invalid-feedback" v-if="firstName.error">
-          {{ firstName.error?.message }}
+          {{ (firstName.error as any).message }}
         </div>
       </div>
 
@@ -31,7 +31,7 @@
           ref="lastName.ref"
         />
         <div class="invalid-feedback" v-if="lastName.error">
-          {{ lastName.error?.message }}
+          {{ (lastName.error as any).message }}
         </div>
       </div>
 
@@ -46,7 +46,7 @@
           ref="email.ref"
         />
         <div class="invalid-feedback" v-if="email.error">
-          {{ email.error?.message }}
+          {{ (email.error as any).message }}
         </div>
       </div>
 
@@ -70,7 +70,7 @@
           ref="password.ref"
         />
         <div class="invalid-feedback" v-if="password.error">
-          {{ password.error?.message }}
+          {{ (password.error as any).message }}
         </div>
       </div>
 
@@ -123,7 +123,7 @@ const router = useRouter();
 
 const { useField, validateField } = useForm({ defaultValues: {} });
 
-const state = reactive<RegisterFormState>({
+const initialState: RegisterFormState = {
   isLoading: false,
   firstName: useField('First name', {
     rule: { required: true, min: 2 },
@@ -138,7 +138,9 @@ const state = reactive<RegisterFormState>({
     rule: { required: true, min: 3 },
   }),
   serverErrors: { email: [], password: [], request: [] },
-});
+};
+
+const state = reactive(initialState);
 const { isLoading, firstName, lastName, email, password, serverErrors } = toRefs(state);
 
 const submit = async () => {

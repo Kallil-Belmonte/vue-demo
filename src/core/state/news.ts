@@ -8,7 +8,8 @@ type NewsState = {
   currentPost: Post;
 };
 
-const state = reactive<NewsState>({
+// STATE
+const initialState: NewsState = {
   categories: [],
   posts: [],
   currentPost: {
@@ -17,12 +18,16 @@ const state = reactive<NewsState>({
     title: '',
     body: '',
   },
-});
+};
 
+const state = reactive(initialState);
+
+// PROPERTIES
 export const categories = computed(() => state.categories);
 export const posts = computed(() => state.posts);
 export const currentPost = computed(() => state.currentPost);
 
+// ACTIONS
 export const setCategories = (payload: NewsState['categories']) => {
   state.categories = payload;
 };

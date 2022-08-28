@@ -31,7 +31,7 @@
             ref="firstName.ref"
           />
           <div class="invalid-feedback" v-if="firstName.error">
-            {{ firstName.error?.message }}
+            {{ (firstName.error as any).message }}
           </div>
         </div>
 
@@ -46,7 +46,7 @@
             ref="lastName.ref"
           />
           <div class="invalid-feedback" v-if="lastName.error">
-            {{ lastName.error?.message }}
+            {{ (lastName.error as any).message }}
           </div>
         </div>
 
@@ -61,7 +61,7 @@
             ref="email.ref"
           />
           <div class="invalid-feedback" v-if="email.error">
-            {{ email.error?.message }}
+            {{ (email.error as any).message }}
           </div>
         </div>
 
@@ -96,7 +96,7 @@ const fields = ['First name', 'Last name', 'E-mail'];
 
 const { useField, set, validateField } = useForm({ defaultValues: {} });
 
-const state = reactive<AccountFormState>({
+const initialState: AccountFormState = {
   firstName: useField('First name', {
     rule: { required: true, min: 2 },
   }),
@@ -108,7 +108,9 @@ const state = reactive<AccountFormState>({
   }),
   successMessages: [],
   serverErrors: { email: [], request: [] },
-});
+};
+
+const state = reactive(initialState);
 const { firstName, lastName, email, successMessages, serverErrors } = toRefs(state);
 
 const getUserData = () => {

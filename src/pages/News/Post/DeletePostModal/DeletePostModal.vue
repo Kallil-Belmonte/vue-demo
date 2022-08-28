@@ -40,9 +40,11 @@ const route = useRoute();
 
 const modalRef = ref();
 
-const state = reactive<DeletePostModalState>({
+const initialState: DeletePostModalState = {
   isLoading: false,
-});
+};
+
+const state = reactive(initialState);
 const { isLoading } = toRefs(state);
 
 const setUpModal = () => {

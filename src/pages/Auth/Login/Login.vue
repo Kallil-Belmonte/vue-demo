@@ -16,7 +16,7 @@
           ref="email.ref"
         />
         <div class="invalid-feedback" v-if="email.error">
-          {{ email.error?.message }}
+          {{ (email.error as any).message }}
         </div>
       </div>
 
@@ -40,7 +40,7 @@
           ref="password.ref"
         />
         <div class="invalid-feedback" v-if="password.error">
-          {{ password.error?.message }}
+          {{ (password.error as any).message }}
         </div>
       </div>
 
@@ -104,7 +104,7 @@ const router = useRouter();
 
 const { useField, validateField } = useForm({ defaultValues: {} });
 
-const state = reactive<LoginFormState>({
+const initialState: LoginFormState = {
   isLoading: false,
   email: useField('E-mail', {
     rule: { required: true, validator: emailValidator },
@@ -114,7 +114,9 @@ const state = reactive<LoginFormState>({
   }),
   keepLogged: useField('Keep logged'),
   serverErrors: { email: [], password: [], request: [] },
-});
+};
+
+const state = reactive(initialState);
 const { isLoading, email, password, keepLogged, serverErrors } = toRefs(state);
 
 const submit = async () => {
