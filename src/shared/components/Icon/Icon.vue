@@ -13,6 +13,7 @@
 <script lang="ts" setup>
 import { shallowRef, computed, watchEffect } from 'vue';
 
+import { firstLetterToUpperCase } from '@/shared/helpers';
 import { Icons } from './types';
 
 type Props = {
@@ -40,7 +41,7 @@ const iconClass = computed(() => {
 
 const ariaLabel = computed(() => {
   const className = iconClass.value.replaceAll('-', ' ');
-  return `${className.charAt(0).toUpperCase()}${className.slice(1)}`;
+  return firstLetterToUpperCase(className);
 });
 
 const setIconComponent = async () => {
