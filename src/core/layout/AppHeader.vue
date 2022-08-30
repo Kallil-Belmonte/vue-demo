@@ -48,7 +48,7 @@ import { useRouter } from 'vue-router';
 import { PROJECT_TITLE } from '@/shared/files/consts';
 import { clearStorageData } from '@/shared/helpers';
 import { fullName, setUser, resetUser } from '@/core/state/auth';
-import { getUser } from '@/core/services/auth';
+import { getUser } from '@/core/services';
 import { Icon } from '@/shared/components';
 
 const router = useRouter();

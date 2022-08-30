@@ -11,7 +11,7 @@ import { reactive, toRefs, onMounted } from 'vue';
 
 import { HomeState } from '@/pages/Home/_files/types';
 import { posts, setPosts } from '@/core/state/news';
-import { getPosts } from '@/core/services/news';
+import { getPosts } from '@/core/services';
 import { Loader } from '@/shared/components';
 import FeaturedPosts from './FeaturedPosts/FeaturedPosts.vue';
 
