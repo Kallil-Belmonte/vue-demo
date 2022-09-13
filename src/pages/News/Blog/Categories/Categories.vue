@@ -46,8 +46,6 @@ const select = (category: Category['name']) => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/helpers/helpers';
-
 .list-group {
   cursor: pointer;
 

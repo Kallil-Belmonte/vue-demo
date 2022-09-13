@@ -77,8 +77,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/helpers/helpers';
-
 header {
   color: #fff;
   text-align: center;

@@ -21,8 +21,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/helpers/helpers';
-
 main {
   color: #fff;
   @include size(100%, 100vh);

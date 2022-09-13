@@ -26,7 +26,6 @@ const props = defineProps<Props>();
 
 <style lang="scss" scoped>
 @import '@/assets/scss/helpers/bootstrap-helpers';
-@import '@/assets/scss/helpers/helpers';
 
 .post-item {
   text-align: center;

@@ -32,8 +32,6 @@
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/helpers/helpers';
-
 footer {
   padding: 30px 0;
 

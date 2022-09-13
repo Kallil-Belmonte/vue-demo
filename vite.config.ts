@@ -3,6 +3,13 @@ import vue from '@vitejs/plugin-vue';
 import path from 'path';
 
 export default defineConfig({
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "src/assets/scss/helpers/_helpers.scss";`,
+      },
+    },
+  },
   plugins: [vue()],
   resolve: {
     alias: {
