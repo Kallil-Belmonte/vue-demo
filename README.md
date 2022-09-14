@@ -12,8 +12,8 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 
 ## Commands
 
-| Command      | Description                                                     |
-| ------------ | --------------------------------------------------------------- |
-| `yarn dev`   | Runs the app in the development mode                            |
-| `yarn serve` | Converts the current working directory into a virtual directory |
-| `yarn build` | Builds the app for production to the `build` folder             |
+| Command         | Description                                                     |
+| --------------- | --------------------------------------------------------------- |
+| `npm run dev`   | Runs the app in the development mode                            |
+| `npm run serve` | Converts the current working directory into a virtual directory |
+| `npm run build` | Builds the app for production to the `build` folder             |
