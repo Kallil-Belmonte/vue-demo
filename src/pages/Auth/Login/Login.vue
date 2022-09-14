@@ -90,7 +90,7 @@ import { useRouter } from 'vue-router';
 import { useForm } from 'vue-hooks-form';
 
 import { LoginFormState } from '@/pages/Auth/_files/types';
-import { AUTH_TOKEN_KEY, EXPIRATION_DATE_KEY } from '@/shared/files/consts';
+import { AUTH_TOKEN_KEY, AUTH_EXPIRATION_DATE_KEY } from '@/shared/files/consts';
 import { LoginUserPayload } from '@/core/services/auth/types';
 import { getFieldClass, clearFormMessage, validateFields, emailValidator } from '@/shared/helpers';
 import { loginUser } from '@/core/services';
@@ -143,7 +143,7 @@ const submit = async () => {
     } else {
       if (state.keepLogged.value) {
         localStorage.setItem(AUTH_TOKEN_KEY, token);
-        localStorage.setItem(EXPIRATION_DATE_KEY, expirationDate);
+        localStorage.setItem(AUTH_EXPIRATION_DATE_KEY, expirationDate);
       } else {
         sessionStorage.setItem(AUTH_TOKEN_KEY, token);
       }

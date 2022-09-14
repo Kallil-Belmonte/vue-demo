@@ -1,6 +1,6 @@
 import { RouteLocationNormalized, NavigationGuardNext } from 'vue-router/dist/vue-router.d';
 
-import { EXPIRATION_DATE_KEY } from '@/shared/files/consts';
+import { AUTH_EXPIRATION_DATE_KEY } from '@/shared/files/consts';
 import { clearStorageData, getAuthToken } from '@/shared/helpers';
 
 const guard = (
@@ -9,7 +9,7 @@ const guard = (
   next: NavigationGuardNext,
 ) => {
   const isExpiredSession =
-    new Date().getTime() > Date.parse(localStorage.getItem(EXPIRATION_DATE_KEY) || '');
+    new Date().getTime() > Date.parse(localStorage.getItem(AUTH_EXPIRATION_DATE_KEY) || '');
 
   if (getAuthToken() && !isExpiredSession) {
     next();
