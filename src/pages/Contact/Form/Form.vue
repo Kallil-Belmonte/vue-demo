@@ -172,7 +172,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs, onMounted } from 'vue';
+import { reactive, toRefs, onMounted, computed } from 'vue';
 
 import { ContactFormState } from '@/pages/Contact/_files/types';
 import { getFieldClass, clearFormMessage, validateFields, setField } from '@/shared/helpers';
@@ -221,14 +221,54 @@ const setFavoriteColors = async () => {
 };
 
 const reset = () => {
-  setField(firstName, firstNameState, '', getFieldInitialState(true));
-  setField(lastName, lastNameState, '', getFieldInitialState(true));
-  setField(email, emailState, '', getFieldInitialState(true));
-  setField(telephone, telephoneState, '', getFieldInitialState(true));
-  setField(sex, sexState, '', getFieldInitialState(true));
-  setField(favoriteColor, favoriteColorState, 'select', getFieldInitialState(true));
-  setField(employed, employedState, false, getFieldInitialState());
-  setField(message, messageState, '', getFieldInitialState(true));
+  setField({
+    field: firstName,
+    state: firstNameState,
+    value: '',
+    newState: getFieldInitialState(true),
+  });
+  setField({
+    field: lastName,
+    state: lastNameState,
+    value: '',
+    newState: getFieldInitialState(true),
+  });
+  setField({
+    field: email,
+    state: emailState,
+    value: '',
+    newState: getFieldInitialState(true),
+  });
+  setField({
+    field: telephone,
+    state: telephoneState,
+    value: '',
+    newState: getFieldInitialState(true),
+  });
+  setField({
+    field: sex,
+    state: sexState,
+    value: '',
+    newState: getFieldInitialState(true),
+  });
+  setField({
+    field: favoriteColor,
+    state: favoriteColorState,
+    value: 'select',
+    newState: getFieldInitialState(true),
+  });
+  setField({
+    field: employed,
+    state: employedState,
+    value: false,
+    newState: getFieldInitialState(),
+  });
+  setField({
+    field: message,
+    state: messageState,
+    value: '',
+    newState: getFieldInitialState(true),
+  });
 };
 
 const submit = async () => {
