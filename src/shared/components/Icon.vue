@@ -14,7 +14,7 @@
 import { shallowRef, computed, watchEffect } from 'vue';
 
 import { firstLetterToUpperCase } from '@/shared/helpers';
-import { Icons } from './types';
+import { Icons } from './Icons/_types';
 
 type Props = {
   class?: string;
