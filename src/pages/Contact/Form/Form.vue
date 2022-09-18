@@ -77,10 +77,10 @@
 
     <div class="row">
       <div class="col mb-3">
-        <div :class="['form-check form-check-inline', sexState.dirty && !sex ? 'is-invalid' : '']">
+        <div :class="getFieldClass(sexState, ['form-check', 'form-check-inline'])">
           <input
             id="male"
-            :class="['form-check-input', sexState.dirty && !sex ? 'is-invalid' : '']"
+            :class="getFieldClass(sexState, ['form-check-input'])"
             type="radio"
             name="male"
             value="male"
@@ -89,10 +89,10 @@
           />
           <label class="form-check-label" for="male">Male</label>
         </div>
-        <div :class="['form-check form-check-inline', sexState.dirty && !sex ? 'is-invalid' : '']">
+        <div :class="getFieldClass(sexState, ['form-check', 'form-check-inline'])">
           <input
             id="female"
-            :class="['form-check-input', sexState.dirty && !sex ? 'is-invalid' : '']"
+            :class="getFieldClass(sexState, ['form-check-input'])"
             type="radio"
             name="female"
             value="female"
@@ -175,8 +175,8 @@
 import { reactive, toRefs, onMounted } from 'vue';
 
 import { ContactFormState } from '@/pages/Contact/_files/types';
-import { getFieldClass, clearFormMessage, setFieldsState, validateFields } from '@/shared/helpers';
-import { useField } from '@/shared/composables';
+import { getFieldClass, clearFormMessage, validateFields, setField } from '@/shared/helpers';
+import { useField, getFieldInitialState } from '@/shared/composables';
 import { getFavoriteColors } from '@/core/services';
 import { AlertDismissible, Loader } from '@/shared/components';
 
@@ -221,47 +221,14 @@ const setFavoriteColors = async () => {
 };
 
 const reset = () => {
-  firstName.value = '';
-  lastName.value = '';
-  email.value = '';
-  telephone.value = '';
-  sex.value = '';
-  favoriteColor.value = 'select';
-  employed.value = false;
-  message.value = '';
-
-  setTimeout(() => {
-    setFieldsState(
-      [
-        firstNameState,
-        lastNameState,
-        emailState,
-        telephoneState,
-        sexState,
-        favoriteColorState,
-        messageState,
-      ],
-      {
-        untouched: true,
-        touched: false,
-        pristine: true,
-        dirty: false,
-        valid: false,
-        invalid: true,
-        errorMessages: [],
-      },
-    );
-
-    setFieldsState([employedState], {
-      untouched: true,
-      touched: false,
-      pristine: true,
-      dirty: false,
-      valid: true,
-      invalid: false,
-      errorMessages: [],
-    });
-  }, 10);
+  setField(firstName, firstNameState, '', getFieldInitialState(true));
+  setField(lastName, lastNameState, '', getFieldInitialState(true));
+  setField(email, emailState, '', getFieldInitialState(true));
+  setField(telephone, telephoneState, '', getFieldInitialState(true));
+  setField(sex, sexState, '', getFieldInitialState(true));
+  setField(favoriteColor, favoriteColorState, 'select', getFieldInitialState(true));
+  setField(employed, employedState, false, getFieldInitialState());
+  setField(message, messageState, '', getFieldInitialState(true));
 };
 
 const submit = async () => {

@@ -1,9 +1,9 @@
-import { useFieldState } from '@/shared/composables';
+import { FieldState } from '@/shared/composables';
 
 /**
  * @name validateFields
  */
 
-const validateFields = (fields: useFieldState[]) => fields.every(field => field.valid);
+const validateFields = (fields: FieldState[]) => fields.every(field => field.valid);
 
 export default validateFields;

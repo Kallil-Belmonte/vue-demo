@@ -28,20 +28,20 @@ type UseFieldResult<Type> = [Ref<UnwrapRef<Type>>, Ref<any>, State];
 
 const { keys } = Object;
 
+export const getFieldInitialState = (required: boolean = false): State => ({
+  untouched: true,
+  touched: false,
+  pristine: true,
+  dirty: false,
+  valid: !required,
+  invalid: required,
+  errorMessages: [],
+});
+
 const useField = <Type = string>(config: UseFieldConfig<Type> = {}): UseFieldResult<Type> => {
   const { defaultValue, validation = {} } = config;
 
-  const initialState: State = {
-    untouched: true,
-    touched: false,
-    pristine: true,
-    dirty: false,
-    valid: !validation.required?.check,
-    invalid: !!validation.required?.check,
-    errorMessages: [],
-  };
-
-  const state = reactive(initialState);
+  const state = reactive(getFieldInitialState(validation.required?.check));
   const { pristine, dirty } = state;
 
   const field = ref<Type>(defaultValue as Type);
