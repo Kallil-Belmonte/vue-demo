@@ -60,8 +60,12 @@ const initialState: EditPostFormState = {
 const state = reactive(initialState);
 const { isLoading } = toRefs(state);
 
-const [title, titleRef, titleState] = useField({ validation: { min: { check: 2 } } });
-const [body, bodyRef, bodyState] = useField({ validation: { min: { check: 2 } } });
+const [title, titleRef, titleState] = useField({
+  validation: { required: { check: true }, min: { check: 2 } },
+});
+const [body, bodyRef, bodyState] = useField({
+  validation: { required: { check: true }, min: { check: 2 } },
+});
 
 const setFormData = () => {
   title.value = currentPost.value.title;

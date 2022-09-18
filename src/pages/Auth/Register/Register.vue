@@ -127,10 +127,18 @@ const initialState: FormState = {
 const state = reactive(initialState);
 const { isLoading, serverErrors } = toRefs(state);
 
-const [firstName, firstNameRef, firstNameState] = useField({ validation: { min: { check: 2 } } });
-const [lastName, lastNameRef, lastNameState] = useField({ validation: { min: { check: 2 } } });
-const [email, emailRef, emailState] = useField({ validation: { email: { check: true } } });
-const [password, passwordRef, passwordState] = useField({ validation: { min: { check: 3 } } });
+const [firstName, firstNameRef, firstNameState] = useField({
+  validation: { required: { check: true }, min: { check: 2 } },
+});
+const [lastName, lastNameRef, lastNameState] = useField({
+  validation: { required: { check: true }, min: { check: 2 } },
+});
+const [email, emailRef, emailState] = useField({
+  validation: { required: { check: true }, email: { check: true } },
+});
+const [password, passwordRef, passwordState] = useField({
+  validation: { required: { check: true }, min: { check: 3 } },
+});
 
 const submit = async () => {
   const isValidFields = validateFields([firstNameState, lastNameState, emailState, passwordState]);

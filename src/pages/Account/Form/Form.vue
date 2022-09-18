@@ -99,9 +99,15 @@ const initialState: AccountFormState = {
 const state = reactive(initialState);
 const { successMessages, serverErrors } = toRefs(state);
 
-const [firstName, firstNameRef, firstNameState] = useField({ validation: { min: { check: 2 } } });
-const [lastName, lastNameRef, lastNameState] = useField({ validation: { min: { check: 2 } } });
-const [email, emailRef, emailState] = useField({ validation: { email: { check: true } } });
+const [firstName, firstNameRef, firstNameState] = useField({
+  validation: { required: { check: true }, min: { check: 2 } },
+});
+const [lastName, lastNameRef, lastNameState] = useField({
+  validation: { required: { check: true }, min: { check: 2 } },
+});
+const [email, emailRef, emailState] = useField({
+  validation: { required: { check: true }, email: { check: true } },
+});
 
 const getUserData = () => {
   firstName.value = user.value.firstName;

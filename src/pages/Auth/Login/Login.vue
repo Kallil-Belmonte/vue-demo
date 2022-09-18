@@ -109,10 +109,10 @@ const state = reactive(initialState);
 const { isLoading, serverErrors } = toRefs(state);
 
 const [email, emailRef, emailState] = useField({
-  validation: { email: { check: true } },
+  validation: { required: { check: true }, email: { check: true } },
 });
 const [password, passwordRef, passwordState] = useField({
-  validation: { min: { check: 3 } },
+  validation: { required: { check: true }, min: { check: 3 } },
 });
 const [keepLogged, keepLoggedRef] = useField<boolean>();
 
