@@ -18,3 +18,8 @@ export { default as setPageTitle } from './general/setPageTitle';
 // STRING
 export { default as firstLetterToUpperCase } from './string/firstLetterToUpperCase';
 export { default as limitWords } from './string/limitWords';
+export {
+  type Config as ValidationConfig,
+  type Validations,
+  default as validate,
+} from './string/validate';

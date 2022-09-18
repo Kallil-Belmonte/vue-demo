@@ -9,14 +9,14 @@
         <label class="form-label" for="email">E-mail address</label>
         <input
           id="email"
-          :class="getFieldClass(email)"
+          :class="getFieldClass(emailState)"
           type="email"
           name="email"
-          v-model="email.value"
-          ref="email.ref"
+          v-model="email"
+          ref="emailRef"
         />
-        <div class="invalid-feedback" v-if="email.error">
-          {{ (email.error as any).message }}
+        <div class="invalid-feedback" v-for="errorMessage in emailState.errorMessages">
+          {{ errorMessage }}
         </div>
       </div>
 
@@ -33,14 +33,14 @@
         <label class="form-label" for="password">Password</label>
         <input
           id="password"
-          :class="getFieldClass(password)"
+          :class="getFieldClass(passwordState)"
           type="password"
           name="password"
-          v-model="password.value"
-          ref="password.ref"
+          v-model="password"
+          ref="passwordRef"
         />
-        <div class="invalid-feedback" v-if="password.error">
-          {{ (password.error as any).message }}
+        <div class="invalid-feedback" v-for="errorMessage in passwordState.errorMessages">
+          {{ errorMessage }}
         </div>
       </div>
 
@@ -58,8 +58,8 @@
           class="form-check-input"
           type="checkbox"
           id="keep-logged"
-          v-model="keepLogged.value"
-          ref="keepLogged.ref"
+          v-model="keepLogged"
+          ref="keepLoggedRef"
         />
         <label class="form-check-label" for="keep-logged">Keep logged</label>
       </div>
@@ -87,68 +87,68 @@
 import { reactive, toRefs } from 'vue';
 
 import { useRouter } from 'vue-router';
-import { useForm } from 'vue-hooks-form';
 
-import { LoginFormState } from '@/pages/Auth/_files/types';
+import { FormState } from '@/pages/Auth/_files/types';
 import { AUTH_TOKEN_KEY, AUTH_EXPIRATION_DATE_KEY } from '@/shared/files/consts';
 import { LoginUserPayload } from '@/core/services/auth/types';
-import { getFieldClass, clearFormMessage, validateFields, emailValidator } from '@/shared/helpers';
+import { getFieldClass, clearFormMessage, validateFields } from '@/shared/helpers';
+import { useField } from '@/shared/composables';
 import { loginUser } from '@/core/services';
 import { setUser } from '@/core/state/auth';
 import { AlertDismissible, Loader } from '@/shared/components';
 import Auth from '../Auth.vue';
 
-const fields = ['E-mail', 'Password', 'Keep logged'];
-
 const router = useRouter();
 
-const { useField, validateField } = useForm({ defaultValues: {} });
-
-const initialState: LoginFormState = {
+const initialState: FormState = {
   isLoading: false,
-  email: useField('E-mail', {
-    rule: { required: true, validator: emailValidator },
-  }),
-  password: useField('Password', {
-    rule: { required: true, min: 3 },
-  }),
-  keepLogged: useField('Keep logged'),
   serverErrors: { email: [], password: [], request: [] },
 };
 
 const state = reactive(initialState);
-const { isLoading, email, password, keepLogged, serverErrors } = toRefs(state);
+const { isLoading, serverErrors } = toRefs(state);
+
+const [email, emailRef, emailState] = useField({
+  validation: { email: { check: true } },
+});
+const [password, passwordRef, passwordState] = useField({
+  validation: { min: { check: 3 } },
+});
+const [keepLogged, keepLoggedRef] = useField<boolean>();
 
 const submit = async () => {
-  const errors = await validateFields(fields, validateField);
-  if (errors.length) return;
+  const validFields = validateFields([emailState, passwordState]);
+  console.log(emailState);
+  if (!validFields) return;
 
   state.isLoading = true;
   state.serverErrors = { email: [], password: [], request: [] };
 
   try {
     const payload: LoginUserPayload = {
-      email: state.email.value,
-      password: state.password.value,
-      keepLogged: state.keepLogged.value,
+      email: email.value,
+      password: password.value,
+      keepLogged: keepLogged.value,
     };
 
-    const { token, expiresIn, firstName, lastName, email } = await loginUser(payload);
+    const user = await loginUser(payload);
 
-    const expirationDate = new Date(new Date().getTime() + Number(expiresIn) * 1000).toISOString();
+    const expirationDate = new Date(
+      new Date().getTime() + Number(user.expiresIn) * 1000,
+    ).toISOString();
 
-    if (state.email.value === 'demo@demo.com') {
+    if (email.value === 'demo@demo.com') {
       state.serverErrors.email.push('This e-mail does not exists.');
       state.serverErrors.password.push('The password is incorrect.');
     } else {
-      if (state.keepLogged.value) {
-        localStorage.setItem(AUTH_TOKEN_KEY, token);
+      if (keepLogged.value) {
+        localStorage.setItem(AUTH_TOKEN_KEY, user.token);
         localStorage.setItem(AUTH_EXPIRATION_DATE_KEY, expirationDate);
       } else {
-        sessionStorage.setItem(AUTH_TOKEN_KEY, token);
+        sessionStorage.setItem(AUTH_TOKEN_KEY, user.token);
       }
 
-      setUser({ firstName, lastName, email });
+      setUser({ firstName: user.firstName, lastName: user.lastName, email: user.email });
       router.push({ name: 'home' });
     }
   } catch (error: any) {

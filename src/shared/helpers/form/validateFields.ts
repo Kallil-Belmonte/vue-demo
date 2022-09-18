@@ -1,10 +1,9 @@
+import { useFieldState } from '@/shared/composables';
+
 /**
  * @name validateFields
  */
 
-const validateFields = async (fields: string[], validateFunction: (path: any) => Promise<any>) => {
-  const errors = await Promise.all(fields.map(field => validateFunction(field)));
-  return errors.filter(error => error);
-};
+const validateFields = (fields: useFieldState[]) => fields.every(field => field.valid);
 
 export default validateFields;

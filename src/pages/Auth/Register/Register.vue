@@ -9,14 +9,14 @@
         <label class="form-label" for="first-name">First name</label>
         <input
           id="first-name"
-          :class="getFieldClass(firstName)"
+          :class="getFieldClass(firstNameState)"
           type="text"
           name="firstName"
-          v-model="firstName.value"
-          ref="firstName.ref"
+          v-model="firstName"
+          ref="firstNameRef"
         />
-        <div class="invalid-feedback" v-if="firstName.error">
-          {{ (firstName.error as any).message }}
+        <div class="invalid-feedback" v-for="errorMessage in firstNameState.errorMessages">
+          {{ errorMessage }}
         </div>
       </div>
 
@@ -24,14 +24,14 @@
         <label class="form-label" for="last-name">Last name</label>
         <input
           id="last-name"
-          :class="getFieldClass(lastName)"
+          :class="getFieldClass(lastNameState)"
           type="text"
           name="lastName"
-          v-model="lastName.value"
-          ref="lastName.ref"
+          v-model="lastName"
+          ref="lastNameRef"
         />
-        <div class="invalid-feedback" v-if="lastName.error">
-          {{ (lastName.error as any).message }}
+        <div class="invalid-feedback" v-for="errorMessage in lastNameState.errorMessages">
+          {{ errorMessage }}
         </div>
       </div>
 
@@ -39,14 +39,14 @@
         <label class="form-label" for="email">E-mail address</label>
         <input
           id="email"
-          :class="getFieldClass(email)"
+          :class="getFieldClass(emailState)"
           type="email"
           name="email"
-          v-model="email.value"
-          ref="email.ref"
+          v-model="email"
+          ref="emailRef"
         />
-        <div class="invalid-feedback" v-if="email.error">
-          {{ (email.error as any).message }}
+        <div class="invalid-feedback" v-for="errorMessage in emailState.errorMessages">
+          {{ errorMessage }}
         </div>
       </div>
 
@@ -63,14 +63,14 @@
         <label class="form-label" for="password">Password</label>
         <input
           id="password"
-          :class="getFieldClass(password)"
+          :class="getFieldClass(passwordState)"
           type="password"
           name="password"
-          v-model="password.value"
-          ref="password.ref"
+          v-model="password"
+          ref="passwordRef"
         />
-        <div class="invalid-feedback" v-if="password.error">
-          {{ (password.error as any).message }}
+        <div class="invalid-feedback" v-for="errorMessage in passwordState.errorMessages">
+          {{ errorMessage }}
         </div>
       </div>
 
@@ -106,66 +106,55 @@
 import { reactive, toRefs } from 'vue';
 
 import { useRouter } from 'vue-router';
-import { useForm } from 'vue-hooks-form';
 
-import { RegisterFormState } from '@/pages/Auth/_files/types';
+import { FormState } from '@/pages/Auth/_files/types';
 import { RegisterUserPayload } from '@/core/services/auth/types';
 import { AUTH_TOKEN_KEY } from '@/shared/files/consts';
-import { getFieldClass, clearFormMessage, validateFields, emailValidator } from '@/shared/helpers';
+import { getFieldClass, clearFormMessage, validateFields } from '@/shared/helpers';
+import { useField } from '@/shared/composables';
 import { registerUser } from '@/core/services';
 import { setUser } from '@/core/state/auth';
 import { AlertDismissible, Loader } from '@/shared/components';
 import Auth from '../Auth.vue';
 
-const fields = ['First name', 'Last name', 'E-mail', 'Password'];
-
 const router = useRouter();
 
-const { useField, validateField } = useForm({ defaultValues: {} });
-
-const initialState: RegisterFormState = {
+const initialState: FormState = {
   isLoading: false,
-  firstName: useField('First name', {
-    rule: { required: true, min: 2 },
-  }),
-  lastName: useField('Last name', {
-    rule: { required: true, min: 2 },
-  }),
-  email: useField('E-mail', {
-    rule: { required: true, validator: emailValidator },
-  }),
-  password: useField('Password', {
-    rule: { required: true, min: 3 },
-  }),
   serverErrors: { email: [], password: [], request: [] },
 };
 
 const state = reactive(initialState);
-const { isLoading, firstName, lastName, email, password, serverErrors } = toRefs(state);
+const { isLoading, serverErrors } = toRefs(state);
+
+const [firstName, firstNameRef, firstNameState] = useField({ validation: { min: { check: 2 } } });
+const [lastName, lastNameRef, lastNameState] = useField({ validation: { min: { check: 2 } } });
+const [email, emailRef, emailState] = useField({ validation: { email: { check: true } } });
+const [password, passwordRef, passwordState] = useField({ validation: { min: { check: 3 } } });
 
 const submit = async () => {
-  const errors = await validateFields(fields, validateField);
-  if (errors.length) return;
+  const validFields = validateFields([firstNameState, lastNameState, emailState, passwordState]);
+  if (!validFields) return;
 
   state.isLoading = true;
   state.serverErrors = { email: [], password: [], request: [] };
 
   try {
     const payload: RegisterUserPayload = {
-      firstName: state.firstName.value,
-      lastName: state.lastName.value,
-      email: state.email.value,
-      password: state.password.value,
+      firstName: firstName.value,
+      lastName: lastName.value,
+      email: email.value,
+      password: password.value,
     };
 
-    const { token, firstName, lastName, email } = await registerUser(payload);
+    const user = await registerUser(payload);
 
-    if (state.email.value === 'demo@demo.com') {
+    if (email.value === 'demo@demo.com') {
       state.serverErrors.email.push('This e-mail already exists.');
       state.serverErrors.password.push('Your password is too weak.');
     } else {
-      sessionStorage.setItem(AUTH_TOKEN_KEY, token);
-      setUser({ firstName, lastName, email });
+      sessionStorage.setItem(AUTH_TOKEN_KEY, user.token);
+      setUser({ firstName: user.firstName, lastName: user.lastName, email: user.email });
       router.push({ name: 'home' });
     }
   } catch (error: any) {

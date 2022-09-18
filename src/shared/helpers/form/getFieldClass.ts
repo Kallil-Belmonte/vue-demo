@@ -1,12 +1,12 @@
-import { VueHooksFormField } from '@/shared/files/types';
+import { useFieldState } from '@/shared/composables';
 
 /**
  * @name getFieldClass
  */
 
-const getFieldClass = (field: VueHooksFormField) => [
+const getFieldClass = (fieldState: useFieldState) => [
   'form-control',
-  field.error ? 'is-invalid' : '',
+  fieldState.dirty && fieldState.invalid ? 'is-invalid' : '',
 ];
 
 export default getFieldClass;
