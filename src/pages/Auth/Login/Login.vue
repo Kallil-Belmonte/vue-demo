@@ -117,9 +117,8 @@ const [password, passwordRef, passwordState] = useField({
 const [keepLogged, keepLoggedRef] = useField<boolean>();
 
 const submit = async () => {
-  const validFields = validateFields([emailState, passwordState]);
-  console.log(emailState);
-  if (!validFields) return;
+  const isValidFields = validateFields([emailState, passwordState]);
+  if (!isValidFields) return;
 
   state.isLoading = true;
   state.serverErrors = { email: [], password: [], request: [] };

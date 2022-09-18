@@ -16,14 +16,14 @@
         <label class="form-label" for="first-name">First name</label>
         <input
           id="first-name"
-          :class="getFieldClass(firstName)"
+          :class="getFieldClass(firstNameState)"
           type="text"
           name="first-name"
-          v-model="firstName.value"
-          ref="firstName.ref"
+          v-model="firstName"
+          ref="firstNameRef"
         />
-        <div class="invalid-feedback" v-if="firstName.error">
-          {{ (firstName.error as any).message }}
+        <div class="invalid-feedback" v-for="errorMessage in firstNameState.errorMessages">
+          {{ errorMessage }}
         </div>
       </div>
 
@@ -31,14 +31,14 @@
         <label class="form-label" for="last-name">Last name</label>
         <input
           id="last-name"
-          :class="getFieldClass(lastName)"
+          :class="getFieldClass(lastNameState)"
           type="text"
           name="lastName"
-          v-model="lastName.value"
-          ref="lastName.ref"
+          v-model="lastName"
+          ref="lastNameRef"
         />
-        <div class="invalid-feedback" v-if="lastName.error">
-          {{ (lastName.error as any).message }}
+        <div class="invalid-feedback" v-for="errorMessage in lastNameState.errorMessages">
+          {{ errorMessage }}
         </div>
       </div>
     </div>
@@ -48,14 +48,14 @@
         <label class="form-label" for="email">Email address</label>
         <input
           id="email"
-          :class="getFieldClass(email)"
+          :class="getFieldClass(emailState)"
           type="email"
           name="email"
-          v-model="email.value"
-          ref="email.ref"
+          v-model="email"
+          ref="emailRef"
         />
-        <div class="invalid-feedback" v-if="email.error">
-          {{ (email.error as any).message }}
+        <div class="invalid-feedback" v-for="errorMessage in emailState.errorMessages">
+          {{ errorMessage }}
         </div>
       </div>
 
@@ -63,46 +63,46 @@
         <label class="form-label" for="telephone">Telephone</label>
         <input
           id="telephone"
-          :class="getFieldClass(telephone)"
+          :class="getFieldClass(telephoneState)"
           type="text"
           name="telephone"
-          v-model="telephone.value"
-          ref="telephone.ref"
+          v-model="telephone"
+          ref="telephoneRef"
         />
-        <div class="invalid-feedback" v-if="telephone.error">
-          {{ (telephone.error as any).message }}
+        <div class="invalid-feedback" v-for="errorMessage in telephoneState.errorMessages">
+          {{ errorMessage }}
         </div>
       </div>
     </div>
 
     <div class="row">
       <div class="col mb-3">
-        <div :class="['form-check form-check-inline', sex.error ? 'is-invalid' : '']">
+        <div :class="['form-check form-check-inline', sexState.dirty && !sex ? 'is-invalid' : '']">
           <input
             id="male"
-            :class="['form-check-input', sex.error ? 'is-invalid' : '']"
+            :class="['form-check-input', sexState.dirty && !sex ? 'is-invalid' : '']"
             type="radio"
             name="male"
             value="male"
-            v-model="sex.value"
-            ref="sex.ref"
+            v-model="sex"
+            ref="sexRef"
           />
           <label class="form-check-label" for="male">Male</label>
         </div>
-        <div :class="['form-check form-check-inline', sex.error ? 'is-invalid' : '']">
+        <div :class="['form-check form-check-inline', sexState.dirty && !sex ? 'is-invalid' : '']">
           <input
             id="female"
-            :class="['form-check-input', sex.error ? 'is-invalid' : '']"
+            :class="['form-check-input', sexState.dirty && !sex ? 'is-invalid' : '']"
             type="radio"
             name="female"
             value="female"
-            v-model="sex.value"
-            ref="sex.ref"
+            v-model="sex"
+            ref="sexRef"
           />
           <label class="form-check-label" for="female">Female</label>
         </div>
-        <div class="invalid-feedback" v-if="sex.error">
-          {{ (sex.error as any).message }}
+        <div class="invalid-feedback" v-for="errorMessage in sexState.errorMessages">
+          {{ errorMessage }}
         </div>
       </div>
     </div>
@@ -111,11 +111,14 @@
       <div class="col mb-3">
         <label class="form-label" for="favorite-color">Favorite color</label>
         <select
-          :class="['form-select', favoriteColor.error ? 'is-invalid' : '']"
+          :class="[
+            'form-select',
+            favoriteColorState.dirty && favoriteColorState.invalid ? 'is-invalid' : '',
+          ]"
           name="favorite-color"
           aria-label="Favorite color"
-          v-model="favoriteColor.value"
-          ref="favoriteColor.ref"
+          v-model="favoriteColor"
+          ref="favoriteColorRef"
         >
           <option selected disabled value="select">Select</option>
           <option
@@ -126,8 +129,8 @@
             {{ favoriteColor.value }}
           </option>
         </select>
-        <div class="invalid-feedback" v-if="favoriteColor.error">
-          {{ (favoriteColor.error as any).message }}
+        <div class="invalid-feedback" v-for="errorMessage in favoriteColorState.errorMessages">
+          {{ errorMessage }}
         </div>
       </div>
       <div class="col mt-4">
@@ -138,8 +141,8 @@
             type="checkbox"
             name="employed"
             value="employed"
-            v-model="employed.value"
-            ref="employed.ref"
+            v-model="employed"
+            ref="employedRef"
           />
           <label class="form-check-label" for="employed">Employed</label>
         </div>
@@ -151,14 +154,14 @@
         <label class="form-label" for="message">Message</label>
         <textarea
           id="message"
-          :class="getFieldClass(message)"
+          :class="getFieldClass(messageState)"
           name="message"
           rows="3"
-          v-model="message.value"
-          ref="message.ref"
+          v-model="message"
+          ref="messageRef"
         />
-        <div class="invalid-feedback" v-if="message.error">
-          {{ (message.error as any).message }}
+        <div class="invalid-feedback" v-for="errorMessage in messageState.errorMessages">
+          {{ errorMessage }}
         </div>
       </div>
     </div>
@@ -171,83 +174,29 @@
 <script lang="ts" setup>
 import { reactive, toRefs, onMounted } from 'vue';
 
-import { useForm } from 'vue-hooks-form';
-
 import { ContactFormState } from '@/pages/Contact/_files/types';
-import {
-  getFieldClass,
-  clearFormMessage,
-  validateFields,
-  emailValidator,
-  selectValidator,
-} from '@/shared/helpers';
+import { getFieldClass, clearFormMessage, setFieldsState, validateFields } from '@/shared/helpers';
+import { useField } from '@/shared/composables';
 import { getFavoriteColors } from '@/core/services';
 import { AlertDismissible, Loader } from '@/shared/components';
-
-const fields = [
-  'First name',
-  'Last name',
-  'E-mail',
-  'Telephone',
-  'Sex',
-  'Favorite color',
-  'Employed',
-  'Message',
-];
-
-const { useField, set, validateField, values } = useForm({
-  defaultValues: {
-    'Favorite color': 'select',
-  },
-});
 
 const initialState: ContactFormState = {
   isLoading: true,
   favoriteColors: [],
-  firstName: useField('First name', {
-    rule: { required: true, min: 2 },
-  }),
-  lastName: useField('Last name', {
-    rule: { required: true, min: 2 },
-  }),
-  email: useField('E-mail', {
-    rule: {
-      required: true,
-      validator: emailValidator,
-    },
-  }),
-  telephone: useField('Telephone', {
-    rule: { required: true },
-  }),
-  sex: useField('Sex', {
-    rule: { required: true },
-  }),
-  favoriteColor: useField('Favorite color', {
-    rule: {
-      validator: selectValidator,
-    },
-  }),
-  employed: useField('Employed'),
-  message: useField('Message', {
-    rule: { required: true },
-  }),
   successMessages: [],
 };
 
 const state = reactive(initialState);
-const {
-  isLoading,
-  favoriteColors,
-  firstName,
-  lastName,
-  email,
-  telephone,
-  sex,
-  favoriteColor,
-  employed,
-  message,
-  successMessages,
-} = toRefs(state);
+const { isLoading, favoriteColors, successMessages } = toRefs(state);
+
+const [firstName, firstNameRef, firstNameState] = useField({ validation: { min: { check: 2 } } });
+const [lastName, lastNameRef, lastNameState] = useField({ validation: { min: { check: 2 } } });
+const [email, emailRef, emailState] = useField({ validation: { email: { check: true } } });
+const [telephone, telephoneRef, telephoneState] = useField({ validation: { min: { check: 8 } } });
+const [sex, sexRef, sexState] = useField();
+const [favoriteColor, favoriteColorRef, favoriteColorState] = useField();
+const [employed, employedRef, employedState] = useField<boolean>();
+const [message, messageRef, messageState] = useField({ validation: { min: { check: 2 } } });
 
 const setFavoriteColors = async () => {
   try {
@@ -261,23 +210,61 @@ const setFavoriteColors = async () => {
 };
 
 const reset = () => {
-  set('First name', '');
-  set('Last name', '');
-  set('E-mail', '');
-  set('Telephone', '');
-  set('Sex', '');
-  set('Favorite color', 'select');
-  set('Employed', false);
-  set('Message', '');
+  firstName.value = '';
+  lastName.value = '';
+  email.value = '';
+  telephone.value = '';
+  sex.value = '';
+  favoriteColor.value = 'select';
+  employed.value = false;
+  message.value = '';
 };
 
 const submit = async () => {
-  const errors = await validateFields(fields, validateField);
-  if (errors.length) return;
+  const emptyFields = [
+    firstNameState,
+    lastNameState,
+    emailState,
+    telephoneState,
+    sexState,
+    favoriteColorState,
+    employedState,
+    messageState,
+  ].filter(state => state.pristine);
 
-  console.log('Form submitted:', values);
-  state.successMessages.push('Message sent successfully.');
-  reset();
+  setFieldsState(emptyFields, {
+    valid: false,
+    invalid: true,
+    pristine: false,
+    dirty: true,
+    valid: false,
+    invalid: true,
+    errorMessages: ['Value required'],
+  });
+
+  // const isValidFields = validateFields([
+  //   firstNameState,
+  //   lastNameState,
+  //   emailState,
+  //   telephoneState,
+  //   sexState,
+  //   favoriteColorState,
+  //   employedState,
+  //   messageState,
+  // ]);
+  // if (!isValidFields) return;
+  // console.log('Form submitted:', {
+  //   firstName: firstName.value,
+  //   lastName: lastName.value,
+  //   email: email.value,
+  //   telephone: telephone.value,
+  //   sex: sex.value,
+  //   favoriteColor: favoriteColor.value,
+  //   employed: employed.value,
+  //   message: message.value,
+  // });
+  // state.successMessages.push('Message sent successfully.');
+  // reset();
 };
 
 // LIFECYCLE HOOKS

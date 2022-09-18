@@ -133,8 +133,8 @@ const [email, emailRef, emailState] = useField({ validation: { email: { check: t
 const [password, passwordRef, passwordState] = useField({ validation: { min: { check: 3 } } });
 
 const submit = async () => {
-  const validFields = validateFields([firstNameState, lastNameState, emailState, passwordState]);
-  if (!validFields) return;
+  const isValidFields = validateFields([firstNameState, lastNameState, emailState, passwordState]);
+  if (!isValidFields) return;
 
   state.isLoading = true;
   state.serverErrors = { email: [], password: [], request: [] };

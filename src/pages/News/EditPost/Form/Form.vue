@@ -6,14 +6,14 @@
       <label class="form-label" for="title">Title</label>
       <input
         id="title"
-        :class="getFieldClass(title)"
+        :class="getFieldClass(titleState)"
         type="text"
         name="title"
-        v-model="title.value"
-        ref="title.ref"
+        v-model="title"
+        ref="titleRef"
       />
-      <div class="invalid-feedback" v-if="title.error">
-        {{ (title.error as any).message }}
+      <div class="invalid-feedback" v-for="errorMessage in titleState.errorMessages">
+        {{ errorMessage }}
       </div>
     </div>
 
@@ -21,14 +21,14 @@
       <label class="form-label" for="body">Body</label>
       <textarea
         id="body"
-        :class="getFieldClass(body)"
+        :class="getFieldClass(bodyState)"
         name="body"
         rows="6"
-        v-model="body.value"
-        ref="body.ref"
+        v-model="body"
+        ref="bodyRef"
       />
-      <div class="invalid-feedback" v-if="body.error">
-        {{ (body.error as any).message }}
+      <div class="invalid-feedback" v-for="errorMessage in bodyState.errorMessages">
+        {{ errorMessage }}
       </div>
     </div>
 
@@ -41,38 +41,31 @@
 import { reactive, toRefs, onMounted } from 'vue';
 
 import { useRouter, useRoute } from 'vue-router';
-import { useForm } from 'vue-hooks-form';
 
 import { Post } from '@/core/services/news/types';
 import { EditPostFormState } from '@/pages/News/EditPost/_files/types';
 import { getFieldClass, validateFields } from '@/shared/helpers';
+import { useField } from '@/shared/composables';
 import { getPost, editPost } from '@/core/services';
 import { currentPost, setCurrentPost } from '@/core/state/news';
 import { Loader } from '@/shared/components';
 
-const fields = ['Title', 'Body'];
-
 const router = useRouter();
 const route = useRoute();
 
-const { useField, set, validateField } = useForm({ defaultValues: {} });
-
 const initialState: EditPostFormState = {
   isLoading: true,
-  title: useField('Title', {
-    rule: { required: true },
-  }),
-  body: useField('Body', {
-    rule: { required: true },
-  }),
 };
 
 const state = reactive(initialState);
-const { isLoading, title, body } = toRefs(state);
+const { isLoading } = toRefs(state);
+
+const [title, titleRef, titleState] = useField({ validation: { min: { check: 2 } } });
+const [body, bodyRef, bodyState] = useField({ validation: { min: { check: 2 } } });
 
 const setFormData = () => {
-  set('Title', currentPost.value.title);
-  set('Body', currentPost.value.body);
+  title.value = currentPost.value.title;
+  body.value = currentPost.value.body;
 };
 
 const getCurrentPost = async () => {
@@ -88,8 +81,8 @@ const getCurrentPost = async () => {
 };
 
 const submit = async () => {
-  const errors = await validateFields(fields, validateField);
-  if (errors.length) return;
+  const isValidFields = validateFields([titleState, bodyState]);
+  if (!isValidFields) return;
 
   state.isLoading = true;
 
@@ -97,8 +90,8 @@ const submit = async () => {
     const payload: Post = {
       userId: currentPost.value.userId,
       id: currentPost.value.userId,
-      title: state.title.value,
-      body: state.body.value,
+      title: title.value,
+      body: body.value,
     };
 
     await editPost(payload);

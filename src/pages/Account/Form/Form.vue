@@ -24,14 +24,14 @@
           <label class="form-label" for="first-name">First name</label>
           <input
             id="first-name"
-            :class="getFieldClass(firstName)"
+            :class="getFieldClass(firstNameState)"
             type="text"
             name="firstName"
-            v-model="firstName.value"
-            ref="firstName.ref"
+            v-model="firstName"
+            ref="firstNameRef"
           />
-          <div class="invalid-feedback" v-if="firstName.error">
-            {{ (firstName.error as any).message }}
+          <div class="invalid-feedback" v-for="errorMessage in firstNameState.errorMessages">
+            {{ errorMessage }}
           </div>
         </div>
 
@@ -39,14 +39,14 @@
           <label class="form-label" for="last-name">Last name</label>
           <input
             id="last-name"
-            :class="getFieldClass(lastName)"
+            :class="getFieldClass(lastNameState)"
             type="text"
             name="lastName"
-            v-model="lastName.value"
-            ref="lastName.ref"
+            v-model="lastName"
+            ref="lastNameRef"
           />
-          <div class="invalid-feedback" v-if="lastName.error">
-            {{ (lastName.error as any).message }}
+          <div class="invalid-feedback" v-for="errorMessage in lastNameState.errorMessages">
+            {{ errorMessage }}
           </div>
         </div>
 
@@ -54,14 +54,14 @@
           <label class="form-label" for="email">E-mail address</label>
           <input
             id="email"
-            :class="getFieldClass(email)"
+            :class="getFieldClass(emailState)"
             type="email"
             name="email"
-            v-model="email.value"
-            ref="email.ref"
+            v-model="email"
+            ref="emailRef"
           />
-          <div class="invalid-feedback" v-if="email.error">
-            {{ (email.error as any).message }}
+          <div class="invalid-feedback" v-for="errorMessage in emailState.errorMessages">
+            {{ errorMessage }}
           </div>
         </div>
 
@@ -85,57 +85,46 @@
 <script lang="ts" setup>
 import { reactive, toRefs, onMounted } from 'vue';
 
-import { useForm } from 'vue-hooks-form';
-
 import { AccountFormState } from '@/pages/Account/_files/types';
-import { getFieldClass, clearFormMessage, validateFields, emailValidator } from '@/shared/helpers';
+import { getFieldClass, clearFormMessage, validateFields } from '@/shared/helpers';
+import { useField } from '@/shared/composables';
 import { user, setUser } from '@/core/state/auth';
 import { AlertDismissible } from '@/shared/components';
 
-const fields = ['First name', 'Last name', 'E-mail'];
-
-const { useField, set, validateField } = useForm({ defaultValues: {} });
-
 const initialState: AccountFormState = {
-  firstName: useField('First name', {
-    rule: { required: true, min: 2 },
-  }),
-  lastName: useField('Last name', {
-    rule: { required: true, min: 2 },
-  }),
-  email: useField('E-mail', {
-    rule: { required: true, validator: emailValidator },
-  }),
   successMessages: [],
   serverErrors: { email: [], request: [] },
 };
 
 const state = reactive(initialState);
-const { firstName, lastName, email, successMessages, serverErrors } = toRefs(state);
+const { successMessages, serverErrors } = toRefs(state);
+
+const [firstName, firstNameRef, firstNameState] = useField({ validation: { min: { check: 2 } } });
+const [lastName, lastNameRef, lastNameState] = useField({ validation: { min: { check: 2 } } });
+const [email, emailRef, emailState] = useField({ validation: { email: { check: true } } });
 
 const getUserData = () => {
-  const { firstName, lastName, email } = user.value;
-  set('First name', firstName);
-  set('Last name', lastName);
-  set('E-mail', email);
+  firstName.value = user.value.firstName;
+  lastName.value = user.value.lastName;
+  email.value = user.value.email;
 };
 
 const submit = async () => {
-  const errors = await validateFields(fields, validateField);
-  if (errors.length) return;
+  const isValidFields = validateFields([firstNameState, lastNameState, emailState]);
+  if (!isValidFields) return;
 
   state.successMessages = [];
   state.serverErrors = { email: [], request: [] };
 
-  if (state.email.value === 'john.doe@email.com') {
+  if (email.value === 'john.doe@email.com') {
     state.serverErrors.email.push('This e-mail already exists.');
-  } else if (state.email.value === 'demo@demo.com') {
+  } else if (email.value === 'demo@demo.com') {
     state.serverErrors.request.push('An error occurred, please try again later.');
   } else {
     setUser({
-      firstName: state.firstName.value,
-      lastName: state.lastName.value,
-      email: state.email.value,
+      firstName: firstName.value,
+      lastName: lastName.value,
+      email: email.value,
     });
 
     state.successMessages.push('Account saved successfully.');

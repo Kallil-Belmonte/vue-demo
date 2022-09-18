@@ -57,8 +57,6 @@ const useField = <Type = string>(config: UseFieldConfig<Type> = {}): UseFieldRes
         validation,
       );
 
-      console.log(validate(value as string, validation));
-
       state.valid = isValid;
       state.invalid = !isValid;
       state.errorMessages = errorMessages;
