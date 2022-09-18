@@ -113,14 +113,14 @@
         <select
           :class="[
             'form-select',
-            favoriteColorState.dirty && favoriteColorState.invalid ? 'is-invalid' : '',
+            favoriteColorState.dirty && favoriteColor === 'select' ? 'is-invalid' : '',
           ]"
           name="favorite-color"
           aria-label="Favorite color"
           v-model="favoriteColor"
           ref="favoriteColorRef"
         >
-          <option selected disabled value="select">Select</option>
+          <option disabled value="select">Select</option>
           <option
             v-for="favoriteColor in favoriteColors"
             :key="favoriteColor.value"
@@ -189,14 +189,25 @@ const initialState: ContactFormState = {
 const state = reactive(initialState);
 const { isLoading, favoriteColors, successMessages } = toRefs(state);
 
-const [firstName, firstNameRef, firstNameState] = useField({ validation: { min: { check: 2 } } });
-const [lastName, lastNameRef, lastNameState] = useField({ validation: { min: { check: 2 } } });
-const [email, emailRef, emailState] = useField({ validation: { email: { check: true } } });
-const [telephone, telephoneRef, telephoneState] = useField({ validation: { min: { check: 8 } } });
-const [sex, sexRef, sexState] = useField();
-const [favoriteColor, favoriteColorRef, favoriteColorState] = useField();
+const [firstName, firstNameRef, firstNameState] = useField({
+  validation: { required: { check: true } },
+});
+const [lastName, lastNameRef, lastNameState] = useField({
+  validation: { required: { check: true } },
+});
+const [email, emailRef, emailState] = useField({
+  validation: { required: { check: true }, email: { check: true } },
+});
+const [telephone, telephoneRef, telephoneState] = useField({
+  validation: { required: { check: true } },
+});
+const [sex, sexRef, sexState] = useField({ validation: { required: { check: true } } });
+const [favoriteColor, favoriteColorRef, favoriteColorState] = useField({
+  defaultValue: 'select',
+  validation: { required: { check: true } },
+});
 const [employed, employedRef, employedState] = useField<boolean>();
-const [message, messageRef, messageState] = useField({ validation: { min: { check: 2 } } });
+const [message, messageRef, messageState] = useField({ validation: { required: { check: true } } });
 
 const setFavoriteColors = async () => {
   try {
@@ -218,53 +229,67 @@ const reset = () => {
   favoriteColor.value = 'select';
   employed.value = false;
   message.value = '';
+
+  setTimeout(() => {
+    setFieldsState(
+      [
+        firstNameState,
+        lastNameState,
+        emailState,
+        telephoneState,
+        sexState,
+        favoriteColorState,
+        messageState,
+      ],
+      {
+        untouched: true,
+        touched: false,
+        pristine: true,
+        dirty: false,
+        valid: false,
+        invalid: true,
+        errorMessages: [],
+      },
+    );
+
+    setFieldsState([employedState], {
+      untouched: true,
+      touched: false,
+      pristine: true,
+      dirty: false,
+      valid: true,
+      invalid: false,
+      errorMessages: [],
+    });
+  }, 10);
 };
 
 const submit = async () => {
-  const emptyFields = [
+  const isValidFields = validateFields([
     firstNameState,
     lastNameState,
     emailState,
     telephoneState,
     sexState,
     favoriteColorState,
-    employedState,
     messageState,
-  ].filter(state => state.pristine);
+  ]);
+  if (!isValidFields) return;
 
-  setFieldsState(emptyFields, {
-    valid: false,
-    invalid: true,
-    pristine: false,
-    dirty: true,
-    valid: false,
-    invalid: true,
-    errorMessages: ['Value required'],
+  console.log('Form submitted:', {
+    firstName: firstName.value,
+    lastName: lastName.value,
+    email: email.value,
+    telephone: telephone.value,
+    sex: sex.value,
+    favoriteColor: favoriteColor.value,
+    employed: employed.value,
+    message: message.value,
   });
 
-  // const isValidFields = validateFields([
-  //   firstNameState,
-  //   lastNameState,
-  //   emailState,
-  //   telephoneState,
-  //   sexState,
-  //   favoriteColorState,
-  //   employedState,
-  //   messageState,
-  // ]);
-  // if (!isValidFields) return;
-  // console.log('Form submitted:', {
-  //   firstName: firstName.value,
-  //   lastName: lastName.value,
-  //   email: email.value,
-  //   telephone: telephone.value,
-  //   sex: sex.value,
-  //   favoriteColor: favoriteColor.value,
-  //   employed: employed.value,
-  //   message: message.value,
-  // });
-  // state.successMessages.push('Message sent successfully.');
-  // reset();
+  state.successMessages.push('Message sent successfully.');
+
+  reset();
 };
 
 // LIFECYCLE HOOKS

@@ -36,8 +36,8 @@ const useField = <Type = string>(config: UseFieldConfig<Type> = {}): UseFieldRes
     touched: false,
     pristine: true,
     dirty: false,
-    valid: false,
-    invalid: true,
+    valid: !validation.required?.check,
+    invalid: !!validation.required?.check,
     errorMessages: [],
   };
 
