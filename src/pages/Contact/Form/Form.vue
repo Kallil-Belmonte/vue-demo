@@ -175,7 +175,7 @@
 import { reactive, toRefs, onMounted, computed } from 'vue';
 
 import { ContactFormState } from '@/pages/Contact/_files/types';
-import { getFieldClass, clearFormMessage, validateFields, setField } from '@/shared/helpers';
+import { getFieldClass, clearFormMessage, validateFields, setFields } from '@/shared/helpers';
 import { useField, getFieldInitialState } from '@/shared/composables';
 import { getFavoriteColors } from '@/core/services';
 import { AlertDismissible, Loader } from '@/shared/components';
@@ -221,53 +221,23 @@ const setFavoriteColors = async () => {
 };
 
 const reset = () => {
-  setField({
-    field: firstName,
-    state: firstNameState,
+  setFields({
+    fields: [firstName, lastName, email, telephone, sex, message],
+    states: [firstNameState, lastNameState, emailState, telephoneState, sexState, messageState],
     value: '',
     newState: getFieldInitialState(true),
   });
-  setField({
-    field: lastName,
-    state: lastNameState,
-    value: '',
-    newState: getFieldInitialState(true),
-  });
-  setField({
-    field: email,
-    state: emailState,
-    value: '',
-    newState: getFieldInitialState(true),
-  });
-  setField({
-    field: telephone,
-    state: telephoneState,
-    value: '',
-    newState: getFieldInitialState(true),
-  });
-  setField({
-    field: sex,
-    state: sexState,
-    value: '',
-    newState: getFieldInitialState(true),
-  });
-  setField({
-    field: favoriteColor,
-    state: favoriteColorState,
+  setFields({
+    fields: [favoriteColor],
+    states: [favoriteColorState],
     value: 'select',
     newState: getFieldInitialState(true),
   });
-  setField({
-    field: employed,
-    state: employedState,
+  setFields({
+    fields: [employed],
+    states: [employedState],
     value: false,
     newState: getFieldInitialState(),
-  });
-  setField({
-    field: message,
-    state: messageState,
-    value: '',
-    newState: getFieldInitialState(true),
   });
 };
 
