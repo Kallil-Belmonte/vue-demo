@@ -10,6 +10,7 @@ import { ValidationConfig, Validations, validate } from '@/shared/helpers';
 // invalid: True if the element’s value is invalid and false otherwise.
 
 export type State = Validations & {
+  name: string;
   untouched: boolean;
   touched: boolean;
   pristine: boolean;
@@ -20,6 +21,7 @@ export type State = Validations & {
 };
 
 type UseFieldConfig<Type> = {
+  name: string;
   defaultValue?: Type;
   validation?: ValidationConfig;
 };
@@ -28,7 +30,8 @@ type UseFieldResult<Type> = [Ref<UnwrapRef<Type>>, Ref<any>, State];
 
 const { keys } = Object;
 
-export const getFieldInitialState = (required: boolean = false): State => ({
+export const getFieldInitialState = (name: string, required: boolean = false): State => ({
+  name,
   untouched: true,
   touched: false,
   pristine: true,
@@ -38,10 +41,10 @@ export const getFieldInitialState = (required: boolean = false): State => ({
   errorMessages: [],
 });
 
-const useField = <Type = string>(config: UseFieldConfig<Type> = {}): UseFieldResult<Type> => {
-  const { defaultValue, validation = {} } = config;
+const useField = <Type = string>(config: UseFieldConfig<Type>): UseFieldResult<Type> => {
+  const { name, defaultValue, validation = {} } = config;
 
-  const state = reactive(getFieldInitialState(validation.required?.check));
+  const state = reactive(getFieldInitialState(name, validation.required?.check));
   const { pristine, dirty } = state;
 
   const field = ref<Type>(defaultValue as Type);

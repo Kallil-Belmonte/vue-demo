@@ -11,7 +11,7 @@
           id="email"
           :class="getFieldClass(emailState)"
           type="email"
-          name="email"
+          :name="emailState.name"
           v-model="email"
           ref="emailRef"
         />
@@ -35,7 +35,7 @@
           id="password"
           :class="getFieldClass(passwordState)"
           type="password"
-          name="password"
+          :name="passwordState.name"
           v-model="password"
           ref="passwordRef"
         />
@@ -55,9 +55,10 @@
 
       <div class="form-check">
         <input
+          id="keep-logged"
           class="form-check-input"
           type="checkbox"
-          id="keep-logged"
+          :name="keepLoggedState.name"
           v-model="keepLogged"
           ref="keepLoggedRef"
         />
@@ -109,12 +110,14 @@ const state = reactive(initialState);
 const { isLoading, serverErrors } = toRefs(state);
 
 const [email, emailRef, emailState] = useField({
+  name: 'email',
   validation: { required: { check: true }, email: { check: true } },
 });
 const [password, passwordRef, passwordState] = useField({
+  name: 'password',
   validation: { required: { check: true }, min: { check: 3 } },
 });
-const [keepLogged, keepLoggedRef] = useField<boolean>();
+const [keepLogged, keepLoggedRef, keepLoggedState] = useField<boolean>({ name: 'keepLogged' });
 
 const submit = async () => {
   const isValidFields = validateFieldsState([emailState, passwordState]);

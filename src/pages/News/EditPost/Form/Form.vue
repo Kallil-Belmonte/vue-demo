@@ -8,7 +8,7 @@
         id="title"
         :class="getFieldClass(titleState)"
         type="text"
-        name="title"
+        :name="titleState.name"
         v-model="title"
         ref="titleRef"
       />
@@ -22,7 +22,7 @@
       <textarea
         id="body"
         :class="getFieldClass(bodyState)"
-        name="body"
+        :name="bodyState.name"
         rows="6"
         v-model="body"
         ref="bodyRef"
@@ -61,9 +61,11 @@ const state = reactive(initialState);
 const { isLoading } = toRefs(state);
 
 const [title, titleRef, titleState] = useField({
+  name: 'title',
   validation: { required: { check: true }, min: { check: 2 } },
 });
 const [body, bodyRef, bodyState] = useField({
+  name: 'body',
   validation: { required: { check: true }, min: { check: 2 } },
 });
 

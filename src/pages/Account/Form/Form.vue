@@ -26,7 +26,7 @@
             id="first-name"
             :class="getFieldClass(firstNameState)"
             type="text"
-            name="firstName"
+            :name="firstNameState.name"
             v-model="firstName"
             ref="firstNameRef"
           />
@@ -41,7 +41,7 @@
             id="last-name"
             :class="getFieldClass(lastNameState)"
             type="text"
-            name="lastName"
+            :name="lastNameState.name"
             v-model="lastName"
             ref="lastNameRef"
           />
@@ -56,7 +56,7 @@
             id="email"
             :class="getFieldClass(emailState)"
             type="email"
-            name="email"
+            :name="emailState.name"
             v-model="email"
             ref="emailRef"
           />
@@ -100,12 +100,15 @@ const state = reactive(initialState);
 const { successMessages, serverErrors } = toRefs(state);
 
 const [firstName, firstNameRef, firstNameState] = useField({
+  name: 'first-name',
   validation: { required: { check: true }, min: { check: 2 } },
 });
 const [lastName, lastNameRef, lastNameState] = useField({
+  name: 'last-name',
   validation: { required: { check: true }, min: { check: 2 } },
 });
 const [email, emailRef, emailState] = useField({
+  name: 'email',
   validation: { required: { check: true }, email: { check: true } },
 });
 

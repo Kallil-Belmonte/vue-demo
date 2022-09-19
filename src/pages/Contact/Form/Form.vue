@@ -18,7 +18,7 @@
           id="first-name"
           :class="getFieldClass(firstNameState)"
           type="text"
-          name="first-name"
+          :name="firstNameState.name"
           v-model="firstName"
           ref="firstNameRef"
         />
@@ -33,7 +33,7 @@
           id="last-name"
           :class="getFieldClass(lastNameState)"
           type="text"
-          name="lastName"
+          :name="lastNameState.name"
           v-model="lastName"
           ref="lastNameRef"
         />
@@ -50,7 +50,7 @@
           id="email"
           :class="getFieldClass(emailState)"
           type="email"
-          name="email"
+          :name="emailState.name"
           v-model="email"
           ref="emailRef"
         />
@@ -65,7 +65,7 @@
           id="telephone"
           :class="getFieldClass(telephoneState)"
           type="text"
-          name="telephone"
+          :name="telephoneState.name"
           v-model="telephone"
           ref="telephoneRef"
         />
@@ -82,7 +82,7 @@
             id="male"
             :class="getFieldClass(sexState, ['form-check-input'])"
             type="radio"
-            name="male"
+            :name="sexState.name"
             value="male"
             v-model="sex"
             ref="sexRef"
@@ -94,7 +94,7 @@
             id="female"
             :class="getFieldClass(sexState, ['form-check-input'])"
             type="radio"
-            name="female"
+            :name="sexState.name"
             value="female"
             v-model="sex"
             ref="sexRef"
@@ -115,7 +115,7 @@
             'form-select',
             favoriteColorState.dirty && favoriteColor === 'select' ? 'is-invalid' : '',
           ]"
-          name="favorite-color"
+          :name="favoriteColorState.name"
           aria-label="Favorite color"
           v-model="favoriteColor"
           ref="favoriteColorRef"
@@ -139,7 +139,7 @@
             id="employed"
             class="form-check-input"
             type="checkbox"
-            name="employed"
+            :name="employedState.name"
             value="employed"
             v-model="employed"
             ref="employedRef"
@@ -155,7 +155,7 @@
         <textarea
           id="message"
           :class="getFieldClass(messageState)"
-          name="message"
+          :name="messageState.name"
           rows="3"
           v-model="message"
           ref="messageRef"
@@ -190,24 +190,35 @@ const state = reactive(initialState);
 const { isLoading, favoriteColors, successMessages } = toRefs(state);
 
 const [firstName, firstNameRef, firstNameState] = useField({
+  name: 'first-name',
   validation: { required: { check: true } },
 });
 const [lastName, lastNameRef, lastNameState] = useField({
+  name: 'last-name',
   validation: { required: { check: true } },
 });
 const [email, emailRef, emailState] = useField({
+  name: 'email',
   validation: { required: { check: true }, email: { check: true } },
 });
 const [telephone, telephoneRef, telephoneState] = useField({
+  name: 'telephone',
   validation: { required: { check: true } },
 });
-const [sex, sexRef, sexState] = useField({ validation: { required: { check: true } } });
+const [sex, sexRef, sexState] = useField({
+  name: 'sex',
+  validation: { required: { check: true } },
+});
 const [favoriteColor, favoriteColorRef, favoriteColorState] = useField({
+  name: 'favorite-color',
   defaultValue: 'select',
   validation: { required: { check: true } },
 });
-const [employed, employedRef, employedState] = useField<boolean>();
-const [message, messageRef, messageState] = useField({ validation: { required: { check: true } } });
+const [employed, employedRef, employedState] = useField<boolean>({ name: 'employed' });
+const [message, messageRef, messageState] = useField({
+  name: 'message',
+  validation: { required: { check: true } },
+});
 
 const setFavoriteColors = async () => {
   try {
@@ -225,19 +236,19 @@ const reset = () => {
     fields: [firstName, lastName, email, telephone, sex, message],
     states: [firstNameState, lastNameState, emailState, telephoneState, sexState, messageState],
     value: '',
-    newState: getFieldInitialState(true),
+    newState: getFieldInitialState('first-name', true),
   });
   setFields({
     fields: [favoriteColor],
     states: [favoriteColorState],
     value: 'select',
-    newState: getFieldInitialState(true),
+    newState: getFieldInitialState('favorite-color', true),
   });
   setFields({
     fields: [employed],
     states: [employedState],
     value: false,
-    newState: getFieldInitialState(),
+    newState: getFieldInitialState('employed'),
   });
 };
 
