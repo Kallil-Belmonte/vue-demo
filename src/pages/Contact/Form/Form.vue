@@ -175,7 +175,7 @@
 import { reactive, toRefs, onMounted, computed } from 'vue';
 
 import { ContactFormState } from '@/pages/Contact/_files/types';
-import { getFieldClass, clearFormMessage, validateFields, setFields } from '@/shared/helpers';
+import { getFieldClass, clearFormMessage, validateFieldsState, setFields } from '@/shared/helpers';
 import { useField, getFieldInitialState } from '@/shared/composables';
 import { getFavoriteColors } from '@/core/services';
 import { AlertDismissible, Loader } from '@/shared/components';
@@ -242,7 +242,7 @@ const reset = () => {
 };
 
 const submit = async () => {
-  const isValidFields = validateFields([
+  const isValidFields = validateFieldsState([
     firstNameState,
     lastNameState,
     emailState,

@@ -91,7 +91,7 @@ import { useRouter } from 'vue-router';
 import { FormState } from '@/pages/Auth/_files/types';
 import { AUTH_TOKEN_KEY, AUTH_EXPIRATION_DATE_KEY } from '@/shared/files/consts';
 import { LoginUserPayload } from '@/core/services/auth/types';
-import { getFieldClass, clearFormMessage, validateFields } from '@/shared/helpers';
+import { getFieldClass, clearFormMessage, validateFieldsState } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { loginUser } from '@/core/services';
 import { setUser } from '@/core/state/auth';
@@ -117,7 +117,7 @@ const [password, passwordRef, passwordState] = useField({
 const [keepLogged, keepLoggedRef] = useField<boolean>();
 
 const submit = async () => {
-  const isValidFields = validateFields([emailState, passwordState]);
+  const isValidFields = validateFieldsState([emailState, passwordState]);
   if (!isValidFields) return;
 
   state.isLoading = true;
