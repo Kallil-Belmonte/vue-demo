@@ -67,6 +67,8 @@ const useField = <Type = string>(config: UseFieldConfig<Type> = {}): UseFieldRes
   };
 
   const controlTouching = () => {
+    if (!fieldRef.value) return;
+
     const setUntouched = () => {
       state.untouched = false;
       fieldRef.value.removeEventListener('focus', setUntouched);
