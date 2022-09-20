@@ -30,7 +30,7 @@ type UseFieldResult<Type> = [Ref<UnwrapRef<Type>>, Ref<any>, State];
 
 const { keys } = Object;
 
-export const getFieldInitialState = (name: string, required: boolean = false): State => ({
+export const getFieldState = (name: string, required: boolean = false): State => ({
   name,
   untouched: true,
   touched: false,
@@ -44,7 +44,7 @@ export const getFieldInitialState = (name: string, required: boolean = false): S
 const useField = <Type = string>(config: UseFieldConfig<Type>): UseFieldResult<Type> => {
   const { name, defaultValue, validation = {} } = config;
 
-  const state = reactive(getFieldInitialState(name, validation.required?.check));
+  const state = reactive(getFieldState(name, validation.required?.check));
   const { pristine, dirty } = state;
 
   const field = ref<Type>(defaultValue as Type);

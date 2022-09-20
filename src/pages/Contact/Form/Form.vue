@@ -176,7 +176,7 @@ import { reactive, toRefs, onMounted, computed } from 'vue';
 
 import { ContactFormState } from '@/pages/Contact/_files/types';
 import { getFieldClass, clearFormMessage, validateFieldsState, setFields } from '@/shared/helpers';
-import { useField, getFieldInitialState } from '@/shared/composables';
+import { useField, getFieldState } from '@/shared/composables';
 import { getFavoriteColors } from '@/core/services';
 import { AlertDismissible, Loader } from '@/shared/components';
 
@@ -236,19 +236,19 @@ const reset = () => {
     fields: [firstName, lastName, email, telephone, sex, message],
     states: [firstNameState, lastNameState, emailState, telephoneState, sexState, messageState],
     value: '',
-    newState: getFieldInitialState('first-name', true),
+    newState: getFieldState('first-name', true),
   });
   setFields({
     fields: [favoriteColor],
     states: [favoriteColorState],
     value: 'select',
-    newState: getFieldInitialState('favorite-color', true),
+    newState: getFieldState('favorite-color', true),
   });
   setFields({
     fields: [employed],
     states: [employedState],
     value: false,
-    newState: getFieldInitialState('employed'),
+    newState: getFieldState('employed'),
   });
 };
 
