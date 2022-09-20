@@ -23,8 +23,9 @@ const setFields = ({ fields, states, value, newState = {} }: SetFieldParams) => 
 
   setTimeout(() => {
     states.forEach(state => {
-      keys(newState).forEach((key: string) => {
-        state[key as keyof Validations] = newState[key as keyof Validations];
+      keys(newState).forEach((newStateKey: string) => {
+        const key = newStateKey as keyof Validations;
+        state[key] = newState[key];
       });
     });
   }, 10);
