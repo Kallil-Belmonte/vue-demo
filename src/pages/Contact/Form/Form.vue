@@ -231,6 +231,8 @@ const setFavoriteColors = async () => {
 };
 
 const reset = () => {
+  state.isFormSubmitted = false;
+
   setFields({
     fields: [firstName, lastName, email, telephone, sex, message],
     value: '',

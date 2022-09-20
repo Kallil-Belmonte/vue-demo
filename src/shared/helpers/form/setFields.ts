@@ -1,4 +1,3 @@
-import { Validations } from '@/shared/helpers';
 import { UseField, getFieldState } from '@/shared/composables';
 
 /**
@@ -13,12 +12,14 @@ type SetFieldParams = {
   resetState?: boolean;
 };
 
+const { assign } = Object;
+
 const setFields = ({ fields, value, resetState }: SetFieldParams) => {
   if (value !== undefined) fields.forEach(field => (field.model.value = value));
 
   if (resetState) {
     setTimeout(() => {
-      fields.forEach(field => (field.state = getFieldState(field.state.name, true)));
+      fields.forEach(field => assign(field.state, getFieldState(field.state.name, true)));
     }, 10);
   }
 };
