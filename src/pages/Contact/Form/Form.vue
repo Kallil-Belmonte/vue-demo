@@ -16,10 +16,10 @@
         <label class="form-label" for="first-name">First name</label>
         <input
           id="first-name"
-          :class="getFieldClass(firstNameState)"
+          :class="getFieldClass(isFormSubmitted, firstName)"
           type="text"
           :name="firstNameState.name"
-          v-model="firstName"
+          v-model="firstNameModel"
           ref="firstNameRef"
         />
         <div class="invalid-feedback" v-for="errorMessage in firstNameState.errorMessages">
@@ -31,10 +31,10 @@
         <label class="form-label" for="last-name">Last name</label>
         <input
           id="last-name"
-          :class="getFieldClass(lastNameState)"
+          :class="getFieldClass(isFormSubmitted, lastName)"
           type="text"
           :name="lastNameState.name"
-          v-model="lastName"
+          v-model="lastNameModel"
           ref="lastNameRef"
         />
         <div class="invalid-feedback" v-for="errorMessage in lastNameState.errorMessages">
@@ -48,10 +48,10 @@
         <label class="form-label" for="email">Email address</label>
         <input
           id="email"
-          :class="getFieldClass(emailState)"
+          :class="getFieldClass(isFormSubmitted, email)"
           type="email"
           :name="emailState.name"
-          v-model="email"
+          v-model="emailModel"
           ref="emailRef"
         />
         <div class="invalid-feedback" v-for="errorMessage in emailState.errorMessages">
@@ -63,10 +63,10 @@
         <label class="form-label" for="telephone">Telephone</label>
         <input
           id="telephone"
-          :class="getFieldClass(telephoneState)"
+          :class="getFieldClass(isFormSubmitted, telephone)"
           type="text"
           :name="telephoneState.name"
-          v-model="telephone"
+          v-model="telephoneModel"
           ref="telephoneRef"
         />
         <div class="invalid-feedback" v-for="errorMessage in telephoneState.errorMessages">
@@ -77,26 +77,26 @@
 
     <div class="row">
       <div class="col mb-3">
-        <div :class="getFieldClass(sexState, ['form-check', 'form-check-inline'])">
+        <div :class="getFieldClass(isFormSubmitted, sex, ['form-check', 'form-check-inline'])">
           <input
             id="male"
-            :class="getFieldClass(sexState, ['form-check-input'])"
+            :class="getFieldClass(isFormSubmitted, sex, ['form-check-input'])"
             type="radio"
             :name="sexState.name"
             value="male"
-            v-model="sex"
+            v-model="sexModel"
             ref="sexRef"
           />
           <label class="form-check-label" for="male">Male</label>
         </div>
-        <div :class="getFieldClass(sexState, ['form-check', 'form-check-inline'])">
+        <div :class="getFieldClass(isFormSubmitted, sex, ['form-check', 'form-check-inline'])">
           <input
             id="female"
-            :class="getFieldClass(sexState, ['form-check-input'])"
+            :class="getFieldClass(isFormSubmitted, sex, ['form-check-input'])"
             type="radio"
             :name="sexState.name"
             value="female"
-            v-model="sex"
+            v-model="sexModel"
             ref="sexRef"
           />
           <label class="form-check-label" for="female">Female</label>
@@ -113,11 +113,11 @@
         <select
           :class="[
             'form-select',
-            favoriteColorState.dirty && favoriteColor === 'select' ? 'is-invalid' : '',
+            favoriteColorState.dirty && favoriteColorModel === 'select' ? 'is-invalid' : '',
           ]"
           :name="favoriteColorState.name"
           aria-label="Favorite color"
-          v-model="favoriteColor"
+          v-model="favoriteColorModel"
           ref="favoriteColorRef"
         >
           <option disabled value="select">Select</option>
@@ -141,7 +141,7 @@
             type="checkbox"
             :name="employedState.name"
             value="employed"
-            v-model="employed"
+            v-model="employedModel"
             ref="employedRef"
           />
           <label class="form-check-label" for="employed">Employed</label>
@@ -154,10 +154,10 @@
         <label class="form-label" for="message">Message</label>
         <textarea
           id="message"
-          :class="getFieldClass(messageState)"
+          :class="getFieldClass(isFormSubmitted, message)"
           :name="messageState.name"
           rows="3"
-          v-model="message"
+          v-model="messageModel"
           ref="messageRef"
         />
         <div class="invalid-feedback" v-for="errorMessage in messageState.errorMessages">
@@ -172,53 +172,52 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs, onMounted, computed } from 'vue';
+import { reactive, toRefs, onMounted } from 'vue';
 
 import { ContactFormState } from '@/pages/Contact/_files/types';
-import { getFieldClass, clearFormMessage, validateFieldsState, setFields } from '@/shared/helpers';
-import { useField, getFieldState } from '@/shared/composables';
+import { required, requiredEmail, requiredMin } from '@/shared/files/validations';
+import { getFieldClass, clearFormMessage, validateFields, setFields } from '@/shared/helpers';
+import { useField } from '@/shared/composables';
 import { getFavoriteColors } from '@/core/services';
 import { AlertDismissible, Loader } from '@/shared/components';
 
 const initialState: ContactFormState = {
   isLoading: true,
+  isFormSubmitted: false,
   favoriteColors: [],
   successMessages: [],
 };
 
 const state = reactive(initialState);
-const { isLoading, favoriteColors, successMessages } = toRefs(state);
+const { isLoading, isFormSubmitted, favoriteColors, successMessages } = toRefs(state);
 
-const [firstName, firstNameRef, firstNameState] = useField({
-  name: 'first-name',
-  validation: { required: { check: true } },
-});
-const [lastName, lastNameRef, lastNameState] = useField({
-  name: 'last-name',
-  validation: { required: { check: true } },
-});
-const [email, emailRef, emailState] = useField({
-  name: 'email',
-  validation: { required: { check: true }, email: { check: true } },
-});
-const [telephone, telephoneRef, telephoneState] = useField({
-  name: 'telephone',
-  validation: { required: { check: true } },
-});
-const [sex, sexRef, sexState] = useField({
-  name: 'sex',
-  validation: { required: { check: true } },
-});
-const [favoriteColor, favoriteColorRef, favoriteColorState] = useField({
-  name: 'favorite-color',
-  defaultValue: 'select',
-  validation: { required: { check: true } },
-});
-const [employed, employedRef, employedState] = useField<boolean>({ name: 'employed' });
-const [message, messageRef, messageState] = useField({
-  name: 'message',
-  validation: { required: { check: true } },
-});
+const firstName = useField({ name: 'first-name', validation: requiredMin(2) });
+const { model: firstNameModel, ref: firstNameRef, state: firstNameState } = firstName;
+
+const lastName = useField({ name: 'last-name', validation: requiredMin(2) });
+const { model: lastNameModel, ref: lastNameRef, state: lastNameState } = lastName;
+
+const email = useField({ name: 'email', validation: requiredEmail });
+const { model: emailModel, ref: emailRef, state: emailState } = email;
+
+const telephone = useField({ name: 'telephone', validation: requiredMin(8) });
+const { model: telephoneModel, ref: telephoneRef, state: telephoneState } = telephone;
+
+const sex = useField({ name: 'sex', validation: required });
+const { model: sexModel, ref: sexRef, state: sexState } = sex;
+
+const favoriteColor = useField({ name: 'favorite-color', validation: required });
+const {
+  model: favoriteColorModel,
+  ref: favoriteColorRef,
+  state: favoriteColorState,
+} = favoriteColor;
+
+const employed = useField<boolean>({ name: 'employed' });
+const { model: employedModel, ref: employedRef, state: employedState } = employed;
+
+const message = useField({ name: 'message', validation: required });
+const { model: messageModel, ref: messageRef, state: messageState } = message;
 
 const setFavoriteColors = async () => {
   try {
@@ -235,44 +234,52 @@ const reset = () => {
   setFields({
     fields: [firstName, lastName, email, telephone, sex, message],
     value: '',
-    states: [firstNameState, lastNameState, emailState, telephoneState, sexState, messageState],
-    state: getFieldState('first-name', true),
+    resetState: true,
   });
   setFields({
     fields: [favoriteColor],
     value: 'select',
-    states: [favoriteColorState],
-    state: getFieldState('favorite-color', true),
+    resetState: true,
   });
   setFields({
     fields: [employed],
     value: false,
-    states: [employedState],
-    state: getFieldState('employed'),
+    resetState: true,
   });
 };
 
 const submit = async () => {
-  const isValidFields = validateFieldsState([
-    firstNameState,
-    lastNameState,
-    emailState,
-    telephoneState,
-    sexState,
-    favoriteColorState,
-    messageState,
-  ]);
+  state.isFormSubmitted = true;
+
+  const isValidFields = [
+    validateFields({
+      fields: [firstName, lastName],
+      validation: requiredMin(2),
+    }),
+    validateFields({
+      fields: [email],
+      validation: requiredEmail,
+    }),
+    validateFields({
+      fields: [telephone],
+      validation: requiredMin(8),
+    }),
+    validateFields({
+      fields: [sex, favoriteColor, message],
+      validation: required,
+    }),
+  ].every(isValid => isValid);
   if (!isValidFields) return;
 
   console.log('Form submitted:', {
-    firstName: firstName.value,
-    lastName: lastName.value,
-    email: email.value,
-    telephone: telephone.value,
-    sex: sex.value,
-    favoriteColor: favoriteColor.value,
-    employed: employed.value,
-    message: message.value,
+    firstName: firstNameModel.value,
+    lastName: lastNameModel.value,
+    email: emailModel.value,
+    telephone: telephoneModel.value,
+    sex: sexModel.value,
+    favoriteColor: favoriteColorModel.value,
+    employed: employedModel.value,
+    message: messageModel.value,
   });
 
   state.successMessages.push('Message sent successfully.');

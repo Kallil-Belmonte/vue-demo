@@ -1,5 +1,3 @@
-import { VueHooksFormField } from '@/shared/files/types';
-
 /**
  * @name clearFormMessage
  */

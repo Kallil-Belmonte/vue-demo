@@ -9,7 +9,7 @@ import { ValidationConfig, Validations, validate } from '@/shared/helpers';
 // valid: True if the element’s value is valid and false otherwise.
 // invalid: True if the element’s value is invalid and false otherwise.
 
-type State = Validations & {
+type FieldState = Validations & {
   name: string;
   untouched: boolean;
   touched: boolean;
@@ -29,12 +29,12 @@ type UseFieldConfig<Type> = {
 export type UseField<Type = any> = {
   model: Ref<UnwrapRef<Type>>;
   ref: Ref<any>;
-  state: State;
+  state: FieldState;
 };
 
 const { keys } = Object;
 
-export const getFieldState = (name: string, required: boolean = false): State => ({
+export const getFieldState = (name: string, required: boolean = false): FieldState => ({
   name,
   untouched: true,
   touched: false,

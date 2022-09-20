@@ -6,10 +6,10 @@
       <label class="form-label" for="title">Title</label>
       <input
         id="title"
-        :class="getFieldClass(titleState)"
+        :class="getFieldClass(isFormSubmitted, title)"
         type="text"
         :name="titleState.name"
-        v-model="title"
+        v-model="titleModel"
         ref="titleRef"
       />
       <div class="invalid-feedback" v-for="errorMessage in titleState.errorMessages">
@@ -21,10 +21,10 @@
       <label class="form-label" for="body">Body</label>
       <textarea
         id="body"
-        :class="getFieldClass(bodyState)"
+        :class="getFieldClass(isFormSubmitted, body)"
         :name="bodyState.name"
         rows="6"
-        v-model="body"
+        v-model="bodyModel"
         ref="bodyRef"
       />
       <div class="invalid-feedback" v-for="errorMessage in bodyState.errorMessages">
@@ -44,7 +44,8 @@ import { useRouter, useRoute } from 'vue-router';
 
 import { Post } from '@/core/services/news/types';
 import { EditPostFormState } from '@/pages/News/EditPost/_files/types';
-import { getFieldClass, validateFieldsState } from '@/shared/helpers';
+import { requiredEmail, requiredMin } from '@/shared/files/validations';
+import { getFieldClass, validateFields } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { getPost, editPost } from '@/core/services';
 import { currentPost, setCurrentPost } from '@/core/state/news';
@@ -55,23 +56,21 @@ const route = useRoute();
 
 const initialState: EditPostFormState = {
   isLoading: true,
+  isFormSubmitted: false,
 };
 
 const state = reactive(initialState);
-const { isLoading } = toRefs(state);
+const { isLoading, isFormSubmitted } = toRefs(state);
 
-const [title, titleRef, titleState] = useField({
-  name: 'title',
-  validation: { required: { check: true }, min: { check: 2 } },
-});
-const [body, bodyRef, bodyState] = useField({
-  name: 'body',
-  validation: { required: { check: true }, min: { check: 2 } },
-});
+const title = useField({ name: 'title', validation: requiredMin(2) });
+const { model: titleModel, ref: titleRef, state: titleState } = title;
+
+const body = useField({ name: 'body', validation: requiredMin(2) });
+const { model: bodyModel, ref: bodyRef, state: bodyState } = body;
 
 const setFormData = () => {
-  title.value = currentPost.value.title;
-  body.value = currentPost.value.body;
+  titleModel.value = currentPost.value.title;
+  bodyModel.value = currentPost.value.body;
 };
 
 const getCurrentPost = async () => {
@@ -87,7 +86,14 @@ const getCurrentPost = async () => {
 };
 
 const submit = async () => {
-  const isValidFields = validateFieldsState([titleState, bodyState]);
+  state.isFormSubmitted = true;
+
+  const isValidFields = [
+    validateFields({
+      fields: [title, body],
+      validation: requiredMin(2),
+    }),
+  ].every(isValid => isValid);
   if (!isValidFields) return;
 
   state.isLoading = true;
@@ -96,8 +102,8 @@ const submit = async () => {
     const payload: Post = {
       userId: currentPost.value.userId,
       id: currentPost.value.userId,
-      title: title.value,
-      body: body.value,
+      title: titleModel.value,
+      body: bodyModel.value,
     };
 
     await editPost(payload);

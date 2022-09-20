@@ -93,7 +93,7 @@ import { FormState } from '@/pages/Auth/_files/types';
 import { AUTH_TOKEN_KEY, AUTH_EXPIRATION_DATE_KEY } from '@/shared/files/consts';
 import { requiredEmail, requiredMin } from '@/shared/files/validations';
 import { LoginUserPayload } from '@/core/services/auth/types';
-import { getFieldClass, clearFormMessage, validateFieldsState } from '@/shared/helpers';
+import { getFieldClass, clearFormMessage, validateFields } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { loginUser } from '@/core/services';
 import { setUser } from '@/core/state/auth';
@@ -124,11 +124,11 @@ const submit = async () => {
   state.isFormSubmitted = true;
 
   const isValidFields = [
-    validateFieldsState({
+    validateFields({
       fields: [email],
       validation: requiredEmail,
     }),
-    validateFieldsState({
+    validateFields({
       fields: [password],
       validation: requiredMin(3),
     }),

@@ -2,10 +2,10 @@ import { Validations, ValidationConfig, validate } from '@/shared/helpers';
 import { UseField } from '@/shared/composables';
 
 /**
- * @name validateFieldsState
+ * @name validateFields
  */
 
-type ValidateFieldsState = {
+type ValidateFields = {
   fields: UseField[];
   validation?: ValidationConfig;
   updateState?: boolean;
@@ -13,11 +13,7 @@ type ValidateFieldsState = {
 
 const { keys } = Object;
 
-const validateFieldsState = ({
-  fields,
-  validation = {},
-  updateState = true,
-}: ValidateFieldsState) => {
+const validateFields = ({ fields, validation = {}, updateState = true }: ValidateFields) => {
   let isValidFields = fields.every(field => field.state.valid);
 
   if (keys(validation).length) {
@@ -46,4 +42,4 @@ const validateFieldsState = ({
   return isValidFields;
 };
 
-export default validateFieldsState;
+export default validateFields;

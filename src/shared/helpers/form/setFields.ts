@@ -1,7 +1,5 @@
-import { Ref } from 'vue';
-
 import { Validations } from '@/shared/helpers';
-import { FieldState } from '@/shared/composables';
+import { UseField, getFieldState } from '@/shared/composables';
 
 /**
  * @name setFields
@@ -10,25 +8,19 @@ import { FieldState } from '@/shared/composables';
 type Value = string | number | boolean;
 
 type SetFieldParams = {
-  fields: Ref<Value>[];
+  fields: UseField[];
   value?: Value;
-  states: FieldState[];
-  state: Partial<FieldState>;
+  resetState?: boolean;
 };
 
-const { keys } = Object;
+const setFields = ({ fields, value, resetState }: SetFieldParams) => {
+  if (value !== undefined) fields.forEach(field => (field.model.value = value));
 
-const setFields = ({ fields, states, value, state = {} }: SetFieldParams) => {
-  if (value !== undefined) fields.forEach(item => (item.value = value));
-
-  setTimeout(() => {
-    states.forEach(stateItem => {
-      keys(state).forEach((stateKey: string) => {
-        const key = stateKey as keyof Validations;
-        stateItem[key] = state[key];
-      });
-    });
-  }, 10);
+  if (resetState) {
+    setTimeout(() => {
+      fields.forEach(field => (field.state = getFieldState(field.state.name, true)));
+    }, 10);
+  }
 };
 
 export default setFields;

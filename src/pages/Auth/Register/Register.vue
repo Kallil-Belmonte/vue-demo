@@ -111,7 +111,7 @@ import { FormState } from '@/pages/Auth/_files/types';
 import { RegisterUserPayload } from '@/core/services/auth/types';
 import { AUTH_TOKEN_KEY } from '@/shared/files/consts';
 import { requiredEmail, requiredMin } from '@/shared/files/validations';
-import { getFieldClass, clearFormMessage, validateFieldsState } from '@/shared/helpers';
+import { getFieldClass, clearFormMessage, validateFields } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { registerUser } from '@/core/services';
 import { setUser } from '@/core/state/auth';
@@ -129,10 +129,10 @@ const initialState: FormState = {
 const state = reactive(initialState);
 const { isLoading, isFormSubmitted, serverErrors } = toRefs(state);
 
-const firstName = useField({ name: 'firstName', validation: requiredMin(2) });
+const firstName = useField({ name: 'first-name', validation: requiredMin(2) });
 const { model: firstNameModel, ref: firstNameRef, state: firstNameState } = firstName;
 
-const lastName = useField({ name: 'lastName', validation: requiredMin(2) });
+const lastName = useField({ name: 'last-name', validation: requiredMin(2) });
 const { model: lastNameModel, ref: lastNameRef, state: lastNameState } = lastName;
 
 const email = useField({ name: 'email', validation: requiredEmail });
@@ -145,15 +145,15 @@ const submit = async () => {
   state.isFormSubmitted = true;
 
   const isValidFields = [
-    validateFieldsState({
+    validateFields({
       fields: [firstName, lastName],
       validation: requiredMin(2),
     }),
-    validateFieldsState({
+    validateFields({
       fields: [email],
       validation: requiredEmail,
     }),
-    validateFieldsState({
+    validateFields({
       fields: [password],
       validation: requiredMin(3),
     }),
