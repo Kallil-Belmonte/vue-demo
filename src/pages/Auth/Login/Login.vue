@@ -9,10 +9,10 @@
         <label class="form-label" for="email">E-mail address</label>
         <input
           id="email"
-          :class="getFieldClass(emailState)"
+          :class="getFieldClass(isFormSubmitted, email)"
           type="email"
           :name="emailState.name"
-          v-model="email"
+          v-model="emailModel"
           ref="emailRef"
         />
         <div class="invalid-feedback" v-for="errorMessage in emailState.errorMessages">
@@ -33,10 +33,10 @@
         <label class="form-label" for="password">Password</label>
         <input
           id="password"
-          :class="getFieldClass(passwordState)"
+          :class="getFieldClass(isFormSubmitted, password)"
           type="password"
           :name="passwordState.name"
-          v-model="password"
+          v-model="passwordModel"
           ref="passwordRef"
         />
         <div class="invalid-feedback" v-for="errorMessage in passwordState.errorMessages">
@@ -59,7 +59,7 @@
           class="form-check-input"
           type="checkbox"
           :name="keepLoggedState.name"
-          v-model="keepLogged"
+          v-model="keepLoggedModel"
           ref="keepLoggedRef"
         />
         <label class="form-check-label" for="keep-logged">Keep logged</label>
@@ -91,6 +91,7 @@ import { useRouter } from 'vue-router';
 
 import { FormState } from '@/pages/Auth/_files/types';
 import { AUTH_TOKEN_KEY, AUTH_EXPIRATION_DATE_KEY } from '@/shared/files/consts';
+import { requiredEmail, requiredMin } from '@/shared/files/validations';
 import { LoginUserPayload } from '@/core/services/auth/types';
 import { getFieldClass, clearFormMessage, validateFieldsState } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
@@ -103,24 +104,35 @@ const router = useRouter();
 
 const initialState: FormState = {
   isLoading: false,
+  isFormSubmitted: false,
   serverErrors: { email: [], password: [], request: [] },
 };
 
 const state = reactive(initialState);
-const { isLoading, serverErrors } = toRefs(state);
+const { isLoading, isFormSubmitted, serverErrors } = toRefs(state);
 
-const [email, emailRef, emailState] = useField({
-  name: 'email',
-  validation: { required: { check: true }, email: { check: true } },
-});
-const [password, passwordRef, passwordState] = useField({
-  name: 'password',
-  validation: { required: { check: true }, min: { check: 3 } },
-});
-const [keepLogged, keepLoggedRef, keepLoggedState] = useField<boolean>({ name: 'keepLogged' });
+const email = useField({ name: 'email', validation: requiredEmail });
+const { model: emailModel, ref: emailRef, state: emailState } = email;
+
+const password = useField({ name: 'password', validation: requiredMin(3) });
+const { model: passwordModel, ref: passwordRef, state: passwordState } = password;
+
+const keepLogged = useField<boolean>({ name: 'keepLogged' });
+const { model: keepLoggedModel, ref: keepLoggedRef, state: keepLoggedState } = keepLogged;
 
 const submit = async () => {
-  const isValidFields = validateFieldsState([emailState, passwordState]);
+  state.isFormSubmitted = true;
+
+  const isValidFields = [
+    validateFieldsState({
+      fields: [email],
+      validation: requiredEmail,
+    }),
+    validateFieldsState({
+      fields: [password],
+      validation: requiredMin(3),
+    }),
+  ].every(isValid => isValid);
   if (!isValidFields) return;
 
   state.isLoading = true;
@@ -128,9 +140,9 @@ const submit = async () => {
 
   try {
     const payload: LoginUserPayload = {
-      email: email.value,
-      password: password.value,
-      keepLogged: keepLogged.value,
+      email: emailModel.value,
+      password: passwordModel.value,
+      keepLogged: keepLoggedModel.value,
     };
 
     const user = await loginUser(payload);
@@ -139,11 +151,11 @@ const submit = async () => {
       new Date().getTime() + Number(user.expiresIn) * 1000,
     ).toISOString();
 
-    if (email.value === 'demo@demo.com') {
+    if (emailModel.value === 'demo@demo.com') {
       state.serverErrors.email.push('This e-mail does not exists.');
       state.serverErrors.password.push('The password is incorrect.');
     } else {
-      if (keepLogged.value) {
+      if (keepLoggedModel.value) {
         localStorage.setItem(AUTH_TOKEN_KEY, user.token);
         localStorage.setItem(AUTH_EXPIRATION_DATE_KEY, expirationDate);
       } else {

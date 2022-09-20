@@ -1,1 +1,1 @@
-export { type State as FieldState, getFieldState, default as useField } from './useField';
+export { type UseField, getFieldState, default as useField } from './useField';

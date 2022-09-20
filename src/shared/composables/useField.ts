@@ -9,7 +9,7 @@ import { ValidationConfig, Validations, validate } from '@/shared/helpers';
 // valid: True if the element’s value is valid and false otherwise.
 // invalid: True if the element’s value is invalid and false otherwise.
 
-export type State = Validations & {
+type State = Validations & {
   name: string;
   untouched: boolean;
   touched: boolean;
@@ -26,7 +26,11 @@ type UseFieldConfig<Type> = {
   validation?: ValidationConfig;
 };
 
-type UseFieldResult<Type> = [Ref<UnwrapRef<Type>>, Ref<any>, State];
+export type UseField<Type = any> = {
+  model: Ref<UnwrapRef<Type>>;
+  ref: Ref<any>;
+  state: State;
+};
 
 const { keys } = Object;
 
@@ -41,13 +45,13 @@ export const getFieldState = (name: string, required: boolean = false): State =>
   errorMessages: [],
 });
 
-const useField = <Type = string>(config: UseFieldConfig<Type>): UseFieldResult<Type> => {
+const useField = <Type = string>(config: UseFieldConfig<Type>): UseField<Type> => {
   const { name, defaultValue, validation = {} } = config;
 
   const state = reactive(getFieldState(name, validation.required?.check));
   const { pristine, dirty } = state;
 
-  const field = ref<Type>(defaultValue as Type);
+  const model = ref<Type>(defaultValue as Type);
   const fieldRef = ref();
 
   const controlUpdate = (value: UnwrapRef<Type>) => {
@@ -87,13 +91,13 @@ const useField = <Type = string>(config: UseFieldConfig<Type>): UseFieldResult<T
   };
 
   // LIFECYCLE HOOKS
-  watch(field, controlUpdate);
+  watch(model, controlUpdate);
 
   onMounted(() => {
     controlTouching();
   });
 
-  return [field, fieldRef, state];
+  return { model, ref: fieldRef, state };
 };
 
 export default useField;

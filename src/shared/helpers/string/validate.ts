@@ -87,7 +87,7 @@ const validate = (value: string, config: Config = {}) => {
   // Phone
   if (phone?.check) {
     const { message = 'Invalid phone.' } = phone;
-    const formattedValue = value.replace(/[^0-9]/g, '');
+    const formattedValue = value?.replace(/[^0-9]/g, '');
     const phoneRegex = /^[0-9]{10,11}$/;
     validations.phone = getValidation(phoneRegex.test(formattedValue), message);
   }
@@ -95,13 +95,13 @@ const validate = (value: string, config: Config = {}) => {
   // Min
   if (min?.check) {
     const { check, message = `Minimum ${min.check} characters.` } = min;
-    validations.min = getValidation(value.length >= check, message);
+    validations.min = getValidation(value?.length >= check, message);
   }
 
   // Max
   if (max?.check) {
     const { check, message = `Maximum ${max.check} character${max.check > 1 ? 's' : ''}.` } = max;
-    validations.max = getValidation(value.length <= check, message);
+    validations.max = getValidation(value?.length <= check, message);
   }
 
   // Number

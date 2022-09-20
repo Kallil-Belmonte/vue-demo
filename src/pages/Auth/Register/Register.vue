@@ -9,10 +9,10 @@
         <label class="form-label" for="first-name">First name</label>
         <input
           id="first-name"
-          :class="getFieldClass(firstNameState)"
+          :class="getFieldClass(isFormSubmitted, firstName)"
           type="text"
           :name="firstNameState.name"
-          v-model="firstName"
+          v-model="firstNameModel"
           ref="firstNameRef"
         />
         <div class="invalid-feedback" v-for="errorMessage in firstNameState.errorMessages">
@@ -24,10 +24,10 @@
         <label class="form-label" for="last-name">Last name</label>
         <input
           id="last-name"
-          :class="getFieldClass(lastNameState)"
+          :class="getFieldClass(isFormSubmitted, lastName)"
           type="text"
           :name="lastNameState.name"
-          v-model="lastName"
+          v-model="lastNameModel"
           ref="lastNameRef"
         />
         <div class="invalid-feedback" v-for="errorMessage in lastNameState.errorMessages">
@@ -39,10 +39,10 @@
         <label class="form-label" for="email">E-mail address</label>
         <input
           id="email"
-          :class="getFieldClass(emailState)"
+          :class="getFieldClass(isFormSubmitted, email)"
           type="email"
           :name="emailState.name"
-          v-model="email"
+          v-model="emailModel"
           ref="emailRef"
         />
         <div class="invalid-feedback" v-for="errorMessage in emailState.errorMessages">
@@ -63,10 +63,10 @@
         <label class="form-label" for="password">Password</label>
         <input
           id="password"
-          :class="getFieldClass(passwordState)"
+          :class="getFieldClass(isFormSubmitted, password)"
           type="password"
           :name="passwordState.name"
-          v-model="password"
+          v-model="passwordModel"
           ref="passwordRef"
         />
         <div class="invalid-feedback" v-for="errorMessage in passwordState.errorMessages">
@@ -110,6 +110,7 @@ import { useRouter } from 'vue-router';
 import { FormState } from '@/pages/Auth/_files/types';
 import { RegisterUserPayload } from '@/core/services/auth/types';
 import { AUTH_TOKEN_KEY } from '@/shared/files/consts';
+import { requiredEmail, requiredMin } from '@/shared/files/validations';
 import { getFieldClass, clearFormMessage, validateFieldsState } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { registerUser } from '@/core/services';
@@ -121,36 +122,42 @@ const router = useRouter();
 
 const initialState: FormState = {
   isLoading: false,
+  isFormSubmitted: false,
   serverErrors: { email: [], password: [], request: [] },
 };
 
 const state = reactive(initialState);
-const { isLoading, serverErrors } = toRefs(state);
+const { isLoading, isFormSubmitted, serverErrors } = toRefs(state);
 
-const [firstName, firstNameRef, firstNameState] = useField({
-  name: 'first-name',
-  validation: { required: { check: true }, min: { check: 2 } },
-});
-const [lastName, lastNameRef, lastNameState] = useField({
-  name: 'last-name',
-  validation: { required: { check: true }, min: { check: 2 } },
-});
-const [email, emailRef, emailState] = useField({
-  name: 'email',
-  validation: { required: { check: true }, email: { check: true } },
-});
-const [password, passwordRef, passwordState] = useField({
-  name: 'password',
-  validation: { required: { check: true }, min: { check: 3 } },
-});
+const firstName = useField({ name: 'firstName', validation: requiredMin(2) });
+const { model: firstNameModel, ref: firstNameRef, state: firstNameState } = firstName;
+
+const lastName = useField({ name: 'lastName', validation: requiredMin(2) });
+const { model: lastNameModel, ref: lastNameRef, state: lastNameState } = lastName;
+
+const email = useField({ name: 'email', validation: requiredEmail });
+const { model: emailModel, ref: emailRef, state: emailState } = email;
+
+const password = useField({ name: 'password', validation: requiredMin(3) });
+const { model: passwordModel, ref: passwordRef, state: passwordState } = password;
 
 const submit = async () => {
-  const isValidFields = validateFieldsState([
-    firstNameState,
-    lastNameState,
-    emailState,
-    passwordState,
-  ]);
+  state.isFormSubmitted = true;
+
+  const isValidFields = [
+    validateFieldsState({
+      fields: [firstName, lastName],
+      validation: requiredMin(2),
+    }),
+    validateFieldsState({
+      fields: [email],
+      validation: requiredEmail,
+    }),
+    validateFieldsState({
+      fields: [password],
+      validation: requiredMin(3),
+    }),
+  ].every(isValid => isValid);
   if (!isValidFields) return;
 
   state.isLoading = true;
@@ -158,15 +165,15 @@ const submit = async () => {
 
   try {
     const payload: RegisterUserPayload = {
-      firstName: firstName.value,
-      lastName: lastName.value,
-      email: email.value,
-      password: password.value,
+      firstName: firstNameModel.value,
+      lastName: lastNameModel.value,
+      email: emailModel.value,
+      password: passwordModel.value,
     };
 
     const user = await registerUser(payload);
 
-    if (email.value === 'demo@demo.com') {
+    if (firstNameModel.value === 'demo@demo.com') {
       state.serverErrors.email.push('This e-mail already exists.');
       state.serverErrors.password.push('Your password is too weak.');
     } else {

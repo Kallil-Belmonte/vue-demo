@@ -1,12 +1,17 @@
-import { FieldState } from '@/shared/composables';
+import { UseField } from '@/shared/composables';
 
 /**
  * @name getFieldClass
  */
 
-const getFieldClass = (fieldState: FieldState, baseClassNames = ['form-control']) => [
-  ...baseClassNames,
-  fieldState.dirty && fieldState.invalid ? 'is-invalid' : '',
-];
+const getFieldClass = (
+  isFormSubmitted: boolean,
+  field: UseField,
+  baseClassNames = ['form-control'],
+) => {
+  const classes = baseClassNames;
+  if ((isFormSubmitted || field.state.dirty) && field.state.invalid) classes.push('is-invalid');
+  return classes;
+};
 
 export default getFieldClass;
