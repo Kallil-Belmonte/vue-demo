@@ -21,9 +21,9 @@
 
       <form @submit.prevent="submit">
         <div class="mb-3">
-          <label class="form-label" for="first-name">First name</label>
+          <label class="form-label" :for="firstNameState.name">First name</label>
           <input
-            id="first-name"
+            :id="firstNameState.name"
             :class="getFieldClass(isFormSubmitted, firstName)"
             type="text"
             :name="firstNameState.name"
@@ -36,9 +36,9 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="last-name">Last name</label>
+          <label class="form-label" :for="lastNameState.name">Last name</label>
           <input
-            id="last-name"
+            :id="lastNameState.name"
             :class="getFieldClass(isFormSubmitted, lastName)"
             type="text"
             :name="lastNameState.name"
@@ -51,9 +51,9 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="email">E-mail address</label>
+          <label class="form-label" :for="emailState.name">E-mail address</label>
           <input
-            id="email"
+            :id="emailState.name"
             :class="getFieldClass(isFormSubmitted, email)"
             type="email"
             :name="emailState.name"
@@ -120,14 +120,8 @@ const submit = async () => {
   state.isFormSubmitted = true;
 
   const isValidFields = [
-    validateFields({
-      fields: [firstName, lastName],
-      validation: requiredMin(2),
-    }),
-    validateFields({
-      fields: [email],
-      validation: requiredEmail,
-    }),
+    validateFields({ fields: [firstName, lastName], validation: requiredMin(2) }),
+    validateFields({ fields: [email], validation: requiredEmail }),
   ].every(isValid => isValid);
   if (!isValidFields) return;
 

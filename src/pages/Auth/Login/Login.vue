@@ -6,9 +6,9 @@
       <h1 class="page-title">Login</h1>
 
       <div class="mb-3">
-        <label class="form-label" for="email">E-mail address</label>
+        <label class="form-label" :for="emailState.name">E-mail address</label>
         <input
-          id="email"
+          :id="emailState.name"
           :class="getFieldClass(isFormSubmitted, email)"
           type="email"
           :name="emailState.name"
@@ -30,9 +30,9 @@
       </AlertDismissible>
 
       <div class="mb-3">
-        <label class="form-label" for="password">Password</label>
+        <label class="form-label" :for="passwordState.name">Password</label>
         <input
-          id="password"
+          :id="passwordState.name"
           :class="getFieldClass(isFormSubmitted, password)"
           type="password"
           :name="passwordState.name"
@@ -54,15 +54,15 @@
       </AlertDismissible>
 
       <div class="form-check">
+        <label class="form-check-label" :for="keepLoggedState.name">Keep logged</label>
         <input
-          id="keep-logged"
+          :id="keepLoggedState.name"
           class="form-check-input"
           type="checkbox"
           :name="keepLoggedState.name"
           v-model="keepLoggedModel"
           ref="keepLoggedRef"
         />
-        <label class="form-check-label" for="keep-logged">Keep logged</label>
       </div>
 
       <AlertDismissible
@@ -117,21 +117,15 @@ const { model: emailModel, ref: emailRef, state: emailState } = email;
 const password = useField({ name: 'password', validation: requiredMin(3) });
 const { model: passwordModel, ref: passwordRef, state: passwordState } = password;
 
-const keepLogged = useField<boolean>({ name: 'keepLogged' });
+const keepLogged = useField<boolean>({ name: 'keep-logged' });
 const { model: keepLoggedModel, ref: keepLoggedRef, state: keepLoggedState } = keepLogged;
 
 const submit = async () => {
   state.isFormSubmitted = true;
 
   const isValidFields = [
-    validateFields({
-      fields: [email],
-      validation: requiredEmail,
-    }),
-    validateFields({
-      fields: [password],
-      validation: requiredMin(3),
-    }),
+    validateFields({ fields: [email], validation: requiredEmail }),
+    validateFields({ fields: [password], validation: requiredMin(3) }),
   ].every(isValid => isValid);
   if (!isValidFields) return;
 

@@ -3,9 +3,9 @@
 
   <form class="edit-post-form" @submit.prevent="submit">
     <div class="mb-3">
-      <label class="form-label" for="title">Title</label>
+      <label class="form-label" :for="titleState.name">Title</label>
       <input
-        id="title"
+        :id="titleState.name"
         :class="getFieldClass(isFormSubmitted, title)"
         type="text"
         :name="titleState.name"
@@ -18,9 +18,9 @@
     </div>
 
     <div class="mb-3">
-      <label class="form-label" for="body">Body</label>
+      <label class="form-label" :for="bodyState.name">Body</label>
       <textarea
-        id="body"
+        :id="bodyState.name"
         :class="getFieldClass(isFormSubmitted, body)"
         :name="bodyState.name"
         rows="6"
@@ -44,7 +44,7 @@ import { useRouter, useRoute } from 'vue-router';
 
 import { Post } from '@/core/services/news/types';
 import { EditPostFormState } from '@/pages/News/EditPost/_files/types';
-import { requiredEmail, requiredMin } from '@/shared/files/validations';
+import { requiredMin } from '@/shared/files/validations';
 import { getFieldClass, validateFields } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { getPost, editPost } from '@/core/services';
@@ -89,10 +89,7 @@ const submit = async () => {
   state.isFormSubmitted = true;
 
   const isValidFields = [
-    validateFields({
-      fields: [title, body],
-      validation: requiredMin(2),
-    }),
+    validateFields({ fields: [title, body], validation: requiredMin(2) }),
   ].every(isValid => isValid);
   if (!isValidFields) return;
 

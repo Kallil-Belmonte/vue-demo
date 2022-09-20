@@ -13,9 +13,9 @@
 
     <div class="row">
       <div class="col mb-3">
-        <label class="form-label" for="first-name">First name</label>
+        <label class="form-label" :for="firstNameState.name">First name</label>
         <input
-          id="first-name"
+          :id="firstNameState.name"
           :class="getFieldClass(isFormSubmitted, firstName)"
           type="text"
           :name="firstNameState.name"
@@ -28,9 +28,9 @@
       </div>
 
       <div class="col mb-3">
-        <label class="form-label" for="last-name">Last name</label>
+        <label class="form-label" :for="lastNameState.name">Last name</label>
         <input
-          id="last-name"
+          :id="lastNameState.name"
           :class="getFieldClass(isFormSubmitted, lastName)"
           type="text"
           :name="lastNameState.name"
@@ -45,9 +45,9 @@
 
     <div class="row">
       <div class="col mb-3">
-        <label class="form-label" for="email">Email address</label>
+        <label class="form-label" :for="emailState.name">Email address</label>
         <input
-          id="email"
+          :id="emailState.name"
           :class="getFieldClass(isFormSubmitted, email)"
           type="email"
           :name="emailState.name"
@@ -60,9 +60,9 @@
       </div>
 
       <div class="col mb-3">
-        <label class="form-label" for="telephone">Telephone</label>
+        <label class="form-label" :for="telephoneState.name">Telephone</label>
         <input
-          id="telephone"
+          :id="telephoneState.name"
           :class="getFieldClass(isFormSubmitted, telephone)"
           type="text"
           :name="telephoneState.name"
@@ -109,8 +109,9 @@
 
     <div class="row">
       <div class="col mb-3">
-        <label class="form-label" for="favorite-color">Favorite color</label>
+        <label class="form-label" :for="favoriteColorState.name">Favorite color</label>
         <select
+          :id="favoriteColorState.name"
           :class="[
             'form-select',
             favoriteColorState.dirty && favoriteColorModel === 'select' ? 'is-invalid' : '',
@@ -135,8 +136,9 @@
       </div>
       <div class="col mt-4">
         <div class="form-check">
+          <label class="form-check-label" :for="employedState.name">Employed</label>
           <input
-            id="employed"
+            :id="employedState.name"
             class="form-check-input"
             type="checkbox"
             :name="employedState.name"
@@ -144,16 +146,15 @@
             v-model="employedModel"
             ref="employedRef"
           />
-          <label class="form-check-label" for="employed">Employed</label>
         </div>
       </div>
     </div>
 
     <div class="row">
       <div class="col mb-3">
-        <label class="form-label" for="message">Message</label>
+        <label class="form-label" :for="messageState.name">Message</label>
         <textarea
-          id="message"
+          :id="messageState.name"
           :class="getFieldClass(isFormSubmitted, message)"
           :name="messageState.name"
           rows="3"
@@ -254,22 +255,10 @@ const submit = async () => {
   state.isFormSubmitted = true;
 
   const isValidFields = [
-    validateFields({
-      fields: [firstName, lastName],
-      validation: requiredMin(2),
-    }),
-    validateFields({
-      fields: [email],
-      validation: requiredEmail,
-    }),
-    validateFields({
-      fields: [telephone],
-      validation: requiredMin(8),
-    }),
-    validateFields({
-      fields: [sex, favoriteColor, message],
-      validation: required,
-    }),
+    validateFields({ fields: [firstName, lastName], validation: requiredMin(2) }),
+    validateFields({ fields: [email], validation: requiredEmail }),
+    validateFields({ fields: [telephone], validation: requiredMin(8) }),
+    validateFields({ fields: [sex, favoriteColor, message], validation: required }),
   ].every(isValid => isValid);
   if (!isValidFields) return;
 
