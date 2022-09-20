@@ -11,21 +11,21 @@ type Value = string | number | boolean;
 
 type SetFieldParams = {
   fields: Ref<Value>[];
-  states: FieldState[];
   value?: Value;
-  newState: Partial<FieldState>;
+  states: FieldState[];
+  state: Partial<FieldState>;
 };
 
 const { keys } = Object;
 
-const setFields = ({ fields, states, value, newState = {} }: SetFieldParams) => {
+const setFields = ({ fields, states, value, state = {} }: SetFieldParams) => {
   if (value !== undefined) fields.forEach(item => (item.value = value));
 
   setTimeout(() => {
-    states.forEach(state => {
-      keys(newState).forEach((newStateKey: string) => {
-        const key = newStateKey as keyof Validations;
-        state[key] = newState[key];
+    states.forEach(stateItem => {
+      keys(state).forEach((stateKey: string) => {
+        const key = stateKey as keyof Validations;
+        stateItem[key] = state[key];
       });
     });
   }, 10);

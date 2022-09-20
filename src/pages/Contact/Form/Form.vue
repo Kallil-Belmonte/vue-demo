@@ -234,21 +234,21 @@ const setFavoriteColors = async () => {
 const reset = () => {
   setFields({
     fields: [firstName, lastName, email, telephone, sex, message],
-    states: [firstNameState, lastNameState, emailState, telephoneState, sexState, messageState],
     value: '',
-    newState: getFieldState('first-name', true),
+    states: [firstNameState, lastNameState, emailState, telephoneState, sexState, messageState],
+    state: getFieldState('first-name', true),
   });
   setFields({
     fields: [favoriteColor],
-    states: [favoriteColorState],
     value: 'select',
-    newState: getFieldState('favorite-color', true),
+    states: [favoriteColorState],
+    state: getFieldState('favorite-color', true),
   });
   setFields({
     fields: [employed],
-    states: [employedState],
     value: false,
-    newState: getFieldState('employed'),
+    states: [employedState],
+    state: getFieldState('employed'),
   });
 };
 
