@@ -75,7 +75,7 @@ const useField = <Type = string>(config: UseFieldConfig<Type>): UseField<Type> =
   };
 
   const controlTouching = () => {
-    if (!fieldRef.value) return;
+    if (!fieldRef.value || state.touched) return;
 
     const setUntouched = () => {
       state.untouched = false;
@@ -92,6 +92,7 @@ const useField = <Type = string>(config: UseFieldConfig<Type>): UseField<Type> =
 
   // LIFECYCLE HOOKS
   watch(model, controlUpdate);
+  watch(() => state.touched, controlTouching);
 
   onMounted(() => {
     controlTouching();
