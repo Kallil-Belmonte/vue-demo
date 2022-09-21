@@ -132,7 +132,7 @@ import { reactive, toRefs, computed, onMounted } from 'vue';
 
 import { ContactFormState } from '@/pages/Contact/_files/types';
 import { required, requiredEmail, requiredMin } from '@/shared/files/validations';
-import { getFieldClass, clearFormMessage, validateFields, setFields } from '@/shared/helpers';
+import { getFieldClass, clearFormMessage, validateForm, setFields } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { getFavoriteColors } from '@/core/services';
 import { AlertDismissible, Loader, Input } from '@/shared/components';
@@ -204,12 +204,12 @@ const reset = () => {
 const submit = async () => {
   state.isFormSubmitted = true;
 
-  const isValidFields = [
-    validateFields({ fields: [firstName, lastName], validation: requiredMin(2) }),
-    validateFields({ fields: [email], validation: requiredEmail }),
-    validateFields({ fields: [telephone], validation: requiredMin(8) }),
-    validateFields({ fields: [sex, favoriteColor, message], validation: required }),
-  ].every(isValid => isValid);
+  const isValidFields = validateForm([
+    { fields: [firstName, lastName], validation: requiredMin(2) },
+    { fields: [email], validation: requiredEmail },
+    { fields: [telephone], validation: requiredMin(8) },
+    { fields: [sex, favoriteColor, message], validation: required },
+  ]);
   if (!isValidFields) return;
 
   console.log('Form submitted:', {

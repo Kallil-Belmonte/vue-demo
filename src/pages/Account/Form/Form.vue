@@ -58,7 +58,7 @@ import { reactive, toRefs, computed, onMounted } from 'vue';
 
 import { AccountFormState } from '@/pages/Account/_files/types';
 import { requiredEmail, requiredMin } from '@/shared/files/validations';
-import { clearFormMessage, validateFields } from '@/shared/helpers';
+import { clearFormMessage, validateForm } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { user, setUser } from '@/core/state/auth';
 import { AlertDismissible, Input } from '@/shared/components';
@@ -87,10 +87,10 @@ const getUserData = () => {
 const submit = async () => {
   state.isFormSubmitted = true;
 
-  const isValidFields = [
-    validateFields({ fields: [firstName, lastName], validation: requiredMin(2) }),
-    validateFields({ fields: [email], validation: requiredEmail }),
-  ].every(isValid => isValid);
+  const isValidFields = validateForm([
+    { fields: [firstName, lastName], validation: requiredMin(2) },
+    { fields: [email], validation: requiredEmail },
+  ]);
   if (!isValidFields) return;
 
   state.successMessages = [];

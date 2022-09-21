@@ -77,7 +77,7 @@ import { FormState } from '@/pages/Auth/_files/types';
 import { RegisterUserPayload } from '@/core/services/auth/types';
 import { AUTH_TOKEN_KEY } from '@/shared/files/consts';
 import { requiredEmail, requiredMin } from '@/shared/files/validations';
-import { clearFormMessage, validateFields } from '@/shared/helpers';
+import { clearFormMessage, validateForm } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { registerUser } from '@/core/services';
 import { setUser } from '@/core/state/auth';
@@ -105,11 +105,11 @@ const password = useField({ name: 'password', validation: requiredMin(3) });
 const submit = async () => {
   state.isFormSubmitted = true;
 
-  const isValidFields = [
-    validateFields({ fields: [firstName, lastName], validation: requiredMin(2) }),
-    validateFields({ fields: [email], validation: requiredEmail }),
-    validateFields({ fields: [password], validation: requiredMin(3) }),
-  ].every(isValid => isValid);
+  const isValidFields = validateForm([
+    { fields: [firstName, lastName], validation: requiredMin(2) },
+    { fields: [email], validation: requiredEmail },
+    { fields: [password], validation: requiredMin(3) },
+  ]);
   if (!isValidFields) return;
 
   state.isLoading = true;

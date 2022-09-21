@@ -2,7 +2,7 @@ import { Validations, ValidationConfig, validate } from '@/shared/helpers';
 import { UseField } from '@/shared/composables';
 
 /**
- * @name validateFields
+ * @name validateForm
  */
 
 type ValidateFields = {
@@ -42,4 +42,9 @@ const validateFields = ({ fields, validation = {}, updateState = true }: Validat
   return isValidFields;
 };
 
-export default validateFields;
+const validateForm = (formItems: ValidateFields[]) => {
+  const isValidFields = formItems.map(item => validateFields(item));
+  return isValidFields.every(isValid => isValid);
+};
+
+export default validateForm;

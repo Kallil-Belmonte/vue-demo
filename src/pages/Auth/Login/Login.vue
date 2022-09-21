@@ -79,7 +79,7 @@ import { FormState } from '@/pages/Auth/_files/types';
 import { AUTH_TOKEN_KEY, AUTH_EXPIRATION_DATE_KEY } from '@/shared/files/consts';
 import { requiredEmail, requiredMin } from '@/shared/files/validations';
 import { LoginUserPayload } from '@/core/services/auth/types';
-import { clearFormMessage, validateFields } from '@/shared/helpers';
+import { clearFormMessage, validateForm } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { loginUser } from '@/core/services';
 import { setUser } from '@/core/state/auth';
@@ -106,10 +106,10 @@ const keepLogged = useField<boolean>({ name: 'keep-logged' });
 const submit = async () => {
   state.isFormSubmitted = true;
 
-  const isValidFields = [
-    validateFields({ fields: [email], validation: requiredEmail }),
-    validateFields({ fields: [password], validation: requiredMin(3) }),
-  ].every(isValid => isValid);
+  const isValidFields = validateForm([
+    { fields: [email], validation: requiredEmail },
+    { fields: [password], validation: requiredMin(3) },
+  ]);
   if (!isValidFields) return;
 
   state.isLoading = true;

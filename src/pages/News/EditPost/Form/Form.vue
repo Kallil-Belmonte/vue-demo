@@ -23,7 +23,7 @@ import { useRouter, useRoute } from 'vue-router';
 import { Post } from '@/core/services/news/types';
 import { EditPostFormState } from '@/pages/News/EditPost/_files/types';
 import { requiredMin } from '@/shared/files/validations';
-import { validateFields } from '@/shared/helpers';
+import { validateForm } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { getPost, editPost } from '@/core/services';
 import { currentPost, setCurrentPost } from '@/core/state/news';
@@ -65,9 +65,7 @@ const getCurrentPost = async () => {
 const submit = async () => {
   state.isFormSubmitted = true;
 
-  const isValidFields = [
-    validateFields({ fields: [title, body], validation: requiredMin(2) }),
-  ].every(isValid => isValid);
+  const isValidFields = validateForm([{ fields: [title, body], validation: requiredMin(2) }]);
   if (!isValidFields) return;
 
   state.isLoading = true;
