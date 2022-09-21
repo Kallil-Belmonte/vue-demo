@@ -38,29 +38,14 @@
 
     <div class="row">
       <div class="col mb-3">
-        <div :class="getFieldClass(isFormSubmitted, sexState, ['form-check', 'form-check-inline'])">
-          <Input
-            type="radio"
-            label="Male"
-            labelClass="form-check-label"
-            :baseClasses="['form-check-input']"
-            :field="sex"
-            :isFormSubmitted="isFormSubmitted"
-          />
-        </div>
-        <div :class="getFieldClass(isFormSubmitted, sexState, ['form-check', 'form-check-inline'])">
-          <Input
-            type="radio"
-            label="Female"
-            labelClass="form-check-label"
-            :baseClasses="['form-check-input']"
-            :field="sex"
-            :isFormSubmitted="isFormSubmitted"
-          />
-        </div>
-        <div class="invalid-feedback" v-for="errorMessage in sexState.errorMessages">
-          {{ errorMessage }}
-        </div>
+        <RadioButton
+          :field="sex"
+          :radios="[
+            { label: 'Male', value: 'male' },
+            { label: 'Female', value: 'female' },
+          ]"
+          :isFormSubmitted="isFormSubmitted"
+        />
       </div>
     </div>
 
@@ -86,16 +71,13 @@
         </Select>
       </div>
       <div class="col mt-4">
-        <div class="form-check">
-          <Input
-            type="checkbox"
-            label="Employed"
-            labelClass="form-check-label"
-            :baseClasses="['form-check-input']"
-            :field="employed"
-            :isFormSubmitted="isFormSubmitted"
-          />
-        </div>
+        <Checkbox
+          label="Employed"
+          :trueValue="true"
+          :falseValue="false"
+          :field="employed"
+          :isFormSubmitted="isFormSubmitted"
+        />
       </div>
     </div>
 
@@ -115,10 +97,18 @@ import { reactive, toRefs, computed, onMounted } from 'vue';
 
 import { ContactFormState } from '@/pages/Contact/_files/types';
 import { required, requiredEmail, requiredMin } from '@/shared/files/validations';
-import { getFieldClass, clearFormMessage, validateForm, setFields } from '@/shared/helpers';
+import { clearFormMessage, validateForm, setFields } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { getFavoriteColors } from '@/core/services';
-import { AlertDismissible, Loader, Input, Select, Textarea } from '@/shared/components';
+import {
+  AlertDismissible,
+  Loader,
+  Input,
+  Checkbox,
+  RadioButton,
+  Select,
+  Textarea,
+} from '@/shared/components';
 
 const initialState: ContactFormState = {
   isLoading: true,
@@ -142,12 +132,10 @@ const lastName = useField({ name: 'last-name', validation: requiredMin(2) });
 const email = useField({ name: 'email', validation: requiredEmail });
 const telephone = useField({ name: 'telephone', validation: requiredMin(8) });
 const sex = useField({ name: 'sex', validation: required });
-const { state: sexState } = sex;
 const favoriteColor = useField({ name: 'favorite-color', validation: required });
 const { model: favoriteColorModel, state: favoriteColorState } = favoriteColor;
 const employed = useField<boolean>({ name: 'employed' });
 const message = useField({ name: 'message', validation: required });
-const { model: messageModel, ref: messageRef, state: messageState } = message;
 
 const setFavoriteColors = async () => {
   try {
@@ -166,17 +154,17 @@ const reset = () => {
   setFields({
     fields: [firstName, lastName, email, telephone, sex, message],
     value: '',
-    resetState: true,
+    reset: { required: true },
   });
   setFields({
     fields: [favoriteColor],
     value: 'select',
-    resetState: true,
+    reset: { required: true },
   });
   setFields({
     fields: [employed],
     value: false,
-    resetState: true,
+    reset: { required: false },
   });
 };
 

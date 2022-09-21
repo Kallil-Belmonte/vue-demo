@@ -9,17 +9,19 @@ type Value = string | number | boolean;
 type SetFieldParams = {
   fields: UseField[];
   value?: Value;
-  resetState?: boolean;
+  reset?: { required: boolean };
 };
 
 const { assign } = Object;
 
-const setFields = ({ fields, value, resetState }: SetFieldParams) => {
+const setFields = ({ fields, value, reset }: SetFieldParams) => {
+  const { required } = reset || {};
+
   if (value !== undefined) fields.forEach(field => (field.model.value = value));
 
-  if (resetState) {
+  if (reset) {
     setTimeout(() => {
-      fields.forEach(field => assign(field.state, getFieldState(field.state.name, true)));
+      fields.forEach(field => assign(field.state, getFieldState(field.state.name, required)));
     });
   }
 };
