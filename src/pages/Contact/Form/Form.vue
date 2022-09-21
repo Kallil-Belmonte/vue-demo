@@ -32,7 +32,7 @@
       </div>
 
       <div class="col mb-3">
-        <Input label="Telephone" :field="email" :isFormSubmitted="isFormSubmitted" />
+        <Input label="Telephone" :field="telephone" :isFormSubmitted="isFormSubmitted" />
       </div>
     </div>
 
@@ -66,19 +66,16 @@
 
     <div class="row">
       <div class="col mb-3">
-        <label class="form-label" :for="favoriteColorState.name">Favorite color</label>
-        <select
-          :id="favoriteColorState.name"
-          :class="[
-            'form-select',
-            favoriteColorState.dirty && favoriteColorModel === 'select' ? 'is-invalid' : '',
-          ]"
-          :name="favoriteColorState.name"
-          aria-label="Favorite color"
-          v-model="favoriteColorModel"
-          ref="favoriteColorRef"
+        <Select
+          label="Favorite color"
+          :baseClasses="['form-select']"
+          :class="`${
+            favoriteColorState.dirty && favoriteColorModel === 'select' ? 'is-invalid' : ''
+          }`"
+          :field="favoriteColor"
+          :isFormSubmitted="isFormSubmitted"
         >
-          <option disabled value="select">Select</option>
+          <option value="select" disabled>Select</option>
           <option
             v-for="favoriteColor in favoriteColors"
             :key="favoriteColor.value"
@@ -86,10 +83,7 @@
           >
             {{ favoriteColor.value }}
           </option>
-        </select>
-        <div class="invalid-feedback" v-for="errorMessage in favoriteColorState.errorMessages">
-          {{ errorMessage }}
-        </div>
+        </Select>
       </div>
       <div class="col mt-4">
         <div class="form-check">
@@ -107,18 +101,7 @@
 
     <div class="row">
       <div class="col mb-3">
-        <label class="form-label" :for="messageState.name">Message</label>
-        <textarea
-          :id="messageState.name"
-          :class="getFieldClass(isFormSubmitted, messageState)"
-          :name="messageState.name"
-          rows="3"
-          v-model="messageModel"
-          ref="messageRef"
-        />
-        <div class="invalid-feedback" v-for="errorMessage in messageState.errorMessages">
-          {{ errorMessage }}
-        </div>
+        <Textarea label="Message" :field="message" :isFormSubmitted="isFormSubmitted" />
       </div>
     </div>
 
@@ -135,7 +118,7 @@ import { required, requiredEmail, requiredMin } from '@/shared/files/validations
 import { getFieldClass, clearFormMessage, validateForm, setFields } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { getFavoriteColors } from '@/core/services';
-import { AlertDismissible, Loader, Input } from '@/shared/components';
+import { AlertDismissible, Loader, Input, Select, Textarea } from '@/shared/components';
 
 const initialState: ContactFormState = {
   isLoading: true,
@@ -161,11 +144,7 @@ const telephone = useField({ name: 'telephone', validation: requiredMin(8) });
 const sex = useField({ name: 'sex', validation: required });
 const { state: sexState } = sex;
 const favoriteColor = useField({ name: 'favorite-color', validation: required });
-const {
-  model: favoriteColorModel,
-  ref: favoriteColorRef,
-  state: favoriteColorState,
-} = favoriteColor;
+const { model: favoriteColorModel, state: favoriteColorState } = favoriteColor;
 const employed = useField<boolean>({ name: 'employed' });
 const message = useField({ name: 'message', validation: required });
 const { model: messageModel, ref: messageRef, state: messageState } = message;

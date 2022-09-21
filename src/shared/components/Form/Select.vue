@@ -1,13 +1,14 @@
 <template>
   <label :class="labelClass" :for="state.name">{{ label }}</label>
-  <input
+  <select
     :id="state.name"
     :class="[...getFieldClass(isFormSubmitted, state, baseClasses), ...props.class.split(' ')]"
-    :type="type"
     :name="state.name"
     v-model="model"
     ref="fieldRef"
-  />
+  >
+    <slot></slot>
+  </select>
   <div class="invalid-feedback" v-for="errorMessage in state.errorMessages">
     {{ errorMessage }}
   </div>
@@ -24,7 +25,6 @@ type Props = {
   label: string;
   baseClasses?: string[];
   class?: string;
-  type?: string;
   field: UseField<any>;
   isFormSubmitted: Ref<boolean>;
 };
@@ -32,7 +32,6 @@ type Props = {
 const props = withDefaults(defineProps<Props>(), {
   labelClass: 'form-label',
   class: '',
-  type: 'text',
 });
 const { field, isFormSubmitted } = props;
 const { model, ref: fieldRef, state } = field;

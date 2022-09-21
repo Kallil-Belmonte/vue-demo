@@ -1,13 +1,13 @@
 <template>
   <label :class="labelClass" :for="state.name">{{ label }}</label>
-  <input
+  <textarea
     :id="state.name"
     :class="[...getFieldClass(isFormSubmitted, state, baseClasses), ...props.class.split(' ')]"
-    :type="type"
     :name="state.name"
+    :rows="rows"
     v-model="model"
     ref="fieldRef"
-  />
+  ></textarea>
   <div class="invalid-feedback" v-for="errorMessage in state.errorMessages">
     {{ errorMessage }}
   </div>
@@ -24,7 +24,7 @@ type Props = {
   label: string;
   baseClasses?: string[];
   class?: string;
-  type?: string;
+  rows?: string;
   field: UseField<any>;
   isFormSubmitted: Ref<boolean>;
 };
@@ -32,7 +32,7 @@ type Props = {
 const props = withDefaults(defineProps<Props>(), {
   labelClass: 'form-label',
   class: '',
-  type: 'text',
+  rows: '3',
 });
 const { field, isFormSubmitted } = props;
 const { model, ref: fieldRef, state } = field;
