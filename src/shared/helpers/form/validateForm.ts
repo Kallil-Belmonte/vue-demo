@@ -13,7 +13,7 @@ type ValidateFields = {
 
 const { keys } = Object;
 
-const validateFields = ({ fields, validation = {}, updateState = true }: ValidateFields) => {
+export const validateFields = ({ fields, validation = {}, updateState = true }: ValidateFields) => {
   let isValidFields = fields.every(field => field.state.valid);
 
   if (keys(validation).length) {

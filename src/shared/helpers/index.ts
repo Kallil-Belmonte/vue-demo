@@ -10,7 +10,7 @@ export { default as redirectLoggedUser } from './auth/redirectLoggedUser';
 export { default as clearFormMessage } from './form/clearFormMessage';
 export { default as getFieldClass } from './form/getFieldClass';
 export { default as setFields } from './form/setFields';
-export { default as validateForm } from './form/validateForm';
+export { validateFields, default as validateForm } from './form/validateForm';
 
 // GENERAL
 export { default as setPageTitle } from './general/setPageTitle';
