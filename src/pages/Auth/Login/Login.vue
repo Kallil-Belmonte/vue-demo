@@ -6,18 +6,12 @@
       <h1 class="page-title">Login</h1>
 
       <div class="mb-3">
-        <label class="form-label" :for="emailState.name">E-mail address</label>
-        <input
-          :id="emailState.name"
-          :class="getFieldClass(isFormSubmitted, email)"
+        <Input
           type="email"
-          :name="emailState.name"
-          v-model="emailModel"
-          ref="emailRef"
+          label="E-mail address"
+          :field="email"
+          :isFormSubmitted="isFormSubmitted"
         />
-        <div class="invalid-feedback" v-for="errorMessage in emailState.errorMessages">
-          {{ errorMessage }}
-        </div>
       </div>
 
       <AlertDismissible
@@ -30,18 +24,12 @@
       </AlertDismissible>
 
       <div class="mb-3">
-        <label class="form-label" :for="passwordState.name">Password</label>
-        <input
-          :id="passwordState.name"
-          :class="getFieldClass(isFormSubmitted, password)"
+        <Input
           type="password"
-          :name="passwordState.name"
-          v-model="passwordModel"
-          ref="passwordRef"
+          label="Password"
+          :field="password"
+          :isFormSubmitted="isFormSubmitted"
         />
-        <div class="invalid-feedback" v-for="errorMessage in passwordState.errorMessages">
-          {{ errorMessage }}
-        </div>
       </div>
 
       <AlertDismissible
@@ -54,14 +42,12 @@
       </AlertDismissible>
 
       <div class="form-check">
-        <label class="form-check-label" :for="keepLoggedState.name">Keep logged</label>
-        <input
-          :id="keepLoggedState.name"
-          class="form-check-input"
+        <Input
           type="checkbox"
-          :name="keepLoggedState.name"
-          v-model="keepLoggedModel"
-          ref="keepLoggedRef"
+          label="Keep logged"
+          :baseClasses="['form-check-input']"
+          :field="keepLogged"
+          :isFormSubmitted="isFormSubmitted"
         />
       </div>
 
@@ -85,7 +71,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs } from 'vue';
+import { reactive, toRefs, computed, onMounted } from 'vue';
 
 import { useRouter } from 'vue-router';
 
@@ -93,11 +79,11 @@ import { FormState } from '@/pages/Auth/_files/types';
 import { AUTH_TOKEN_KEY, AUTH_EXPIRATION_DATE_KEY } from '@/shared/files/consts';
 import { requiredEmail, requiredMin } from '@/shared/files/validations';
 import { LoginUserPayload } from '@/core/services/auth/types';
-import { getFieldClass, clearFormMessage, validateFields } from '@/shared/helpers';
+import { clearFormMessage, validateFields } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { loginUser } from '@/core/services';
 import { setUser } from '@/core/state/auth';
-import { AlertDismissible, Loader } from '@/shared/components';
+import { AlertDismissible, Loader, Input } from '@/shared/components';
 import Auth from '../Auth.vue';
 
 const router = useRouter();
@@ -109,16 +95,13 @@ const initialState: FormState = {
 };
 
 const state = reactive(initialState);
-const { isLoading, isFormSubmitted, serverErrors } = toRefs(state);
+const { isLoading, isFormSubmitted: isFormSubmittedState, serverErrors } = toRefs(state);
+
+const isFormSubmitted = computed(() => isFormSubmittedState);
 
 const email = useField({ name: 'email', validation: requiredEmail });
-const { model: emailModel, ref: emailRef, state: emailState } = email;
-
 const password = useField({ name: 'password', validation: requiredMin(3) });
-const { model: passwordModel, ref: passwordRef, state: passwordState } = password;
-
 const keepLogged = useField<boolean>({ name: 'keep-logged' });
-const { model: keepLoggedModel, ref: keepLoggedRef, state: keepLoggedState } = keepLogged;
 
 const submit = async () => {
   state.isFormSubmitted = true;
@@ -134,9 +117,9 @@ const submit = async () => {
 
   try {
     const payload: LoginUserPayload = {
-      email: emailModel.value,
-      password: passwordModel.value,
-      keepLogged: keepLoggedModel.value,
+      email: email.model.value,
+      password: password.model.value,
+      keepLogged: keepLogged.model.value,
     };
 
     const user = await loginUser(payload);
@@ -145,11 +128,11 @@ const submit = async () => {
       new Date().getTime() + Number(user.expiresIn) * 1000,
     ).toISOString();
 
-    if (emailModel.value === 'demo@demo.com') {
+    if (email.model.value === 'demo@demo.com') {
       state.serverErrors.email.push('This e-mail does not exists.');
       state.serverErrors.password.push('The password is incorrect.');
     } else {
-      if (keepLoggedModel.value) {
+      if (keepLogged.model.value) {
         localStorage.setItem(AUTH_TOKEN_KEY, user.token);
         localStorage.setItem(AUTH_EXPIRATION_DATE_KEY, expirationDate);
       } else {

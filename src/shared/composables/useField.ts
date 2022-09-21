@@ -9,7 +9,7 @@ import { ValidationConfig, Validations, validate } from '@/shared/helpers';
 // valid: True if the element’s value is valid and false otherwise.
 // invalid: True if the element’s value is invalid and false otherwise.
 
-type FieldState = Validations & {
+export type FieldState = Validations & {
   name: string;
   untouched: boolean;
   touched: boolean;

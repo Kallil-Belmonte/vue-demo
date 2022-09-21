@@ -1,16 +1,18 @@
-import { UseField } from '@/shared/composables';
+import { Ref } from 'vue';
+
+import { FieldState } from '@/shared/composables';
 
 /**
  * @name getFieldClass
  */
 
 const getFieldClass = (
-  isFormSubmitted: boolean,
-  field: UseField,
-  baseClassNames = ['form-control'],
+  isFormSubmitted: Ref<boolean>,
+  state: FieldState,
+  baseClasses: string[] = ['form-control'],
 ) => {
-  const classes = [...baseClassNames];
-  if ((isFormSubmitted || field.state.dirty) && field.state.invalid) classes.push('is-invalid');
+  const classes = [...baseClasses];
+  if ((isFormSubmitted || state.dirty) && state.invalid) classes.push('is-invalid');
   return classes;
 };
 

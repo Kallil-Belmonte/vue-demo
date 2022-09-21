@@ -21,48 +21,20 @@
 
       <form @submit.prevent="submit">
         <div class="mb-3">
-          <label class="form-label" :for="firstNameState.name">First name</label>
-          <input
-            :id="firstNameState.name"
-            :class="getFieldClass(isFormSubmitted, firstName)"
-            type="text"
-            :name="firstNameState.name"
-            v-model="firstNameModel"
-            ref="firstNameRef"
-          />
-          <div class="invalid-feedback" v-for="errorMessage in firstNameState.errorMessages">
-            {{ errorMessage }}
-          </div>
+          <Input label="First name" :field="firstName" :isFormSubmitted="isFormSubmitted" />
         </div>
 
         <div class="mb-3">
-          <label class="form-label" :for="lastNameState.name">Last name</label>
-          <input
-            :id="lastNameState.name"
-            :class="getFieldClass(isFormSubmitted, lastName)"
-            type="text"
-            :name="lastNameState.name"
-            v-model="lastNameModel"
-            ref="lastNameRef"
-          />
-          <div class="invalid-feedback" v-for="errorMessage in lastNameState.errorMessages">
-            {{ errorMessage }}
-          </div>
+          <Input label="Last name" :field="lastName" :isFormSubmitted="isFormSubmitted" />
         </div>
 
         <div class="mb-3">
-          <label class="form-label" :for="emailState.name">E-mail address</label>
-          <input
-            :id="emailState.name"
-            :class="getFieldClass(isFormSubmitted, email)"
+          <Input
             type="email"
-            :name="emailState.name"
-            v-model="emailModel"
-            ref="emailRef"
+            label="E-mail address"
+            :field="email"
+            :isFormSubmitted="isFormSubmitted"
           />
-          <div class="invalid-feedback" v-for="errorMessage in emailState.errorMessages">
-            {{ errorMessage }}
-          </div>
         </div>
 
         <AlertDismissible
@@ -80,17 +52,16 @@
     </div>
   </div>
 </template>
--->
 
 <script lang="ts" setup>
-import { reactive, toRefs, onMounted } from 'vue';
+import { reactive, toRefs, computed, onMounted } from 'vue';
 
 import { AccountFormState } from '@/pages/Account/_files/types';
 import { requiredEmail, requiredMin } from '@/shared/files/validations';
-import { getFieldClass, clearFormMessage, validateFields } from '@/shared/helpers';
+import { clearFormMessage, validateFields } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { user, setUser } from '@/core/state/auth';
-import { AlertDismissible } from '@/shared/components';
+import { AlertDismissible, Input } from '@/shared/components';
 
 const initialState: AccountFormState = {
   isFormSubmitted: false,
@@ -99,21 +70,18 @@ const initialState: AccountFormState = {
 };
 
 const state = reactive(initialState);
-const { isFormSubmitted, successMessages, serverErrors } = toRefs(state);
+const { isFormSubmitted: isFormSubmittedState, successMessages, serverErrors } = toRefs(state);
+
+const isFormSubmitted = computed(() => isFormSubmittedState);
 
 const firstName = useField({ name: 'first-name', validation: requiredMin(2) });
-const { model: firstNameModel, ref: firstNameRef, state: firstNameState } = firstName;
-
 const lastName = useField({ name: 'last-name', validation: requiredMin(2) });
-const { model: lastNameModel, ref: lastNameRef, state: lastNameState } = lastName;
-
 const email = useField({ name: 'email', validation: requiredEmail });
-const { model: emailModel, ref: emailRef, state: emailState } = email;
 
 const getUserData = () => {
-  firstNameModel.value = user.value.firstName;
-  lastNameModel.value = user.value.lastName;
-  emailModel.value = user.value.email;
+  firstName.model.value = user.value.firstName;
+  lastName.model.value = user.value.lastName;
+  email.model.value = user.value.email;
 };
 
 const submit = async () => {
@@ -128,15 +96,15 @@ const submit = async () => {
   state.successMessages = [];
   state.serverErrors = { email: [], request: [] };
 
-  if (emailModel.value === 'john.doe@email.com') {
+  if (email.model.value === 'john.doe@email.com') {
     state.serverErrors.email.push('This e-mail already exists.');
-  } else if (emailModel.value === 'demo@demo.com') {
+  } else if (email.model.value === 'demo@demo.com') {
     state.serverErrors.request.push('An error occurred, please try again later.');
   } else {
     setUser({
-      firstName: firstNameModel.value,
-      lastName: lastNameModel.value,
-      email: emailModel.value,
+      firstName: firstName.model.value,
+      lastName: lastName.model.value,
+      email: email.model.value,
     });
 
     state.successMessages.push('Account saved successfully.');

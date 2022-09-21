@@ -6,48 +6,20 @@
       <h1 class="page-title">Register</h1>
 
       <div class="mb-3">
-        <label class="form-label" :for="firstNameState.name">First name</label>
-        <input
-          :id="firstNameState.name"
-          :class="getFieldClass(isFormSubmitted, firstName)"
-          type="text"
-          :name="firstNameState.name"
-          v-model="firstNameModel"
-          ref="firstNameRef"
-        />
-        <div class="invalid-feedback" v-for="errorMessage in firstNameState.errorMessages">
-          {{ errorMessage }}
-        </div>
+        <Input label="First name" :field="firstName" :isFormSubmitted="isFormSubmitted" />
       </div>
 
       <div class="mb-3">
-        <label class="form-label" :for="lastNameState.name">Last name</label>
-        <input
-          :id="lastNameState.name"
-          :class="getFieldClass(isFormSubmitted, lastName)"
-          type="text"
-          :name="lastNameState.name"
-          v-model="lastNameModel"
-          ref="lastNameRef"
-        />
-        <div class="invalid-feedback" v-for="errorMessage in lastNameState.errorMessages">
-          {{ errorMessage }}
-        </div>
+        <Input label="Last name" :field="lastName" :isFormSubmitted="isFormSubmitted" />
       </div>
 
       <div class="mb-3">
-        <label class="form-label" :for="emailState.name">E-mail address</label>
-        <input
-          :id="emailState.name"
-          :class="getFieldClass(isFormSubmitted, email)"
+        <Input
           type="email"
-          :name="emailState.name"
-          v-model="emailModel"
-          ref="emailRef"
+          label="E-mail address"
+          :field="email"
+          :isFormSubmitted="isFormSubmitted"
         />
-        <div class="invalid-feedback" v-for="errorMessage in emailState.errorMessages">
-          {{ errorMessage }}
-        </div>
       </div>
 
       <AlertDismissible
@@ -60,18 +32,12 @@
       </AlertDismissible>
 
       <div class="mb-3">
-        <label class="form-label" :for="passwordState.name">Password</label>
-        <input
-          :id="passwordState.name"
-          :class="getFieldClass(isFormSubmitted, password)"
+        <Input
           type="password"
-          :name="passwordState.name"
-          v-model="passwordModel"
-          ref="passwordRef"
+          label="Password"
+          :field="password"
+          :isFormSubmitted="isFormSubmitted"
         />
-        <div class="invalid-feedback" v-for="errorMessage in passwordState.errorMessages">
-          {{ errorMessage }}
-        </div>
       </div>
 
       <AlertDismissible
@@ -103,7 +69,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs } from 'vue';
+import { reactive, toRefs, computed } from 'vue';
 
 import { useRouter } from 'vue-router';
 
@@ -111,11 +77,11 @@ import { FormState } from '@/pages/Auth/_files/types';
 import { RegisterUserPayload } from '@/core/services/auth/types';
 import { AUTH_TOKEN_KEY } from '@/shared/files/consts';
 import { requiredEmail, requiredMin } from '@/shared/files/validations';
-import { getFieldClass, clearFormMessage, validateFields } from '@/shared/helpers';
+import { clearFormMessage, validateFields } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { registerUser } from '@/core/services';
 import { setUser } from '@/core/state/auth';
-import { AlertDismissible, Loader } from '@/shared/components';
+import { AlertDismissible, Loader, Input } from '@/shared/components';
 import Auth from '../Auth.vue';
 
 const router = useRouter();
@@ -127,19 +93,14 @@ const initialState: FormState = {
 };
 
 const state = reactive(initialState);
-const { isLoading, isFormSubmitted, serverErrors } = toRefs(state);
+const { isLoading, isFormSubmitted: isFormSubmittedState, serverErrors } = toRefs(state);
+
+const isFormSubmitted = computed(() => isFormSubmittedState);
 
 const firstName = useField({ name: 'first-name', validation: requiredMin(2) });
-const { model: firstNameModel, ref: firstNameRef, state: firstNameState } = firstName;
-
 const lastName = useField({ name: 'last-name', validation: requiredMin(2) });
-const { model: lastNameModel, ref: lastNameRef, state: lastNameState } = lastName;
-
 const email = useField({ name: 'email', validation: requiredEmail });
-const { model: emailModel, ref: emailRef, state: emailState } = email;
-
 const password = useField({ name: 'password', validation: requiredMin(3) });
-const { model: passwordModel, ref: passwordRef, state: passwordState } = password;
 
 const submit = async () => {
   state.isFormSubmitted = true;
@@ -156,15 +117,15 @@ const submit = async () => {
 
   try {
     const payload: RegisterUserPayload = {
-      firstName: firstNameModel.value,
-      lastName: lastNameModel.value,
-      email: emailModel.value,
-      password: passwordModel.value,
+      firstName: firstName.model.value,
+      lastName: lastName.model.value,
+      email: email.model.value,
+      password: password.model.value,
     };
 
     const user = await registerUser(payload);
 
-    if (firstNameModel.value === 'demo@demo.com') {
+    if (firstName.model.value === 'demo@demo.com') {
       state.serverErrors.email.push('This e-mail already exists.');
       state.serverErrors.password.push('Your password is too weak.');
     } else {

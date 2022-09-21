@@ -13,93 +13,50 @@
 
     <div class="row">
       <div class="col mb-3">
-        <label class="form-label" :for="firstNameState.name">First name</label>
-        <input
-          :id="firstNameState.name"
-          :class="getFieldClass(isFormSubmitted, firstName)"
-          type="text"
-          :name="firstNameState.name"
-          v-model="firstNameModel"
-          ref="firstNameRef"
-        />
-        <div class="invalid-feedback" v-for="errorMessage in firstNameState.errorMessages">
-          {{ errorMessage }}
-        </div>
+        <Input label="First name" :field="firstName" :isFormSubmitted="isFormSubmitted" />
       </div>
 
       <div class="col mb-3">
-        <label class="form-label" :for="lastNameState.name">Last name</label>
-        <input
-          :id="lastNameState.name"
-          :class="getFieldClass(isFormSubmitted, lastName)"
-          type="text"
-          :name="lastNameState.name"
-          v-model="lastNameModel"
-          ref="lastNameRef"
-        />
-        <div class="invalid-feedback" v-for="errorMessage in lastNameState.errorMessages">
-          {{ errorMessage }}
-        </div>
+        <Input label="Last name" :field="lastName" :isFormSubmitted="isFormSubmitted" />
       </div>
     </div>
 
     <div class="row">
       <div class="col mb-3">
-        <label class="form-label" :for="emailState.name">Email address</label>
-        <input
-          :id="emailState.name"
-          :class="getFieldClass(isFormSubmitted, email)"
+        <Input
           type="email"
-          :name="emailState.name"
-          v-model="emailModel"
-          ref="emailRef"
+          label="E-mail address"
+          :field="email"
+          :isFormSubmitted="isFormSubmitted"
         />
-        <div class="invalid-feedback" v-for="errorMessage in emailState.errorMessages">
-          {{ errorMessage }}
-        </div>
       </div>
 
       <div class="col mb-3">
-        <label class="form-label" :for="telephoneState.name">Telephone</label>
-        <input
-          :id="telephoneState.name"
-          :class="getFieldClass(isFormSubmitted, telephone)"
-          type="text"
-          :name="telephoneState.name"
-          v-model="telephoneModel"
-          ref="telephoneRef"
-        />
-        <div class="invalid-feedback" v-for="errorMessage in telephoneState.errorMessages">
-          {{ errorMessage }}
-        </div>
+        <Input label="Telephone" :field="email" :isFormSubmitted="isFormSubmitted" />
       </div>
     </div>
 
     <div class="row">
       <div class="col mb-3">
-        <div :class="getFieldClass(isFormSubmitted, sex, ['form-check', 'form-check-inline'])">
-          <input
-            id="male"
-            :class="getFieldClass(isFormSubmitted, sex, ['form-check-input'])"
+        <div :class="getFieldClass(isFormSubmitted, sexState, ['form-check', 'form-check-inline'])">
+          <Input
             type="radio"
-            :name="sexState.name"
-            value="male"
-            v-model="sexModel"
-            ref="sexRef"
+            label="Male"
+            labelClass="form-check-label"
+            :baseClasses="['form-check-input']"
+            :field="sex"
+            :isFormSubmitted="isFormSubmitted"
           />
-          <label class="form-check-label" for="male">Male</label>
         </div>
-        <div :class="getFieldClass(isFormSubmitted, sex, ['form-check', 'form-check-inline'])">
-          <input
-            id="female"
-            :class="getFieldClass(isFormSubmitted, sex, ['form-check-input'])"
+        <div :class="getFieldClass(isFormSubmitted, sexState, ['form-check', 'form-check-inline'])">
+          <Input
             type="radio"
-            :name="sexState.name"
-            value="female"
-            v-model="sexModel"
-            ref="sexRef"
+            label="Female"
+            labelClass="form-check-label"
+            :baseClasses="['form-check-input']"
+            :field="sex"
+            :isFormSubmitted="isFormSubmitted"
           />
-          <label class="form-check-label" for="female">Female</label>
         </div>
         <div class="invalid-feedback" v-for="errorMessage in sexState.errorMessages">
           {{ errorMessage }}
@@ -136,15 +93,13 @@
       </div>
       <div class="col mt-4">
         <div class="form-check">
-          <label class="form-check-label" :for="employedState.name">Employed</label>
-          <input
-            :id="employedState.name"
-            class="form-check-input"
+          <Input
             type="checkbox"
-            :name="employedState.name"
-            value="employed"
-            v-model="employedModel"
-            ref="employedRef"
+            label="Employed"
+            labelClass="form-check-label"
+            :baseClasses="['form-check-input']"
+            :field="employed"
+            :isFormSubmitted="isFormSubmitted"
           />
         </div>
       </div>
@@ -155,7 +110,7 @@
         <label class="form-label" :for="messageState.name">Message</label>
         <textarea
           :id="messageState.name"
-          :class="getFieldClass(isFormSubmitted, message)"
+          :class="getFieldClass(isFormSubmitted, messageState)"
           :name="messageState.name"
           rows="3"
           v-model="messageModel"
@@ -173,14 +128,14 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs, onMounted } from 'vue';
+import { reactive, toRefs, computed, onMounted } from 'vue';
 
 import { ContactFormState } from '@/pages/Contact/_files/types';
 import { required, requiredEmail, requiredMin } from '@/shared/files/validations';
 import { getFieldClass, clearFormMessage, validateFields, setFields } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { getFavoriteColors } from '@/core/services';
-import { AlertDismissible, Loader } from '@/shared/components';
+import { AlertDismissible, Loader, Input } from '@/shared/components';
 
 const initialState: ContactFormState = {
   isLoading: true,
@@ -190,33 +145,28 @@ const initialState: ContactFormState = {
 };
 
 const state = reactive(initialState);
-const { isLoading, isFormSubmitted, favoriteColors, successMessages } = toRefs(state);
+const {
+  isLoading,
+  isFormSubmitted: isFormSubmittedState,
+  favoriteColors,
+  successMessages,
+} = toRefs(state);
+
+const isFormSubmitted = computed(() => isFormSubmittedState);
 
 const firstName = useField({ name: 'first-name', validation: requiredMin(2) });
-const { model: firstNameModel, ref: firstNameRef, state: firstNameState } = firstName;
-
 const lastName = useField({ name: 'last-name', validation: requiredMin(2) });
-const { model: lastNameModel, ref: lastNameRef, state: lastNameState } = lastName;
-
 const email = useField({ name: 'email', validation: requiredEmail });
-const { model: emailModel, ref: emailRef, state: emailState } = email;
-
 const telephone = useField({ name: 'telephone', validation: requiredMin(8) });
-const { model: telephoneModel, ref: telephoneRef, state: telephoneState } = telephone;
-
 const sex = useField({ name: 'sex', validation: required });
-const { model: sexModel, ref: sexRef, state: sexState } = sex;
-
+const { state: sexState } = sex;
 const favoriteColor = useField({ name: 'favorite-color', validation: required });
 const {
   model: favoriteColorModel,
   ref: favoriteColorRef,
   state: favoriteColorState,
 } = favoriteColor;
-
 const employed = useField<boolean>({ name: 'employed' });
-const { model: employedModel, ref: employedRef, state: employedState } = employed;
-
 const message = useField({ name: 'message', validation: required });
 const { model: messageModel, ref: messageRef, state: messageState } = message;
 
@@ -263,14 +213,14 @@ const submit = async () => {
   if (!isValidFields) return;
 
   console.log('Form submitted:', {
-    firstName: firstNameModel.value,
-    lastName: lastNameModel.value,
-    email: emailModel.value,
-    telephone: telephoneModel.value,
-    sex: sexModel.value,
-    favoriteColor: favoriteColorModel.value,
-    employed: employedModel.value,
-    message: messageModel.value,
+    firstName: firstName.model.value,
+    lastName: lastName.model.value,
+    email: email.model.value,
+    telephone: telephone.model.value,
+    sex: sex.model.value,
+    favoriteColor: favoriteColor.model.value,
+    employed: employed.model.value,
+    message: message.model.value,
   });
 
   state.successMessages.push('Message sent successfully.');

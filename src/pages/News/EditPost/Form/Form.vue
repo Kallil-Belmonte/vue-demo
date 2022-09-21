@@ -3,33 +3,11 @@
 
   <form class="edit-post-form" @submit.prevent="submit">
     <div class="mb-3">
-      <label class="form-label" :for="titleState.name">Title</label>
-      <input
-        :id="titleState.name"
-        :class="getFieldClass(isFormSubmitted, title)"
-        type="text"
-        :name="titleState.name"
-        v-model="titleModel"
-        ref="titleRef"
-      />
-      <div class="invalid-feedback" v-for="errorMessage in titleState.errorMessages">
-        {{ errorMessage }}
-      </div>
+      <Input label="Title" :field="title" :isFormSubmitted="isFormSubmitted" />
     </div>
 
     <div class="mb-3">
-      <label class="form-label" :for="bodyState.name">Body</label>
-      <textarea
-        :id="bodyState.name"
-        :class="getFieldClass(isFormSubmitted, body)"
-        :name="bodyState.name"
-        rows="6"
-        v-model="bodyModel"
-        ref="bodyRef"
-      />
-      <div class="invalid-feedback" v-for="errorMessage in bodyState.errorMessages">
-        {{ errorMessage }}
-      </div>
+      <Input label="Body" :field="body" :isFormSubmitted="isFormSubmitted" />
     </div>
 
     <button class="btn btn-primary me-2" type="submit">Edit</button>
@@ -38,18 +16,18 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs, onMounted } from 'vue';
+import { reactive, toRefs, computed, onMounted } from 'vue';
 
 import { useRouter, useRoute } from 'vue-router';
 
 import { Post } from '@/core/services/news/types';
 import { EditPostFormState } from '@/pages/News/EditPost/_files/types';
 import { requiredMin } from '@/shared/files/validations';
-import { getFieldClass, validateFields } from '@/shared/helpers';
+import { validateFields } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { getPost, editPost } from '@/core/services';
 import { currentPost, setCurrentPost } from '@/core/state/news';
-import { Loader } from '@/shared/components';
+import { Loader, Input } from '@/shared/components';
 
 const router = useRouter();
 const route = useRoute();
@@ -60,17 +38,16 @@ const initialState: EditPostFormState = {
 };
 
 const state = reactive(initialState);
-const { isLoading, isFormSubmitted } = toRefs(state);
+const { isLoading, isFormSubmitted: isFormSubmittedState } = toRefs(state);
+
+const isFormSubmitted = computed(() => isFormSubmittedState);
 
 const title = useField({ name: 'title', validation: requiredMin(2) });
-const { model: titleModel, ref: titleRef, state: titleState } = title;
-
 const body = useField({ name: 'body', validation: requiredMin(2) });
-const { model: bodyModel, ref: bodyRef, state: bodyState } = body;
 
 const setFormData = () => {
-  titleModel.value = currentPost.value.title;
-  bodyModel.value = currentPost.value.body;
+  title.model.value = currentPost.value.title;
+  body.model.value = currentPost.value.body;
 };
 
 const getCurrentPost = async () => {
@@ -99,8 +76,8 @@ const submit = async () => {
     const payload: Post = {
       userId: currentPost.value.userId,
       id: currentPost.value.userId,
-      title: titleModel.value,
-      body: bodyModel.value,
+      title: title.model.value,
+      body: body.model.value,
     };
 
     await editPost(payload);
