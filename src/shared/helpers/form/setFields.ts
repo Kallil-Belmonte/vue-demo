@@ -20,7 +20,7 @@ const setFields = ({ fields, value, resetState }: SetFieldParams) => {
   if (resetState) {
     setTimeout(() => {
       fields.forEach(field => assign(field.state, getFieldState(field.state.name, true)));
-    }, 10);
+    });
   }
 };
 
