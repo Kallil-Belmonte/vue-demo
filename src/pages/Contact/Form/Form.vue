@@ -53,7 +53,6 @@
       <div class="col mb-3">
         <Select
           label="Favorite color"
-          :baseClasses="['form-select']"
           :class="`${
             favoriteColorState.dirty && favoriteColorModel === 'select' ? 'is-invalid' : ''
           }`"

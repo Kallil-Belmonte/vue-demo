@@ -2,7 +2,7 @@
   <label :class="labelClass" :for="state.name">{{ label }}</label>
   <select
     :id="state.name"
-    :class="[...getFieldClass(isFormSubmitted, state, baseClasses), ...props.class.split(' ')]"
+    :class="[...getFieldClass(isFormSubmitted, state, ['form-select']), ...props.class.split(' ')]"
     :name="state.name"
     v-model="model"
     ref="fieldRef"
@@ -23,7 +23,6 @@ import { UseField } from '@/shared/composables';
 type Props = {
   labelClass?: string;
   label: string;
-  baseClasses?: string[];
   class?: string;
   field: UseField<any>;
   isFormSubmitted: Ref<boolean>;

@@ -42,10 +42,10 @@
       </AlertDismissible>
 
       <div class="form-check">
-        <Input
-          type="checkbox"
+        <Checkbox
           label="Keep logged"
-          :baseClasses="['form-check-input']"
+          :trueValue="true"
+          :falseValue="false"
           :field="keepLogged"
           :isFormSubmitted="isFormSubmitted"
         />
@@ -71,7 +71,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs, computed, onMounted } from 'vue';
+import { reactive, toRefs, computed } from 'vue';
 
 import { useRouter } from 'vue-router';
 
@@ -83,7 +83,7 @@ import { clearFormMessage, validateForm } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { loginUser } from '@/core/services';
 import { setUser } from '@/core/state/auth';
-import { AlertDismissible, Loader, Input } from '@/shared/components';
+import { AlertDismissible, Loader, Input, Checkbox } from '@/shared/components';
 import Auth from '../Auth.vue';
 
 const router = useRouter();
