@@ -48,11 +48,11 @@ export const getFieldState = (name: string, required: boolean = false): FieldSta
 const useField = <Type = string>(config: UseFieldConfig<Type>): UseField<Type> => {
   const { name, defaultValue, validation = {} } = config;
 
-  const state = reactive(getFieldState(name, validation.required?.check));
-  const { pristine, dirty } = state;
-
   const model = ref<Type>(defaultValue as Type);
   const fieldRef = ref();
+
+  const state = reactive(getFieldState(name, validation.required?.check));
+  const { pristine, dirty } = state;
 
   const controlUpdate = (value: UnwrapRef<Type>) => {
     if (pristine) state.pristine = false;
