@@ -47,7 +47,7 @@
         </AlertDismissible>
 
         <button class="btn btn-primary me-2" type="submit">Save</button>
-        <button class="btn btn-light" type="button" @click="getUserData">Reset form</button>
+        <button class="btn btn-light" type="button" @click="setFormData">Reset form</button>
       </form>
     </div>
   </div>
@@ -78,7 +78,7 @@ const firstName = useField({ name: 'first-name', validation: requiredMin(2) });
 const lastName = useField({ name: 'last-name', validation: requiredMin(2) });
 const email = useField({ name: 'email', validation: requiredEmail });
 
-const getUserData = () => {
+const setFormData = () => {
   firstName.model.value = user.value.firstName;
   lastName.model.value = user.value.lastName;
   email.model.value = user.value.email;
@@ -113,6 +113,6 @@ const submit = async () => {
 
 // LIFECYCLE HOOKS
 onMounted(() => {
-  getUserData();
+  setFormData();
 });
 </script>
