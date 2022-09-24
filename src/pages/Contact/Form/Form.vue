@@ -54,7 +54,7 @@
         <Select
           label="Favorite color"
           :class="`${
-            favoriteColorState.dirty && favoriteColorModel === 'select' ? 'is-invalid' : ''
+            favoriteColorState.touched && favoriteColorModel === 'select' ? 'is-invalid' : ''
           }`"
           :field="favoriteColor"
           :isFormSubmitted="isFormSubmitted"
@@ -95,7 +95,7 @@
 import { reactive, toRefs, computed, onMounted } from 'vue';
 
 import { ContactFormState } from '@/pages/Contact/_files/types';
-import { required, requiredEmail, requiredMin } from '@/shared/files/validations';
+import { required, requiredEmail, requiredMin, custom } from '@/shared/files/validations';
 import { clearFormMessage, validateForm, setFields } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { getFavoriteColors } from '@/core/services';
@@ -131,7 +131,11 @@ const lastName = useField({ name: 'last-name', validation: requiredMin(2) });
 const email = useField({ name: 'email', validation: requiredEmail });
 const telephone = useField({ name: 'telephone', validation: requiredMin(8) });
 const sex = useField({ name: 'sex', validation: required });
-const favoriteColor = useField({ name: 'favorite-color', validation: required });
+const favoriteColor = useField({
+  name: 'favorite-color',
+  defaultValue: 'select',
+  validation: required,
+});
 const { model: favoriteColorModel, state: favoriteColorState } = favoriteColor;
 const employed = useField<boolean>({ name: 'employed' });
 const message = useField({ name: 'message', validation: required });
@@ -174,7 +178,11 @@ const submit = async () => {
     { fields: [firstName, lastName], validation: requiredMin(2) },
     { fields: [email], validation: requiredEmail },
     { fields: [telephone], validation: requiredMin(8) },
-    { fields: [sex, favoriteColor, message], validation: required },
+    { fields: [sex, message], validation: required },
+    {
+      fields: [favoriteColor],
+      validation: custom(favoriteColorModel.value !== 'select', 'Value required.'),
+    },
   ]);
   if (!isValidForm) return;
 
