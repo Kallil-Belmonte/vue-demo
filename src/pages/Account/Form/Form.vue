@@ -87,11 +87,11 @@ const getUserData = () => {
 const submit = async () => {
   state.isFormSubmitted = true;
 
-  const isValidFields = validateForm([
+  const isValidForm = validateForm([
     { fields: [firstName, lastName], validation: requiredMin(2) },
     { fields: [email], validation: requiredEmail },
   ]);
-  if (!isValidFields) return;
+  if (!isValidForm) return;
 
   state.successMessages = [];
   state.serverErrors = { email: [], request: [] };

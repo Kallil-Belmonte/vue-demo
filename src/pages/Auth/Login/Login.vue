@@ -106,11 +106,11 @@ const keepLogged = useField<boolean>({ name: 'keep-logged' });
 const submit = async () => {
   state.isFormSubmitted = true;
 
-  const isValidFields = validateForm([
+  const isValidForm = validateForm([
     { fields: [email], validation: requiredEmail },
     { fields: [password], validation: requiredMin(3) },
   ]);
-  if (!isValidFields) return;
+  if (!isValidForm) return;
 
   state.isLoading = true;
   state.serverErrors = { email: [], password: [], request: [] };

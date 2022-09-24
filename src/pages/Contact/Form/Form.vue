@@ -170,13 +170,13 @@ const reset = () => {
 const submit = async () => {
   state.isFormSubmitted = true;
 
-  const isValidFields = validateForm([
+  const isValidForm = validateForm([
     { fields: [firstName, lastName], validation: requiredMin(2) },
     { fields: [email], validation: requiredEmail },
     { fields: [telephone], validation: requiredMin(8) },
     { fields: [sex, favoriteColor, message], validation: required },
   ]);
-  if (!isValidFields) return;
+  if (!isValidForm) return;
 
   console.log('Form submitted:', {
     firstName: firstName.model.value,

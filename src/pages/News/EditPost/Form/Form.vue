@@ -65,8 +65,8 @@ const getCurrentPost = async () => {
 const submit = async () => {
   state.isFormSubmitted = true;
 
-  const isValidFields = validateForm([{ fields: [title, body], validation: requiredMin(2) }]);
-  if (!isValidFields) return;
+  const isValidForm = validateForm([{ fields: [title, body], validation: requiredMin(2) }]);
+  if (!isValidForm) return;
 
   state.isLoading = true;
 

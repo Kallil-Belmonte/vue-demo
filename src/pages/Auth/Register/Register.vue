@@ -105,12 +105,12 @@ const password = useField({ name: 'password', validation: requiredMin(3) });
 const submit = async () => {
   state.isFormSubmitted = true;
 
-  const isValidFields = validateForm([
+  const isValidForm = validateForm([
     { fields: [firstName, lastName], validation: requiredMin(2) },
     { fields: [email], validation: requiredEmail },
     { fields: [password], validation: requiredMin(3) },
   ]);
-  if (!isValidFields) return;
+  if (!isValidForm) return;
 
   state.isLoading = true;
   state.serverErrors = { email: [], password: [], request: [] };
