@@ -20,14 +20,14 @@ export type FieldState = Validations & {
   errorMessages: string[];
 };
 
-type UseFieldConfig<Type> = {
+type UseFieldConfig<Value> = {
   name: string;
-  defaultValue?: Type;
+  defaultValue?: Value;
   validation?: ValidationConfig;
 };
 
-export type UseField<Type = any> = {
-  model: Ref<UnwrapRef<Type>>;
+export type UseField<Value = any> = {
+  model: Ref<UnwrapRef<Value>>;
   ref: Ref<any>;
   state: FieldState;
 };
@@ -45,16 +45,16 @@ export const getFieldState = (name: string, required: boolean = false): FieldSta
   errorMessages: [],
 });
 
-const useField = <Type = string>(config: UseFieldConfig<Type>): UseField<Type> => {
+const useField = <Value = string>(config: UseFieldConfig<Value>): UseField<Value> => {
   const { name, defaultValue, validation = {} } = config;
 
-  const model = ref<Type>(defaultValue as Type);
+  const model = ref<Value>(defaultValue as Value);
   const fieldRef = ref();
 
   const state = reactive(getFieldState(name, validation.required?.check));
   const { pristine, dirty } = state;
 
-  const controlUpdate = (value: UnwrapRef<Type>) => {
+  const controlUpdate = (value: UnwrapRef<Value>) => {
     if (pristine) state.pristine = false;
     if (!dirty) state.dirty = true;
 
