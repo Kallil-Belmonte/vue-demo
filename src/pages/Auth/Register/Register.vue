@@ -125,7 +125,7 @@ const submit = async () => {
 
     const user = await registerUser(payload);
 
-    if (firstName.model.value === 'demo@demo.com') {
+    if (email.model.value === 'demo@demo.com') {
       state.serverErrors.email.push('This e-mail already exists.');
       state.serverErrors.password.push('Your password is too weak.');
     } else {
