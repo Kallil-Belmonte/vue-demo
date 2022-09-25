@@ -137,7 +137,7 @@ const favoriteColor = useField({
   validation: required,
 });
 const { model: favoriteColorModel, state: favoriteColorState } = favoriteColor;
-const employed = useField<boolean>({ name: 'employed' });
+const employed = useField<boolean>({ name: 'employed', defaultValue: false });
 const message = useField({ name: 'message', validation: required });
 
 const setFavoriteColors = async () => {
