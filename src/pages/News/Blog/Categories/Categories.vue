@@ -3,7 +3,7 @@
     <ul class="list-group">
       <li
         :class="{
-          'list-group-item d-flex justify-content-between align-items-center': true,
+          'list-group-item d-flex align-items-center justify-content-between': true,
           active: isActive(category.name),
         }"
         v-for="category in categories"

@@ -2,7 +2,7 @@
   <component
     :is="iconComponent"
     v-bind="{
-      class: `${iconClass} ${props.class} d-flex align-items-center justify-content-center`,
+      class: `${iconClass} ${props.class} flex-center`,
       style: { width: size, height: size },
       ariaLabel,
       fill,
