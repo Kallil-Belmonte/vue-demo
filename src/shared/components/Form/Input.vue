@@ -5,6 +5,7 @@
     :class="[...getFieldClass(isFormSubmitted, state, baseClasses), ...props.class.split(' ')]"
     :type="type"
     :name="state.name"
+    :placeholder="placeholder"
     v-model="model"
     ref="fieldRef"
   />
@@ -25,6 +26,7 @@ type Props = {
   baseClasses?: string[];
   class?: string;
   type?: string;
+  placeholder?: string;
   field: UseField<any>;
   isFormSubmitted: Ref<boolean>;
 };
