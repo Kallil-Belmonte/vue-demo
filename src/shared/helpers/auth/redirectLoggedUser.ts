@@ -1,7 +1,6 @@
 import { useRouter } from 'vue-router';
 
-import { AUTH_EXPIRATION_DATE_KEY } from '@/shared/files/consts';
-import getAuthToken from './getAuthToken';
+import isExpiredSession from './isExpiredSession';
 
 /**
  * @name redirectLoggedUser
@@ -10,10 +9,7 @@ import getAuthToken from './getAuthToken';
 const redirectLoggedUser = () => {
   const router = useRouter();
 
-  const expiredSession =
-    new Date().getTime() > Date.parse(localStorage.getItem(AUTH_EXPIRATION_DATE_KEY) || '');
-
-  if (getAuthToken() && !expiredSession) {
+  if (!isExpiredSession()) {
     router.push('/');
   }
 };
