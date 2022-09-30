@@ -1,7 +1,7 @@
 <template>
   <component
     :is="iconComponent"
-    :class="`${iconClass} ${props.class} flex-center`"
+    :class="`${iconClass} flex-center ${props.class}`"
     :ariaLabel="ariaLabel"
     :fill="fill"
     :size="size"
