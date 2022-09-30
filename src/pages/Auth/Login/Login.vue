@@ -71,7 +71,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs, computed } from 'vue';
+import { reactive, toRefs } from 'vue';
 
 import { useRouter } from 'vue-router';
 
@@ -95,9 +95,7 @@ const initialState: FormState = {
 };
 
 const state = reactive(initialState);
-const { isLoading, isFormSubmitted: isFormSubmittedState, serverErrors } = toRefs(state);
-
-const isFormSubmitted = computed(() => isFormSubmittedState);
+const { isLoading, isFormSubmitted, serverErrors } = toRefs(state);
 
 const email = useField({ name: 'email', validation: requiredEmail });
 const password = useField({ name: 'password', validation: requiredMin(3) });

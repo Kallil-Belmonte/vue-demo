@@ -7,7 +7,7 @@ import { FieldState } from '@/shared/composables';
  */
 
 const getFieldClass = (
-  isFormSubmitted: Ref<boolean>,
+  isFormSubmitted: boolean,
   state: FieldState,
   baseClasses: string[] = ['form-control'],
 ) => {

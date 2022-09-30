@@ -22,8 +22,6 @@
 </template>
 
 <script lang="ts" setup>
-import { Ref } from 'vue';
-
 import { getFieldClass } from '@/shared/helpers';
 import { UseField } from '@/shared/composables';
 
@@ -32,13 +30,13 @@ type Props = {
   class?: string;
   field: UseField<any>;
   radios: { label: string; value: string }[];
-  isFormSubmitted: Ref<boolean>;
+  isFormSubmitted: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {
   labelClass: 'form-check-label',
   class: '',
 });
-const { field, isFormSubmitted } = props;
+const { field } = props;
 const { model, state } = field;
 </script>

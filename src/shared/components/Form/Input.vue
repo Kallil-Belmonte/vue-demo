@@ -15,8 +15,6 @@
 </template>
 
 <script lang="ts" setup>
-import { Ref } from 'vue';
-
 import { getFieldClass } from '@/shared/helpers';
 import { UseField } from '@/shared/composables';
 
@@ -28,7 +26,7 @@ type Props = {
   type?: string;
   placeholder?: string;
   field: UseField<any>;
-  isFormSubmitted: Ref<boolean>;
+  isFormSubmitted: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {
@@ -36,6 +34,6 @@ const props = withDefaults(defineProps<Props>(), {
   class: '',
   type: 'text',
 });
-const { field, isFormSubmitted } = props;
+const { field } = props;
 const { model, ref: fieldRef, state } = field;
 </script>

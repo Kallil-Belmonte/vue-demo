@@ -70,9 +70,7 @@ const initialState: AccountFormState = {
 };
 
 const state = reactive(initialState);
-const { isFormSubmitted: isFormSubmittedState, successMessages, serverErrors } = toRefs(state);
-
-const isFormSubmitted = computed(() => isFormSubmittedState);
+const { isFormSubmitted, successMessages, serverErrors } = toRefs(state);
 
 const firstName = useField({ name: 'first-name', validation: requiredMin(2) });
 const lastName = useField({ name: 'last-name', validation: requiredMin(2) });

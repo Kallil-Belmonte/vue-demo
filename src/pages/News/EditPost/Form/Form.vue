@@ -38,9 +38,7 @@ const initialState: EditPostFormState = {
 };
 
 const state = reactive(initialState);
-const { isLoading, isFormSubmitted: isFormSubmittedState } = toRefs(state);
-
-const isFormSubmitted = computed(() => isFormSubmittedState);
+const { isLoading, isFormSubmitted } = toRefs(state);
 
 const title = useField({ name: 'title', validation: requiredMin(2) });
 const body = useField({ name: 'body', validation: requiredMin(2) });

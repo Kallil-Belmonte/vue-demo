@@ -117,14 +117,7 @@ const initialState: ContactFormState = {
 };
 
 const state = reactive(initialState);
-const {
-  isLoading,
-  isFormSubmitted: isFormSubmittedState,
-  favoriteColors,
-  successMessages,
-} = toRefs(state);
-
-const isFormSubmitted = computed(() => isFormSubmittedState);
+const { isLoading, isFormSubmitted, favoriteColors, successMessages } = toRefs(state);
 
 const firstName = useField({ name: 'first-name', validation: requiredMin(2) });
 const lastName = useField({ name: 'last-name', validation: requiredMin(2) });

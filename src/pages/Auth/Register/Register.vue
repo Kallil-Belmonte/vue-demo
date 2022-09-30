@@ -93,9 +93,7 @@ const initialState: FormState = {
 };
 
 const state = reactive(initialState);
-const { isLoading, isFormSubmitted: isFormSubmittedState, serverErrors } = toRefs(state);
-
-const isFormSubmitted = computed(() => isFormSubmittedState);
+const { isLoading, isFormSubmitted, serverErrors } = toRefs(state);
 
 const firstName = useField({ name: 'first-name', validation: requiredMin(2) });
 const lastName = useField({ name: 'last-name', validation: requiredMin(2) });
