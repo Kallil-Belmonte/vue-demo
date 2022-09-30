@@ -1,12 +1,10 @@
 <template>
   <component
     :is="iconComponent"
-    v-bind="{
-      class: `${iconClass} ${props.class} flex-center`,
-      ariaLabel,
-      fill,
-      size,
-    }"
+    :class="`${iconClass} ${props.class} flex-center`"
+    :ariaLabel="ariaLabel"
+    :fill="fill"
+    :size="size"
   ></component>
 </template>
 
