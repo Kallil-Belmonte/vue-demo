@@ -3,9 +3,9 @@
     :is="iconComponent"
     v-bind="{
       class: `${iconClass} ${props.class} flex-center`,
-      style: { width: size, height: size },
       ariaLabel,
       fill,
+      size,
     }"
   ></component>
 </template>
@@ -19,13 +19,14 @@ import { Icons } from './Icons/_types';
 type Props = {
   class?: string;
   name: Icons;
-  size?: string;
   fill?: string;
+  size?: string;
 };
 
 const props = withDefaults(defineProps<Props>(), {
   class: '',
   fill: 'currentColor',
+  size: '100%',
 });
 
 const iconComponent = shallowRef();

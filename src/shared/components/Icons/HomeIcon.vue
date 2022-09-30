@@ -1,5 +1,5 @@
 <template>
-  <figure :class="`icon ${props.class}`" :style="style">
+  <figure :class="`icon ${props.class}`">
     <svg
       role="img"
       :aria-label="ariaLabel"
@@ -20,14 +20,19 @@
 </template>
 
 <script lang="ts" setup>
-import { Style } from '@/shared/files/types';
-
 export type Props = {
   class: string;
-  style: Style;
   ariaLabel: string;
   fill: string;
+  size: string;
 };
 
 const props = defineProps<Props>();
 </script>
+
+<style lang="scss" scoped>
+figure {
+  width: v-bind(size);
+  height: v-bind(size);
+}
+</style>
