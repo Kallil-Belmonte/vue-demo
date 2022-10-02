@@ -1,13 +1,13 @@
 <template>
-  <Loader v-if="isLoading" />
+  <Loader v-if="loading" />
 
   <form class="edit-post-form" @submit.prevent="submit">
     <div class="mb-3">
-      <Input label="Title" :field="title" :isFormSubmitted="isFormSubmitted" />
+      <Input label="Title" :field="title" :formSubmitted="formSubmitted" />
     </div>
 
     <div class="mb-3">
-      <Input label="Body" :field="body" :isFormSubmitted="isFormSubmitted" />
+      <Input label="Body" :field="body" :formSubmitted="formSubmitted" />
     </div>
 
     <button class="btn btn-primary me-2" type="submit">Edit</button>
@@ -33,12 +33,12 @@ const router = useRouter();
 const route = useRoute();
 
 const initialState: EditPostFormState = {
-  isLoading: true,
-  isFormSubmitted: false,
+  loading: true,
+  formSubmitted: false,
 };
 
 const state = reactive(initialState);
-const { isLoading, isFormSubmitted } = toRefs(state);
+const { loading, formSubmitted } = toRefs(state);
 
 const title = useField({ name: 'title', validation: requiredMin(2) });
 const body = useField({ name: 'body', validation: requiredMin(2) });
@@ -56,17 +56,17 @@ const getCurrentPost = async () => {
   } catch (error) {
     console.error(error);
   } finally {
-    state.isLoading = false;
+    state.loading = false;
   }
 };
 
 const submit = async () => {
-  state.isFormSubmitted = true;
+  state.formSubmitted = true;
 
   const isValidForm = validateForm([{ fields: [title, body], validation: requiredMin(2) }]);
   if (!isValidForm) return;
 
-  state.isLoading = true;
+  state.loading = true;
 
   try {
     const payload: Post = {
@@ -78,11 +78,11 @@ const submit = async () => {
 
     await editPost(payload);
     setCurrentPost(payload);
-    state.isLoading = false;
+    state.loading = false;
     router.push({ name: 'post', params: { id: payload.id } });
   } catch (error) {
     console.error(error);
-    state.isLoading = false;
+    state.loading = false;
   }
 };
 

@@ -1,6 +1,6 @@
 <template>
   <main>
-    <Loader v-if="isLoading" />
+    <Loader v-if="loading" />
 
     <div class="container">
       <PageHeader icon="Newspaper">Blog</PageHeader>
@@ -45,7 +45,7 @@ import Pagination from './Pagination/Pagination.vue';
 import Categories from './Categories/Categories.vue';
 
 const initialState: BlogState = {
-  isLoading: true,
+  loading: true,
   pages: {},
   postsPerPage: 9,
   firstPaginationItem: 1,
@@ -54,7 +54,7 @@ const initialState: BlogState = {
 };
 
 const state = reactive(initialState);
-const { isLoading, pages, postsPerPage, firstPaginationItem, maxPaginationItem, currentPage } =
+const { loading, pages, postsPerPage, firstPaginationItem, maxPaginationItem, currentPage } =
   toRefs(state);
 
 const setPaginationSettings = (posts: Post[], quantPostsPerPage = 9) => {
@@ -87,13 +87,13 @@ const getAllData = async () => {
   } catch (error) {
     console.error(error);
   } finally {
-    state.isLoading = false;
+    state.loading = false;
   }
 };
 
 const selectCategory = async (category: Category['name']) => {
   console.log(category);
-  state.isLoading = true;
+  state.loading = true;
 
   try {
     const response = await getPosts();
@@ -102,7 +102,7 @@ const selectCategory = async (category: Category['name']) => {
   } catch (error) {
     console.error(error);
   } finally {
-    state.isLoading = false;
+    state.loading = false;
   }
 };
 

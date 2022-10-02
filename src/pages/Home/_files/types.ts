@@ -1,6 +1,6 @@
 import { Post } from '@/core/services/news/types';
 
 export type HomeState = {
-  isLoading: boolean;
+  loading: boolean;
   featuredPosts: Post[];
 };

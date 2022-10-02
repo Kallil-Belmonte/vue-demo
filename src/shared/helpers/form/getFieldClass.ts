@@ -7,12 +7,12 @@ import { FieldState } from '@/shared/composables';
  */
 
 const getFieldClass = (
-  isFormSubmitted: boolean,
+  formSubmitted: boolean,
   state: FieldState,
   baseClasses: string[] = ['form-control'],
 ) => {
   const classes = [...baseClasses];
-  if ((isFormSubmitted || state.dirty) && state.invalid) classes.push('is-invalid');
+  if ((formSubmitted || state.dirty) && state.invalid) classes.push('is-invalid');
   return classes;
 };
 

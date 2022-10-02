@@ -2,7 +2,7 @@
   <label :class="labelClass" :for="state.name">{{ label }}</label>
   <select
     :id="state.name"
-    :class="[...getFieldClass(isFormSubmitted, state, ['form-select']), ...props.class.split(' ')]"
+    :class="[...getFieldClass(formSubmitted, state, ['form-select']), ...props.class.split(' ')]"
     :name="state.name"
     v-model="model"
     ref="fieldRef"
@@ -23,7 +23,7 @@ type Props = {
   label: string;
   class?: string;
   field: UseField<any>;
-  isFormSubmitted: boolean;
+  formSubmitted: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {

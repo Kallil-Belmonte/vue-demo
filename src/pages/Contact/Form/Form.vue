@@ -1,5 +1,5 @@
 <template>
-  <Loader v-if="isLoading" />
+  <Loader v-if="loading" />
 
   <form @submit.prevent="submit">
     <AlertDismissible
@@ -13,26 +13,21 @@
 
     <div class="row">
       <div class="col mb-3">
-        <Input label="First name" :field="firstName" :isFormSubmitted="isFormSubmitted" />
+        <Input label="First name" :field="firstName" :formSubmitted="formSubmitted" />
       </div>
 
       <div class="col mb-3">
-        <Input label="Last name" :field="lastName" :isFormSubmitted="isFormSubmitted" />
+        <Input label="Last name" :field="lastName" :formSubmitted="formSubmitted" />
       </div>
     </div>
 
     <div class="row">
       <div class="col mb-3">
-        <Input
-          type="email"
-          label="E-mail address"
-          :field="email"
-          :isFormSubmitted="isFormSubmitted"
-        />
+        <Input type="email" label="E-mail address" :field="email" :formSubmitted="formSubmitted" />
       </div>
 
       <div class="col mb-3">
-        <Input label="Telephone" :field="telephone" :isFormSubmitted="isFormSubmitted" />
+        <Input label="Telephone" :field="telephone" :formSubmitted="formSubmitted" />
       </div>
     </div>
 
@@ -44,7 +39,7 @@
             { label: 'Male', value: 'male' },
             { label: 'Female', value: 'female' },
           ]"
-          :isFormSubmitted="isFormSubmitted"
+          :formSubmitted="formSubmitted"
         />
       </div>
     </div>
@@ -57,7 +52,7 @@
             favoriteColorState.touched && favoriteColorModel === 'select' ? 'is-invalid' : ''
           }`"
           :field="favoriteColor"
-          :isFormSubmitted="isFormSubmitted"
+          :formSubmitted="formSubmitted"
         >
           <option value="select" disabled>Select</option>
           <option
@@ -75,14 +70,14 @@
           :trueValue="true"
           :falseValue="false"
           :field="employed"
-          :isFormSubmitted="isFormSubmitted"
+          :formSubmitted="formSubmitted"
         />
       </div>
     </div>
 
     <div class="row">
       <div class="col mb-3">
-        <Textarea label="Message" :field="message" :isFormSubmitted="isFormSubmitted" />
+        <Textarea label="Message" :field="message" :formSubmitted="formSubmitted" />
       </div>
     </div>
 
@@ -110,14 +105,14 @@ import {
 } from '@/shared/components';
 
 const initialState: ContactFormState = {
-  isLoading: true,
-  isFormSubmitted: false,
+  loading: true,
+  formSubmitted: false,
   favoriteColors: [],
   successMessages: [],
 };
 
 const state = reactive(initialState);
-const { isLoading, isFormSubmitted, favoriteColors, successMessages } = toRefs(state);
+const { loading, formSubmitted, favoriteColors, successMessages } = toRefs(state);
 
 const firstName = useField({ name: 'first-name', validation: requiredMin(2) });
 const lastName = useField({ name: 'last-name', validation: requiredMin(2) });
@@ -140,12 +135,12 @@ const setFavoriteColors = async () => {
   } catch (error) {
     console.error(error);
   } finally {
-    state.isLoading = false;
+    state.loading = false;
   }
 };
 
 const reset = () => {
-  state.isFormSubmitted = false;
+  state.formSubmitted = false;
 
   setFields({
     fields: [firstName, lastName, email, telephone, sex, message],
@@ -165,7 +160,7 @@ const reset = () => {
 };
 
 const submit = async () => {
-  state.isFormSubmitted = true;
+  state.formSubmitted = true;
 
   const isValidForm = validateForm([
     { fields: [firstName, lastName], validation: requiredMin(2) },

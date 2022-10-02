@@ -1,13 +1,13 @@
 <template>
   <div
-    :class="getFieldClass(isFormSubmitted, state, ['form-check', 'form-check-inline'])"
+    :class="getFieldClass(formSubmitted, state, ['form-check', 'form-check-inline'])"
     v-for="radio in radios"
   >
     <label :class="labelClass" :for="radio.value">{{ radio.label }}</label>
     <input
       :id="radio.value"
       :class="[
-        ...getFieldClass(isFormSubmitted, state, ['form-check-input']),
+        ...getFieldClass(formSubmitted, state, ['form-check-input']),
         ...props.class.split(' '),
       ]"
       type="radio"
@@ -30,7 +30,7 @@ type Props = {
   class?: string;
   field: UseField<any>;
   radios: { label: string; value: string }[];
-  isFormSubmitted: boolean;
+  formSubmitted: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {

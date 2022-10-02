@@ -2,7 +2,7 @@
   <label :class="labelClass" :for="state.name">{{ label }}</label>
   <input
     :id="state.name"
-    :class="[...getFieldClass(isFormSubmitted, state, baseClasses), ...props.class.split(' ')]"
+    :class="[...getFieldClass(formSubmitted, state, baseClasses), ...props.class.split(' ')]"
     :type="type"
     :name="state.name"
     :placeholder="placeholder"
@@ -26,7 +26,7 @@ type Props = {
   type?: string;
   placeholder?: string;
   field: UseField<any>;
-  isFormSubmitted: boolean;
+  formSubmitted: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {

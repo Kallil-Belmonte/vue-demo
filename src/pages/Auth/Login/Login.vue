@@ -1,17 +1,12 @@
 <template>
   <Auth>
-    <Loader v-if="isLoading" />
+    <Loader v-if="loading" />
 
     <form class="login-form" @submit.prevent="submit">
       <h1 class="page-title">Login</h1>
 
       <div class="mb-3">
-        <Input
-          type="email"
-          label="E-mail address"
-          :field="email"
-          :isFormSubmitted="isFormSubmitted"
-        />
+        <Input type="email" label="E-mail address" :field="email" :formSubmitted="formSubmitted" />
       </div>
 
       <AlertDismissible
@@ -24,12 +19,7 @@
       </AlertDismissible>
 
       <div class="mb-3">
-        <Input
-          type="password"
-          label="Password"
-          :field="password"
-          :isFormSubmitted="isFormSubmitted"
-        />
+        <Input type="password" label="Password" :field="password" :formSubmitted="formSubmitted" />
       </div>
 
       <AlertDismissible
@@ -47,7 +37,7 @@
           :trueValue="true"
           :falseValue="false"
           :field="keepLogged"
-          :isFormSubmitted="isFormSubmitted"
+          :formSubmitted="formSubmitted"
         />
       </div>
 
@@ -89,20 +79,20 @@ import Auth from '../Auth.vue';
 const router = useRouter();
 
 const initialState: FormState = {
-  isLoading: false,
-  isFormSubmitted: false,
+  loading: false,
+  formSubmitted: false,
   serverErrors: { email: [], password: [], request: [] },
 };
 
 const state = reactive(initialState);
-const { isLoading, isFormSubmitted, serverErrors } = toRefs(state);
+const { loading, formSubmitted, serverErrors } = toRefs(state);
 
 const email = useField({ name: 'email', validation: requiredEmail });
 const password = useField({ name: 'password', validation: requiredMin(3) });
 const keepLogged = useField<boolean>({ name: 'keep-logged' });
 
 const submit = async () => {
-  state.isFormSubmitted = true;
+  state.formSubmitted = true;
 
   const isValidForm = validateForm([
     { fields: [email], validation: requiredEmail },
@@ -110,7 +100,7 @@ const submit = async () => {
   ]);
   if (!isValidForm) return;
 
-  state.isLoading = true;
+  state.loading = true;
   state.serverErrors = { email: [], password: [], request: [] };
 
   try {
@@ -143,7 +133,7 @@ const submit = async () => {
   } catch (error: any) {
     state.serverErrors.request.push(error.message);
   } finally {
-    state.isLoading = false;
+    state.loading = false;
   }
 };
 </script>

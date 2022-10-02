@@ -21,11 +21,11 @@
 
       <form @submit.prevent="submit">
         <div class="mb-3">
-          <Input label="First name" :field="firstName" :isFormSubmitted="isFormSubmitted" />
+          <Input label="First name" :field="firstName" :formSubmitted="formSubmitted" />
         </div>
 
         <div class="mb-3">
-          <Input label="Last name" :field="lastName" :isFormSubmitted="isFormSubmitted" />
+          <Input label="Last name" :field="lastName" :formSubmitted="formSubmitted" />
         </div>
 
         <div class="mb-3">
@@ -33,7 +33,7 @@
             type="email"
             label="E-mail address"
             :field="email"
-            :isFormSubmitted="isFormSubmitted"
+            :formSubmitted="formSubmitted"
           />
         </div>
 
@@ -64,13 +64,13 @@ import { user, setUser } from '@/core/state/auth';
 import { AlertDismissible, Input } from '@/shared/components';
 
 const initialState: AccountFormState = {
-  isFormSubmitted: false,
+  formSubmitted: false,
   successMessages: [],
   serverErrors: { email: [], request: [] },
 };
 
 const state = reactive(initialState);
-const { isFormSubmitted, successMessages, serverErrors } = toRefs(state);
+const { formSubmitted, successMessages, serverErrors } = toRefs(state);
 
 const firstName = useField({ name: 'first-name', validation: requiredMin(2) });
 const lastName = useField({ name: 'last-name', validation: requiredMin(2) });
@@ -83,7 +83,7 @@ const setFormData = () => {
 };
 
 const submit = async () => {
-  state.isFormSubmitted = true;
+  state.formSubmitted = true;
 
   const isValidForm = validateForm([
     { fields: [firstName, lastName], validation: requiredMin(2) },

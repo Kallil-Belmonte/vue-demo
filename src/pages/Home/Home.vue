@@ -1,6 +1,6 @@
 <template>
   <main>
-    <Loader v-if="isLoading" />
+    <Loader v-if="loading" />
 
     <FeaturedPosts :posts="featuredPosts" />
   </main>
@@ -16,19 +16,19 @@ import { Loader } from '@/shared/components';
 import FeaturedPosts from './FeaturedPosts/FeaturedPosts.vue';
 
 const initialState: HomeState = {
-  isLoading: false,
+  loading: false,
   featuredPosts: [],
 };
 
 const state = reactive(initialState);
-const { isLoading, featuredPosts } = toRefs(state);
+const { loading, featuredPosts } = toRefs(state);
 
 const getFeaturedPosts = async () => {
   if (posts.value.length) {
     const [firstPost, secondPost, thirdPost] = posts.value;
     state.featuredPosts = [firstPost, secondPost, thirdPost];
   } else {
-    state.isLoading = true;
+    state.loading = true;
 
     try {
       const posts = await getPosts();
@@ -38,7 +38,7 @@ const getFeaturedPosts = async () => {
     } catch (error) {
       console.error(error);
     } finally {
-      state.isLoading = false;
+      state.loading = false;
     }
   }
 };

@@ -1,6 +1,6 @@
 <template>
   <main>
-    <Loader v-if="isLoading" />
+    <Loader v-if="loading" />
 
     <div class="container">
       <div class="row">
@@ -29,11 +29,11 @@ import DeletePostModal from './DeletePostModal/DeletePostModal.vue';
 const route = useRoute();
 
 const initialState: PostState = {
-  isLoading: true,
+  loading: true,
 };
 
 const state = reactive(initialState);
-const { isLoading } = toRefs(state);
+const { loading } = toRefs(state);
 
 const getCurrentPost = async () => {
   try {
@@ -42,7 +42,7 @@ const getCurrentPost = async () => {
   } catch (error) {
     console.error(error);
   } finally {
-    state.isLoading = false;
+    state.loading = false;
   }
 };
 

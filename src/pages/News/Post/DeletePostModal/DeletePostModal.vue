@@ -1,5 +1,5 @@
 <template>
-  <Loader v-if="isLoading" />
+  <Loader v-if="loading" />
 
   <div id="delete-post-modal" class="modal fade" tabindex="-1" ref="modalRef">
     <div class="modal-dialog">
@@ -41,11 +41,11 @@ const route = useRoute();
 const modalRef = ref();
 
 const initialState: DeletePostModalState = {
-  isLoading: false,
+  loading: false,
 };
 
 const state = reactive(initialState);
-const { isLoading } = toRefs(state);
+const { loading } = toRefs(state);
 
 const setUpModal = () => {
   modalRef.value = new Modal(modalRef.value);
@@ -53,14 +53,14 @@ const setUpModal = () => {
 
 const confirmDeletePost = async () => {
   modalRef.value.hide();
-  state.isLoading = true;
+  state.loading = true;
 
   try {
     await deletePost(String(route.params.id));
     router.push({ name: 'blog' });
   } catch (error) {
     console.error(error);
-    state.isLoading = false;
+    state.loading = false;
   }
 };
 

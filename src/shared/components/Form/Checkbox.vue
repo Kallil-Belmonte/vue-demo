@@ -4,7 +4,7 @@
     <input
       :id="state.name"
       :class="[
-        ...getFieldClass(isFormSubmitted, state, ['form-check-input']),
+        ...getFieldClass(formSubmitted, state, ['form-check-input']),
         ...props.class.split(' '),
       ]"
       type="checkbox"
@@ -31,7 +31,7 @@ type Props = {
   trueValue: string | number | boolean;
   falseValue: string | number | boolean;
   field: UseField<any>;
-  isFormSubmitted: boolean;
+  formSubmitted: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {

@@ -2,7 +2,7 @@
   <label :class="labelClass" :for="state.name">{{ label }}</label>
   <textarea
     :id="state.name"
-    :class="[...getFieldClass(isFormSubmitted, state, baseClasses), ...props.class.split(' ')]"
+    :class="[...getFieldClass(formSubmitted, state, baseClasses), ...props.class.split(' ')]"
     :name="state.name"
     :rows="rows"
     v-model="model"
@@ -24,7 +24,7 @@ type Props = {
   class?: string;
   rows?: string;
   field: UseField<any>;
-  isFormSubmitted: boolean;
+  formSubmitted: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {

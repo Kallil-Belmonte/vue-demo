@@ -1,6 +1,6 @@
 export type FormState = {
-  isLoading: boolean;
-  isFormSubmitted: boolean;
+  loading: boolean;
+  formSubmitted: boolean;
   serverErrors: {
     email: string[];
     password: string[];
