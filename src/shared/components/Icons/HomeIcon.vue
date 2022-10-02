@@ -32,7 +32,6 @@ const props = defineProps<Props>();
 
 <style lang="scss" scoped>
 figure {
-  width: v-bind(size);
-  height: v-bind(size);
+  @include square(v-bind(size));
 }
 </style>
