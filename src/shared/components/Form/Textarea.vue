@@ -2,7 +2,7 @@
   <label :class="labelClass" :for="state.name">{{ label }}</label>
   <textarea
     :id="state.name"
-    :class="[...getFieldClass(formSubmitted, state, baseClasses), ...props.class.split(' ')]"
+    :class="[...getFieldClass(formSubmitted, state, fieldClasses)]"
     :name="state.name"
     :rows="rows"
     v-model="model"
@@ -20,8 +20,7 @@ import { UseField } from '@/shared/composables';
 type Props = {
   labelClass?: string;
   label: string;
-  baseClasses?: string[];
-  class?: string;
+  fieldClasses?: string[];
   rows?: string;
   field: UseField<any>;
   formSubmitted: boolean;

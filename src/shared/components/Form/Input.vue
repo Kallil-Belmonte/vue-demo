@@ -2,7 +2,7 @@
   <label :class="labelClass" :for="state.name">{{ label }}</label>
   <input
     :id="state.name"
-    :class="[...getFieldClass(formSubmitted, state, baseClasses), ...props.class.split(' ')]"
+    :class="[...getFieldClass(formSubmitted, state, fieldClasses)]"
     :type="type"
     :name="state.name"
     :placeholder="placeholder"
@@ -21,8 +21,7 @@ import { UseField } from '@/shared/composables';
 type Props = {
   labelClass?: string;
   label: string;
-  baseClasses?: string[];
-  class?: string;
+  fieldClasses?: string[];
   type?: string;
   placeholder?: string;
   field: UseField<any>;
