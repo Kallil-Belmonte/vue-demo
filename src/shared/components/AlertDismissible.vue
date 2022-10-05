@@ -6,7 +6,7 @@
       class="btn-close"
       data-bs-dismiss="alert"
       aria-label="Close"
-      @click="emits('dismiss')"
+      @click="emit('dismiss')"
     ></button>
   </div>
 </template>
@@ -19,7 +19,7 @@ type Props = {
 };
 
 const props = defineProps<Props>();
-const emits = defineEmits(['dismiss']);
+const emit = defineEmits(['dismiss']);
 </script>
 
 <style lang="scss" scoped>

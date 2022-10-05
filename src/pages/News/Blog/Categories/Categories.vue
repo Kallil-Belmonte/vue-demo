@@ -29,7 +29,7 @@ export type Props = {
 const props = withDefaults<Props, any>(defineProps<Props>(), {
   categories: [],
 });
-const emits = defineEmits(['selectCategory']);
+const emit = defineEmits(['selectCategory']);
 
 const initialState: CategoriesState = {
   activeCategory: '',
@@ -41,7 +41,7 @@ const isActive = (category: Category['name']) => state.activeCategory === catego
 
 const select = (category: Category['name']) => {
   state.activeCategory = category === state.activeCategory ? '' : category;
-  emits('selectCategory', category);
+  emit('selectCategory', category);
 };
 </script>
 

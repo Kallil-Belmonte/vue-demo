@@ -7,7 +7,7 @@
           id="filter"
           class="form-select"
           :value="postsPerPage"
-          @change="emits('change', Number(($event.target as HTMLSelectElement).value))"
+          @change="emit('change', Number(($event.target as HTMLSelectElement).value))"
         >
           <option :value="9">9</option>
           <option :value="18">18</option>
@@ -25,7 +25,7 @@ export type Props = {
 };
 
 const props = defineProps<Props>();
-const emits = defineEmits(['change']);
+const emit = defineEmits(['change']);
 </script>
 
 <style lang="scss" scoped>

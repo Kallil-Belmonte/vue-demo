@@ -2,7 +2,7 @@
   <nav class="pagination d-inline-block" aria-label="Pagination">
     <ul class="pagination mb-0">
       <li class="page-item" v-if="firstItem > 1">
-        <button class="page-link" type="button" @click="emits('paginate', 'previous')">
+        <button class="page-link" type="button" @click="emit('paginate', 'previous')">
           Previous
         </button>
       </li>
@@ -11,13 +11,13 @@
         v-for="page in pageItems"
         :key="page"
         :class="{ 'page-item': true, active: isItemActive(page) }"
-        @click="isItemActive(page) ? undefined : emits('paginate', page)"
+        @click="isItemActive(page) ? undefined : emit('paginate', page)"
       >
         <button class="page-link" type="button">{{ page }}</button>
       </li>
 
       <li class="page-item" v-if="endPages < pages.length">
-        <button class="page-link" type="button" @click="emits('paginate', 'next')">Next</button>
+        <button class="page-link" type="button" @click="emit('paginate', 'next')">Next</button>
       </li>
     </ul>
   </nav>
@@ -37,7 +37,7 @@ const props = withDefaults<Props, any>(defineProps<Props>(), {
   pages: [],
   firstItem: 1,
 });
-const emits = defineEmits(['paginate']);
+const emit = defineEmits(['paginate']);
 
 const startPages = computed(() => props.firstItem - 1);
 const endPages = computed(() => startPages.value + props.maxItem);
