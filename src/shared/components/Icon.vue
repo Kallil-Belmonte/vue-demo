@@ -3,7 +3,7 @@
     :is="iconComponent"
     :class="`${iconClass} flex-center ${props.class}`"
     :ariaLabel="ariaLabel"
-    :fill="fill"
+    :color="color"
     :size="size"
   ></component>
 </template>
@@ -17,13 +17,13 @@ import { Icons } from './Icons/_types';
 type Props = {
   class?: string;
   name: Icons;
-  fill?: string;
+  color?: string;
   size?: string;
 };
 
 const props = withDefaults(defineProps<Props>(), {
   class: '',
-  fill: 'currentColor',
+  color: 'currentColor',
   size: '100%',
 });
 
