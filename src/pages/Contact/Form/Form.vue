@@ -87,10 +87,10 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs, computed, onMounted } from 'vue';
+import { reactive, toRefs, onMounted } from 'vue';
 
 import { ContactFormState } from '@/pages/Contact/_files/types';
-import { required, requiredEmail, requiredMin, custom } from '@/shared/files/validations';
+import { required, requiredEmail, requiredSelect, requiredMin } from '@/shared/files/validations';
 import { clearFormMessage, validateForm, setFields } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { getFavoriteColors } from '@/core/services';
@@ -167,10 +167,7 @@ const submit = async () => {
     { fields: [email], validation: requiredEmail },
     { fields: [telephone], validation: requiredMin(8) },
     { fields: [sex, message], validation: required },
-    {
-      fields: [favoriteColor],
-      validation: custom(favoriteColorModel.value !== 'select', 'Value required.'),
-    },
+    { fields: [favoriteColor], validation: requiredSelect(favoriteColorModel) },
   ]);
   if (!isValidForm) return;
 
