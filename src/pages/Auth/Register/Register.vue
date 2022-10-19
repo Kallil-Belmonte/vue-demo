@@ -59,7 +59,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs, computed } from 'vue';
+import { reactive, toRefs } from 'vue';
 
 import { useRouter } from 'vue-router';
 
