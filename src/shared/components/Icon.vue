@@ -35,7 +35,7 @@ const iconClass = computed(() => {
     return result.toLowerCase();
   };
   const iconName = props.name.split('').map(convertLetters).join('');
-  return `${iconName}-icon`;
+  return iconName;
 });
 
 const ariaLabel = computed(() => {

@@ -33,5 +33,9 @@ const props = defineProps<Props>();
 <style lang="scss" scoped>
 figure {
   @include square(v-bind(size));
+
+  svg {
+    transition: $transition-all;
+  }
 }
 </style>
