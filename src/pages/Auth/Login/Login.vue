@@ -132,7 +132,6 @@ const submit = async () => {
     }
   } catch (error: any) {
     state.serverErrors.request.push(error.message);
-  } finally {
     state.loading = false;
   }
 };
