@@ -9,7 +9,7 @@
   >
     <slot></slot>
   </select>
-  <div class="invalid-feedback" v-for="errorMessage in state.errorMessages">
+  <div class="invalid-feedback" v-for="errorMessage in state.errorMessages" :key="errorMessage">
     {{ errorMessage }}
   </div>
 </template>
