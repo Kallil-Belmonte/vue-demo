@@ -85,7 +85,7 @@ const useField = <Value = string>(config: UseFieldConfig<Value>): UseField<Value
 
     const setTouched = () => {
       state.touched = true;
-      fieldRef.value.removeEventListener('focusout', setTouched);
+      fieldRef.value?.removeEventListener('focusout', setTouched);
     };
     fieldRef.value.addEventListener('focusout', setTouched);
   };
