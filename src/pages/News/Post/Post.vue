@@ -19,7 +19,7 @@ import { reactive, toRefs, onMounted } from 'vue';
 
 import { useRoute } from 'vue-router';
 
-import { PostState } from '@/pages/News/Post/_files/types';
+import type { PostState } from '@/pages/News/Post/_files/types';
 import { currentPost, setCurrentPost } from '@/core/state/news';
 import { getPost } from '@/core/services';
 import { Loader } from '@/shared/components';

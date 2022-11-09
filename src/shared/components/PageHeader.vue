@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Icons } from './Icons/_types';
+import type { Icons } from './Icons/_types';
 import Icon from './Icon.vue';
 
 type Props = {

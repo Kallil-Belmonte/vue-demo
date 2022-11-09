@@ -9,7 +9,7 @@
 <script lang="ts" setup>
 import { reactive, toRefs, onMounted } from 'vue';
 
-import { HomeState } from '@/pages/Home/_files/types';
+import type { HomeState } from '@/pages/Home/_files/types';
 import { posts, setPosts } from '@/core/state/news';
 import { getPosts } from '@/core/services';
 import { Loader } from '@/shared/components';

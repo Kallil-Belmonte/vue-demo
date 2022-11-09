@@ -1,6 +1,6 @@
 import { reactive, computed } from 'vue';
 
-import { Category, Post } from '@/core/services/news/types';
+import type { Category, Post } from '@/core/services/news/types';
 
 type NewsState = {
   categories: Category[];

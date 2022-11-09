@@ -1,6 +1,4 @@
-import { Ref } from 'vue';
-
-import { FieldState } from '@/shared/composables';
+import type { FieldState } from '@/shared/composables';
 
 /**
  * @name getFieldClass

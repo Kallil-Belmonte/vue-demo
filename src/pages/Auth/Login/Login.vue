@@ -65,10 +65,10 @@ import { reactive, toRefs } from 'vue';
 
 import { useRouter } from 'vue-router';
 
-import { FormState } from '@/pages/Auth/_files/types';
+import type { FormState } from '@/pages/Auth/_files/types';
 import { AUTH_TOKEN_KEY, AUTH_EXPIRATION_DATE_KEY } from '@/shared/files/consts';
 import { requiredEmail, requiredMin } from '@/shared/files/validations';
-import { LoginUserPayload } from '@/core/services/auth/types';
+import type { LoginUserPayload } from '@/core/services/auth/types';
 import { clearFormMessage, validateForm } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { loginUser } from '@/core/services';

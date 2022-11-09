@@ -89,7 +89,7 @@
 <script lang="ts" setup>
 import { reactive, toRefs, onMounted } from 'vue';
 
-import { ContactFormState } from '@/pages/Contact/_files/types';
+import type { ContactFormState } from '@/pages/Contact/_files/types';
 import { required, requiredEmail, requiredSelect, requiredMin } from '@/shared/files/validations';
 import { clearFormMessage, validateForm, setFields } from '@/shared/helpers';
 import { useField } from '@/shared/composables';

@@ -63,8 +63,8 @@ import { reactive, toRefs } from 'vue';
 
 import { useRouter } from 'vue-router';
 
-import { FormState } from '@/pages/Auth/_files/types';
-import { RegisterUserPayload } from '@/core/services/auth/types';
+import type { FormState } from '@/pages/Auth/_files/types';
+import type { RegisterUserPayload } from '@/core/services/auth/types';
 import { AUTH_TOKEN_KEY } from '@/shared/files/consts';
 import { requiredEmail, requiredMin } from '@/shared/files/validations';
 import { clearFormMessage, validateForm } from '@/shared/helpers';

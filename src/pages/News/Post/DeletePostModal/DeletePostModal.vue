@@ -31,7 +31,7 @@ import { ref, reactive, toRefs, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { Modal } from 'bootstrap';
 
-import { DeletePostModalState } from '@/pages/News/Post/_files/types';
+import type { DeletePostModalState } from '@/pages/News/Post/_files/types';
 import { deletePost } from '@/core/services';
 import { Loader } from '@/shared/components';
 

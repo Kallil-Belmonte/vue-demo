@@ -33,8 +33,8 @@
 <script lang="ts" setup>
 import { reactive, toRefs, onMounted } from 'vue';
 
-import { Category, Post } from '@/core/services/news/types';
-import { BlogState } from '@/pages/News/Blog/_files/types';
+import type { Category, Post } from '@/core/services/news/types';
+import type { BlogState } from '@/pages/News/Blog/_files/types';
 import { groupArrayItemsInArrays } from '@/shared/helpers';
 import { categories, posts, setCategories, setPosts } from '@/core/state/news';
 import { getCategories, getPosts } from '@/core/services';

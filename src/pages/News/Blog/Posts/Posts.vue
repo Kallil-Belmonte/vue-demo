@@ -9,8 +9,8 @@
 </template>
 
 <script lang="ts" setup>
-import { Post } from '@/core/services/news/types';
-import { PostItem } from '@/shared/components';
+import type { Post } from '@/core/services/news/types';
+import type { PostItem } from '@/shared/components';
 
 export type Props = {
   pages: { [key: string]: Post[] };

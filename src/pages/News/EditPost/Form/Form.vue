@@ -20,8 +20,8 @@ import { reactive, toRefs, computed, onMounted } from 'vue';
 
 import { useRouter, useRoute } from 'vue-router';
 
-import { Post } from '@/core/services/news/types';
-import { EditPostFormState } from '@/pages/News/EditPost/_files/types';
+import type { Post } from '@/core/services/news/types';
+import type { EditPostFormState } from '@/pages/News/EditPost/_files/types';
 import { requiredMin } from '@/shared/files/validations';
 import { validateForm } from '@/shared/helpers';
 import { useField } from '@/shared/composables';

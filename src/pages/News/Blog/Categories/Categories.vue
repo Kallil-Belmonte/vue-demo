@@ -19,8 +19,8 @@
 <script lang="ts" setup>
 import { reactive } from 'vue';
 
-import { Category } from '@/core/services/news/types';
-import { CategoriesState } from '@/pages/News/Blog/_files/types';
+import type { Category } from '@/core/services/news/types';
+import type { CategoriesState } from '@/pages/News/Blog/_files/types';
 
 export type Props = {
   categories: Category[];

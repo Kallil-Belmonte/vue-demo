@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Post } from '@/core/services/news/types';
+import type { Post } from '@/core/services/news/types';
 
 export type Props = {
   post: Post;

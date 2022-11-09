@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts" setup>
-import { BootstrapVariants } from '@/shared/files/types';
+import type { BootstrapVariants } from '@/shared/files/types';
 
 type Props = {
   variant: BootstrapVariants;

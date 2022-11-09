@@ -56,7 +56,7 @@
 <script lang="ts" setup>
 import { reactive, toRefs, computed, onMounted } from 'vue';
 
-import { AccountFormState } from '@/pages/Account/_files/types';
+import type { AccountFormState } from '@/pages/Account/_files/types';
 import { requiredEmail, requiredMin } from '@/shared/files/validations';
 import { clearFormMessage, validateForm } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
