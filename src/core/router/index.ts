@@ -11,8 +11,8 @@ const router = createRouter({
       beforeEnter: guard,
       children: [
         {
-          path: '',
           name: 'home',
+          path: '',
           meta: {
             title: 'Home',
           },
@@ -23,24 +23,24 @@ const router = createRouter({
           component: () => import('@/pages/News/News.vue'),
           children: [
             {
-              path: '',
               name: 'blog',
+              path: '',
               meta: {
                 title: 'Blog',
               },
               component: () => import('@/pages/News/Blog/Blog.vue'),
             },
             {
-              path: '/post/:id',
               name: 'post',
+              path: '/post/:id',
               meta: {
                 title: 'Post',
               },
               component: () => import('@/pages/News/Post/Post.vue'),
             },
             {
-              path: '/edit-post/:id',
               name: 'edit-post',
+              path: '/edit-post/:id',
               meta: {
                 title: 'Edit Post',
               },
@@ -49,16 +49,16 @@ const router = createRouter({
           ],
         },
         {
-          path: '/contact',
           name: 'contact',
+          path: '/contact',
           meta: {
             title: 'Contact',
           },
           component: () => import('@/pages/Contact/Contact.vue'),
         },
         {
-          path: '/account',
           name: 'account',
+          path: '/account',
           meta: {
             title: 'Account',
           },
@@ -67,24 +67,24 @@ const router = createRouter({
       ],
     },
     {
-      path: '/login',
       name: 'login',
+      path: '/login',
       meta: {
         title: 'Login',
       },
       component: () => import('@/pages/Auth/Login/Login.vue'),
     },
     {
-      path: '/register',
       name: 'register',
+      path: '/register',
       meta: {
         title: 'Register',
       },
       component: () => import('@/pages/Auth/Register/Register.vue'),
     },
     {
-      path: '/:pathMatch(.*)*',
       name: 'not-found',
+      path: '/:pathMatch(.*)*',
       meta: {
         title: 'Not Found',
       },
