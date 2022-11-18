@@ -3,8 +3,8 @@
     :is="iconComponent"
     :class="`${iconClass} flex-center ${props.class}`"
     :ariaLabel="ariaLabel"
-    :color="color"
     :size="size"
+    :color="color"
   ></component>
 </template>
 
@@ -17,14 +17,14 @@ import type { Icons } from './Icons/_types';
 type Props = {
   class?: string;
   name: Icons;
-  color?: string;
   size?: string;
+  color?: string;
 };
 
 const props = withDefaults(defineProps<Props>(), {
   class: '',
-  color: 'currentColor',
   size: '100%',
+  color: 'currentColor',
 });
 
 const iconComponent = shallowRef();
