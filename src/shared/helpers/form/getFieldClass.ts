@@ -1,7 +1,7 @@
 import type { FieldState } from '@/shared/composables';
 
 /**
- * @name getFieldClass
+ * @function getFieldClass
  */
 
 const getFieldClass = (

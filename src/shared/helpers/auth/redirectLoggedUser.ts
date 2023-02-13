@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router';
 import isExpiredSession from './isExpiredSession';
 
 /**
- * @name redirectLoggedUser
+ * @function redirectLoggedUser
  */
 
 const redirectLoggedUser = () => {

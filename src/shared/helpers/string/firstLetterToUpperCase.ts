@@ -1,5 +1,5 @@
 /**
- * @name firstLetterToUpperCase
+ * @function firstLetterToUpperCase
  * @description Convert the first letter to uppercase.
  */
 

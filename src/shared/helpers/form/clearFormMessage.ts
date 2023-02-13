@@ -1,5 +1,5 @@
 /**
- * @name clearFormMessage
+ * @function clearFormMessage
  */
 
 const clearFormMessage = (errorMessages: string[], index: number) => {

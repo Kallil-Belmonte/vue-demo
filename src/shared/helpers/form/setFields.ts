@@ -2,7 +2,7 @@ import type { UseField } from '@/shared/composables';
 import { getFieldState } from '@/shared/composables';
 
 /**
- * @name setFields
+ * @function setFields
  */
 
 type Value = string | number | boolean;

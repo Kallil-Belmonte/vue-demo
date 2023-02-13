@@ -2,7 +2,7 @@ import { Validations, ValidationConfig, validate } from '@/shared/helpers';
 import { UseField } from '@/shared/composables';
 
 /**
- * @name validateForm
+ * @function validateForm
  */
 
 type ValidateFields = {
