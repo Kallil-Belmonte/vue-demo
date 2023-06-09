@@ -7,11 +7,9 @@ export const required: Config = { required: { check: true } };
 export const requiredEmail: Config = { ...required, email: { check: true } };
 
 export const requiredSelect = (model: Ref<string>) => ({
-  custom: { check: model.value !== 'select', message: 'Required value.' },
+  custom: { isValid: model.value !== 'select', message: 'Required value.' },
 });
 
 export const requiredMin = (min: number): Config => ({ ...required, min: { check: min } });
 
-export const custom = (condition: boolean, message: string) => ({
-  custom: { check: condition, message },
-});
+export const custom = (isValid: boolean, message: string) => ({ custom: { isValid, message } });
