@@ -7,7 +7,7 @@ import { getFieldState } from '@/shared/composables';
 
 type Value = string | number | boolean;
 
-type SetFieldParams = {
+type Config = {
   fields: UseField[];
   value?: Value;
   reset?: { required: boolean };
@@ -15,7 +15,7 @@ type SetFieldParams = {
 
 const { assign } = Object;
 
-const setFields = ({ fields, value, reset }: SetFieldParams) => {
+const setFields = ({ fields, value, reset }: Config) => {
   const { required } = reset || {};
 
   if (value !== undefined) fields.forEach(field => (field.model.value = value));
