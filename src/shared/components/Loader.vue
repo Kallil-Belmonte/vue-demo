@@ -1,5 +1,5 @@
 <template>
-  <section class="loader">
+  <section data-component="loader">
     <div class="orbit-spinner">
       <div class="orbit"></div>
       <div class="orbit"></div>
@@ -36,7 +36,7 @@
   }
 }
 
-.loader {
+[data-component='loader'] {
   background-color: rgba(255, 255, 255, 0.8);
   @include position(fixed, 0, 0, 0, 0, 1080);
 

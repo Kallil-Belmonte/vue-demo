@@ -1,5 +1,5 @@
 <template>
-  <div class="post-item">
+  <div data-component="post-item">
     <img v-if="post.image" class="img-fluid" :src="post.image" alt="Capa" />
     <div v-else class="img-placeholder">Não há imagem para esse post</div>
 
@@ -27,7 +27,7 @@ const props = defineProps<Props>();
 <style lang="scss" scoped>
 @import '@/assets/scss/helpers/bootstrap-helpers';
 
-.post-item {
+[data-component='post-item'] {
   text-align: center;
   margin-bottom: 50px;
 
