@@ -1,5 +1,5 @@
 <template>
-  <figure :class="`icon ${props.class}`">
+  <figure data-component="icon">
     <svg
       role="img"
       :aria-label="ariaLabel"
@@ -21,7 +21,6 @@
 
 <script lang="ts" setup>
 export type Props = {
-  class: string;
   ariaLabel: string;
   color: string;
   size: string;

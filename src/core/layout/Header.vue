@@ -118,7 +118,7 @@ header {
             color: $primary;
           }
 
-          .icon {
+          [data-component='icon'] {
             @include square(20px);
             margin-right: 10px;
           }

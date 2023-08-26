@@ -9,8 +9,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { Icons } from './Icons/_types';
-import Icon from './Icon.vue';
+import type { Icons } from './Icon/_types';
+import Icon from './Icon/Icon.vue';
 
 type Props = {
   icon?: Icons;
@@ -21,7 +21,7 @@ const props = defineProps<Props>();
 
 <style lang="scss" scoped>
 .page-header {
-  .icon {
+  [data-component='icon'] {
     margin-bottom: 15px;
   }
 
