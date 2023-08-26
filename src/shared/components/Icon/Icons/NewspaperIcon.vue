@@ -35,7 +35,7 @@ figure {
   @include square(v-bind(size));
 
   svg {
-    transition: $transition-all;
+    @include transitionAll();
   }
 }
 </style>
