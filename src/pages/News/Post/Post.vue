@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main data-page="post">
     <Loader v-if="loading" />
 
     <div class="container">

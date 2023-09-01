@@ -8,7 +8,7 @@
   </section>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @keyframes orbit-spinner-orbit-one-animation {
   0% {
     transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);

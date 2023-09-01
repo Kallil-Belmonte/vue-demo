@@ -92,7 +92,7 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .edit-post-form {
   margin: 80px 0;
 }

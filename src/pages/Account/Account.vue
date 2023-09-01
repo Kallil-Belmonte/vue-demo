@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main data-page="account">
     <div class="container">
       <PageHeader icon="User">Account</PageHeader>
 
@@ -13,8 +13,8 @@ import { PageHeader } from '@/shared/components';
 import Form from '@/pages/Account/Form/Form.vue';
 </script>
 
-<style lang="scss" scoped>
-main {
+<style lang="scss">
+[data-page='account'] {
   padding: 100px 0;
 }
 </style>

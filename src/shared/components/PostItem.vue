@@ -24,7 +24,7 @@ type Props = {
 const props = defineProps<Props>();
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '@/assets/scss/helpers/bootstrap-helpers';
 
 [data-component='post-item'] {

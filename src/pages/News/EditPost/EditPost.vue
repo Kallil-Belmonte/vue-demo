@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main data-page="edit-post">
     <div class="container">
       <div class="row">
         <div class="col-md-8 offset-md-2">

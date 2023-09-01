@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main data-page="blog">
     <Loader v-if="loading" />
 
     <div class="container">
@@ -126,8 +126,8 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss" scoped>
-main {
+<style lang="scss">
+[data-page='blog'] {
   min-height: 500px;
   padding: 80px 0 30px;
 }

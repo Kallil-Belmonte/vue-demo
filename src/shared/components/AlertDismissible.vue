@@ -1,5 +1,5 @@
 <template>
-  <div :class="`alert alert-${variant} alert-dismissible fade show`" role="alert">
+  <div data-component="alert-dismissible" :class="`alert alert-${variant} fade show`" role="alert">
     <slot></slot>
     <button
       type="button"
@@ -22,8 +22,8 @@ const props = defineProps<Props>();
 const emit = defineEmits(['dismiss']);
 </script>
 
-<style lang="scss" scoped>
-.alert-dismissible {
+<style lang="scss">
+[data-component='alert-dismissible'] {
   margin-top: 1rem;
 }
 </style>

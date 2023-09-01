@@ -1,5 +1,5 @@
 <template>
-  <section class="post-body">
+  <section data-component="post-body">
     <article>
       <h1 class="title text-center">{{ post.title }}</h1>
       <p>{{ post.body }}</p>
@@ -31,8 +31,8 @@ export type Props = {
 const props = defineProps<Props>();
 </script>
 
-<style lang="scss" scoped>
-.post-body {
+<style lang="scss">
+[data-component='post-body'] {
   padding: 50px 0;
 
   .title {

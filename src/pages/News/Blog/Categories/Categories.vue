@@ -1,5 +1,5 @@
 <template>
-  <aside>
+  <aside data-component="categories">
     <ul class="list-group">
       <li
         :class="{
@@ -45,15 +45,17 @@ const select = (category: Category['name']) => {
 };
 </script>
 
-<style lang="scss" scoped>
-.list-group {
-  cursor: pointer;
+<style lang="scss">
+[data-component='categories'] {
+  .list-group {
+    cursor: pointer;
 
-  .list-group-item {
-    &.active {
-      .badge-primary {
-        color: $primary;
-        background-color: #fff;
+    .list-group-item {
+      &.active {
+        .badge-primary {
+          color: $primary;
+          background-color: #fff;
+        }
       }
     }
   }

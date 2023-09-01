@@ -1,5 +1,5 @@
 <template>
-  <section class="post-filter">
+  <section data-component="posts-per-page">
     <div class="row">
       <div class="col-md-2">
         <label for="filter" class="form-label">Posts per page:</label>
@@ -28,8 +28,8 @@ const props = defineProps<Props>();
 const emit = defineEmits(['change']);
 </script>
 
-<style lang="scss" scoped>
-.post-filter {
+<style lang="scss">
+[data-component='posts-per-page'] {
   margin-bottom: 10px;
 }
 </style>

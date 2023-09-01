@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main data-page="home">
     <Loader v-if="loading" />
 
     <FeaturedPosts :posts="featuredPosts" />

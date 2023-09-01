@@ -1,5 +1,5 @@
 <template>
-  <footer>
+  <footer data-layout="footer">
     <div class="container">
       <div class="d-flex justify-content-center">
         <ul class="social-networks list-inline">
@@ -37,8 +37,8 @@
 import { Icon } from '@/shared/components';
 </script>
 
-<style lang="scss" scoped>
-footer {
+<style lang="scss">
+[data-layout='footer'] {
   padding: 30px 0;
 
   .social-networks {

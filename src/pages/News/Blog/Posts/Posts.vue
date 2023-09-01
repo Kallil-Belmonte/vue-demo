@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section data-component="posts">
     <div class="row">
       <div class="col-md-4" v-for="post of pages[currentPage]" :key="post.id">
         <PostItem :post="post" />

@@ -128,7 +128,7 @@ const submit = async () => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .register-form {
   padding: 40px 40px 15px 40px;
   border-radius: 10px;

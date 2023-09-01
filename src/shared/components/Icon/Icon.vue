@@ -38,7 +38,7 @@ watchEffect(() => {
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 [data-component='icon'] {
   @extend %flex-center;
   @include square(var(--size));

@@ -19,7 +19,7 @@ type Props = {
 const props = defineProps<Props>();
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 [data-component='page-header'] {
   [data-component='icon'] {
     margin-bottom: 15px;

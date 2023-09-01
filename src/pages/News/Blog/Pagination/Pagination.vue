@@ -1,5 +1,5 @@
 <template>
-  <nav class="pagination d-inline-block" aria-label="Pagination">
+  <nav data-component="pagination" class="d-inline-block" aria-label="Pagination">
     <ul class="pagination mb-0">
       <li class="page-item" v-if="firstItem > 1">
         <button class="page-link" type="button" @click="emit('paginate', 'previous')">
