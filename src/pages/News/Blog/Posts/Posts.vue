@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 import type { Post } from '@/core/services/news/types';
-import type { PostItem } from '@/shared/components';
+import { PostItem } from '@/shared/components';
 
 export type Props = {
   currentPage: number;
