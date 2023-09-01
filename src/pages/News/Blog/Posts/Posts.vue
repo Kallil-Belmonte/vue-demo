@@ -13,8 +13,8 @@ import type { Post } from '@/core/services/news/types';
 import type { PostItem } from '@/shared/components';
 
 export type Props = {
-  pages: { [key: string]: Post[] };
   currentPage: number;
+  pages: { [key: string]: Post[] };
 };
 
 const props = defineProps<Props>();

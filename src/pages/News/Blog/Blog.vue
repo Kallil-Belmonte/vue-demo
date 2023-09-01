@@ -12,7 +12,7 @@
 
       <div class="row">
         <div class="col-md-9">
-          <Posts :pages="pages" :currentPage="currentPage" />
+          <Posts :currentPage="currentPage" :pages="pages" />
 
           <Pagination
             :pages="Object.keys(pages)"
@@ -92,7 +92,6 @@ const getAllData = async () => {
 };
 
 const selectCategory = async (category: Category['name']) => {
-  console.log(category);
   state.loading = true;
 
   try {

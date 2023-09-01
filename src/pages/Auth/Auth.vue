@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="container">
-      <img class="logo d-block mx-auto" alt="Vue" src="@/assets/icons/brand/logo.svg" />
+      <Icon class="logo mx-auto" category="Brand" name="Logo" />
 
       <div class="row">
         <div class="col-md-6 offset-md-3">
@@ -21,6 +21,7 @@
 import { onMounted } from 'vue';
 
 import { redirectLoggedUser } from '@/shared/helpers';
+import { Icon } from '@/shared/components';
 
 // LIFECYCLE HOOKS
 onMounted(() => {
@@ -30,7 +31,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .logo {
-  height: 100px;
+  @include square(100px);
   margin-top: 50px;
 }
 

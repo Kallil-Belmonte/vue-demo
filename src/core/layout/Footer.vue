@@ -4,22 +4,24 @@
       <div class="d-flex justify-content-center">
         <ul class="social-networks list-inline">
           <li class="list-inline-item">
-            <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"
-              >Facebook</a
-            >
+            <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+              <Icon name="Facebook" />
+            </a>
           </li>
           <li class="list-inline-item">
-            <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">Twitter</a>
+            <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
+              <Icon name="Twitter" />
+            </a>
           </li>
           <li class="list-inline-item">
-            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"
-              >Instagram</a
-            >
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+              <Icon name="Instagram" />
+            </a>
           </li>
           <li class="list-inline-item">
-            <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer"
-              >Linkedin</a
-            >
+            <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+              <Icon name="Linkedin" />
+            </a>
           </li>
         </ul>
       </div>
@@ -31,11 +33,13 @@
   </footer>
 </template>
 
+<script lang="ts" setup>
+import { Icon } from '@/shared/components';
+</script>
+
 <style lang="scss" scoped>
 footer {
   padding: 30px 0;
-
-  /* SOCIAL NETWORKS */
 
   .social-networks {
     li {
@@ -44,35 +48,12 @@ footer {
       }
 
       a {
-        font-size: 0px;
-        @include square(25px);
+        font-size: 0;
+        color: $dark;
         display: inline-block;
 
-        &::before {
-          content: '';
-          display: block;
-          @include square(100%);
-          @extend %background-image-cover;
-        }
-
-        /* Facebook */
-        &[href*='facebook.com']::before {
-          background-image: url('@/assets/icons/social-networks/facebook.svg');
-        }
-
-        /* Twitter */
-        &[href*='twitter.com']::before {
-          background-image: url('@/assets/icons/social-networks/twitter.svg');
-        }
-
-        /* Instagram */
-        &[href*='instagram.com']::before {
-          background-image: url('@/assets/icons/social-networks/instagram.svg');
-        }
-
-        /* Linkedin */
-        &[href*='linkedin.com']::before {
-          background-image: url('@/assets/icons/social-networks/linkedin.svg');
+        figure {
+          @include square(25px);
         }
       }
     }
