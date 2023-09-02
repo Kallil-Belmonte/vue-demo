@@ -27,7 +27,7 @@ const props = withDefaults(defineProps<Props>(), {
 const svg = ref('');
 
 const setImage = async () => {
-  const response = await fetch(`/images/icons/${props.category}/${props.name}.svg`);
+  const response = await fetch(`/icons/${props.category}/${props.name}.svg`);
   const svgText = await response.text();
   svg.value = svgText;
 };
