@@ -1,10 +1,5 @@
 <template>
-  <figure
-    data-component="icon"
-    :data-name="name"
-    :style="{ '--size': size, '--color': color }"
-    v-html="svg"
-  ></figure>
+  <figure data-component="icon" :data-category="category" :data-name="name" v-html="svg"></figure>
 </template>
 
 <script lang="ts" setup>
@@ -41,7 +36,7 @@ watchEffect(() => {
 <style lang="scss">
 [data-component='icon'] {
   @extend %flex-center;
-  @include square(var(--size));
-  color: var(--color);
+  @include square(v-bind(size));
+  color: v-bind(color);
 }
 </style>
