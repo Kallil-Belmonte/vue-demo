@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const svg = ref('');
 
-const setImage = async () => {
+const setIcon = async () => {
   const response = await fetch(`/icons/${props.category}/${props.name}.svg`);
   const svgText = await response.text();
   svg.value = svgText;
@@ -29,7 +29,7 @@ const setImage = async () => {
 
 // LIFECYCLE HOOKS
 watchEffect(() => {
-  setImage();
+  setIcon();
 });
 </script>
 
