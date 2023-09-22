@@ -11,5 +11,3 @@ export const requiredSelect = (model: Ref<string>) => ({
 });
 
 export const requiredMin = (min: number): Config => ({ ...required, min: { check: min } });
-
-export const custom = (isValid: boolean, message: string) => ({ custom: { isValid, message } });
