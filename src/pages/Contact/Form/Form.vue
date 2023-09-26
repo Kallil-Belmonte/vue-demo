@@ -167,7 +167,7 @@ const submit = async () => {
     { fields: [email], validation: requiredEmail },
     { fields: [telephone], validation: requiredMin(8) },
     { fields: [sex, message], validation: required },
-    { fields: [favoriteColor], validation: requiredSelect(favoriteColorModel) },
+    { fields: [favoriteColor], validation: requiredSelect },
   ]);
   if (!isValidForm) return;
 
