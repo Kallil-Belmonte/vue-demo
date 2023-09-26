@@ -21,7 +21,7 @@ export type FieldState = Validations & {
 };
 
 type UseFieldConfig<Value> = {
-  name: string;
+  name: FieldState['name'];
   defaultValue?: Value;
   validation?: ValidationConfig;
 };
@@ -34,7 +34,7 @@ export type UseField<Value = any> = {
 
 const { keys } = Object;
 
-export const getFieldState = (name: string, required: boolean = false): FieldState => ({
+export const getFieldState = (name: FieldState['name'], required: boolean = false): FieldState => ({
   name,
   untouched: true,
   touched: false,
