@@ -1,5 +1,4 @@
-import type { UseField } from '@/shared/composables';
-import { getFieldState } from '@/shared/composables';
+import { type UseField, getFieldState } from '@/shared/composables';
 
 /**
  * @function setFields
