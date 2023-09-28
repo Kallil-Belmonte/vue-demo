@@ -59,11 +59,8 @@ const useField = <Value = string>(config: UseFieldConfig<Value>): UseField<Value
     if (pristine) state.pristine = false;
     if (!dirty) state.dirty = true;
 
-    if (keys(validation).length) {
-      const { isValid, errorMessages, ...otherValidationProps } = validate(
-        value as string,
-        validation,
-      );
+    if (typeof value === 'string' && keys(validation).length) {
+      const { isValid, errorMessages, ...otherValidationProps } = validate(value, validation);
 
       state.valid = isValid;
       state.invalid = !isValid;
