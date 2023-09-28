@@ -55,6 +55,7 @@ const useField = <Value = string>(config: UseFieldConfig<Value>): UseField<Value
   const { pristine, dirty } = state;
 
   const controlUpdate = (value: UnwrapRef<Value>) => {
+    if (value === undefined) return;
     if (pristine) state.pristine = false;
     if (!dirty) state.dirty = true;
 
