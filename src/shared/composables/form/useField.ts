@@ -48,7 +48,7 @@ export const getFieldState = (name: FieldState['name'], required: boolean = fals
 const useField = <Value = string>(config: UseFieldConfig<Value>): UseField<Value> => {
   const { name, defaultValue, validation = {} } = config;
 
-  const model = ref<Value>(defaultValue as Value);
+  const model = ref(defaultValue as Value);
   const fieldRef = ref();
 
   const state = reactive(getFieldState(name, validation.required?.check));
