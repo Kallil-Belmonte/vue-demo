@@ -54,7 +54,7 @@ const useField = <Value = string>(config: UseFieldConfig<Value>): UseField<Value
   const state = reactive(getFieldState(name, validation.required?.check));
   const { pristine, dirty } = state;
 
-  const controlUpdate = (value: UnwrapRef<Value>) => {
+  const controlUpdate = (value: UnwrapRef<Value> | undefined) => {
     if (value === undefined) return;
     if (pristine) state.pristine = false;
     if (!dirty) state.dirty = true;
