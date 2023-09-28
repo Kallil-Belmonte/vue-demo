@@ -80,13 +80,13 @@ const useField = <Value = string>(config: UseFieldConfig<Value>): UseField<Value
 
     const setUntouched = () => {
       state.untouched = false;
-      fieldRef.value.removeEventListener('focus', setUntouched);
+      fieldRef.value?.removeEventListener('focus', setUntouched);
     };
     fieldRef.value.addEventListener('focus', setUntouched);
 
     const setTouched = () => {
       state.touched = true;
-      fieldRef.value.removeEventListener('focusout', setTouched);
+      fieldRef.value?.removeEventListener('focusout', setTouched);
     };
     fieldRef.value.addEventListener('focusout', setTouched);
   };
