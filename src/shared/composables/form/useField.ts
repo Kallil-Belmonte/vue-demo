@@ -62,13 +62,14 @@ const useField = <Value = string>(config: UseFieldConfig<Value>): UseField<Value
     if (typeof value === 'string' && keys(validation).length) {
       const { isValid, errorMessages, ...otherValidationProps } = validate(value, validation);
 
-      state.valid = isValid;
-      state.invalid = !isValid;
-      state.errorMessages = errorMessages;
       keys(otherValidationProps).forEach((validationKey: string) => {
         const key = validationKey as keyof Validations;
         state[key] = otherValidationProps[key];
       });
+
+      state.valid = isValid;
+      state.invalid = !isValid;
+      state.errorMessages = errorMessages;
     }
   };
 

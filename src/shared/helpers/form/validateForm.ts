@@ -25,13 +25,14 @@ export const validateFields = ({ fields, validation = {}, updateState = true }: 
         );
 
         if (updateState) {
-          field.state.valid = isValid;
-          field.state.invalid = !isValid;
-          field.state.errorMessages = errorMessages;
           keys(otherValidationProps).forEach((validationKey: string) => {
             const key = validationKey as keyof Validations;
             field.state[key] = otherValidationProps[key];
           });
+
+          field.state.valid = isValid;
+          field.state.invalid = !isValid;
+          field.state.errorMessages = errorMessages;
         }
 
         return isValid;
