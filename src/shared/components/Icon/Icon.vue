@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watchEffect } from 'vue';
+import { ref, watchEffect, onUnmounted } from 'vue';
 
 import type { ObjectType } from '@/shared/files/types';
 import type { Category, Icons } from './types';
@@ -26,16 +26,21 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const svgs = ref<ObjectType>({});
+const mounted = ref(true);
 
 const setIcon = async () => {
   const response = await fetch(`/icons/${props.category}/${props.name}.svg`);
   const svgText = await response.text();
-  svgs.value = { ...svgs.value, [props.name]: svgText };
+  if (mounted.value) svgs.value = { ...svgs.value, [props.name]: svgText };
 };
 
 // LIFECYCLE HOOKS
 watchEffect(() => {
   setIcon();
+});
+
+onUnmounted(() => {
+  mounted.value = false;
 });
 </script>
 
