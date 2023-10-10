@@ -1,10 +1,16 @@
 <template>
-  <figure data-component="icon" :data-category="category" :data-name="name" v-html="svg"></figure>
+  <figure
+    data-component="icon"
+    :data-category="category"
+    :data-name="name"
+    v-html="svgs[name]"
+  ></figure>
 </template>
 
 <script lang="ts" setup>
 import { ref, watchEffect } from 'vue';
 
+import type { ObjectType } from '@/shared/files/types';
 import type { Category, Icons } from './types';
 
 type Props = {
@@ -19,12 +25,12 @@ const props = withDefaults(defineProps<Props>(), {
   size: '100%',
 });
 
-const svg = ref('');
+const svgs = ref<ObjectType>({});
 
 const setIcon = async () => {
   const response = await fetch(`/icons/${props.category}/${props.name}.svg`);
   const svgText = await response.text();
-  svg.value = svgText;
+  svgs.value = { ...svgs.value, [props.name]: svgText };
 };
 
 // LIFECYCLE HOOKS
