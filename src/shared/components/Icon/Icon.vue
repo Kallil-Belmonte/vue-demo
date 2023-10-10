@@ -30,8 +30,10 @@ const mounted = ref(true);
 
 const setIcon = async () => {
   const response = await fetch(`/icons/${props.category}/${props.name}.svg`);
-  const svgText = await response.text();
-  if (mounted.value) svgs.value = { ...svgs.value, [props.name]: svgText };
+  const svgHTML = await response.text();
+  if (mounted.value && !svgs.value[props.name]) {
+    svgs.value = { ...svgs.value, [props.name]: svgHTML };
+  }
 };
 
 // LIFECYCLE HOOKS
