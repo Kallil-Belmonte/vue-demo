@@ -66,7 +66,7 @@ import { reactive, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 
 import type { FormState } from '@/pages/Auth/_files/types';
-import { AUTH_TOKEN_KEY, AUTH_EXPIRATION_DATE_KEY } from '@/shared/files/consts';
+import { AUTH_TOKEN_KEY } from '@/shared/files/consts';
 import { requiredEmail, requiredMin } from '@/shared/files/validations';
 import type { LoginUserPayload } from '@/core/services/auth/types';
 import { clearFormMessage, validateForm } from '@/shared/helpers';
@@ -112,17 +112,12 @@ const submit = async () => {
 
     const user = await loginUser(payload);
 
-    const expirationDate = new Date(
-      new Date().getTime() + Number(user.expiresIn) * 1000,
-    ).toISOString();
-
     if (email.model.value === 'demo@demo.com') {
       state.serverErrors.email.push('This e-mail does not exists.');
       state.serverErrors.password.push('The password is incorrect.');
     } else {
       if (keepLogged.model.value) {
         localStorage.setItem(AUTH_TOKEN_KEY, user.token);
-        localStorage.setItem(AUTH_EXPIRATION_DATE_KEY, expirationDate);
       } else {
         sessionStorage.setItem(AUTH_TOKEN_KEY, user.token);
       }

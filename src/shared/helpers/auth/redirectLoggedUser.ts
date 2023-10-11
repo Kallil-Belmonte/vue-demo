@@ -1,15 +1,16 @@
 import { useRouter } from 'vue-router';
 
-import isExpiredSession from './isExpiredSession';
+import isValidAuthToken from './isValidAuthToken';
 
 /**
  * @function redirectLoggedUser
  */
 
-const redirectLoggedUser = () => {
+const redirectLoggedUser = async () => {
   const router = useRouter();
+  const isLoggedUser = await isValidAuthToken();
 
-  if (!isExpiredSession()) {
+  if (isLoggedUser) {
     router.push('/');
   }
 };

@@ -1,8 +1,8 @@
 import { reactive, computed } from 'vue';
 
-import type { LoginUser } from '@/core/services/auth/types';
+import type { LoggedUser } from '@/core/services/auth/types';
 
-type User = Pick<LoginUser, 'firstName' | 'lastName' | 'email'>;
+type User = Pick<LoggedUser, 'firstName' | 'lastName' | 'email'>;
 
 type AuthState = {
   user: User;

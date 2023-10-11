@@ -1,17 +1,19 @@
 import { RouteLocationNormalized, NavigationGuardNext } from 'vue-router/dist/vue-router.d';
 
-import { clearStorageData, isExpiredSession } from '@/shared/helpers';
+import { clearStorageData, isValidAuthToken } from '@/shared/helpers';
 
-const guard = (
+const guard = async (
   to: RouteLocationNormalized,
   from: RouteLocationNormalized,
   next: NavigationGuardNext,
 ) => {
-  if (isExpiredSession()) {
+  const isValid = await isValidAuthToken();
+
+  if (isValid) {
+    next();
+  } else {
     clearStorageData();
     next({ name: 'login' });
-  } else {
-    next();
   }
 };
 
