@@ -7,8 +7,8 @@ const { keys } = Object;
  * @description Checks if the auth token is valid.
  */
 
-const isValidAuthToken = async () => {
-  const authToken = (await getAuthToken()) as AuthToken | null;
+const isValidAuthToken = () => {
+  const authToken = getAuthToken() as AuthToken | null;
   if (!authToken) return false;
 
   const { iss, exp } = authToken;

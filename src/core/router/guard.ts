@@ -7,7 +7,7 @@ const guard = async (
   from: RouteLocationNormalized,
   next: NavigationGuardNext,
 ) => {
-  const isValid = await isValidAuthToken();
+  const isValid = isValidAuthToken();
 
   if (isValid) {
     next();
