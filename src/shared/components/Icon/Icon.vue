@@ -1,10 +1,16 @@
 <template>
-  <figure data-component="icon" :data-category="category" :data-name="name" v-html="svg"></figure>
+  <figure
+    data-component="icon"
+    :data-category="category"
+    :data-name="name"
+    v-html="svgs[name]"
+  ></figure>
 </template>
 
 <script lang="ts" setup>
 import { ref, watchEffect, onUnmounted } from 'vue';
 
+import type { ObjectType } from '@/shared/files/types';
 import { PROJECT_DOMAIN } from '@/shared/files/consts';
 import type { Category, Icons } from './types';
 
@@ -20,25 +26,32 @@ const props = withDefaults(defineProps<Props>(), {
   size: '100%',
 });
 
-const svg = ref('');
+const svgs = ref<ObjectType>({});
 const mounted = ref(true);
 
 const setIcon = async () => {
-  const module = await import(`./icons/${props.category}/${props.name}.svg`);
-  const request = new Request(module.default);
-  const cache = await caches.open(`${PROJECT_DOMAIN}-icons`);
-  let response = await cache.match(request);
+  const request = new Request(`/icons/${props.category}/${props.name}.svg`);
   let svgHTML = '';
 
-  if (response) {
+  if ('caches' in window) {
+    const cache = await caches.open(`${PROJECT_DOMAIN}-icons`);
+    let response = await cache.match(request);
+
+    if (response) {
+      svgHTML = await response.text();
+    } else {
+      await cache.add(request);
+      response = await cache.match(request);
+      svgHTML = (await response?.text()) || '';
+    }
+  } else if (!svgs.value[props.name]) {
+    const response = await fetch(request);
     svgHTML = await response.text();
-  } else {
-    await cache.add(request);
-    response = await cache.match(request);
-    svgHTML = (await response?.text()) || '';
   }
 
-  if (mounted) svg.value = svgHTML;
+  if (svgHTML && mounted.value) {
+    svgs.value = { ...svgs.value, [props.name]: svgHTML };
+  }
 };
 
 // LIFECYCLE HOOKS
