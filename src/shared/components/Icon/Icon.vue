@@ -5,6 +5,7 @@
 <script lang="ts" setup>
 import { ref, watchEffect, onUnmounted } from 'vue';
 
+import { PROJECT_DOMAIN } from '@/shared/files/consts';
 import type { Category, Icons } from './types';
 
 type Props = {
@@ -23,9 +24,9 @@ const svg = ref('');
 const mounted = ref(true);
 
 const setIcon = async () => {
-  const module = await import(`/icons/${props.category}/${props.name}.svg`);
+  const module = await import(`./icons/${props.category}/${props.name}.svg`);
   const request = new Request(module.default);
-  const cache = await caches.open('vue-demo-icons');
+  const cache = await caches.open(`${PROJECT_DOMAIN}-icons`);
   let response = await cache.match(request);
   let svgHTML = '';
 
