@@ -37,13 +37,12 @@ const setIcon = async () => {
     const cache = await caches.open(`${PROJECT_DOMAIN}-icons`);
     let response = await cache.match(request);
 
-    if (response) {
-      svgHTML = await response.text();
-    } else {
+    if (!response) {
       await cache.add(request);
       response = await cache.match(request);
-      svgHTML = (await response?.text()) || '';
     }
+
+    svgHTML = (await response?.text()) || '';
   } else if (!svgs.value[props.name]) {
     const response = await fetch(request);
     svgHTML = await response.text();
