@@ -1,4 +1,4 @@
-import { Ref, UnwrapRef, reactive, ref, watch, onMounted } from 'vue';
+import { type Ref, type UnwrapRef, reactive, ref, watch, onMounted } from 'vue';
 
 import { ValidationConfig, Validations, validate } from '@/shared/helpers';
 
