@@ -20,7 +20,7 @@ export const validateFields = ({ fields, validation = {}, updateState = true }: 
     isValidFields = fields
       .map(field => {
         const { isValid, errorMessages, ...otherValidationProps } = validate(
-          field.model.value,
+          field.ref.value.value,
           validation,
         );
 
