@@ -1,9 +1,5 @@
 import { type UseField, getFieldState } from '@/shared/composables';
 
-/**
- * @function setFields
- */
-
 type Value = string | number | boolean;
 
 type Config = {
@@ -13,6 +9,10 @@ type Config = {
 };
 
 const { assign } = Object;
+
+/**
+ * @function setFields
+ */
 
 const setFields = ({ fields, value, reset }: Config) => {
   const { required } = reset || {};
