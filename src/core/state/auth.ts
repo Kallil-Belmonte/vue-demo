@@ -1,33 +1,25 @@
-import { reactive, computed } from 'vue';
+import { ref, computed } from 'vue';
 
 import type { LoggedUser } from '@/core/services/auth/types';
 
 type User = Pick<LoggedUser, 'firstName' | 'lastName' | 'email'>;
 
-type AuthState = {
-  user: User;
-};
-
 // STATE
-const initialState: AuthState = {
-  user: {
-    firstName: '',
-    lastName: '',
-    email: '',
-  },
+const initialUser: User = {
+  firstName: '',
+  lastName: '',
+  email: '',
 };
-
-const state = reactive(initialState);
+export const user = ref<User>(initialUser);
 
 // PROPERTIES
-export const user = computed(() => state.user);
-export const fullName = computed(() => `${state.user.firstName} ${state.user.lastName}`);
+export const fullName = computed(() => `${user.value.firstName} ${user.value.lastName}`);
 
 // ACTIONS
-export const setUser = (user: AuthState['user']) => {
-  state.user = user;
+export const setUser = (userParam: User) => {
+  user.value = userParam;
 };
 
 export const resetUser = () => {
-  state.user = initialState.user;
+  user.value = initialUser;
 };

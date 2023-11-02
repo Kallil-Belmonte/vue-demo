@@ -16,12 +16,11 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs, computed, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 
 import { useRouter, useRoute } from 'vue-router';
 
 import type { Post } from '@/core/services/news/types';
-import type { EditPostFormState } from '@/pages/News/EditPost/_files/types';
 import { requiredMin } from '@/shared/files/validations';
 import { validateForm } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
@@ -32,13 +31,8 @@ import { Loader, Input } from '@/shared/components';
 const router = useRouter();
 const route = useRoute();
 
-const initialState: EditPostFormState = {
-  loading: true,
-  formSubmitted: false,
-};
-
-const state = reactive(initialState);
-const { loading, formSubmitted } = toRefs(state);
+const loading = ref(true);
+const formSubmitted = ref(false);
 
 const title = useField({ name: 'title', validation: requiredMin(2) });
 const body = useField({ name: 'body', validation: requiredMin(2) });
@@ -56,17 +50,17 @@ const getCurrentPost = async () => {
   } catch (error) {
     console.error(error);
   } finally {
-    state.loading = false;
+    loading.value = false;
   }
 };
 
 const submit = async () => {
-  state.formSubmitted = true;
+  formSubmitted.value = true;
 
   const isValidForm = validateForm([{ fields: [title, body], validation: requiredMin(2) }]);
   if (!isValidForm) return;
 
-  state.loading = true;
+  loading.value = true;
 
   try {
     const payload: Post = {
@@ -78,11 +72,11 @@ const submit = async () => {
 
     await editPost(payload);
     setCurrentPost(payload);
-    state.loading = false;
+    loading.value = false;
     router.push({ name: 'post', params: { id: payload.id } });
   } catch (error) {
     console.error(error);
-    state.loading = false;
+    loading.value = false;
   }
 };
 

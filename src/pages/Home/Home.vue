@@ -7,38 +7,33 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 
-import type { HomeState } from '@/pages/Home/_files/types';
+import type { Post } from '@/core/services/news/types';
 import { posts, setPosts } from '@/core/state/news';
 import { getPosts } from '@/core/services';
 import { Loader } from '@/shared/components';
 import FeaturedPosts from './FeaturedPosts/FeaturedPosts.vue';
 
-const initialState: HomeState = {
-  loading: false,
-  featuredPosts: [],
-};
-
-const state = reactive(initialState);
-const { loading, featuredPosts } = toRefs(state);
+const loading = ref(false);
+const featuredPosts = ref<Post[]>([]);
 
 const getFeaturedPosts = async () => {
   if (posts.value.length) {
     const [firstPost, secondPost, thirdPost] = posts.value;
-    state.featuredPosts = [firstPost, secondPost, thirdPost];
+    featuredPosts.value = [firstPost, secondPost, thirdPost];
   } else {
-    state.loading = true;
+    loading.value = true;
 
     try {
       const posts = await getPosts();
       const [firstPost, secondPost, thirdPost] = posts;
-      state.featuredPosts = [firstPost, secondPost, thirdPost];
+      featuredPosts.value = [firstPost, secondPost, thirdPost];
       setPosts(posts);
     } catch (error) {
       console.error(error);
     } finally {
-      state.loading = false;
+      loading.value = false;
     }
   }
 };

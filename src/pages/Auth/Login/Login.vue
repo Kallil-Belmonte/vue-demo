@@ -61,11 +61,10 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs } from 'vue';
+import { ref } from 'vue';
 
 import { useRouter } from 'vue-router';
 
-import type { FormState } from '@/pages/Auth/_files/types';
 import { AUTH_TOKEN_KEY } from '@/shared/files/consts';
 import { requiredEmail, requiredMin } from '@/shared/files/validations';
 import type { LoginUserPayload } from '@/core/services/auth/types';
@@ -76,23 +75,22 @@ import { setUser } from '@/core/state/auth';
 import { AlertDismissible, Loader, Input, Checkbox } from '@/shared/components';
 import Auth from '../Auth.vue';
 
+const loading = ref(false);
+const formSubmitted = ref(false);
+const serverErrors = ref<{ email: string[]; password: string[]; request: string[] }>({
+  email: [],
+  password: [],
+  request: [],
+});
+
 const router = useRouter();
-
-const initialState: FormState = {
-  loading: false,
-  formSubmitted: false,
-  serverErrors: { email: [], password: [], request: [] },
-};
-
-const state = reactive(initialState);
-const { loading, formSubmitted, serverErrors } = toRefs(state);
 
 const email = useField({ name: 'email', validation: requiredEmail });
 const password = useField({ name: 'password', validation: requiredMin(3) });
 const keepLogged = useField<boolean>({ name: 'keep-logged' });
 
 const submit = async () => {
-  state.formSubmitted = true;
+  formSubmitted.value = true;
 
   const isValidForm = validateForm([
     { fields: [email], validation: requiredEmail },
@@ -100,8 +98,8 @@ const submit = async () => {
   ]);
   if (!isValidForm) return;
 
-  state.loading = true;
-  state.serverErrors = { email: [], password: [], request: [] };
+  loading.value = true;
+  serverErrors.value = { email: [], password: [], request: [] };
 
   try {
     const payload: LoginUserPayload = {
@@ -113,8 +111,8 @@ const submit = async () => {
     const user = await loginUser(payload);
 
     if (email.model.value === 'demo@demo.com') {
-      state.serverErrors.email.push('This e-mail does not exists.');
-      state.serverErrors.password.push('The password is incorrect.');
+      serverErrors.value.email.push('This e-mail does not exists.');
+      serverErrors.value.password.push('The password is incorrect.');
     } else {
       if (keepLogged.model.value) {
         localStorage.setItem(AUTH_TOKEN_KEY, user.token);
@@ -126,8 +124,8 @@ const submit = async () => {
       router.push({ name: 'home' });
     }
   } catch (error: any) {
-    state.serverErrors.request.push(error.message);
-    state.loading = false;
+    serverErrors.value.request.push(error.message);
+    loading.value = false;
   }
 };
 </script>

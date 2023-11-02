@@ -17,30 +17,24 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue';
+import { ref } from 'vue';
 
 import type { Category } from '@/core/services/news/types';
-import type { CategoriesState } from '@/pages/News/Blog/_files/types';
 
-export type Props = {
+type Props = {
   categories: Category[];
 };
 
-const props = withDefaults<Props, any>(defineProps<Props>(), {
-  categories: [],
-});
+const props = defineProps<Props>();
+
 const emit = defineEmits(['selectCategory']);
 
-const initialState: CategoriesState = {
-  activeCategory: '',
-};
+const activeCategory = ref<Category['name']>();
 
-const state = reactive(initialState);
-
-const isActive = (category: Category['name']) => state.activeCategory === category;
+const isActive = (category: Category['name']) => activeCategory.value === category;
 
 const select = (category: Category['name']) => {
-  state.activeCategory = category === state.activeCategory ? '' : category;
+  activeCategory.value = category === activeCategory.value ? '' : category;
   emit('selectCategory', category);
 };
 </script>

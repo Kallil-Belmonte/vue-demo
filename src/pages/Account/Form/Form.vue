@@ -54,23 +54,17 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs, computed, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 
-import type { AccountFormState } from '@/pages/Account/_files/types';
 import { requiredEmail, requiredMin } from '@/shared/files/validations';
 import { clearFormMessage, validateForm } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { user, setUser } from '@/core/state/auth';
 import { AlertDismissible, Input } from '@/shared/components';
 
-const initialState: AccountFormState = {
-  formSubmitted: false,
-  successMessages: [],
-  serverErrors: { email: [], request: [] },
-};
-
-const state = reactive(initialState);
-const { formSubmitted, successMessages, serverErrors } = toRefs(state);
+const formSubmitted = ref(false);
+const successMessages = ref<string[]>([]);
+const serverErrors = ref<{ email: string[]; request: string[] }>({ email: [], request: [] });
 
 const firstName = useField({ name: 'first-name', validation: requiredMin(2) });
 const lastName = useField({ name: 'last-name', validation: requiredMin(2) });
@@ -83,7 +77,7 @@ const setFormData = () => {
 };
 
 const submit = async () => {
-  state.formSubmitted = true;
+  formSubmitted.value = true;
 
   const isValidForm = validateForm([
     { fields: [firstName, lastName], validation: requiredMin(2) },
@@ -91,13 +85,13 @@ const submit = async () => {
   ]);
   if (!isValidForm) return;
 
-  state.successMessages = [];
-  state.serverErrors = { email: [], request: [] };
+  successMessages.value = [];
+  serverErrors.value = { email: [], request: [] };
 
   if (email.model.value === 'john.doe@email.com') {
-    state.serverErrors.email.push('This e-mail already exists.');
+    serverErrors.value.email.push('This e-mail already exists.');
   } else if (email.model.value === 'demo@demo.com') {
-    state.serverErrors.request.push('An error occurred, please try again later.');
+    serverErrors.value.request.push('An error occurred, please try again later.');
   } else {
     setUser({
       firstName: firstName.model.value,
@@ -105,7 +99,7 @@ const submit = async () => {
       email: email.model.value,
     });
 
-    state.successMessages.push('Account saved successfully.');
+    successMessages.value.push('Account saved successfully.');
   }
 };
 

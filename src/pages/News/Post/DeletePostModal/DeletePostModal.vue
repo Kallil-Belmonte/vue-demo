@@ -26,26 +26,19 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive, toRefs, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 
 import { useRouter, useRoute } from 'vue-router';
 import { Modal } from 'bootstrap';
 
-import type { DeletePostModalState } from '@/pages/News/Post/_files/types';
 import { deletePost } from '@/core/services';
 import { Loader } from '@/shared/components';
 
+const modalRef = ref();
+const loading = ref(false);
+
 const router = useRouter();
 const route = useRoute();
-
-const modalRef = ref();
-
-const initialState: DeletePostModalState = {
-  loading: false,
-};
-
-const state = reactive(initialState);
-const { loading } = toRefs(state);
 
 const setUpModal = () => {
   modalRef.value = new Modal(modalRef.value);
@@ -53,14 +46,14 @@ const setUpModal = () => {
 
 const confirmDeletePost = async () => {
   modalRef.value.hide();
-  state.loading = true;
+  loading.value = true;
 
   try {
     await deletePost(String(route.params.id));
     router.push({ name: 'blog' });
   } catch (error) {
     console.error(error);
-    state.loading = false;
+    loading.value = false;
   }
 };
 

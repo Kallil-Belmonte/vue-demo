@@ -15,11 +15,10 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 
 import { useRoute } from 'vue-router';
 
-import type { PostState } from '@/pages/News/Post/_files/types';
 import { currentPost, setCurrentPost } from '@/core/state/news';
 import { getPost } from '@/core/services';
 import { Loader } from '@/shared/components';
@@ -28,12 +27,7 @@ import DeletePostModal from './DeletePostModal/DeletePostModal.vue';
 
 const route = useRoute();
 
-const initialState: PostState = {
-  loading: true,
-};
-
-const state = reactive(initialState);
-const { loading } = toRefs(state);
+const loading = ref(true);
 
 const getCurrentPost = async () => {
   try {
@@ -42,7 +36,7 @@ const getCurrentPost = async () => {
   } catch (error) {
     console.error(error);
   } finally {
-    state.loading = false;
+    loading.value = false;
   }
 };
 

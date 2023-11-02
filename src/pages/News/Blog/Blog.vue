@@ -31,10 +31,9 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 
 import type { Category, Post } from '@/core/services/news/types';
-import type { BlogState } from '@/pages/News/Blog/_files/types';
 import { groupArrayItemsInArrays } from '@/shared/helpers';
 import { categories, posts, setCategories, setPosts } from '@/core/state/news';
 import { getCategories, getPosts } from '@/core/services';
@@ -44,31 +43,27 @@ import Posts from './Posts/Posts.vue';
 import Pagination from './Pagination/Pagination.vue';
 import Categories from './Categories/Categories.vue';
 
-const initialState: BlogState = {
-  loading: true,
-  pages: {},
-  postsPerPage: 9,
-  firstPaginationItem: 1,
-  maxPaginationItem: 5,
-  currentPage: 1,
-};
+type Pages = { [key: string]: Post[] };
 
-const state = reactive(initialState);
-const { loading, pages, postsPerPage, firstPaginationItem, maxPaginationItem, currentPage } =
-  toRefs(state);
+const loading = ref(true);
+const pages = ref<Pages>({});
+const postsPerPage = ref(9);
+const firstPaginationItem = ref(1);
+const maxPaginationItem = ref(5);
+const currentPage = ref(1);
 
 const setPaginationSettings = (posts: Post[], quantPostsPerPage = 9) => {
-  const pages: BlogState['pages'] = {};
+  const pagesResult: Pages = {};
 
-  groupArrayItemsInArrays(posts, quantPostsPerPage).forEach((item, index) => {
-    pages[index + 1] = item;
+  groupArrayItemsInArrays(posts, quantPostsPerPage).forEach((item: Post[], index) => {
+    pagesResult[index + 1] = item;
   });
 
-  state.pages = pages;
-  state.postsPerPage = quantPostsPerPage;
-  state.firstPaginationItem = 1;
-  state.maxPaginationItem = 5;
-  state.currentPage = 1;
+  pages.value = pagesResult;
+  postsPerPage.value = quantPostsPerPage;
+  firstPaginationItem.value = 1;
+  maxPaginationItem.value = 5;
+  currentPage.value = 1;
 };
 
 const getAllData = async () => {
@@ -85,14 +80,15 @@ const getAllData = async () => {
 
     setPaginationSettings(posts.value);
   } catch (error) {
+    console.log('AQUI');
     console.error(error);
   } finally {
-    state.loading = false;
+    loading.value = false;
   }
 };
 
 const selectCategory = async (category: Category['name']) => {
-  state.loading = true;
+  loading.value = true;
 
   try {
     const response = await getPosts();
@@ -101,22 +97,22 @@ const selectCategory = async (category: Category['name']) => {
   } catch (error) {
     console.error(error);
   } finally {
-    state.loading = false;
+    loading.value = false;
   }
 };
 
 const paginate = (target: string) => {
   switch (target) {
     case 'previous':
-      state.firstPaginationItem = --state.firstPaginationItem;
+      firstPaginationItem.value = --firstPaginationItem.value;
       break;
 
     case 'next':
-      state.firstPaginationItem = ++state.firstPaginationItem;
+      firstPaginationItem.value = ++firstPaginationItem.value;
       break;
 
     default:
-      state.currentPage = Number(target);
+      currentPage.value = Number(target);
   }
 };
 

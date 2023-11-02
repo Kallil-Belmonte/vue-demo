@@ -60,7 +60,7 @@
             :key="favoriteColor.value"
             :value="favoriteColor.value"
           >
-            {{ favoriteColor.value }}
+            {{ favoriteColor.text }}
           </option>
         </Select>
       </div>
@@ -87,9 +87,9 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 
-import type { ContactFormState } from '@/pages/Contact/_files/types';
+import type { FavoriteColors } from '@/core/services/contact/types';
 import { required, requiredEmail, requiredSelect, requiredMin } from '@/shared/files/validations';
 import { clearFormMessage, validateForm, setFields } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
@@ -104,15 +104,10 @@ import {
   Textarea,
 } from '@/shared/components';
 
-const initialState: ContactFormState = {
-  loading: true,
-  formSubmitted: false,
-  favoriteColors: [],
-  successMessages: [],
-};
-
-const state = reactive(initialState);
-const { loading, formSubmitted, favoriteColors, successMessages } = toRefs(state);
+const loading = ref(true);
+const formSubmitted = ref(false);
+const favoriteColors = ref<FavoriteColors[]>([]);
+const successMessages = ref<string[]>([]);
 
 const firstName = useField({ name: 'first-name', validation: requiredMin(2) });
 const lastName = useField({ name: 'last-name', validation: requiredMin(2) });
@@ -131,16 +126,16 @@ const message = useField({ name: 'message', validation: required });
 const setFavoriteColors = async () => {
   try {
     const response = await getFavoriteColors();
-    state.favoriteColors = response;
+    favoriteColors.value = response;
   } catch (error) {
     console.error(error);
   } finally {
-    state.loading = false;
+    loading.value = false;
   }
 };
 
 const reset = () => {
-  state.formSubmitted = false;
+  formSubmitted.value = false;
 
   setFields({
     fields: [firstName, lastName, email, telephone, sex, message],
@@ -160,7 +155,7 @@ const reset = () => {
 };
 
 const submit = async () => {
-  state.formSubmitted = true;
+  formSubmitted.value = true;
 
   const isValidForm = validateForm([
     { fields: [firstName, lastName], validation: requiredMin(2) },
@@ -182,7 +177,7 @@ const submit = async () => {
     message: message.model.value,
   });
 
-  state.successMessages.push('Message sent successfully.');
+  successMessages.value.push('Message sent successfully.');
 
   reset();
 };

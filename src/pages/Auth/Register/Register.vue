@@ -59,11 +59,10 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs } from 'vue';
+import { ref } from 'vue';
 
 import { useRouter } from 'vue-router';
 
-import type { FormState } from '@/pages/Auth/_files/types';
 import type { RegisterUserPayload } from '@/core/services/auth/types';
 import { AUTH_TOKEN_KEY } from '@/shared/files/consts';
 import { requiredEmail, requiredMin } from '@/shared/files/validations';
@@ -74,16 +73,15 @@ import { setUser } from '@/core/state/auth';
 import { AlertDismissible, Loader, Input } from '@/shared/components';
 import Auth from '../Auth.vue';
 
+const loading = ref(false);
+const formSubmitted = ref(false);
+const serverErrors = ref<{ email: string[]; password: string[]; request: string[] }>({
+  email: [],
+  password: [],
+  request: [],
+});
+
 const router = useRouter();
-
-const initialState: FormState = {
-  loading: false,
-  formSubmitted: false,
-  serverErrors: { email: [], password: [], request: [] },
-};
-
-const state = reactive(initialState);
-const { loading, formSubmitted, serverErrors } = toRefs(state);
 
 const firstName = useField({ name: 'first-name', validation: requiredMin(2) });
 const lastName = useField({ name: 'last-name', validation: requiredMin(2) });
@@ -91,7 +89,7 @@ const email = useField({ name: 'email', validation: requiredEmail });
 const password = useField({ name: 'password', validation: requiredMin(3) });
 
 const submit = async () => {
-  state.formSubmitted = true;
+  formSubmitted.value = true;
 
   const isValidForm = validateForm([
     { fields: [firstName, lastName], validation: requiredMin(2) },
@@ -100,8 +98,8 @@ const submit = async () => {
   ]);
   if (!isValidForm) return;
 
-  state.loading = true;
-  state.serverErrors = { email: [], password: [], request: [] };
+  loading.value = true;
+  serverErrors.value = { email: [], password: [], request: [] };
 
   try {
     const payload: RegisterUserPayload = {
@@ -114,16 +112,16 @@ const submit = async () => {
     const user = await registerUser(payload);
 
     if (email.model.value === 'demo@demo.com') {
-      state.serverErrors.email.push('This e-mail already exists.');
-      state.serverErrors.password.push('Your password is too weak.');
+      serverErrors.value.email.push('This e-mail already exists.');
+      serverErrors.value.password.push('Your password is too weak.');
     } else {
       sessionStorage.setItem(AUTH_TOKEN_KEY, user.token);
       setUser({ firstName: user.firstName, lastName: user.lastName, email: user.email });
       router.push({ name: 'home' });
     }
   } catch (error: any) {
-    state.serverErrors.request.push(error.message);
-    state.loading = false;
+    serverErrors.value.request.push(error.message);
+    loading.value = false;
   }
 };
 </script>
