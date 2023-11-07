@@ -30,6 +30,7 @@ export type UseField<Value = any> = {
   model: Ref<UnwrapRef<Value>>;
   ref: Ref<any>;
   state: FieldState;
+  validation: ValidationConfig;
 };
 
 const { keys } = Object;
@@ -103,7 +104,7 @@ const useField = <Value = string>(config: UseFieldConfig<Value>): UseField<Value
     controlTouching();
   });
 
-  return { model, ref: fieldRef, state };
+  return { model, ref: fieldRef, state, validation };
 };
 
 export default useField;
