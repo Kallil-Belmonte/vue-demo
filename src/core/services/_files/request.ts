@@ -3,6 +3,8 @@ import { MOCKY_API, JSON_PLACEHOLDER_API } from '@/core/services/_files/endpoint
 
 type API = 'mocky' | 'jsonPlaceholder';
 
+const HEADERS = { 'Content-Type': 'application/json' };
+
 const request = async <Type>(
   url: RequestInfo | URL,
   init: RequestInit | undefined = { method: 'GET' },
@@ -14,7 +16,10 @@ const request = async <Type>(
       jsonPlaceholder: JSON_PLACEHOLDER_API,
     };
     const authToken = getAuthToken();
-    const requestInit = { ...init, Authorization: `Bearer ${authToken}` };
+    const requestInit = {
+      ...init,
+      headers: { ...HEADERS, Authorization: `Bearer ${authToken}` },
+    };
     const response = await fetch(`${apis[api]}/${url}`, requestInit);
     return await response.json();
   } catch (error: any) {
