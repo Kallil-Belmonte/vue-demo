@@ -3,6 +3,8 @@ import { MOCKY_API, JSON_PLACEHOLDER_API } from '@/core/services/_files/endpoint
 
 type API = 'mocky' | 'jsonPlaceholder';
 
+const { stringify } = JSON;
+
 const HEADERS = { 'Content-Type': 'application/json' };
 
 const request = async <Type>(
@@ -21,7 +23,9 @@ const request = async <Type>(
       headers: { ...HEADERS, Authorization: `Bearer ${authToken}` },
     };
     const response = await fetch(`${apis[api]}/${url}`, requestInit);
-    return await response.json();
+    const jsonResponse: Type = await response.json();
+    if (!response.ok) throw new Error(stringify(jsonResponse));
+    return jsonResponse;
   } catch (error: any) {
     throw error;
   }
