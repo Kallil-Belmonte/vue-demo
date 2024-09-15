@@ -1,5 +1,12 @@
+# Logs
+logs
+*.log
+
+# Editor directories and files
 node_modules
-.DS_Store
 dist
 dist-ssr
+.vscode/*
+!.vscode/extensions.json
 *.local
+.DS_Store
