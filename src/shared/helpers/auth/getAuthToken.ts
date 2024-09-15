@@ -1,4 +1,4 @@
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 import { AUTH_TOKEN_KEY } from '@/shared/files/consts';
 

@@ -5,7 +5,7 @@
       :id="state.name"
       :class="[
         ...getFieldClass(formSubmitted, state, ['form-check-input']),
-        ...(className || '').split(' '),
+        ...className.split(' '),
       ]"
       type="checkbox"
       :name="state.name"
