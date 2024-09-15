@@ -24,7 +24,7 @@
 <script lang="ts" setup>
 import type { Post } from '@/core/services/news/types';
 
-export type Props = {
+type Props = {
   post: Post;
 };
 

@@ -26,7 +26,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-export type Props = {
+type Props = {
   pages: string[];
   firstItem: number;
   maxItem: number;

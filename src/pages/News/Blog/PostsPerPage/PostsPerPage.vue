@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts" setup>
-export type Props = {
+type Props = {
   postsPerPage: number;
 };
 

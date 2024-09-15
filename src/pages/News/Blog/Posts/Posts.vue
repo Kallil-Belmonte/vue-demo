@@ -12,7 +12,7 @@
 import type { Post } from '@/core/services/news/types';
 import { PostItem } from '@/shared/components';
 
-export type Props = {
+type Props = {
   currentPage: number;
   pages: { [key: string]: Post[] };
 };
