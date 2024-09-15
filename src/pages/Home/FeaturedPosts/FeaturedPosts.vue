@@ -20,5 +20,5 @@ type Props = {
   posts: Post[];
 };
 
-const props = defineProps<Props>();
+const { posts } = defineProps<Props>();
 </script>

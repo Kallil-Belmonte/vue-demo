@@ -25,9 +25,11 @@ type Props = {
   categories: Category[];
 };
 
-const props = defineProps<Props>();
+const { categories } = defineProps<Props>();
 
-const emit = defineEmits(['selectCategory']);
+const emit = defineEmits<{
+  (event: 'selectCategory', category: string): void;
+}>();
 
 const activeCategory = ref<Category['name']>();
 

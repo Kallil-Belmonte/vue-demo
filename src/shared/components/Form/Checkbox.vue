@@ -5,7 +5,7 @@
       :id="state.name"
       :class="[
         ...getFieldClass(formSubmitted, state, ['form-check-input']),
-        ...props.class.split(' '),
+        ...(className || '').split(' '),
       ]"
       type="checkbox"
       :name="state.name"
@@ -27,17 +27,21 @@ import { UseField } from '@/shared/composables';
 type Props = {
   labelClass?: string;
   label: string;
-  class?: string;
+  className?: string;
   trueValue: string | number | boolean;
   falseValue: string | number | boolean;
   field: UseField<any>;
   formSubmitted: boolean;
 };
 
-const props = withDefaults(defineProps<Props>(), {
-  labelClass: 'form-check-label',
-  class: '',
-});
-const { field } = props;
+const {
+  labelClass = 'form-check-label',
+  label,
+  className = '',
+  trueValue,
+  falseValue,
+  field,
+  formSubmitted,
+} = defineProps<Props>();
 const { model, ref: fieldRef, state } = field;
 </script>

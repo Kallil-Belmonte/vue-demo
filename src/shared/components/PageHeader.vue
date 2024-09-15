@@ -16,7 +16,7 @@ type Props = {
   icon?: Icons;
 };
 
-const props = defineProps<Props>();
+const { icon } = defineProps<Props>();
 </script>
 
 <style lang="scss">

@@ -24,8 +24,11 @@ export type Props = {
   postsPerPage: number;
 };
 
-const props = defineProps<Props>();
-const emit = defineEmits(['change']);
+const { postsPerPage } = defineProps<Props>();
+
+const emit = defineEmits<{
+  (event: 'change', value: number): void;
+}>();
 </script>
 
 <style lang="scss">

@@ -8,7 +8,7 @@
       :id="radio.value"
       :class="[
         ...getFieldClass(formSubmitted, state, ['form-check-input']),
-        ...props.class.split(' '),
+        ...className.split(' '),
       ]"
       type="radio"
       :name="state.name"
@@ -27,16 +27,18 @@ import { UseField } from '@/shared/composables';
 
 type Props = {
   labelClass?: string;
-  class?: string;
+  className?: string;
   field: UseField<any>;
   radios: { label: string; value: string }[];
   formSubmitted: boolean;
 };
 
-const props = withDefaults(defineProps<Props>(), {
-  labelClass: 'form-check-label',
-  class: '',
-});
-const { field } = props;
+const {
+  labelClass = 'form-check-label',
+  className = '',
+  field,
+  radios,
+  formSubmitted,
+} = defineProps<Props>();
 const { model, state } = field;
 </script>

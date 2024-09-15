@@ -28,11 +28,18 @@ type Props = {
   formSubmitted: boolean;
 };
 
-const props = withDefaults(defineProps<Props>(), {
-  labelClass: 'form-label',
-  class: '',
-  type: 'text',
-});
-const { field } = props;
+const {
+  labelClass = 'form-label',
+  label,
+  fieldClasses,
+  type = 'text',
+  placeholder,
+  field,
+  formSubmitted,
+} = defineProps<Props>();
 const { model, ref: fieldRef, state } = field;
+
+const emit = defineEmits<{
+  (event: 'paginate', target: string): void;
+}>();
 </script>

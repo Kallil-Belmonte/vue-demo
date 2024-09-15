@@ -2,7 +2,7 @@
   <label :class="labelClass" :for="state.name">{{ label }}</label>
   <select
     :id="state.name"
-    :class="[...getFieldClass(formSubmitted, state, ['form-select']), ...props.class.split(' ')]"
+    :class="[...getFieldClass(formSubmitted, state, ['form-select']), ...className.split(' ')]"
     :name="state.name"
     v-model="model"
     ref="fieldRef"
@@ -21,15 +21,17 @@ import { UseField } from '@/shared/composables';
 type Props = {
   labelClass?: string;
   label: string;
-  class?: string;
+  className?: string;
   field: UseField<any>;
   formSubmitted: boolean;
 };
 
-const props = withDefaults(defineProps<Props>(), {
-  labelClass: 'form-label',
-  class: '',
-});
-const { field } = props;
+const {
+  labelClass = 'form-label',
+  label,
+  className = '',
+  field,
+  formSubmitted,
+} = defineProps<Props>();
 const { model, ref: fieldRef, state } = field;
 </script>

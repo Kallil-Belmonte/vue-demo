@@ -26,11 +26,13 @@ type Props = {
   formSubmitted: boolean;
 };
 
-const props = withDefaults(defineProps<Props>(), {
-  labelClass: 'form-label',
-  class: '',
-  rows: '3',
-});
-const { field } = props;
+const {
+  labelClass = 'form-label',
+  label,
+  fieldClasses,
+  rows = '3',
+  field,
+  formSubmitted,
+} = defineProps<Props>();
 const { model, ref: fieldRef, state } = field;
 </script>

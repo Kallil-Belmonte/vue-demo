@@ -21,16 +21,13 @@ type Props = {
   color?: string;
 };
 
-const props = withDefaults(defineProps<Props>(), {
-  category: 'UI',
-  size: '100%',
-});
+const { category = 'UI', name, size = '100%', color } = defineProps<Props>();
 
 const svgs = ref<ObjectType>({});
 const mounted = ref(true);
 
 const setIcon = async () => {
-  const request = new Request(`/icons/${props.category}/${props.name}.svg`);
+  const request = new Request(`/icons/${category}/${name}.svg`);
   let svgHTML = '';
 
   if ('caches' in window) {
@@ -43,13 +40,13 @@ const setIcon = async () => {
     }
 
     svgHTML = (await response?.text()) || '';
-  } else if (!svgs.value[props.name]) {
+  } else if (!svgs.value[name]) {
     const response = await fetch(request);
     svgHTML = await response.text();
   }
 
   if (svgHTML && mounted.value) {
-    svgs.value = { ...svgs.value, [props.name]: svgHTML };
+    svgs.value = { ...svgs.value, [name]: svgHTML };
   }
 };
 

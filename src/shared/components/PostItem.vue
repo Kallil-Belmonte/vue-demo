@@ -21,7 +21,7 @@ type Props = {
   post: Post;
 };
 
-const props = defineProps<Props>();
+const { post } = defineProps<Props>();
 </script>
 
 <style lang="scss">

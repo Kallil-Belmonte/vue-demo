@@ -17,5 +17,5 @@ export type Props = {
   pages: { [key: string]: Post[] };
 };
 
-const props = defineProps<Props>();
+const { currentPage, pages } = defineProps<Props>();
 </script>

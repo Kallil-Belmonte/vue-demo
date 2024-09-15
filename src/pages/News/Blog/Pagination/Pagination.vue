@@ -33,15 +33,15 @@ export type Props = {
   currentPage: number;
 };
 
-const props = withDefaults<Props, any>(defineProps<Props>(), {
-  pages: [],
-  firstItem: 1,
-});
-const emit = defineEmits(['paginate']);
+const { pages = [], firstItem = 1, maxItem, currentPage } = defineProps<Props>();
 
-const startPages = computed(() => props.firstItem - 1);
-const endPages = computed(() => startPages.value + props.maxItem);
-const pageItems = computed(() => props.pages.slice(startPages.value, endPages.value));
+const emit = defineEmits<{
+  (event: 'paginate', target: string): void;
+}>();
 
-const isItemActive = (page: string | number) => Number(page) === props.currentPage;
+const startPages = computed(() => firstItem - 1);
+const endPages = computed(() => startPages.value + maxItem);
+const pageItems = computed(() => pages.slice(startPages.value, endPages.value));
+
+const isItemActive = (page: string | number) => Number(page) === currentPage;
 </script>

@@ -18,8 +18,11 @@ type Props = {
   variant: BootstrapVariants;
 };
 
-const props = defineProps<Props>();
-const emit = defineEmits(['dismiss']);
+const { variant } = defineProps<Props>();
+
+const emit = defineEmits<{
+  (event: 'dismiss'): void;
+}>();
 </script>
 
 <style lang="scss">
