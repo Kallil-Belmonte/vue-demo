@@ -28,6 +28,10 @@ type Props = {
   formSubmitted: boolean;
 };
 
+type Emits = {
+  (event: 'paginate', target: string): void;
+};
+
 const {
   labelClass = 'form-label',
   label,
@@ -39,7 +43,5 @@ const {
 } = defineProps<Props>();
 const { model, ref: fieldRef, state } = field;
 
-const emit = defineEmits<{
-  (event: 'paginate', target: string): void;
-}>();
+const emit = defineEmits<Emits>();
 </script>

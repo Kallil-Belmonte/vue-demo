@@ -24,11 +24,13 @@ type Props = {
   postsPerPage: number;
 };
 
+type Emits = {
+  (event: 'change', value: number): void;
+};
+
 const { postsPerPage } = defineProps<Props>();
 
-const emit = defineEmits<{
-  (event: 'change', value: number): void;
-}>();
+const emit = defineEmits<Emits>();
 </script>
 
 <style lang="scss">

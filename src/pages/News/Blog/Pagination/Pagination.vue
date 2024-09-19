@@ -33,11 +33,13 @@ type Props = {
   currentPage: number;
 };
 
+type Emits = {
+  (event: 'paginate', target: string): void;
+};
+
 const { pages = [], firstItem = 1, maxItem, currentPage } = defineProps<Props>();
 
-const emit = defineEmits<{
-  (event: 'paginate', target: string): void;
-}>();
+const emit = defineEmits<Emits>();
 
 const startPages = computed(() => firstItem - 1);
 const endPages = computed(() => startPages.value + maxItem);
