@@ -3,8 +3,20 @@ import type { Category, Post } from './types';
 
 const { stringify } = JSON;
 
-export const getCategories = (): Promise<Category[]> =>
-  request({ url: `697df6c0-f63e-4d91-baec-e5209c24cb64` });
+export const getCategories = async (): Promise<Category[]> => [
+  {
+    name: 'HTML',
+    posts: 5,
+  },
+  {
+    name: 'CSS',
+    posts: 5,
+  },
+  {
+    name: 'JavaScript',
+    posts: 5,
+  },
+];
 
 export const getPosts = (): Promise<Post[]> => request({ url: `posts`, api: 'jsonPlaceholder' });
 

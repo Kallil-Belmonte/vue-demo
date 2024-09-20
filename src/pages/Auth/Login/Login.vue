@@ -114,11 +114,8 @@ const submit = async () => {
       serverErrors.value.email.push('This e-mail does not exists.');
       serverErrors.value.password.push('The password is incorrect.');
     } else {
-      if (keepLogged.model.value) {
-        localStorage.setItem(AUTH_TOKEN_KEY, user.token);
-      } else {
-        sessionStorage.setItem(AUTH_TOKEN_KEY, user.token);
-      }
+      if (keepLogged.model.value) localStorage.setItem(AUTH_TOKEN_KEY, user.token);
+      else sessionStorage.setItem(AUTH_TOKEN_KEY, user.token);
 
       setUser({ firstName: user.firstName, lastName: user.lastName, email: user.email });
       router.push({ name: 'home' });

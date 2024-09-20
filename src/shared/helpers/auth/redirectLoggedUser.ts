@@ -9,10 +9,7 @@ import isValidAuthToken from './isValidAuthToken';
 const redirectLoggedUser = async () => {
   const router = useRouter();
   const isLoggedUser = await isValidAuthToken();
-
-  if (isLoggedUser) {
-    router.push('/');
-  }
+  if (isLoggedUser) router.push({ name: 'home' });
 };
 
 export default redirectLoggedUser;

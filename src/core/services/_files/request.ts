@@ -26,7 +26,7 @@ const request = async <Type>(config: Config): Promise<Type> => {
       mocky: MOCKY_API,
       jsonPlaceholder: JSON_PLACEHOLDER_API,
     };
-    const authToken = await getAuthToken(true);
+    const authToken = getAuthToken(true);
     const requestInit: RequestInit = {
       ...init,
       headers: { ...HEADERS, Authorization: `Bearer ${authToken}` },

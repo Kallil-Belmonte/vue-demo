@@ -17,7 +17,7 @@ export type AuthToken = {
 const getAuthToken = (raw?: boolean) => {
   const authToken = sessionStorage.getItem(AUTH_TOKEN_KEY) || localStorage.getItem(AUTH_TOKEN_KEY);
   if (raw) return authToken;
-  return authToken ? jwt_decode<AuthToken>(authToken) : null;
+  return authToken ? jwtDecode<AuthToken>(authToken) : null;
 };
 
 export default getAuthToken;
