@@ -3,15 +3,15 @@
 
   <form class="edit-post-form" @submit.prevent="submit">
     <div class="mb-3">
-      <Input label="Title" :field="title" :formSubmitted="formSubmitted" />
+      <Input label="Title" name="title" required minlength="2" v-model="title" />
     </div>
 
     <div class="mb-3">
-      <Input label="Body" :field="body" :formSubmitted="formSubmitted" />
+      <Textarea label="Body" name="body" required minlength="2" v-model="body" />
     </div>
 
-    <button class="btn btn-primary me-2" type="submit">Edit</button>
-    <button class="btn btn-light" type="button" @click="setFormData">Reset form</button>
+    <Button class="me-2" type="submit">Edit</Button>
+    <Button variant="base" :click="setFormData">Reset form</Button>
   </form>
 </template>
 
@@ -21,25 +21,20 @@ import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 
 import type { Post } from '@/core/services/news/types';
-import { requiredMin } from '@/shared/files/validations';
-import { validateForm } from '@/shared/helpers';
-import { useField } from '@/shared/composables';
 import { getPost, editPost } from '@/core/services';
 import { currentPost, setCurrentPost } from '@/core/state/news';
-import { Loader, Input } from '@/shared/components';
+import { Loader, Input, Textarea, Button } from '@/shared/components';
 
 const router = useRouter();
 const route = useRoute();
 
 const loading = ref(true);
-const formSubmitted = ref(false);
-
-const title = useField({ name: 'title', validation: requiredMin(2) });
-const body = useField({ name: 'body', validation: requiredMin(2) });
+const title = ref('');
+const body = ref('');
 
 const setFormData = () => {
-  title.model.value = currentPost.value.title;
-  body.model.value = currentPost.value.body;
+  title.value = currentPost.value.title;
+  body.value = currentPost.value.body;
 };
 
 const getCurrentPost = async () => {
@@ -55,19 +50,14 @@ const getCurrentPost = async () => {
 };
 
 const submit = async () => {
-  formSubmitted.value = true;
-
-  const isValidForm = validateForm([{ fields: [title, body], validation: requiredMin(2) }]);
-  if (!isValidForm) return;
-
   loading.value = true;
 
   try {
     const payload: Post = {
       userId: currentPost.value.userId,
       id: currentPost.value.userId,
-      title: title.model.value,
-      body: body.model.value,
+      title: title.value,
+      body: body.value,
     };
 
     await editPost(payload);

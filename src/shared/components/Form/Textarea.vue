@@ -12,6 +12,8 @@
       :rows="rows"
       :cols="cols"
       :required="required"
+      :minlength="minlength"
+      :maxlength="maxlength"
       :placeholder="placeholder"
       :disabled="disabled"
       @input="input"
@@ -30,6 +32,8 @@ type Props = {
   label: string;
   name: TextareaHTMLAttributes['name'];
   required?: TextareaHTMLAttributes['required'];
+  minlength?: TextareaHTMLAttributes['minlength'];
+  maxlength?: TextareaHTMLAttributes['maxlength'];
   placeholder?: TextareaHTMLAttributes['placeholder'];
   rows?: TextareaHTMLAttributes['rows'];
   cols?: TextareaHTMLAttributes['cols'];

@@ -102,6 +102,13 @@ body {
   }
 }
 
+// HR
+hr {
+  height: 1px;
+  border-width: 0;
+  background-color: $grey-4;
+}
+
 // HEADINGS
 h1,
 h2,

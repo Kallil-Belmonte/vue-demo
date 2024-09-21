@@ -8,8 +8,8 @@
       :name="name"
       :id="name"
       :required="required"
-      :true-value="trueOption.value"
-      :false-value="falseOption.value"
+      :true-value="trueOption?.value"
+      :false-value="falseOption?.value"
       :disabled="disabled"
       @change="change"
     />
@@ -72,6 +72,7 @@ defineExpose({ field });
     right: 0;
     z-index: 1;
   }
+
   .box {
     @include square(20px, 6px);
     border: 2px solid $field-border-color;
@@ -86,6 +87,12 @@ defineExpose({ field });
     }
   }
 
+  &:has(input:user-invalid) {
+    .box {
+      border-color: $danger;
+    }
+  }
+
   &:has(input:checked) {
     .box {
       border-color: $primary;
@@ -93,6 +100,12 @@ defineExpose({ field });
       &::after {
         @include square(70%);
       }
+    }
+  }
+
+  &:has(input:disabled) {
+    .box {
+      opacity: 0.5;
     }
   }
 }

@@ -52,8 +52,6 @@ defineExpose({ field });
 
 <style lang="scss">
 [data-component='radio-button'] {
-  $disabled-primary: color.adjust($primary, $lightness: 10%);
-
   .title-wrapper {
     @extend %flex-center-y;
     margin-bottom: 8px;
@@ -105,9 +103,15 @@ defineExpose({ field });
         }
       }
 
+      &:has(input:user-invalid) {
+        .radio {
+          border-color: $danger;
+        }
+      }
+
       &:has(input:checked) {
         .radio {
-          border-color: $disabled-primary;
+          border-color: $primary;
 
           &::after {
             @include square(70%);
@@ -116,13 +120,7 @@ defineExpose({ field });
       }
 
       &:has(input:disabled) {
-        .radio {
-          border-color: $disabled-primary;
-
-          &::after {
-            background-color: $disabled-primary;
-          }
-        }
+        opacity: 0.5;
       }
     }
   }

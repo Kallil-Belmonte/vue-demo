@@ -5,8 +5,8 @@
         <p>Are you sure you want to delete this post?</p>
       </article>
       <template #footer>
-        <Button variant="base" :click="confirm">Confirm</Button>
-        <Button :click="cancel">Cancel</Button>
+        <Button :click="confirm">Confirm</Button>
+        <Button variant="base" :click="cancel">Cancel</Button>
       </template>
     </Modal>
   </section>

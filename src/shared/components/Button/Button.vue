@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import { type RouteRecordName, useRouter } from 'vue-router';
+import { type RouteLocationRaw, useRouter } from 'vue-router';
 
 import type { ButtonType, Variant } from '@/shared/files/types';
 import Icon from '../Icon/Icon.vue';
@@ -21,7 +21,7 @@ import Icon from '../Icon/Icon.vue';
 type Props = {
   type?: ButtonType;
   variant?: Variant;
-  route?: RouteRecordName;
+  route?: RouteLocationRaw;
   loading?: boolean;
   disabled?: boolean;
   click?: (event: MouseEvent) => void;
@@ -40,13 +40,13 @@ const router = useRouter();
 
 const click = (event: MouseEvent) => {
   clickProp?.(event);
-  if (route) router.push({ name: route });
+  if (route) router.push(route);
 };
 </script>
 
 <style lang="scss">
 [data-component='button'] {
-  width: 100%;
+  width: max-content;
   border-radius: 50px;
   box-shadow: none;
   @include transitionAll();

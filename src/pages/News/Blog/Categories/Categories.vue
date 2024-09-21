@@ -5,7 +5,7 @@
         <button
           :class="{ active: isActive(category.name) }"
           type="button"
-          @click="select(category.name)"
+          @click="isActive(category.name) ? undefined : select(category.name)"
         >
           {{ category.name }}
         </button>
@@ -53,6 +53,10 @@ const select = (category: Category['name']) => {
       &.active {
         color: #fff;
         background-color: $primary;
+      }
+
+      &.active {
+        cursor: auto;
       }
     }
 

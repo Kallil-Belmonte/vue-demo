@@ -6,49 +6,56 @@
       <h1 class="page-title">Register</h1>
 
       <div class="mb-3">
-        <Input label="First name" :field="firstName" :formSubmitted="formSubmitted" />
+        <Input
+          label="Name"
+          name="first-name"
+          required
+          minlength="2"
+          maxlength="150"
+          placeholder="First name"
+          v-model="firstName"
+        />
       </div>
 
       <div class="mb-3">
-        <Input label="Last name" :field="lastName" :formSubmitted="formSubmitted" />
+        <Input
+          label="Last name"
+          name="last-name"
+          required
+          minlength="2"
+          maxlength="150"
+          placeholder="Full last name"
+          v-model="lastName"
+        />
       </div>
 
       <div class="mb-3">
-        <Input type="email" label="E-mail address" :field="email" :formSubmitted="formSubmitted" />
+        <Input
+          ref="emailComponent"
+          icon="Email"
+          label="E-mail"
+          type="email"
+          name="email"
+          required
+          placeholder="Enter your e-mail"
+          :input="inputEmail"
+          v-model="email"
+        />
       </div>
-
-      <Alert
-        v-for="(errorMessage, index) in serverErrors.email"
-        :key="errorMessage"
-        status="danger"
-        :close="() => clearFormMessage(serverErrors.email, index)"
-      >
-        {{ errorMessage }}
-      </Alert>
 
       <div class="mb-3">
-        <Input type="password" label="Password" :field="password" :formSubmitted="formSubmitted" />
+        <Input
+          label="Password"
+          type="password"
+          name="password"
+          required
+          minlength="3"
+          placeholder="Enter your password"
+          v-model="password"
+        />
       </div>
 
-      <Alert
-        v-for="(errorMessage, index) in serverErrors.password"
-        :key="errorMessage"
-        status="danger"
-        :close="() => clearFormMessage(serverErrors.password, index)"
-      >
-        {{ errorMessage }}
-      </Alert>
-
-      <Alert
-        v-for="(errorMessage, index) in serverErrors.request"
-        :key="errorMessage"
-        status="danger"
-        :close="() => clearFormMessage(serverErrors.request, index)"
-      >
-        {{ errorMessage }}
-      </Alert>
-
-      <button class="btn btn-primary d-block mx-auto" type="submit">Register</button>
+      <Button class="d-block mx-auto" type="submit">Register</Button>
 
       <div class="text-center">
         <hr class="mt-4" />
@@ -59,68 +66,52 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { useTemplateRef, ref } from 'vue';
 
 import { useRouter } from 'vue-router';
 
 import type { RegisterUserPayload } from '@/core/services/auth/types';
 import { AUTH_TOKEN_KEY } from '@/shared/files/consts';
-import { requiredEmail, requiredMin } from '@/shared/files/validations';
-import { clearFormMessage, validateForm } from '@/shared/helpers';
-import { useField } from '@/shared/composables';
 import { registerUser } from '@/core/services';
 import { setUser } from '@/core/state/auth';
-import { Alert, Loader, Input } from '@/shared/components';
+import { Loader, Input, Button } from '@/shared/components';
 import Auth from '../Auth.vue';
-
-const loading = ref(false);
-const formSubmitted = ref(false);
-const serverErrors = ref<{ email: string[]; password: string[]; request: string[] }>({
-  email: [],
-  password: [],
-  request: [],
-});
 
 const router = useRouter();
 
-const firstName = useField({ name: 'first-name', validation: requiredMin(2) });
-const lastName = useField({ name: 'last-name', validation: requiredMin(2) });
-const email = useField({ name: 'email', validation: requiredEmail });
-const password = useField({ name: 'password', validation: requiredMin(3) });
+const emailComponent = useTemplateRef('emailComponent');
+
+const loading = ref(false);
+const firstName = ref('');
+const lastName = ref('');
+const email = ref('');
+const password = ref('');
+
+const inputEmail = (event: Event) => {
+  const { value } = event.target as HTMLInputElement;
+
+  emailComponent.value?.field?.setCustomValidity(
+    value === 'demo@demo.com' ? 'This e-mail does not exists.' : '',
+  );
+};
 
 const submit = async () => {
-  formSubmitted.value = true;
-
-  const isValidForm = validateForm([
-    { fields: [firstName, lastName], validation: requiredMin(2) },
-    { fields: [email], validation: requiredEmail },
-    { fields: [password], validation: requiredMin(3) },
-  ]);
-  if (!isValidForm) return;
-
   loading.value = true;
-  serverErrors.value = { email: [], password: [], request: [] };
 
   try {
     const payload: RegisterUserPayload = {
-      firstName: firstName.model.value,
-      lastName: lastName.model.value,
-      email: email.model.value,
-      password: password.model.value,
+      firstName: firstName.value,
+      lastName: lastName.value,
+      email: email.value,
+      password: password.value,
     };
 
     const user = await registerUser(payload);
 
-    if (email.model.value === 'demo@demo.com') {
-      serverErrors.value.email.push('This e-mail already exists.');
-      serverErrors.value.password.push('Your password is too weak.');
-    } else {
-      sessionStorage.setItem(AUTH_TOKEN_KEY, user.token);
-      setUser({ firstName: user.firstName, lastName: user.lastName, email: user.email });
-      router.push({ name: 'home' });
-    }
+    sessionStorage.setItem(AUTH_TOKEN_KEY, user.token);
+    setUser({ firstName: user.firstName, lastName: user.lastName, email: user.email });
+    router.push({ name: 'home' });
   } catch (error: any) {
-    serverErrors.value.request.push(error.message);
     loading.value = false;
   }
 };

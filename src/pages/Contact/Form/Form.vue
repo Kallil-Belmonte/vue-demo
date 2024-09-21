@@ -2,25 +2,16 @@
   <Loader v-if="loading" />
 
   <form @submit.prevent="submit">
-    <Alert
-      v-for="(successMessage, index) in successMessages"
-      :key="successMessage"
-      status="success"
-      :close="() => clearFormMessage(successMessages, index)"
-    >
-      {{ successMessage }}
-    </Alert>
-
     <div class="row">
       <div class="col mb-3">
         <Input
           label="Name"
           name="first-name"
           required
-          :minlength="2"
-          :maxlength="150"
+          minlength="2"
+          maxlength="150"
           placeholder="First name"
-          v-model.text="firstName"
+          v-model="firstName"
         />
       </div>
 
@@ -29,10 +20,10 @@
           label="Last name"
           name="last-name"
           required
-          :minlength="2"
-          :maxlength="150"
+          minlength="2"
+          maxlength="150"
           placeholder="Full last name"
-          v-model.text="lastName"
+          v-model="lastName"
         />
       </div>
     </div>
@@ -57,7 +48,7 @@
           type="tel"
           name="telephone"
           required
-          placeholder="Enter your e-mail"
+          placeholder="Enter your telephone"
           v-model="telephone"
         />
       </div>
@@ -68,6 +59,7 @@
         <RadioButton
           title="Sex"
           name="sex"
+          required
           :radios="[
             { label: 'Male', value: 'male' },
             { label: 'Female', value: 'female' },
@@ -82,6 +74,7 @@
         <Select
           label="Favorite color"
           name="favorite-color"
+          required
           v-model="favoriteColor"
           :options="favoriteColors"
         />
@@ -90,8 +83,8 @@
         <Checkbox
           label="Employed"
           name="employed"
-          :trueOption="{ value: 'yes' }"
-          :falseOption="{ value: 'no' }"
+          :trueOption="{ value: true }"
+          :falseOption="{ value: false }"
           v-model="employed"
         />
       </div>
@@ -102,6 +95,7 @@
         <Textarea
           label="Message"
           name="message"
+          required
           minlength="3"
           maxlength="3000"
           placeholder="Write your message"
@@ -110,8 +104,18 @@
       </div>
     </div>
 
+    <Alert
+      v-for="(successMessage, index) in successMessages"
+      :key="successMessage"
+      class="mb-3"
+      status="success"
+      :close="() => clearMessage(successMessages, index)"
+    >
+      {{ successMessage }}
+    </Alert>
+
     <footer class="d-flex">
-      <Button>Send</Button>
+      <Button type="submit">Send</Button>
       <Button variant="base" @click="reset">Reset form</Button>
     </footer>
   </form>
@@ -121,7 +125,7 @@
 import { ref, onMounted } from 'vue';
 
 import type { FavoriteColors } from '@/core/services/contact/types';
-import { clearFormMessage } from '@/shared/helpers';
+import { clearMessage } from '@/shared/helpers';
 import { getFavoriteColors } from '@/core/services';
 import {
   Alert,
@@ -180,7 +184,11 @@ const submit = async () => {
     message: message.value,
   });
 
-  successMessages.value.push('Message sent successfully.');
+  successMessages.value = ['Message sent successfully.'];
+  setTimeout(() => {
+    successMessages.value = [];
+  }, 3000);
+
   reset();
 };
 
@@ -194,10 +202,6 @@ onMounted(() => {
 [data-page='contact'] form {
   footer {
     gap: 10px;
-
-    [data-component='button'] {
-      width: max-content;
-    }
   }
 }
 </style>

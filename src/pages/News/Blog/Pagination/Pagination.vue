@@ -61,6 +61,10 @@ const isActive = (page: string | number) => Number(page) === currentPage;
         color: #fff;
         background-color: $primary;
       }
+
+      &.active {
+        cursor: auto;
+      }
     }
 
     &:first-child {
