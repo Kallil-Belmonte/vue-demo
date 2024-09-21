@@ -2,14 +2,14 @@
   <Loader v-if="loading" />
 
   <form @submit.prevent="submit">
-    <AlertDismissible
+    <Alert
       v-for="(successMessage, index) in successMessages"
       :key="successMessage"
-      variant="success"
-      @dismiss="clearFormMessage(successMessages, index)"
+      status="success"
+      :close="() => clearFormMessage(successMessages, index)"
     >
       {{ successMessage }}
-    </AlertDismissible>
+    </Alert>
 
     <div class="row">
       <div class="col mb-3">
@@ -94,15 +94,7 @@ import { required, requiredEmail, requiredSelect, requiredMin } from '@/shared/f
 import { clearFormMessage, validateForm, setFields } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { getFavoriteColors } from '@/core/services';
-import {
-  AlertDismissible,
-  Loader,
-  Input,
-  Checkbox,
-  RadioButton,
-  Select,
-  Textarea,
-} from '@/shared/components';
+import { Alert, Loader, Input, Checkbox, RadioButton, Select, Textarea } from '@/shared/components';
 
 const loading = ref(true);
 const formSubmitted = ref(false);

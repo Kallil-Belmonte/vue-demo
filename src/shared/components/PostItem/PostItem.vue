@@ -25,8 +25,6 @@ const { post } = defineProps<Props>();
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/helpers/bootstrap-helpers';
-
 [data-component='post-item'] {
   text-align: center;
   margin-bottom: 50px;
@@ -41,13 +39,13 @@ const { post } = defineProps<Props>();
     font-weight: 700;
     color: #fff;
     padding: 20px;
-    @include border-top-radius(5px);
+    border-radius: 5px 5px 0 0;
     background-color: $primary;
   }
 
   article {
     padding: 20px;
-    @include border-bottom-radius(5px);
+    border-radius: 0 0 5px 5px;
     box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.1);
 
     .title {

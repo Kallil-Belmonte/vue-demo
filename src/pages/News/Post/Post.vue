@@ -9,8 +9,6 @@
         </div>
       </div>
     </div>
-
-    <DeletePostModal />
   </main>
 </template>
 
@@ -23,7 +21,6 @@ import { currentPost, setCurrentPost } from '@/core/state/news';
 import { getPost } from '@/core/services';
 import { Loader } from '@/shared/components';
 import PostBody from './PostBody/PostBody.vue';
-import DeletePostModal from './DeletePostModal/DeletePostModal.vue';
 
 const route = useRoute();
 

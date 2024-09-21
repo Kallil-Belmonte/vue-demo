@@ -9,8 +9,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { Icons } from './Icon/types';
-import Icon from './Icon/Icon.vue';
+import type { Icons } from '../Icon/types';
+import Icon from '../Icon/Icon.vue';
 
 type Props = {
   icon?: Icons;

@@ -1,4 +1,6 @@
 <template>
+  <Loader v-if="loading" />
+
   <section data-component="post-body">
     <article>
       <h1 class="title text-center">{{ post.title }}</h1>
@@ -9,26 +11,55 @@
       <router-link class="btn btn-light me-3" :to="{ name: 'edit-post', params: { id: post.id } }">
         Edit
       </router-link>
-      <button
-        type="button"
-        class="btn btn-danger"
-        data-bs-toggle="modal"
-        data-bs-target="#delete-post-modal"
-      >
-        Delete
-      </button>
+      <button type="button" class="btn btn-danger" @click="toggleDeletePostModal()">Delete</button>
     </div>
   </section>
+
+  <DeletePostModal
+    :open="openDeletePostModal"
+    :confirm="() => triggleDeletePost()"
+    :cancel="() => toggleDeletePostModal()"
+  />
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
+
+import { useRouter, useRoute } from 'vue-router';
+
 import type { Post } from '@/core/services/news/types';
+import { deletePost } from '@/core/services';
+import { Loader } from '@/shared/components';
+import DeletePostModal from '../DeletePostModal/DeletePostModal.vue';
 
 type Props = {
   post: Post;
 };
 
 const { post } = defineProps<Props>();
+
+const router = useRouter();
+const { params } = useRoute();
+
+const loading = ref(false);
+const openDeletePostModal = ref(false);
+
+const toggleDeletePostModal = () => {
+  openDeletePostModal.value = !openDeletePostModal.value;
+};
+
+const triggleDeletePost = async () => {
+  toggleDeletePostModal();
+  loading.value = true;
+
+  try {
+    await deletePost(String(params.id));
+    router.push({ name: 'blog' });
+  } catch (error) {
+    console.error(error);
+    loading.value = false;
+  }
+};
 </script>
 
 <style lang="scss">

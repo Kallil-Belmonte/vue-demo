@@ -2,23 +2,23 @@
   <footer data-layout="footer">
     <div class="container">
       <div class="d-flex justify-content-center">
-        <ul class="social-networks list-inline">
-          <li class="list-inline-item">
+        <ul class="social-networks d-flex">
+          <li>
             <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
               <Icon name="Facebook" />
             </a>
           </li>
-          <li class="list-inline-item">
+          <li>
             <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
               <Icon name="Twitter" />
             </a>
           </li>
-          <li class="list-inline-item">
+          <li>
             <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
               <Icon name="Instagram" />
             </a>
           </li>
-          <li class="list-inline-item">
+          <li>
             <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
               <Icon name="Linkedin" />
             </a>
@@ -42,14 +42,12 @@ import { Icon } from '@/shared/components';
   padding: 30px 0;
 
   .social-networks {
-    li {
-      &:not(:last-child) {
-        margin-right: 40px;
-      }
+    gap: 40px;
 
+    li {
       a {
         font-size: 0;
-        color: $dark;
+        color: $dark-2;
         display: inline-block;
 
         figure {

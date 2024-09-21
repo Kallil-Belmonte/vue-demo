@@ -17,36 +17,36 @@
         <Input type="email" label="E-mail address" :field="email" :formSubmitted="formSubmitted" />
       </div>
 
-      <AlertDismissible
+      <Alert
         v-for="(errorMessage, index) in serverErrors.email"
         :key="errorMessage"
-        variant="danger"
-        @dismiss="clearFormMessage(serverErrors.email, index)"
+        status="danger"
+        :close="() => clearFormMessage(serverErrors.email, index)"
       >
         {{ errorMessage }}
-      </AlertDismissible>
+      </Alert>
 
       <div class="mb-3">
         <Input type="password" label="Password" :field="password" :formSubmitted="formSubmitted" />
       </div>
 
-      <AlertDismissible
+      <Alert
         v-for="(errorMessage, index) in serverErrors.password"
         :key="errorMessage"
-        variant="danger"
-        @dismiss="clearFormMessage(serverErrors.password, index)"
+        status="danger"
+        :close="() => clearFormMessage(serverErrors.password, index)"
       >
         {{ errorMessage }}
-      </AlertDismissible>
+      </Alert>
 
-      <AlertDismissible
+      <Alert
         v-for="(errorMessage, index) in serverErrors.request"
         :key="errorMessage"
-        variant="danger"
-        @dismiss="clearFormMessage(serverErrors.request, index)"
+        status="danger"
+        :close="() => clearFormMessage(serverErrors.request, index)"
       >
         {{ errorMessage }}
-      </AlertDismissible>
+      </Alert>
 
       <button class="btn btn-primary d-block mx-auto" type="submit">Register</button>
 
@@ -70,7 +70,7 @@ import { clearFormMessage, validateForm } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { registerUser } from '@/core/services';
 import { setUser } from '@/core/state/auth';
-import { AlertDismissible, Loader, Input } from '@/shared/components';
+import { Alert, Loader, Input } from '@/shared/components';
 import Auth from '../Auth.vue';
 
 const loading = ref(false);

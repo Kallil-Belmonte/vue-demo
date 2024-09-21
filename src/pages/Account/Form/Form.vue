@@ -1,23 +1,23 @@
 <template>
   <div class="row">
     <div class="col-md-6 offset-md-3">
-      <AlertDismissible
+      <Alert
         v-for="(successMessage, index) in successMessages"
         :key="successMessage"
-        variant="success"
-        @dismiss="clearFormMessage(successMessages, index)"
+        status="success"
+        :close="() => clearFormMessage(successMessages, index)"
       >
         {{ successMessage }}
-      </AlertDismissible>
+      </Alert>
 
-      <AlertDismissible
+      <Alert
         v-for="(errorMessage, index) in serverErrors.request"
         :key="errorMessage"
-        variant="danger"
-        @dismiss="clearFormMessage(serverErrors.request, index)"
+        status="danger"
+        :close="() => clearFormMessage(serverErrors.request, index)"
       >
         {{ errorMessage }}
-      </AlertDismissible>
+      </Alert>
 
       <form @submit.prevent="submit">
         <div class="mb-3">
@@ -37,14 +37,14 @@
           />
         </div>
 
-        <AlertDismissible
+        <Alert
           v-for="(errorMessage, index) in serverErrors.email"
           :key="errorMessage"
-          variant="danger"
-          @dismiss="clearFormMessage(serverErrors.email, index)"
+          status="danger"
+          :close="() => clearFormMessage(serverErrors.email, index)"
         >
           {{ errorMessage }}
-        </AlertDismissible>
+        </Alert>
 
         <button class="btn btn-primary me-2" type="submit">Save</button>
         <button class="btn btn-light" type="button" @click="setFormData">Reset form</button>
@@ -60,7 +60,7 @@ import { requiredEmail, requiredMin } from '@/shared/files/validations';
 import { clearFormMessage, validateForm } from '@/shared/helpers';
 import { useField } from '@/shared/composables';
 import { user, setUser } from '@/core/state/auth';
-import { AlertDismissible, Input } from '@/shared/components';
+import { Alert, Input } from '@/shared/components';
 
 const formSubmitted = ref(false);
 const successMessages = ref<string[]>([]);

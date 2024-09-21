@@ -33,9 +33,9 @@
       </ul>
     </nav>
 
-    <div class="welcome-box d-flex align-items-center position-absolute">
-      <p class="mb-0 me-3">Hello {{ fullName }}!</p>
-      <button class="btn btn-dark" type="button" @click="logOut">Log out</button>
+    <div class="welcome-box d-flex align-items-center">
+      <p class="me-3">Hello {{ fullName }}!</p>
+      <Button :click="logOut">Log out</Button>
     </div>
   </header>
 </template>
@@ -49,7 +49,7 @@ import { PROJECT_TITLE } from '@/shared/files/consts';
 import { clearStorageData } from '@/shared/helpers';
 import { fullName, setUser, resetUser } from '@/core/state/auth';
 import { getUser } from '@/core/services';
-import { Icon } from '@/shared/components';
+import { Icon, Button } from '@/shared/components';
 
 const router = useRouter();
 
@@ -128,8 +128,11 @@ onMounted(() => {
   }
 
   .welcome-box {
-    top: 20px;
-    right: 20px;
+    @include position(absolute, 20px, 20px);
+
+    [data-component='button'] {
+      width: max-content;
+    }
   }
 }
 </style>

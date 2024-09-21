@@ -1,0 +1,94 @@
+<template>
+  <button
+    data-component="button"
+    :class="variant"
+    :type="type"
+    :disabled="disabled || loading"
+    @click="click"
+  >
+    <Icon v-if="loading" class="mx-auto" name="Loading" color="#fff" size="30px" />
+
+    <slot v-if="!loading"></slot>
+  </button>
+</template>
+
+<script lang="ts" setup>
+import { type RouteRecordName, useRouter } from 'vue-router';
+
+import type { ButtonType, Variant } from '@/shared/files/types';
+import Icon from '../Icon/Icon.vue';
+
+type Props = {
+  type?: ButtonType;
+  variant?: Variant;
+  route?: RouteRecordName;
+  loading?: boolean;
+  disabled?: boolean;
+  click?: (event: MouseEvent) => void;
+};
+
+const {
+  type = 'button',
+  variant = 'primary',
+  route,
+  loading,
+  disabled,
+  click: clickProp,
+} = defineProps<Props>();
+
+const router = useRouter();
+
+const click = (event: MouseEvent) => {
+  clickProp?.(event);
+  if (route) router.push({ name: route });
+};
+</script>
+
+<style lang="scss">
+[data-component='button'] {
+  font-weight: 700;
+  width: 100%;
+  border-radius: 50px;
+  box-shadow: none;
+  @include transitionAll();
+
+  /* Primary */
+
+  &.primary {
+    color: #fff;
+    background-color: $primary;
+  }
+
+  &.primary:hover,
+  &.primary:focus,
+  &.primary:active {
+    background-color: $primary-darker;
+  }
+
+  /* Secondary */
+
+  &.secondary {
+    color: #fff;
+    background-color: $secondary;
+  }
+
+  &.secondary:hover,
+  &.secondary:focus,
+  &.secondary:active {
+    background-color: $secondary-darker;
+  }
+
+  /* Base */
+
+  &.base {
+    background-color: #fff;
+    border: 1px solid $grey-4;
+  }
+
+  &.base:hover,
+  &.base:focus,
+  &.base:active {
+    background-color: color.adjust(#fff, $lightness: -1%);
+  }
+}
+</style>
