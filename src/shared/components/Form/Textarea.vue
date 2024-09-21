@@ -1,38 +1,57 @@
 <template>
-  <label :class="labelClass" :for="state.name">{{ label }}</label>
-  <textarea
-    :id="state.name"
-    :class="[...getFieldClass(formSubmitted, state, fieldClasses)]"
-    :name="state.name"
-    :rows="rows"
-    v-model="model"
-    ref="fieldRef"
-  ></textarea>
-  <div class="invalid-feedback" v-for="errorMessage in state.errorMessages" :key="errorMessage">
-    {{ errorMessage }}
+  <div data-component="textarea" class="form-field">
+    <div class="label-wrapper">
+      <label :for="name">{{ label }}</label>
+    </div>
+
+    <textarea
+      ref="field"
+      v-model="model"
+      :name="name"
+      :id="name"
+      :rows="rows"
+      :cols="cols"
+      :required="required"
+      :placeholder="placeholder"
+      :disabled="disabled"
+      @input="input"
+    ></textarea>
+
+    <p v-if="!!field?.validationMessage" class="validation-message">
+      <strong>{{ field.validationMessage }}</strong>
+    </p>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { getFieldClass } from '@/shared/helpers';
-import { UseField } from '@/shared/composables';
+import { type TextareaHTMLAttributes, useTemplateRef } from 'vue';
 
 type Props = {
-  labelClass?: string;
   label: string;
-  fieldClasses?: string[];
-  rows?: string;
-  field: UseField<any>;
-  formSubmitted: boolean;
+  name: TextareaHTMLAttributes['name'];
+  required?: TextareaHTMLAttributes['required'];
+  placeholder?: TextareaHTMLAttributes['placeholder'];
+  rows?: TextareaHTMLAttributes['rows'];
+  cols?: TextareaHTMLAttributes['cols'];
+  disabled?: TextareaHTMLAttributes['disabled'];
+  input?: (payload: Event) => void;
 };
 
 const {
-  labelClass = 'form-label',
   label,
-  fieldClasses,
-  rows = '3',
-  field,
-  formSubmitted,
+  name,
+  required,
+  placeholder,
+  rows = '4',
+  cols,
+  disabled,
+  input,
 } = defineProps<Props>();
-const { model, ref: fieldRef, state } = field;
+
+const [model] = defineModel<string>({ required: true });
+
+const field = useTemplateRef<HTMLTextAreaElement>('field');
+
+// EXPOSE
+defineExpose({ field });
 </script>

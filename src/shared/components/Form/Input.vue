@@ -1,47 +1,76 @@
 <template>
-  <label :class="labelClass" :for="state.name">{{ label }}</label>
-  <input
-    :id="state.name"
-    :class="[...getFieldClass(formSubmitted, state, fieldClasses)]"
-    :type="type"
-    :name="state.name"
-    :placeholder="placeholder"
-    v-model="model"
-    ref="fieldRef"
-  />
-  <div class="invalid-feedback" v-for="errorMessage in state.errorMessages" :key="errorMessage">
-    {{ errorMessage }}
+  <div data-component="input" class="form-field">
+    <div class="label-wrapper">
+      <label :for="name">{{ label }}</label>
+    </div>
+
+    <Icon v-if="icon" :name="icon" />
+
+    <input
+      ref="field"
+      v-model="model"
+      :type="type"
+      :name="name"
+      :id="name"
+      :required="required"
+      :pattern="pattern"
+      :min="min"
+      :max="max"
+      :minlength="minlength"
+      :maxlength="maxlength"
+      :placeholder="placeholder"
+      :disabled="disabled"
+      @input="input"
+    />
+
+    <p v-if="!!field?.validationMessage" class="validation-message">
+      <strong>{{ field.validationMessage }}</strong>
+    </p>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { getFieldClass } from '@/shared/helpers';
-import { UseField } from '@/shared/composables';
+import { type InputHTMLAttributes, useTemplateRef } from 'vue';
+
+import type { Icons } from '../Icon/types';
+import Icon from '../Icon/Icon.vue';
 
 type Props = {
-  labelClass?: string;
+  icon?: Icons;
   label: string;
-  fieldClasses?: string[];
   type?: string;
-  placeholder?: string;
-  field: UseField<any>;
-  formSubmitted: boolean;
-};
-
-type Emits = {
-  (event: 'paginate', target: string): void;
+  name: InputHTMLAttributes['name'];
+  required?: InputHTMLAttributes['required'];
+  pattern?: InputHTMLAttributes['pattern'];
+  min?: InputHTMLAttributes['min'];
+  max?: InputHTMLAttributes['max'];
+  minlength?: InputHTMLAttributes['minlength'];
+  maxlength?: InputHTMLAttributes['maxlength'];
+  placeholder?: InputHTMLAttributes['placeholder'];
+  disabled?: InputHTMLAttributes['disabled'];
+  input?: (payload: Event) => void;
 };
 
 const {
-  labelClass = 'form-label',
+  icon,
   label,
-  fieldClasses,
   type = 'text',
+  name,
+  required,
+  pattern,
+  min,
+  max,
+  minlength,
+  maxlength,
   placeholder,
-  field,
-  formSubmitted,
+  disabled,
+  input,
 } = defineProps<Props>();
-const { model, ref: fieldRef, state } = field;
 
-const emit = defineEmits<Emits>();
+const [model] = defineModel<string>({ required: true });
+
+const field = useTemplateRef<HTMLInputElement>('field');
+
+// EXPOSE
+defineExpose({ field });
 </script>

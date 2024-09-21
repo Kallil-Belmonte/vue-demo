@@ -201,7 +201,7 @@ fieldset {
   > [data-component='icon'] {
     @include square($field-icon-size);
     position: absolute;
-    top: 42px;
+    top: 38px;
 
     svg {
       @include transitionAll();
@@ -231,10 +231,6 @@ fieldset {
   input + [data-component='icon'] {
     right: $field-spacing-x;
     cursor: pointer;
-
-    &.eye {
-      color: $primary;
-    }
   }
 
   input,
@@ -317,7 +313,7 @@ fieldset {
   color: $primary;
 
   &:hover {
-    color: darken($primary, 5%);
+    color: color.adjust($primary, $lightness: -5%);
   }
 }
 

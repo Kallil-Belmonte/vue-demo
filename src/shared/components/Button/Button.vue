@@ -46,7 +46,6 @@ const click = (event: MouseEvent) => {
 
 <style lang="scss">
 [data-component='button'] {
-  font-weight: 700;
   width: 100%;
   border-radius: 50px;
   box-shadow: none;

@@ -4,8 +4,10 @@ type Brand = 'Logo';
 
 type UI =
   | 'ArrowDown'
+  | 'Cellphone'
   | 'CheckCircle'
   | 'Close'
+  | 'Email'
   | 'Envelope'
   | 'Facebook'
   | 'Home'

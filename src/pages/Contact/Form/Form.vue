@@ -13,33 +13,66 @@
 
     <div class="row">
       <div class="col mb-3">
-        <Input label="First name" :field="firstName" :formSubmitted="formSubmitted" />
+        <Input
+          label="Name"
+          name="first-name"
+          required
+          :minlength="2"
+          :maxlength="150"
+          placeholder="First name"
+          v-model.text="firstName"
+        />
       </div>
 
       <div class="col mb-3">
-        <Input label="Last name" :field="lastName" :formSubmitted="formSubmitted" />
+        <Input
+          label="Last name"
+          name="last-name"
+          required
+          :minlength="2"
+          :maxlength="150"
+          placeholder="Full last name"
+          v-model.text="lastName"
+        />
       </div>
     </div>
 
     <div class="row">
       <div class="col mb-3">
-        <Input type="email" label="E-mail address" :field="email" :formSubmitted="formSubmitted" />
+        <Input
+          icon="Email"
+          label="E-mail"
+          type="email"
+          name="email"
+          required
+          placeholder="Enter your e-mail"
+          v-model="email"
+        />
       </div>
 
       <div class="col mb-3">
-        <Input label="Telephone" :field="telephone" :formSubmitted="formSubmitted" />
+        <Input
+          icon="Cellphone"
+          label="Telephone"
+          type="tel"
+          name="telephone"
+          required
+          placeholder="Enter your e-mail"
+          v-model="telephone"
+        />
       </div>
     </div>
 
     <div class="row">
       <div class="col mb-3">
         <RadioButton
-          :field="sex"
+          title="Sex"
+          name="sex"
           :radios="[
             { label: 'Male', value: 'male' },
             { label: 'Female', value: 'female' },
           ]"
-          :formSubmitted="formSubmitted"
+          v-model="sex"
         />
       </div>
     </div>
@@ -48,41 +81,39 @@
       <div class="col mb-3">
         <Select
           label="Favorite color"
-          :class="`${
-            favoriteColorState.touched && favoriteColorModel === 'select' ? 'is-invalid' : ''
-          }`"
-          :field="favoriteColor"
-          :formSubmitted="formSubmitted"
-        >
-          <option value="select" disabled>Select</option>
-          <option
-            v-for="favoriteColor in favoriteColors"
-            :key="favoriteColor.value"
-            :value="favoriteColor.value"
-          >
-            {{ favoriteColor.text }}
-          </option>
-        </Select>
+          name="favorite-color"
+          v-model="favoriteColor"
+          :options="favoriteColors"
+        />
       </div>
       <div class="col mt-4">
         <Checkbox
           label="Employed"
-          :trueValue="true"
-          :falseValue="false"
-          :field="employed"
-          :formSubmitted="formSubmitted"
+          name="smoker"
+          :trueOption="{ value: 'yes' }"
+          :falseOption="{ value: 'no' }"
+          v-model="employed"
         />
       </div>
     </div>
 
     <div class="row">
       <div class="col mb-3">
-        <Textarea label="Message" :field="message" :formSubmitted="formSubmitted" />
+        <Textarea
+          label="Message"
+          name="message"
+          minlength="3"
+          maxlength="3000"
+          placeholder="Write your message"
+          v-model="message"
+        />
       </div>
     </div>
 
-    <button class="btn btn-primary me-2" type="submit">Send</button>
-    <button class="btn btn-light" type="button" @click="reset">Reset form</button>
+    <footer class="d-flex">
+      <Button>Send</Button>
+      <Button variant="base" @click="reset">Reset form</Button>
+    </footer>
   </form>
 </template>
 
@@ -90,30 +121,30 @@
 import { ref, onMounted } from 'vue';
 
 import type { FavoriteColors } from '@/core/services/contact/types';
-import { required, requiredEmail, requiredSelect, requiredMin } from '@/shared/files/validations';
-import { clearFormMessage, validateForm, setFields } from '@/shared/helpers';
-import { useField } from '@/shared/composables';
+import { clearFormMessage } from '@/shared/helpers';
 import { getFavoriteColors } from '@/core/services';
-import { Alert, Loader, Input, Checkbox, RadioButton, Select, Textarea } from '@/shared/components';
+import {
+  Alert,
+  Loader,
+  Input,
+  Checkbox,
+  RadioButton,
+  Select,
+  Textarea,
+  Button,
+} from '@/shared/components';
 
 const loading = ref(true);
-const formSubmitted = ref(false);
 const favoriteColors = ref<FavoriteColors[]>([]);
 const successMessages = ref<string[]>([]);
-
-const firstName = useField({ name: 'first-name', validation: requiredMin(2) });
-const lastName = useField({ name: 'last-name', validation: requiredMin(2) });
-const email = useField({ name: 'email', validation: requiredEmail });
-const telephone = useField({ name: 'telephone', validation: requiredMin(8) });
-const sex = useField({ name: 'sex', validation: required });
-const favoriteColor = useField({
-  name: 'favorite-color',
-  defaultValue: 'select',
-  validation: required,
-});
-const { model: favoriteColorModel, state: favoriteColorState } = favoriteColor;
-const employed = useField<boolean>({ name: 'employed', defaultValue: false });
-const message = useField({ name: 'message', validation: required });
+const firstName = ref('');
+const lastName = ref('');
+const email = ref('');
+const telephone = ref('');
+const sex = ref('');
+const favoriteColor = ref('');
+const employed = ref(false);
+const message = ref('');
 
 const setFavoriteColors = async () => {
   try {
@@ -127,50 +158,29 @@ const setFavoriteColors = async () => {
 };
 
 const reset = () => {
-  formSubmitted.value = false;
-
-  setFields({
-    fields: [firstName, lastName, email, telephone, sex, message],
-    value: '',
-    reset: { required: true },
-  });
-  setFields({
-    fields: [favoriteColor],
-    value: 'select',
-    reset: { required: true },
-  });
-  setFields({
-    fields: [employed],
-    value: false,
-    reset: { required: false },
-  });
+  firstName.value = '';
+  lastName.value = '';
+  email.value = '';
+  telephone.value = '';
+  sex.value = '';
+  favoriteColor.value = '';
+  employed.value = false;
+  message.value = '';
 };
 
 const submit = async () => {
-  formSubmitted.value = true;
-
-  const isValidForm = validateForm([
-    { fields: [firstName, lastName], validation: requiredMin(2) },
-    { fields: [email], validation: requiredEmail },
-    { fields: [telephone], validation: requiredMin(8) },
-    { fields: [sex, message], validation: required },
-    { fields: [favoriteColor], validation: requiredSelect },
-  ]);
-  if (!isValidForm) return;
-
   console.log('Form submitted:', {
-    firstName: firstName.model.value,
-    lastName: lastName.model.value,
-    email: email.model.value,
-    telephone: telephone.model.value,
-    sex: sex.model.value,
-    favoriteColor: favoriteColor.model.value,
-    employed: employed.model.value,
-    message: message.model.value,
+    firstName: firstName.value,
+    lastName: lastName.value,
+    email: email.value,
+    telephone: telephone.value,
+    sex: sex.value,
+    favoriteColor: favoriteColor.value,
+    employed: employed.value,
+    message: message.value,
   });
 
   successMessages.value.push('Message sent successfully.');
-
   reset();
 };
 
@@ -179,3 +189,15 @@ onMounted(() => {
   setFavoriteColors();
 });
 </script>
+
+<style lang="scss">
+[data-page='contact'] form {
+  footer {
+    gap: 10px;
+
+    [data-component='button'] {
+      width: max-content;
+    }
+  }
+}
+</style>

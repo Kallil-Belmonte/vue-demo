@@ -1,47 +1,56 @@
 <template>
   <div class="form-check">
-    <label :class="labelClass" :for="state.name">{{ label }}</label>
-    <input
-      :id="state.name"
-      :class="[
-        ...getFieldClass(formSubmitted, state, ['form-check-input']),
-        ...className.split(' '),
-      ]"
-      type="checkbox"
-      :name="state.name"
-      :true-value="trueValue"
-      :false-value="falseValue"
-      v-model="model"
-      ref="fieldRef"
-    />
-    <div class="invalid-feedback" v-for="errorMessage in state.errorMessages" :key="errorMessage">
-      {{ errorMessage }}
+    <div class="label-wrapper">
+      <label :for="name">
+        {{ label }} <span>{{ optionText }}</span>
+      </label>
     </div>
+    <input
+      ref="field"
+      v-model="model"
+      type="checkbox"
+      :name="name"
+      :id="name"
+      :required="required"
+      :true-value="trueOption.value"
+      :false-value="falseOption.value"
+      :disabled="disabled"
+      @change="change"
+    />
+
+    <p v-if="!!field?.validationMessage" class="validation-message">
+      <strong>{{ field.validationMessage }}</strong>
+    </p>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { getFieldClass } from '@/shared/helpers';
-import { UseField } from '@/shared/composables';
+import { type InputHTMLAttributes, useTemplateRef, computed } from 'vue';
+
+type Option = { text?: string; value: string | number | boolean };
 
 type Props = {
-  labelClass?: string;
   label: string;
-  className?: string;
-  trueValue: string | number | boolean;
-  falseValue: string | number | boolean;
-  field: UseField<any>;
-  formSubmitted: boolean;
+  name: InputHTMLAttributes['name'];
+  required?: InputHTMLAttributes['required'];
+  trueOption: Option;
+  falseOption: Option;
+  disabled?: InputHTMLAttributes['disabled'];
+  change?: InputHTMLAttributes['onChange'];
 };
 
-const {
-  labelClass = 'form-check-label',
-  label,
-  className = '',
-  trueValue,
-  falseValue,
-  field,
-  formSubmitted,
-} = defineProps<Props>();
-const { model, ref: fieldRef, state } = field;
+const { label, name, required, trueOption, falseOption, disabled, change } = defineProps<Props>();
+
+const [model] = defineModel<Option['value']>({ required: true });
+
+const field = useTemplateRef<HTMLInputElement>('field');
+
+const optionText = computed(() => {
+  const trueText = trueOption.text || 'Yes';
+  const falseText = falseOption.text || 'No';
+  return model.value === trueOption.value ? trueText : falseText;
+});
+
+// EXPOSE
+defineExpose({ field });
 </script>
