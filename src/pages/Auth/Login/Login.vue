@@ -102,7 +102,7 @@ const submit = async () => {
 </script>
 
 <style lang="scss">
-.login-form {
+[data-page='auth'] .login-form {
   padding: 40px 40px 15px 40px;
   border-radius: 10px;
   background-color: #fff;
