@@ -83,32 +83,40 @@ defineExpose({ field });
       }
 
       input {
-        @include square(22px);
+        @include square(18px);
         opacity: 0;
         margin: 0;
         position: absolute;
         right: 0;
         z-index: 1;
+      }
 
-        + .radio {
-          @include square(18px, 50%);
-          border: 2px solid $primary;
-          position: relative;
+      .radio {
+        @include square(18px, 50%);
+        border: 2px solid $field-border-color;
+        position: relative;
+
+        &::after {
+          content: '';
+          @include square(0, 50%);
+          background-color: $primary;
+          @extend %absolute-center;
+          @include transitionAll(0.2s);
+        }
+      }
+
+      &:has(input:checked) {
+        .radio {
+          border-color: $disabled-primary;
 
           &::after {
-            content: '';
-            @include square(0, 50%);
-            background-color: $primary;
-            @extend %absolute-center;
-            @include transitionAll(0.2s);
+            @include square(70%);
           }
         }
+      }
 
-        &:checked + .radio::after {
-          @include square(70%);
-        }
-
-        &:disabled + .radio {
+      &:has(input:disabled) {
+        .radio {
           border-color: $disabled-primary;
 
           &::after {

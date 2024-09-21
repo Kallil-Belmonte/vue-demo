@@ -13,6 +13,7 @@
       :disabled="disabled"
       @change="change"
     />
+    <div class="box"></div>
 
     <p v-if="!!field?.validationMessage" class="validation-message">
       <strong>{{ field.validationMessage }}</strong>
@@ -48,9 +49,51 @@ defineExpose({ field });
 <style lang="scss">
 [data-component='checkbox'] {
   @extend %flex-center-y;
+  gap: 10px;
+  @include size(max-content, $field-height);
+  position: relative;
+
+  &:not(:has(input:disabled)) {
+    label,
+    input {
+      cursor: pointer;
+    }
+  }
 
   label {
     font-weight: 700;
+  }
+
+  input {
+    @include square(18px);
+    opacity: 0;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+  }
+  .box {
+    @include square(20px, 6px);
+    border: 2px solid $field-border-color;
+    position: relative;
+
+    &::after {
+      content: '';
+      @include square(0, 2px);
+      background-color: $primary;
+      @extend %absolute-center;
+      @include transitionAll(0.2s);
+    }
+  }
+
+  &:has(input:checked) {
+    .box {
+      border-color: $primary;
+
+      &::after {
+        @include square(70%);
+      }
+    }
   }
 }
 </style>
