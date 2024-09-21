@@ -54,10 +54,6 @@ defineExpose({ field });
 [data-component='radio-button'] {
   $disabled-primary: color.adjust($primary, $lightness: 10%);
 
-  &:not(:last-child) {
-    margin-bottom: 20px;
-  }
-
   .title-wrapper {
     @extend %flex-center-y;
     margin-bottom: 8px;

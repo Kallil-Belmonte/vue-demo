@@ -31,15 +31,13 @@
         {{ errorMessage }}
       </Alert>
 
-      <div class="form-check">
-        <Checkbox
-          label="Keep logged"
-          :trueValue="true"
-          :falseValue="false"
-          :field="keepLogged"
-          :formSubmitted="formSubmitted"
-        />
-      </div>
+      <Checkbox
+        label="Keep logged"
+        :trueValue="true"
+        :falseValue="false"
+        :field="keepLogged"
+        :formSubmitted="formSubmitted"
+      />
 
       <Alert
         v-for="(errorMessage, index) in serverErrors.request"

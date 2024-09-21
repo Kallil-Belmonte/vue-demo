@@ -89,7 +89,7 @@
       <div class="col mt-4">
         <Checkbox
           label="Employed"
-          name="smoker"
+          name="employed"
           :trueOption="{ value: 'yes' }"
           :falseOption="{ value: 'no' }"
           v-model="employed"

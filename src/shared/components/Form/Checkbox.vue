@@ -1,10 +1,6 @@
 <template>
-  <div class="form-check">
-    <div class="label-wrapper">
-      <label :for="name">
-        {{ label }} <span>{{ optionText }}</span>
-      </label>
-    </div>
+  <div data-component="checkbox">
+    <label :for="name">{{ label }}</label>
     <input
       ref="field"
       v-model="model"
@@ -45,12 +41,16 @@ const [model] = defineModel<Option['value']>({ required: true });
 
 const field = useTemplateRef<HTMLInputElement>('field');
 
-const optionText = computed(() => {
-  const trueText = trueOption.text || 'Yes';
-  const falseText = falseOption.text || 'No';
-  return model.value === trueOption.value ? trueText : falseText;
-});
-
 // EXPOSE
 defineExpose({ field });
 </script>
+
+<style lang="scss">
+[data-component='checkbox'] {
+  @extend %flex-center-y;
+
+  label {
+    font-weight: 700;
+  }
+}
+</style>
