@@ -9,5 +9,5 @@ export { default as Modal } from './Modal/Modal.vue';
 export { default as PageHeader } from './PageHeader/PageHeader.vue';
 export { default as PostItem } from './PostItem/PostItem.vue';
 export { default as RadioButton } from './Form/RadioButton.vue';
-export { default as Select } from './Form/Select.vue';
+export { default as Select } from './Form NEW/Select.vue';
 export { default as Textarea } from './Form/Textarea.vue';

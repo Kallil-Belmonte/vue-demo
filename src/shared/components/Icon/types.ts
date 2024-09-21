@@ -3,6 +3,7 @@ export type Category = 'Brand' | 'UI';
 type Brand = 'Logo';
 
 type UI =
+  | 'ArrowDown'
   | 'CheckCircle'
   | 'Close'
   | 'Envelope'

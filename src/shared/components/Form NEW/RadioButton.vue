@@ -2,7 +2,6 @@
   <div data-component="radio-button">
     <div class="title-wrapper">
       <p class="title">{{ title }}</p>
-      <InfoIcon v-if="info" :info="info.text" :maxWidth="info.maxWidth" :position="info.position" />
     </div>
 
     <div v-for="radio in radios" :key="radio.label" class="item">
@@ -30,11 +29,7 @@
 <script lang="ts" setup>
 import { type InputHTMLAttributes, useTemplateRef } from 'vue';
 
-import type { TooltipPosition } from '@/shared/files/types';
-import InfoIcon from '../InfoIcon/InfoIcon.vue';
-
 type Props = {
-  info?: { text: string; maxWidth?: string; position?: TooltipPosition };
   title: string;
   name: InputHTMLAttributes['name'];
   required?: InputHTMLAttributes['required'];
@@ -43,7 +38,7 @@ type Props = {
   change?: (value: string, event: Event) => void;
 };
 
-const { info, title, name, required, disabled, radios, change } = defineProps<Props>();
+const { title, name, required, disabled, radios, change } = defineProps<Props>();
 
 const [model] = defineModel<string>({ required: true });
 

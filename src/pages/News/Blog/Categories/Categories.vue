@@ -1,16 +1,14 @@
 <template>
   <aside data-component="categories">
-    <ul class="list-group">
-      <li
-        :class="{
-          'list-group-item d-flex align-items-center justify-content-between': true,
-          active: isActive(category.name),
-        }"
-        v-for="category in categories"
-        :key="category.name"
-        @click="select(category.name)"
-      >
-        {{ category.name }}
+    <ul>
+      <li v-for="category in categories" :key="category.name">
+        <button
+          :class="{ active: isActive(category.name) }"
+          type="button"
+          @click="select(category.name)"
+        >
+          {{ category.name }}
+        </button>
       </li>
     </ul>
   </aside>
@@ -45,15 +43,34 @@ const select = (category: Category['name']) => {
 
 <style lang="scss">
 [data-component='categories'] {
-  .list-group {
-    cursor: pointer;
+  li {
+    button {
+      width: 100%;
+      border: 1px solid $primary;
+      @include transitionAll();
 
-    .list-group-item {
+      &:hover,
       &.active {
-        .badge-primary {
-          color: $primary;
-          background-color: #fff;
-        }
+        color: #fff;
+        background-color: $primary;
+      }
+    }
+
+    &:first-child {
+      button {
+        border-radius: 4px 4px 0 0;
+      }
+    }
+
+    &:last-child {
+      button {
+        border-radius: 0 0 4px 4px;
+      }
+    }
+
+    &:not(:last-child) {
+      button {
+        border-bottom: 0;
       }
     }
   }

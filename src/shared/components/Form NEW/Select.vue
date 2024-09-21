@@ -2,58 +2,34 @@
   <div data-component="select" class="form-field">
     <div class="label-wrapper">
       <label :for="name">{{ label }}</label>
-      <InfoIcon v-if="info" :info="info.text" :maxWidth="info.maxWidth" :position="info.position" />
     </div>
 
-    <template v-if="isMobile()">
-      <select
-        ref="field"
-        v-model="model"
-        :id="name"
-        :name="name"
-        :required="required"
-        :disabled="disabled"
-        @change="(event: Event) => change?.((event.target as HTMLSelectElement).value, event)"
+    <input
+      ref="field"
+      v-model="inputModel"
+      type="text"
+      :name="name"
+      :id="name"
+      :required="required"
+      placeholder="Select"
+      :disabled="disabled"
+      @input="search"
+      @focus="focus"
+      @focusout="focusout"
+    />
+    <IconButton icon="ArrowDown" size="15px" @click="triggerInputFocus" />
+    <div role="listbox" tabindex="0" aria-label="Options" :aria-hidden="!openned">
+      <div
+        v-for="option in filteredOptions"
+        :key="option.value"
+        role="option"
+        :aria-selected="isSelected(option.value)"
+        :aria-disabled="option.disabled"
+        @click="(event: MouseEvent) => select(option, event)"
       >
-        <option value="select" disabled>{{ text('Select') }}</option>
-        <option
-          v-for="option in filteredOptions"
-          :key="option.value"
-          :value="option.value"
-          :disabled="option.disabled"
-        >
-          {{ option.text }}
-        </option>
-      </select>
-    </template>
-    <template v-else>
-      <input
-        ref="field"
-        v-model="inputModel"
-        type="text"
-        :name="name"
-        :id="name"
-        :required="required"
-        :placeholder="text('Select')"
-        :disabled="disabled"
-        @input="search"
-        @focus="focus"
-        @focusout="focusout"
-      />
-      <IconButton icon="ArrowDown" size="20px" @click="triggerInputFocus" />
-      <div role="listbox" tabindex="0" :aria-label="text('Options')" :aria-hidden="!openned">
-        <div
-          v-for="option in filteredOptions"
-          :key="option.value"
-          role="option"
-          :aria-selected="isSelected(option.value)"
-          :aria-disabled="option.disabled"
-          @click="(event: MouseEvent) => select(option, event)"
-        >
-          {{ option.text }}
-        </div>
+        {{ option.text }}
       </div>
-    </template>
+    </div>
 
     <p v-if="!!field?.validationMessage" class="validation-message">
       <strong>{{ field.validationMessage }}</strong>
@@ -64,10 +40,7 @@
 <script lang="ts" setup>
 import { type InputHTMLAttributes, useTemplateRef, ref, watchEffect } from 'vue';
 
-import type { TooltipPosition } from '@/shared/files/types';
-import text from '@/core/languages/text';
-import { isMobile, removeAccent } from '@/shared/helpers';
-import InfoIcon from '../InfoIcon/InfoIcon.vue';
+import { removeAccent } from '@/shared/helpers';
 import IconButton from '../IconButton/IconButton.vue';
 
 type Option = {
@@ -77,7 +50,6 @@ type Option = {
 };
 
 type Props = {
-  info?: { text: string; maxWidth?: string; position?: TooltipPosition };
   label: string;
   name: InputHTMLAttributes['name'];
   required?: InputHTMLAttributes['required'];
@@ -86,7 +58,7 @@ type Props = {
   change?: (value: string, event: Event | MouseEvent | FocusEvent) => void;
 };
 
-const { info, label, name, required, options, disabled, change } = defineProps<Props>();
+const { label, name, required, options, disabled, change } = defineProps<Props>();
 
 const [model] = defineModel<string>({ required: true });
 
@@ -153,7 +125,7 @@ defineExpose({ field });
 
   [data-component='icon-button'] {
     transition: rotate 0.3s ease;
-    @include position(absolute, 43px, 15px);
+    @include position(absolute, 40px, 15px);
 
     &:has(+ [role='listbox'][aria-hidden='false']) {
       rotate: 180deg;
@@ -164,9 +136,8 @@ defineExpose({ field });
     max-height: 202px;
     border-radius: 4px;
     border: 1px solid $field-border-color;
-    margin-top: 1px;
     overflow-y: auto;
-    @include position(absolute, 76px, 0, auto, 0, 1);
+    @include position(absolute, calc(100% + 1px), 0, auto, 0, 1);
 
     [role='option'] {
       @extend %flex-center-y;

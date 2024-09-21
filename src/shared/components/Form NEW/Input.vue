@@ -2,7 +2,6 @@
   <div data-component="input" class="form-field">
     <div class="label-wrapper">
       <label :for="name">{{ label }}</label>
-      <InfoIcon v-if="info" :info="info.text" :maxWidth="info.maxWidth" :position="info.position" />
     </div>
 
     <Icon v-if="icon" :name="icon" />
@@ -33,14 +32,10 @@
 <script lang="ts" setup>
 import { type InputHTMLAttributes, useTemplateRef } from 'vue';
 
-import type { TooltipPosition } from '@/shared/files/types';
-import { formatText, formatDigit, formatCPF, formatNIF, formatSSN } from '@/shared/helpers';
 import type { Icons } from '../Icon/types';
-import InfoIcon from '../InfoIcon/InfoIcon.vue';
 import Icon from '../Icon/Icon.vue';
 
 type Props = {
-  info?: { text: string; maxWidth?: string; position?: TooltipPosition };
   icon?: Icons;
   label: string;
   type?: string;
@@ -57,7 +52,6 @@ type Props = {
 };
 
 const {
-  info,
   icon,
   label,
   type = 'text',
@@ -73,17 +67,7 @@ const {
   input,
 } = defineProps<Props>();
 
-const [model, modifier] = defineModel<string>({
-  required: true,
-  set: value => {
-    if (modifier.text) return formatText(value);
-    if (modifier.digit) return formatDigit(value);
-    if (modifier.cpf) return formatCPF(value);
-    if (modifier.nif) return formatNIF(value);
-    if (modifier.ssn) return formatSSN(value);
-    return value;
-  },
-});
+const [model] = defineModel<string>({ required: true });
 
 const field = useTemplateRef<HTMLInputElement>('field');
 

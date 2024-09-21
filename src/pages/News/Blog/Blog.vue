@@ -5,9 +5,17 @@
     <div class="container">
       <PageHeader icon="Newspaper">Blog</PageHeader>
 
-      <PostsPerPage
-        :postsPerPage="postsPerPage"
-        @change="(value: number) => setPaginationSettings(posts, value)"
+      <Select
+        label="Posts per page:"
+        name="posts-per-page"
+        v-model="postsPerPage"
+        :options="[
+          { text: '9', value: '9' },
+          { text: '18', value: '18' },
+          { text: '27', value: '27' },
+          { text: '36', value: '36' },
+        ]"
+        :change="(value: string) => setPaginationSettings(posts, value)"
       />
 
       <div class="row">
@@ -37,8 +45,7 @@ import type { Category, Post } from '@/core/services/news/types';
 import { groupArrayItemsInArrays } from '@/shared/helpers';
 import { categories, posts, setCategories, setPosts } from '@/core/state/news';
 import { getCategories, getPosts } from '@/core/services';
-import { Loader, PageHeader } from '@/shared/components';
-import PostsPerPage from './PostsPerPage/PostsPerPage.vue';
+import { Loader, PageHeader, Select } from '@/shared/components';
 import Posts from './Posts/Posts.vue';
 import Pagination from './Pagination/Pagination.vue';
 import Categories from './Categories/Categories.vue';
@@ -47,20 +54,20 @@ type Pages = { [key: string]: Post[] };
 
 const loading = ref(true);
 const pages = ref<Pages>({});
-const postsPerPage = ref(9);
+const postsPerPage = ref('9');
 const firstPaginationItem = ref(1);
 const maxPaginationItem = ref(5);
 const currentPage = ref(1);
 
-const setPaginationSettings = (posts: Post[], quantPostsPerPage = 9) => {
+const setPaginationSettings = (posts: Post[], quantPostsPerPage = '9') => {
   const pagesResult: Pages = {};
 
-  groupArrayItemsInArrays(posts, quantPostsPerPage).forEach((item: Post[], index) => {
+  groupArrayItemsInArrays(posts, Number(quantPostsPerPage)).forEach((item: Post[], index) => {
     pagesResult[index + 1] = item;
   });
 
   pages.value = pagesResult;
-  postsPerPage.value = quantPostsPerPage;
+  postsPerPage.value = String(quantPostsPerPage);
   firstPaginationItem.value = 1;
   maxPaginationItem.value = 5;
   currentPage.value = 1;
@@ -80,7 +87,6 @@ const getAllData = async () => {
 
     setPaginationSettings(posts.value);
   } catch (error) {
-    console.log('AQUI');
     console.error(error);
   } finally {
     loading.value = false;
@@ -126,5 +132,9 @@ onMounted(() => {
 [data-page='blog'] {
   min-height: 500px;
   padding: 80px 0 30px;
+
+  [data-component='select'] {
+    width: 150px;
+  }
 }
 </style>
