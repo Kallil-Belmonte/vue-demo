@@ -1,10 +1,5 @@
 <template>
-  <figure
-    data-component="icon"
-    :data-category="category"
-    :data-name="name"
-    v-html="svgs[name]"
-  ></figure>
+  <div data-component="icon" :data-category="category" :data-name="name" v-html="svgs[name]"></div>
 </template>
 
 <script lang="ts" setup>

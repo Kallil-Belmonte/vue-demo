@@ -50,7 +50,7 @@ import { Icon } from '@/shared/components';
         color: $dark-2;
         display: inline-block;
 
-        figure {
+        [data-component='icon'] {
           @include square(25px);
         }
       }
