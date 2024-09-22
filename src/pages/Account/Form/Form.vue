@@ -108,7 +108,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-[data-page='account'] form {
+[data-page='Account'] form {
   footer {
     gap: 10px;
   }

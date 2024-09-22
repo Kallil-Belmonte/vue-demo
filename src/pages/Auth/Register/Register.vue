@@ -118,7 +118,7 @@ const submit = async () => {
 </script>
 
 <style lang="scss">
-[data-page='auth'] .register-form {
+[data-page='Auth'] .register-form {
   padding: 40px 40px 15px 40px;
   border-radius: 10px;
   background-color: #fff;

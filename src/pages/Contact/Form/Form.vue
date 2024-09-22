@@ -199,7 +199,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-[data-page='contact'] form {
+[data-page='Contact'] form {
   footer {
     gap: 10px;
   }
