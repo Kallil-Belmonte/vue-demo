@@ -45,6 +45,8 @@ const {
   label,
   name,
   required,
+  minlength,
+  maxlength,
   placeholder,
   rows = '4',
   cols,
