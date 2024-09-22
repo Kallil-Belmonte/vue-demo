@@ -83,8 +83,8 @@
         <Checkbox
           label="Employed"
           name="employed"
-          :trueOption="{ value: true }"
-          :falseOption="{ value: false }"
+          :trueValue="true"
+          :falseValue="false"
           v-model="employed"
         />
       </div>

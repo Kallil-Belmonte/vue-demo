@@ -34,8 +34,8 @@
       <Checkbox
         label="Keep logged"
         name="keep-logged"
-        :trueOption="{ value: true }"
-        :falseOption="{ value: false }"
+        :trueValue="true"
+        :falseValue="false"
         v-model="keepLogged"
       />
 

@@ -8,8 +8,8 @@
       :name="name"
       :id="name"
       :required="required"
-      :true-value="trueOption?.value"
-      :false-value="falseOption?.value"
+      :true-value="trueValue"
+      :false-value="falseValue"
       :disabled="disabled"
       @change="change"
     />
@@ -24,21 +24,21 @@
 <script lang="ts" setup>
 import { type InputHTMLAttributes, useTemplateRef, computed } from 'vue';
 
-type Option = { text?: string; value: string | number | boolean };
+type Value = string | number | boolean;
 
 type Props = {
   label: string;
   name: InputHTMLAttributes['name'];
   required?: InputHTMLAttributes['required'];
-  trueOption: Option;
-  falseOption: Option;
+  trueValue: Value;
+  falseValue: Value;
   disabled?: InputHTMLAttributes['disabled'];
   change?: InputHTMLAttributes['onChange'];
 };
 
-const { label, name, required, trueOption, falseOption, disabled, change } = defineProps<Props>();
+const { label, name, required, trueValue, falseValue, disabled, change } = defineProps<Props>();
 
-const [model] = defineModel<Option['value']>({ required: true });
+const [model] = defineModel<Value>({ required: true });
 
 const field = useTemplateRef<HTMLInputElement>('field');
 
