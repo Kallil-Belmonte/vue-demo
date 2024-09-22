@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-import { type InputHTMLAttributes, useTemplateRef, computed } from 'vue';
+import { type InputHTMLAttributes, useTemplateRef } from 'vue';
 
 type Value = string | number | boolean;
 
