@@ -25,7 +25,7 @@
         role="option"
         :aria-selected="isSelected(option.value)"
         :aria-disabled="option.disabled"
-        @click="(event: MouseEvent) => select(option, event)"
+        @click="() => select(option)"
       >
         {{ option.text }}
       </div>
@@ -88,7 +88,12 @@ const focusout = (event: FocusEvent) => {
 
   setTimeout(() => {
     const option = options.find(option => format(option.text) === format(target.value));
-    change?.(option ? option.value : '', event);
+
+    if (option) {
+      model.value = option.value;
+      change?.(option.value, event);
+    }
+
     openned.value = false;
   }, 100);
 };
@@ -97,10 +102,9 @@ const triggerInputFocus = () => {
   field.value?.focus();
 };
 
-const select = (option: Option, event: MouseEvent) => {
+const select = (option: Option) => {
   if (option.disabled) return;
   model.value = option.value;
-  change?.(option.value, event);
 };
 
 const setData = () => {
