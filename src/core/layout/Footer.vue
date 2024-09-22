@@ -1,5 +1,5 @@
 <template>
-  <footer data-layout="footer">
+  <footer data-layout="Footer">
     <div class="container">
       <div class="d-flex justify-content-center">
         <ul class="social-networks d-flex">
@@ -38,7 +38,7 @@ import { Icon } from '@/shared/components';
 </script>
 
 <style lang="scss">
-[data-layout='footer'] {
+[data-layout='Footer'] {
   padding: 30px 0;
 
   .social-networks {
@@ -50,7 +50,7 @@ import { Icon } from '@/shared/components';
         color: $dark-2;
         display: inline-block;
 
-        [data-component='icon'] {
+        [data-component='Icon'] {
           @include square(25px);
         }
       }

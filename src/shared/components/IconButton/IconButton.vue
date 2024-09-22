@@ -1,5 +1,5 @@
 <template>
-  <button data-component="icon-button" class="flex-center" type="button" :disabled="disabled">
+  <button data-component="IconButton" class="flex-center" type="button" :disabled="disabled">
     <Icon :name="icon" :color="color" />
   </button>
 </template>
@@ -19,7 +19,7 @@ const { icon, size = '20px', color, disabled } = defineProps<Props>();
 </script>
 
 <style lang="scss">
-[data-component='icon-button'] {
+[data-component='IconButton'] {
   @include square(v-bind(size));
   padding: 0;
 

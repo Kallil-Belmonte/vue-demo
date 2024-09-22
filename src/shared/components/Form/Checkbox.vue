@@ -1,5 +1,5 @@
 <template>
-  <div data-component="checkbox">
+  <div data-component="Checkbox">
     <label :for="name">{{ label }}</label>
     <input
       ref="field"
@@ -47,7 +47,7 @@ defineExpose({ field });
 </script>
 
 <style lang="scss">
-[data-component='checkbox'] {
+[data-component='Checkbox'] {
   @extend %flex-center-y;
   gap: 10px;
   @include size(max-content, $field-height);

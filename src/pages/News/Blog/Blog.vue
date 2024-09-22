@@ -1,5 +1,5 @@
 <template>
-  <main data-page="blog">
+  <main data-page="Blog">
     <Loader v-if="loading" />
 
     <div class="container">
@@ -129,11 +129,11 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-[data-page='blog'] {
+[data-page='Blog'] {
   min-height: 500px;
   padding: 80px 0 30px;
 
-  [data-component='select'] {
+  [data-component='Select'] {
     width: 150px;
   }
 }

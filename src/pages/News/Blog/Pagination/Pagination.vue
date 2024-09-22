@@ -1,5 +1,5 @@
 <template>
-  <nav data-component="pagination" aria-label="Pagination" class="mx-auto">
+  <nav data-component="Pagination" aria-label="Pagination" class="mx-auto">
     <ul class="d-flex">
       <li v-if="firstItem > 1">
         <button type="button" @click="emit('paginate', 'previous')">Previous</button>
@@ -48,7 +48,7 @@ const isActive = (page: string | number) => Number(page) === currentPage;
 </script>
 
 <style lang="scss">
-[data-component='pagination'] {
+[data-component='Pagination'] {
   width: max-content;
 
   li {

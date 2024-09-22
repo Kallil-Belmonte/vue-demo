@@ -1,5 +1,5 @@
 <template>
-  <main data-page="auth">
+  <main data-page="Auth">
     <div class="container">
       <Icon class="logo mx-auto" category="Brand" name="Logo" />
 
@@ -30,7 +30,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-[data-page='auth'] {
+[data-page='Auth'] {
   .logo {
     @include square(100px);
     margin-top: 50px;

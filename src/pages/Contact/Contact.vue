@@ -1,5 +1,5 @@
 <template>
-  <main data-page="contact">
+  <main data-page="Contact">
     <div class="container">
       <PageHeader icon="Envelope">Contact</PageHeader>
 
@@ -14,7 +14,7 @@ import Form from '@/pages/Contact/Form/Form.vue';
 </script>
 
 <style lang="scss">
-[data-page='contact'] {
+[data-page='Contact'] {
   padding: 100px 0;
 }
 </style>

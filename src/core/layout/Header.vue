@@ -1,5 +1,5 @@
 <template>
-  <header data-layout="header">
+  <header data-layout="Header">
     <Icon class="logo mx-auto" category="Brand" name="Logo" />
 
     <h1 class="title">{{ PROJECT_TITLE }}</h1>
@@ -77,7 +77,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-[data-layout='header'] {
+[data-layout='Header'] {
   color: #fff;
   text-align: center;
   padding: 20px;
@@ -118,7 +118,7 @@ onMounted(() => {
             color: $primary;
           }
 
-          [data-component='icon'] {
+          [data-component='Icon'] {
             @include square(20px);
             margin-right: 10px;
           }

@@ -1,5 +1,5 @@
 <template>
-  <section data-component="featured-posts" class="page-section">
+  <section data-component="FeaturedPosts" class="page-section">
     <div class="container">
       <h2 class="section-title">Featured posts</h2>
 

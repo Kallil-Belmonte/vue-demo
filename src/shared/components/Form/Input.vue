@@ -1,5 +1,5 @@
 <template>
-  <div data-component="input" class="form-field">
+  <div data-component="Input" class="form-field">
     <div class="label-wrapper">
       <label :for="name">{{ label }}</label>
     </div>

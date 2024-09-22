@@ -1,5 +1,5 @@
 <template>
-  <div data-component="alert" role="alert" :class="status">
+  <div data-component="Alert" role="alert" :class="status">
     <Icon :name="getIcon(status)" size="25px" />
 
     <div class="content">
@@ -25,7 +25,7 @@ const { status = 'info', close } = defineProps<Props>();
 </script>
 
 <style lang="scss">
-[data-component='alert'] {
+[data-component='Alert'] {
   @extend %flex-center-y;
   justify-content: space-between;
   padding: 15px;
@@ -33,7 +33,7 @@ const { status = 'info', close } = defineProps<Props>();
   border: 1px solid #eee;
   box-shadow: 0 0 8px 5px rgb(0, 0, 0, 3%);
 
-  > [data-component='icon'] {
+  > [data-component='Icon'] {
     margin-right: 10px;
   }
 
@@ -41,7 +41,7 @@ const { status = 'info', close } = defineProps<Props>();
     width: 100%;
   }
 
-  [data-component='icon-button'] {
+  [data-component='IconButton'] {
     color: $grey-6;
 
     &:hover,
@@ -52,25 +52,25 @@ const { status = 'info', close } = defineProps<Props>();
   }
 
   &.info {
-    > [data-component='icon'] {
+    > [data-component='Icon'] {
       color: $info;
     }
   }
 
   &.success {
-    > [data-component='icon'] {
+    > [data-component='Icon'] {
       color: $success;
     }
   }
 
   &.warning {
-    > [data-component='icon'] {
+    > [data-component='Icon'] {
       color: $warning;
     }
   }
 
   &.danger {
-    > [data-component='icon'] {
+    > [data-component='Icon'] {
       color: $danger;
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <div data-component="post-item">
+  <div data-component="PostItem">
     <img v-if="post.image" class="img-fluid" :src="post.image" alt="Capa" />
     <div v-else class="img-placeholder">No image for this post</div>
 
@@ -24,7 +24,7 @@ const { post } = defineProps<Props>();
 </script>
 
 <style lang="scss">
-[data-component='post-item'] {
+[data-component='PostItem'] {
   text-align: center;
   margin-bottom: 50px;
 

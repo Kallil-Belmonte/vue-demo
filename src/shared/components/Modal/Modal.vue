@@ -1,5 +1,5 @@
 <template>
-  <dialog v-if="open" data-component="modal" aria-modal="true" ref="dialog" @click="click">
+  <dialog v-if="open" data-component="Modal" aria-modal="true" ref="dialog" @click="click">
     <header>
       <div class="title">
         <Icon v-if="icon" :name="icon" size="30px" />
@@ -56,7 +56,7 @@ watchEffect(() => {
 </script>
 
 <style lang="scss">
-[data-component='modal'] {
+[data-component='Modal'] {
   display: grid;
   grid-template-rows: 60px 1fr 80px;
   max-width: 500px;
@@ -78,7 +78,7 @@ watchEffect(() => {
     .title {
       @extend %flex-center-y;
 
-      [data-component='icon'] {
+      [data-component='Icon'] {
         color: $primary;
         margin-right: 10px;
       }

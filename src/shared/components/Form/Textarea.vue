@@ -1,5 +1,5 @@
 <template>
-  <div data-component="textarea" class="form-field">
+  <div data-component="Textarea" class="form-field">
     <div class="label-wrapper">
       <label :for="name">{{ label }}</label>
     </div>

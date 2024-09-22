@@ -1,5 +1,5 @@
 <template>
-  <section data-component="page-header">
+  <section data-component="PageHeader">
     <Icon v-if="icon" class="mx-auto" :name="icon" size="32px" />
 
     <h1 class="title">
@@ -20,8 +20,8 @@ const { icon } = defineProps<Props>();
 </script>
 
 <style lang="scss">
-[data-component='page-header'] {
-  [data-component='icon'] {
+[data-component='PageHeader'] {
+  [data-component='Icon'] {
     margin-bottom: 15px;
   }
 

@@ -1,5 +1,5 @@
 <template>
-  <div data-component="select" class="form-field">
+  <div data-component="Select" class="form-field">
     <div class="label-wrapper">
       <label :for="name">{{ label }}</label>
     </div>
@@ -118,12 +118,12 @@ defineExpose({ field });
 </script>
 
 <style lang="scss">
-[data-component='select'].form-field {
+[data-component='Select'].form-field {
   input {
     padding: 0 35px 0 $field-spacing-x;
   }
 
-  [data-component='icon-button'] {
+  [data-component='IconButton'] {
     transition: rotate 0.3s ease;
     @include position(absolute, 40px, 15px);
 

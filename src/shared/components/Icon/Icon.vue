@@ -1,5 +1,5 @@
 <template>
-  <div data-component="icon" :data-category="category" :data-name="name" v-html="svgs[name]"></div>
+  <div data-component="Icon" :data-category="category" :data-name="name" v-html="svgs[name]"></div>
 </template>
 
 <script lang="ts" setup>
@@ -56,7 +56,7 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss">
-[data-component='icon'] {
+[data-component='Icon'] {
   @extend %flex-center;
   @include square(v-bind(size));
   color: v-bind(color);

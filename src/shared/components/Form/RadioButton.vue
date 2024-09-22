@@ -1,5 +1,5 @@
 <template>
-  <div data-component="radio-button">
+  <div data-component="RadioButton">
     <div class="title-wrapper">
       <p class="title">{{ title }}</p>
     </div>
@@ -51,7 +51,7 @@ defineExpose({ field });
 </script>
 
 <style lang="scss">
-[data-component='radio-button'] {
+[data-component='RadioButton'] {
   .title-wrapper {
     @extend %flex-center-y;
     margin-bottom: 8px;
@@ -61,7 +61,7 @@ defineExpose({ field });
       margin: 0;
     }
 
-    [data-component='tooltip'] {
+    [data-component='Tooltip'] {
       margin-left: 5px;
     }
   }

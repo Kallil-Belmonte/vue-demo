@@ -1,5 +1,5 @@
 <template>
-  <section data-component="delete-post-modal">
+  <section data-component="DeletePostModal">
     <Modal :open="open" title="Delete Confirmation" :close="cancel">
       <article>
         <p>Are you sure you want to delete this post?</p>

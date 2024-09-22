@@ -1,6 +1,6 @@
 <template>
   <button
-    data-component="button"
+    data-component="Button"
     :class="variant"
     :type="type"
     :disabled="disabled || loading"
@@ -45,7 +45,7 @@ const click = (event: MouseEvent) => {
 </script>
 
 <style lang="scss">
-[data-component='button'] {
+[data-component='Button'] {
   width: max-content;
   border-radius: 50px;
   box-shadow: none;

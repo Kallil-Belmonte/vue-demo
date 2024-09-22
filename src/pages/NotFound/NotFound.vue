@@ -1,5 +1,5 @@
 <template>
-  <main data-page="not-found">
+  <main data-page="NotFound">
     <p class="number">404</p>
 
     <h1 class="page-title text-center">Page not found</h1>
@@ -21,7 +21,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-[data-page='not-found'] {
+[data-page='NotFound'] {
   color: #fff;
   @include size(100%, 100vh);
   padding: 100px 0;

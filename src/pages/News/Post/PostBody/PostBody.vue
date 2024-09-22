@@ -1,7 +1,7 @@
 <template>
   <Loader v-if="loading" />
 
-  <section data-component="post-body">
+  <section data-component="PostBody">
     <article>
       <h1 class="title text-center">{{ post.title }}</h1>
       <p>{{ post.body }}</p>
@@ -61,7 +61,7 @@ const triggleDeletePost = async () => {
 </script>
 
 <style lang="scss">
-[data-component='post-body'] {
+[data-component='PostBody'] {
   padding: 50px 0;
 
   .title {

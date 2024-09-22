@@ -1,5 +1,5 @@
 <template>
-  <aside data-component="categories">
+  <aside data-component="Categories">
     <ul>
       <li v-for="category in categories" :key="category.name">
         <button
@@ -42,7 +42,7 @@ const select = (category: Category['name']) => {
 </script>
 
 <style lang="scss">
-[data-component='categories'] {
+[data-component='Categories'] {
   li {
     button {
       width: 100%;
