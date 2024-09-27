@@ -50,10 +50,8 @@
           {{ successMessage }}
         </Alert>
 
-        <footer class="d-flex">
-          <Button type="submit">Save</Button>
-          <Button variant="base" @click="setFormData">Reset form</Button>
-        </footer>
+        <Button type="submit" class="me-2">Save</Button>
+        <Button variant="base" @click="setFormData">Reset form</Button>
       </form>
     </div>
   </div>
@@ -106,11 +104,3 @@ onMounted(() => {
   setFormData();
 });
 </script>
-
-<style lang="scss">
-[data-page='Account'] form {
-  footer {
-    gap: 10px;
-  }
-}
-</style>

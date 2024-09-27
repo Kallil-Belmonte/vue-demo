@@ -114,10 +114,8 @@
       {{ successMessage }}
     </Alert>
 
-    <footer class="d-flex">
-      <Button type="submit">Send</Button>
-      <Button variant="base" @click="reset">Reset form</Button>
-    </footer>
+    <Button type="submit" class="me-2">Send</Button>
+    <Button variant="base" @click="reset">Reset form</Button>
   </form>
 </template>
 
@@ -197,11 +195,3 @@ onMounted(() => {
   setFavoriteColors();
 });
 </script>
-
-<style lang="scss">
-[data-page='Contact'] form {
-  footer {
-    gap: 10px;
-  }
-}
-</style>
