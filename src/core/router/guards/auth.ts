@@ -2,19 +2,15 @@ import { RouteLocationNormalized, NavigationGuardNext } from 'vue-router/dist/vu
 
 import { isValidAuthToken, clearStorageData } from '@/shared/helpers';
 
-const guard = async (
+const app = async (
   to: RouteLocationNormalized,
   from: RouteLocationNormalized,
   next: NavigationGuardNext,
 ) => {
-  const isValid = isValidAuthToken();
+  const isValid = await isValidAuthToken();
 
-  if (isValid) {
-    next();
-  } else {
-    clearStorageData();
-    next({ name: 'login' });
-  }
+  if (isValid) next({ name: 'home' });
+  else next();
 };
 
-export default guard;
+export default app;

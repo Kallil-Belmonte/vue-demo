@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import guard from './guard';
+import { app, auth } from './guards';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -8,7 +8,7 @@ const router = createRouter({
     {
       path: '/',
       component: () => import('@/core/layout/Dashboard.vue'),
-      beforeEnter: guard,
+      beforeEnter: app,
       children: [
         {
           name: 'home',
@@ -72,6 +72,7 @@ const router = createRouter({
       meta: {
         title: 'Login',
       },
+      beforeEnter: auth,
       component: () => import('@/pages/Auth/Login/Login.vue'),
     },
     {
@@ -80,6 +81,7 @@ const router = createRouter({
       meta: {
         title: 'Register',
       },
+      beforeEnter: auth,
       component: () => import('@/pages/Auth/Register/Register.vue'),
     },
     {

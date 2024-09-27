@@ -18,15 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from 'vue';
-
-import { redirectLoggedUser } from '@/shared/helpers';
 import { Icon } from '@/shared/components';
-
-// LIFECYCLE HOOKS
-onMounted(() => {
-  redirectLoggedUser();
-});
 </script>
 
 <style lang="scss">

@@ -12,11 +12,10 @@ const isValidAuthToken = async () => {
   if (!authToken) return false;
 
   const { iss, exp } = authToken;
-  const isValidObject = keys(authToken);
   const isValidIssuer = iss === `api.app-demo.com`;
   const isExpired = new Date().getTime() > exp;
 
-  return isValidObject && isValidIssuer && !isExpired;
+  return isValidIssuer && !isExpired;
 };
 
 export default isValidAuthToken;
