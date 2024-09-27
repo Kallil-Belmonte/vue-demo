@@ -2,7 +2,7 @@
   <Auth>
     <Loader v-if="loading" />
 
-    <form class="register-form" @submit.prevent="submit">
+    <form class="auth-form" @submit.prevent="submit">
       <h1 class="page-title">Register</h1>
 
       <div class="mb-3">
@@ -116,18 +116,3 @@ const submit = async () => {
   }
 };
 </script>
-
-<style lang="scss">
-[data-page='Auth'] .register-form {
-  padding: 40px 40px 15px 40px;
-  border-radius: 10px;
-  background-color: #fff;
-  margin-top: 50px;
-
-  .page-title {
-    font-size: 24px;
-    font-weight: 700;
-    text-align: center;
-  }
-}
-</style>
