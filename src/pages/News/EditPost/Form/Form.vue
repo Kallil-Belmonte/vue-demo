@@ -62,7 +62,6 @@ const submit = async () => {
 
     await editPost(payload);
     setCurrentPost(payload);
-    loading.value = false;
     router.push({ name: 'post', params: { id: payload.id } });
   } catch (error) {
     console.error(error);

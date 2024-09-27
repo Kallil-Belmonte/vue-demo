@@ -148,7 +148,7 @@ const favoriteColor = ref('');
 const employed = ref(false);
 const message = ref('');
 
-const setFavoriteColors = async () => {
+const setInitialData = async () => {
   try {
     const response = await getFavoriteColors();
     favoriteColors.value = response;
@@ -192,6 +192,6 @@ const submit = async () => {
 
 // LIFECYCLE HOOKS
 onMounted(() => {
-  setFavoriteColors();
+  setInitialData();
 });
 </script>
