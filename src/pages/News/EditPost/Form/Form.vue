@@ -1,7 +1,7 @@
 <template>
   <Loader v-if="loading" />
 
-  <form class="edit-post-form" @submit.prevent="submit">
+  <form @submit.prevent="submit">
     <div class="mb-3">
       <Input label="Title" name="title" required minlength="2" v-model="title" />
     </div>
@@ -76,7 +76,9 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-.edit-post-form {
-  margin: 80px 0;
+[data-page='EditPost'] {
+  form {
+    margin: 80px 0;
+  }
 }
 </style>
