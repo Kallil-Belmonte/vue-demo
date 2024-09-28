@@ -1,6 +1,6 @@
-import { RouteLocationNormalized, NavigationGuardNext } from 'vue-router/dist/vue-router.d';
+import { RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
 
-import { isValidAuthToken, clearStorageData } from '@/shared/helpers';
+import { isValidAuthToken } from '@/shared/helpers';
 
 const app = async (
   to: RouteLocationNormalized,

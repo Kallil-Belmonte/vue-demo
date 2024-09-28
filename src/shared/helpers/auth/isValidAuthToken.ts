@@ -1,7 +1,5 @@
 import getAuthToken, { type AuthToken } from './getAuthToken';
 
-const { keys } = Object;
-
 /**
  * @function isValidAuthToken
  * @description Checks if the auth token is valid.
