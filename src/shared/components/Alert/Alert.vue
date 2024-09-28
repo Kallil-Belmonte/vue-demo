@@ -51,11 +51,17 @@ const { status = 'info', close } = defineProps<Props>();
     }
   }
 
+  // COLOR
+
+  // Info
+
   &.info {
     > [data-component='Icon'] {
       color: $info;
     }
   }
+
+  // Success
 
   &.success {
     > [data-component='Icon'] {
@@ -63,11 +69,15 @@ const { status = 'info', close } = defineProps<Props>();
     }
   }
 
+  // Warning
+
   &.warning {
     > [data-component='Icon'] {
       color: $warning;
     }
   }
+
+  // Danger
 
   &.danger {
     > [data-component='Icon'] {

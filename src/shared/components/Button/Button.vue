@@ -53,7 +53,9 @@ const click = (event: MouseEvent) => {
   box-shadow: none;
   @include transitionAll();
 
-  /* Primary */
+  // COLOR
+
+  // Primary
 
   &.primary {
     color: #fff;
@@ -66,7 +68,7 @@ const click = (event: MouseEvent) => {
     background-color: $primary-darker;
   }
 
-  /* Secondary */
+  // Secondary
 
   &.secondary {
     color: #fff;
@@ -79,7 +81,7 @@ const click = (event: MouseEvent) => {
     background-color: $secondary-darker;
   }
 
-  /* Base */
+  // Base
 
   &.base {
     background-color: #fff;
