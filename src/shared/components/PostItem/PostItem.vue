@@ -1,6 +1,6 @@
 <template>
   <div data-component="PostItem">
-    <img v-if="post.image" class="img-fluid" :src="post.image" alt="Capa" />
+    <img v-if="post.image" class="img-fluid" :src="post.image" alt="Cover" />
     <div v-else class="img-placeholder">No image for this post</div>
 
     <article>
