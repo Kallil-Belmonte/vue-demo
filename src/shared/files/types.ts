@@ -1,9 +1,3 @@
-import { StyleValue, ButtonHTMLAttributes } from '@vue/runtime-dom';
-
-export type Style = StyleValue;
-
-export type ButtonType = ButtonHTMLAttributes['type'];
-
 export type ObjectType = { [key: string]: any };
 
 export type Variant = 'primary' | 'secondary' | 'base';

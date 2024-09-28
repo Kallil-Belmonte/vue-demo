@@ -13,13 +13,15 @@
 </template>
 
 <script lang="ts" setup>
+import type { ButtonHTMLAttributes } from 'vue';
+
 import { type RouteLocationRaw, useRouter } from 'vue-router';
 
-import type { ButtonType, Variant } from '@/shared/files/types';
+import type { Variant } from '@/shared/files/types';
 import Icon from '../Icon/Icon.vue';
 
 type Props = {
-  type?: ButtonType;
+  type?: ButtonHTMLAttributes['type'];
   variant?: Variant;
   route?: RouteLocationRaw;
   loading?: boolean;
