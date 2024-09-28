@@ -56,7 +56,6 @@ const click = (event: MouseEvent) => {
   // COLOR
 
   // Primary
-
   &.primary {
     color: #fff;
     background-color: $primary;
@@ -69,7 +68,6 @@ const click = (event: MouseEvent) => {
   }
 
   // Secondary
-
   &.secondary {
     color: #fff;
     background-color: $secondary;
@@ -82,7 +80,6 @@ const click = (event: MouseEvent) => {
   }
 
   // Base
-
   &.base {
     background-color: #fff;
     border: 1px solid $grey-4;

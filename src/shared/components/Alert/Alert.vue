@@ -54,7 +54,6 @@ const { status = 'info', close } = defineProps<Props>();
   // COLOR
 
   // Info
-
   &.info {
     > [data-component='Icon'] {
       color: $info;
@@ -62,7 +61,6 @@ const { status = 'info', close } = defineProps<Props>();
   }
 
   // Success
-
   &.success {
     > [data-component='Icon'] {
       color: $success;
@@ -70,7 +68,6 @@ const { status = 'info', close } = defineProps<Props>();
   }
 
   // Warning
-
   &.warning {
     > [data-component='Icon'] {
       color: $warning;
@@ -78,7 +75,6 @@ const { status = 'info', close } = defineProps<Props>();
   }
 
   // Danger
-
   &.danger {
     > [data-component='Icon'] {
       color: $danger;
