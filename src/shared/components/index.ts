@@ -11,3 +11,4 @@ export { default as PostItem } from './PostItem/PostItem.vue';
 export { default as RadioButton } from './Form/RadioButton.vue';
 export { default as Select } from './Form/Select.vue';
 export { default as Textarea } from './Form/Textarea.vue';
+export { default as Tooltip } from './Form/Tooltip.vue';

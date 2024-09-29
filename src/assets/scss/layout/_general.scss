@@ -62,6 +62,27 @@
 //   src: url('../fonts/nome-da-fonte/nome-da-fonte-bold-webfont.woff');
 // }
 
+// ANIMATION (https://animate.style)
+.animated {
+  opacity: 0;
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+}
+
+.fadeIn {
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  animation-name: fadeIn;
+}
+
 // ATTRIBUTES
 [aria-hidden='true'] {
   display: none !important;
