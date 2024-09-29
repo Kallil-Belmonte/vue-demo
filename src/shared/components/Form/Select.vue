@@ -92,6 +92,8 @@ const focusout = (event: FocusEvent) => {
     if (option) {
       model.value = option.value;
       change?.(option.value, event);
+    } else {
+      model.value = '';
     }
 
     openned.value = false;
