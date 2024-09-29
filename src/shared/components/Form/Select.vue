@@ -14,11 +14,11 @@
       placeholder="Select"
       :disabled="disabled"
       @input="search"
-      @focus="focus"
+      @focus="openSelect"
       @focusout="focusout"
     />
-    <IconButton icon="ArrowDown" size="15px" @click="triggerInputFocus" />
-    <div role="listbox" tabindex="0" aria-label="Options" :aria-hidden="!openned">
+    <IconButton icon="ArrowDown" size="15px" @click="openSelect" />
+    <div role="listbox" tabindex="0" aria-label="Options" :aria-hidden="!open">
       <div
         v-for="option in filteredOptions"
         :key="option.value"
@@ -64,7 +64,7 @@ const [model] = defineModel<string>({ required: true });
 
 const field = useTemplateRef<HTMLInputElement | HTMLSelectElement>('field');
 
-const openned = ref(false);
+const open = ref(false);
 const inputModel = ref('');
 const filteredOptions = ref<Props['options']>([]);
 
@@ -79,8 +79,8 @@ const search = (event: Event) => {
   );
 };
 
-const focus = () => {
-  openned.value = true;
+const openSelect = () => {
+  open.value = true;
 };
 
 const focusout = (event: FocusEvent) => {
@@ -96,12 +96,8 @@ const focusout = (event: FocusEvent) => {
       model.value = '';
     }
 
-    openned.value = false;
+    open.value = false;
   }, 100);
-};
-
-const triggerInputFocus = () => {
-  field.value?.focus();
 };
 
 const select = (option: Option) => {
