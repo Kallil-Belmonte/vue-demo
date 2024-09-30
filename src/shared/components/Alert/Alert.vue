@@ -6,7 +6,7 @@
       <slot></slot>
     </div>
 
-    <IconButton v-if="close" icon="Close" size="15px" @click="close" />
+    <Button v-if="close" :icon="{ name: 'Close', size: '15px' }" @click="close" />
   </div>
 </template>
 
@@ -14,7 +14,7 @@
 import type { Status } from '@/shared/files/types';
 import { getIcon } from '@/shared/helpers';
 import Icon from '../Icon/Icon.vue';
-import IconButton from '../IconButton/IconButton.vue';
+import Button from '../Button/Button.vue';
 
 type Props = {
   status?: Status;
@@ -39,16 +39,6 @@ const { status = 'info', close } = defineProps<Props>();
 
   .content {
     width: 100%;
-  }
-
-  [data-component='IconButton'] {
-    color: $grey-6;
-
-    &:hover,
-    &:focus,
-    &:active {
-      color: $dark-2;
-    }
   }
 
   // COLOR

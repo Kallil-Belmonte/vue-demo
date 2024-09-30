@@ -17,7 +17,7 @@
       @focus="openSelect"
       @focusout="focusout"
     />
-    <IconButton icon="ArrowDown" size="15px" @click="openSelect" />
+    <Button :icon="{ name: 'ArrowDown', size: '15px' }" @click="openSelect" />
     <div role="listbox" tabindex="0" aria-label="Options" :aria-hidden="!open">
       <div
         v-for="option in filteredOptions"
@@ -41,7 +41,7 @@
 import { type InputHTMLAttributes, useTemplateRef, ref, watchEffect } from 'vue';
 
 import { removeAccent } from '@/shared/helpers';
-import IconButton from '../IconButton/IconButton.vue';
+import Button from '../Button/Button.vue';
 
 type Option = {
   text: string;
@@ -125,7 +125,7 @@ defineExpose({ field });
     padding: 0 35px 0 $field-spacing-x;
   }
 
-  [data-component='IconButton'] {
+  [data-component='Button'] {
     transition: rotate 0.3s ease;
     @include position(absolute, 40px, 15px);
 

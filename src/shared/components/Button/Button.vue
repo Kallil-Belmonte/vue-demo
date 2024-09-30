@@ -6,7 +6,8 @@
     :disabled="disabled || loading"
     @click="click"
   >
-    <Icon v-if="loading" class="mx-auto" name="Loading" color="#fff" size="30px" />
+    <Icon v-if="loading" name="Loading" color="#fff" />
+    <Icon v-else-if="name" :name="name" :color="color" :size="size" />
 
     <slot v-if="!loading"></slot>
   </button>
@@ -18,12 +19,14 @@ import type { ButtonHTMLAttributes } from 'vue';
 import { type RouteLocationRaw, useRouter } from 'vue-router';
 
 import type { Variant } from '@/shared/files/types';
+import type { Icons } from '../Icon/types';
 import Icon from '../Icon/Icon.vue';
 
 type Props = {
   type?: ButtonHTMLAttributes['type'];
-  variant?: Variant;
+  variant?: Variant | 'icon' | 'icon-primary' | 'icon-secondary';
   route?: RouteLocationRaw;
+  icon?: { name: Icons; color?: string; size?: string };
   loading?: boolean;
   disabled?: boolean;
   click?: (event: MouseEvent) => void;
@@ -33,10 +36,12 @@ const {
   type = 'button',
   variant = 'primary',
   route,
+  icon,
   loading,
   disabled,
   click: clickProp,
 } = defineProps<Props>();
+const { name, color, size = '20px' } = icon || {};
 
 const router = useRouter();
 
@@ -48,47 +53,108 @@ const click = (event: MouseEvent) => {
 
 <style lang="scss">
 [data-component='Button'] {
-  width: max-content;
-  border-radius: 50px;
+  @extend %flex-center;
+  gap: 10px;
+  font-weight: 700;
   box-shadow: none;
-  @include transitionAll();
+  transition: background-color 0.4s ease;
 
-  // COLOR
+  [data-component='Icon'] {
+    @include square(60%);
+  }
+
+  // VARIANT
+
+  // Primary
+  // Secondary
+  // Base
+  &.primary,
+  &.secondary,
+  &.base {
+    width: 100%;
+    border-radius: 50px;
+  }
 
   // Primary
   &.primary {
     color: #fff;
     background-color: $primary;
-  }
 
-  &.primary:hover,
-  &.primary:focus,
-  &.primary:active {
-    background-color: $primary-darker;
+    @include active-style {
+      background-color: $primary-darker;
+    }
   }
 
   // Secondary
   &.secondary {
     color: #fff;
     background-color: $secondary;
-  }
 
-  &.secondary:hover,
-  &.secondary:focus,
-  &.secondary:active {
-    background-color: $secondary-darker;
+    @include active-style {
+      background-color: $secondary-darker;
+    }
   }
 
   // Base
   &.base {
     background-color: #fff;
     border: 1px solid $grey-4;
+
+    @include active-style {
+      background-color: color.adjust(#fff, $lightness: -1%);
+    }
   }
 
-  &.base:hover,
-  &.base:focus,
-  &.base:active {
-    background-color: color.adjust(#fff, $lightness: -1%);
+  // Icon
+  &.icon {
+    @include square(v-bind(size));
+    color: $grey-7;
+    padding: 0;
+
+    @include active-style {
+      color: $dark-1;
+    }
+
+    [data-component='Icon'] {
+      @include square(100%);
+    }
+  }
+
+  // Icon Primary
+  // Icon Secondary
+  &.icon-primary,
+  &.icon-secondary {
+    @include square(v-bind(size));
+    color: #fff;
+    padding: 0;
+    border-radius: 25%;
+  }
+
+  // Icon Primary
+  &.icon-primary {
+    background-color: $primary;
+
+    @include active-style {
+      background-color: $primary-darker;
+    }
+  }
+
+  // Icon Secondary
+  &.icon-secondary {
+    background-color: $secondary;
+
+    @include active-style {
+      background-color: $secondary-darker;
+    }
+  }
+
+  // Icon Primary
+  &.icon-primary {
+    background-color: $primary;
+
+    @include active-style {
+      background-color: $primary-darker;
+    }
   }
 }
 </style>

@@ -5,7 +5,7 @@
         <Icon v-if="icon" :name="icon" size="30px" />
         <h3>{{ title }}</h3>
       </div>
-      <IconButton icon="Close" @click="close" />
+      <Button :icon="{ name: 'Close' }" @click="close" />
     </header>
     <section class="body">
       <slot></slot>
@@ -21,7 +21,7 @@ import { useTemplateRef, watchEffect } from 'vue';
 
 import type { Icons } from '../Icon/types';
 import Icon from '../Icon/Icon.vue';
-import IconButton from '../IconButton/IconButton.vue';
+import Button from '../Button/Button.vue';
 
 type Props = {
   open: boolean;
