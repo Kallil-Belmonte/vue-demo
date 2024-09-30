@@ -24,7 +24,7 @@ import Icon from '../Icon/Icon.vue';
 
 type Props = {
   type?: ButtonHTMLAttributes['type'];
-  variant?: Variant | 'icon' | 'icon-primary' | 'icon-secondary' | 'icon-base';
+  variant?: Variant | 'icon' | 'icon-base' | 'icon-primary' | 'icon-secondary';
   route?: RouteLocationRaw;
   icon?: { name: Icons; color?: string; size?: string };
   loading?: boolean;
@@ -68,14 +68,24 @@ $icon-size: 60%;
 
   // VARIANT
 
+  // Base
   // Primary
   // Secondary
-  // Base
+  &.base,
   &.primary,
-  &.secondary,
-  &.base {
+  &.secondary {
     width: 100%;
     border-radius: 50px;
+  }
+
+  // Base
+  &.base {
+    background-color: #fff;
+    border: 1px solid $grey-4;
+
+    @include active-style {
+      background-color: color.adjust(#fff, $lightness: -1%);
+    }
   }
 
   // Primary
@@ -98,34 +108,24 @@ $icon-size: 60%;
     }
   }
 
-  // Base
-  &.base {
-    background-color: #fff;
-    border: 1px solid $grey-4;
-
-    @include active-style {
-      background-color: color.adjust(#fff, $lightness: -1%);
-    }
-  }
-
   // Icon
+  // Icon Base
   // Icon Primary
   // Icon Secondary
-  // Icon Base
   &.icon,
+  &.icon-base,
   &.icon-primary,
-  &.icon-secondary,
-  &.icon-base {
+  &.icon-secondary {
     @include square(v-bind(size));
     padding: 0;
   }
 
+  // Icon Base
   // Icon Primary
   // Icon Secondary
-  // Icon Base
+  &.icon-base,
   &.icon-primary,
-  &.icon-secondary,
-  &.icon-base {
+  &.icon-secondary {
     border-radius: 25%;
 
     [data-component='Icon'] {
@@ -153,6 +153,16 @@ $icon-size: 60%;
     }
   }
 
+  // Icon Base
+  &.icon-base {
+    background-color: #fff;
+    border: 1px solid $grey-4;
+
+    @include active-style {
+      background-color: color.adjust(#fff, $lightness: -1%);
+    }
+  }
+
   // Icon Primary
   &.icon-primary {
     background-color: $primary;
@@ -168,16 +178,6 @@ $icon-size: 60%;
 
     @include active-style {
       background-color: $secondary-darker;
-    }
-  }
-
-  // Icon Base
-  &.icon-base {
-    background-color: #fff;
-    border: 1px solid $grey-4;
-
-    @include active-style {
-      background-color: color.adjust(#fff, $lightness: -1%);
     }
   }
 }
