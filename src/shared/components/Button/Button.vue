@@ -59,10 +59,6 @@ const click = (event: MouseEvent) => {
   box-shadow: none;
   transition: background-color 0.4s ease;
 
-  [data-component='Icon'] {
-    @include square(60%);
-  }
-
   // VARIANT
 
   // Primary
@@ -128,6 +124,10 @@ const click = (event: MouseEvent) => {
     color: #fff;
     padding: 0;
     border-radius: 25%;
+
+    [data-component='Icon'] {
+      @include square(60%);
+    }
   }
 
   // Icon Primary
@@ -145,15 +145,6 @@ const click = (event: MouseEvent) => {
 
     @include active-style {
       background-color: $secondary-darker;
-    }
-  }
-
-  // Icon Primary
-  &.icon-primary {
-    background-color: $primary;
-
-    @include active-style {
-      background-color: $primary-darker;
     }
   }
 }
