@@ -14,10 +14,10 @@
       placeholder="Select"
       :disabled="disabled"
       @input="search"
-      @focus="openSelect"
+      @focus="focus"
       @focusout="focusout"
     />
-    <Button :icon="{ name: 'ArrowDown', size: '15px' }" @click="openSelect" />
+    <Button variant="icon" :icon="{ name: 'ArrowDown', size: '15px' }" @click="triggerInputFocus" />
     <div role="listbox" tabindex="0" aria-label="Options" :aria-hidden="!open">
       <div
         v-for="option in filteredOptions"
@@ -79,7 +79,7 @@ const search = (event: Event) => {
   );
 };
 
-const openSelect = () => {
+const focus = () => {
   open.value = true;
 };
 
@@ -91,13 +91,19 @@ const focusout = (event: FocusEvent) => {
 
     if (option) {
       model.value = option.value;
+      inputModel.value = option.text;
       change?.(option.value, event);
     } else {
       model.value = '';
+      inputModel.value = '';
     }
 
     open.value = false;
   }, 100);
+};
+
+const triggerInputFocus = () => {
+  field.value?.focus();
 };
 
 const select = (option: Option) => {

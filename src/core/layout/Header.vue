@@ -129,6 +129,10 @@ onMounted(() => {
 
   .welcome-box {
     @include position(absolute, 20px, 20px);
+
+    [data-component='Button'] {
+      width: max-content;
+    }
   }
 }
 </style>

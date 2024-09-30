@@ -114,8 +114,10 @@
       {{ successMessage }}
     </Alert>
 
-    <Button type="submit" class="me-2">Send</Button>
-    <Button variant="base" @click="reset">Reset form</Button>
+    <footer>
+      <Button type="submit">Send</Button>
+      <Button variant="base" @click="reset">Reset form</Button>
+    </footer>
   </form>
 </template>
 
@@ -195,3 +197,16 @@ onMounted(() => {
   setInitialData();
 });
 </script>
+
+<style lang="scss">
+[data-page='Contact'] form {
+  footer {
+    @extend %flex-center-y;
+    gap: 10px;
+
+    [data-component='Button'] {
+      width: max-content;
+    }
+  }
+}
+</style>

@@ -50,8 +50,10 @@
           {{ successMessage }}
         </Alert>
 
-        <Button type="submit" class="me-2">Save</Button>
-        <Button variant="base" @click="setFormData">Reset form</Button>
+        <footer>
+          <Button type="submit">Save</Button>
+          <Button variant="base" @click="setFormData">Reset form</Button>
+        </footer>
       </form>
     </div>
   </div>
@@ -104,3 +106,16 @@ onMounted(() => {
   setFormData();
 });
 </script>
+
+<style lang="scss">
+[data-page='Account'] form {
+  footer {
+    @extend %flex-center-y;
+    gap: 10px;
+
+    [data-component='Button'] {
+      width: max-content;
+    }
+  }
+}
+</style>
