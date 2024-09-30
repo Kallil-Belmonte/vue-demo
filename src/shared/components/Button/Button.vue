@@ -24,7 +24,7 @@ import Icon from '../Icon/Icon.vue';
 
 type Props = {
   type?: ButtonHTMLAttributes['type'];
-  variant?: Variant | 'icon' | 'icon-primary' | 'icon-secondary';
+  variant?: Variant | 'icon' | 'icon-primary' | 'icon-secondary' | 'icon-base';
   route?: RouteLocationRaw;
   icon?: { name: Icons; color?: string; size?: string };
   loading?: boolean;
@@ -52,12 +52,19 @@ const click = (event: MouseEvent) => {
 </script>
 
 <style lang="scss">
+$icon-size: 60%;
+
 [data-component='Button'] {
   @extend %flex-center;
   gap: 10px;
   font-weight: 700;
   box-shadow: none;
   transition: background-color 0.4s ease;
+  overflow: hidden;
+
+  [data-component='Icon'][data-name='Loading'] {
+    @include square($icon-size);
+  }
 
   // VARIANT
 
@@ -102,17 +109,27 @@ const click = (event: MouseEvent) => {
   }
 
   // Icon
-  &.icon {
+  // Icon Primary
+  // Icon Secondary
+  // Icon Base
+  &.icon,
+  &.icon-primary,
+  &.icon-secondary,
+  &.icon-base {
     @include square(v-bind(size));
-    color: $grey-7;
     padding: 0;
+  }
 
-    @include active-style {
-      color: $dark-1;
-    }
+  // Icon Primary
+  // Icon Secondary
+  // Icon Base
+  &.icon-primary,
+  &.icon-secondary,
+  &.icon-base {
+    border-radius: 25%;
 
     [data-component='Icon'] {
-      @include square(100%);
+      @include square($icon-size);
     }
   }
 
@@ -120,13 +137,19 @@ const click = (event: MouseEvent) => {
   // Icon Secondary
   &.icon-primary,
   &.icon-secondary {
-    @include square(v-bind(size));
     color: #fff;
-    padding: 0;
-    border-radius: 25%;
+  }
+
+  // Icon
+  &.icon {
+    color: $grey-7;
+
+    @include active-style {
+      color: $dark-1;
+    }
 
     [data-component='Icon'] {
-      @include square(60%);
+      @include square(100%);
     }
   }
 
@@ -145,6 +168,16 @@ const click = (event: MouseEvent) => {
 
     @include active-style {
       background-color: $secondary-darker;
+    }
+  }
+
+  // Icon Base
+  &.icon-base {
+    background-color: #fff;
+    border: 1px solid $grey-4;
+
+    @include active-style {
+      background-color: color.adjust(#fff, $lightness: -1%);
     }
   }
 }
