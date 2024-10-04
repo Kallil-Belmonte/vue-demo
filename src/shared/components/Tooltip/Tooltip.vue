@@ -51,6 +51,7 @@ const anchorName = `--tooltip-${uuid().split('-')[0]}`;
 
 const contentStyle = { '--spacing': spacing, 'position-anchor': anchorName } as StyleValue;
 
+// @ts-ignore
 const content = useTemplateRef('content');
 
 const show = ref(false);

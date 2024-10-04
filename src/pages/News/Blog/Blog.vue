@@ -93,7 +93,7 @@ const getAllData = async () => {
   }
 };
 
-const selectCategory = async (category: Category['name']) => {
+const selectCategory = async (_category: Category['name']) => {
   loading.value = true;
 
   try {
