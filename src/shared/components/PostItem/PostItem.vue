@@ -24,6 +24,8 @@ const { post } = defineProps<Props>();
 </script>
 
 <style lang="scss">
+@import '@/assets/scss/helpers/_helpers.scss';
+
 [data-component='PostItem'] {
   text-align: center;
   margin-bottom: 50px;

@@ -52,6 +52,9 @@ const click = (event: MouseEvent) => {
 </script>
 
 <style lang="scss">
+@use 'sass:color';
+@import '@/assets/scss/helpers/_helpers.scss';
+
 $icon-size: 60%;
 
 [data-component='Button'] {

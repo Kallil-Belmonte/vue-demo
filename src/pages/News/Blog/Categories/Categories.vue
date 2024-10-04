@@ -42,6 +42,8 @@ const select = (category: Category['name']) => {
 </script>
 
 <style lang="scss">
+@import '@/assets/scss/helpers/_helpers.scss';
+
 [data-component='Categories'] {
   li {
     button {

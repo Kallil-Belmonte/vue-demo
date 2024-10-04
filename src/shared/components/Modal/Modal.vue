@@ -56,6 +56,8 @@ watchEffect(() => {
 </script>
 
 <style lang="scss">
+@import '@/assets/scss/helpers/_helpers.scss';
+
 [data-component='Modal'] {
   display: grid;
   grid-template-rows: 60px 1fr 80px;

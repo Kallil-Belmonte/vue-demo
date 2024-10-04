@@ -126,6 +126,8 @@ defineExpose({ field });
 </script>
 
 <style lang="scss">
+@import '@/assets/scss/helpers/_helpers.scss';
+
 [data-component='Select'].form-field {
   input {
     padding: 0 35px 0 $field-spacing-x;

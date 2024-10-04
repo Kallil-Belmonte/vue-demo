@@ -77,6 +77,8 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
+@import '@/assets/scss/helpers/_helpers.scss';
+
 [data-layout='Header'] {
   color: #fff;
   text-align: center;

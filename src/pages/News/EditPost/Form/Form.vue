@@ -76,6 +76,8 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
+@import '@/assets/scss/helpers/_helpers.scss';
+
 [data-page='EditPost'] {
   form {
     margin: 80px 0;

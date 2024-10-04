@@ -65,7 +65,9 @@ const mouseleave = () => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@import '@/assets/scss/helpers/_helpers.scss';
+
 [data-component='tooltip'] {
   > .anchor {
     width: max-content;

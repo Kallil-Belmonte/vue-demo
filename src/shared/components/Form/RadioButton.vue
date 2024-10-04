@@ -51,6 +51,8 @@ defineExpose({ field });
 </script>
 
 <style lang="scss">
+@import '@/assets/scss/helpers/_helpers.scss';
+
 [data-component='RadioButton'] {
   .title-wrapper {
     @extend %flex-center-y;

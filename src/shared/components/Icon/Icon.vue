@@ -56,6 +56,8 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss">
+@import '@/assets/scss/helpers/_helpers.scss';
+
 [data-component='Icon'] {
   @extend %flex-center;
   @include square(v-bind(size));

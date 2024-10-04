@@ -14,6 +14,8 @@ import Form from '@/pages/Contact/Form/Form.vue';
 </script>
 
 <style lang="scss">
+@import '@/assets/scss/helpers/_helpers.scss';
+
 [data-page='Contact'] {
   padding: 100px 0;
 }
