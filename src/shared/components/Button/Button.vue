@@ -154,6 +154,10 @@ $icon-size: 60%;
     [data-component='Icon'] {
       @include square(100%);
     }
+
+    &:disabled {
+      background-color: transparent !important;
+    }
   }
 
   // Icon Base
