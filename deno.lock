@@ -6,7 +6,6 @@
     "npm:@vitejs/plugin-vue@5.1.4": "5.1.4_vite@5.4.7__@types+node@22.7.4__sass-embedded@1.79.3_vue@3.5.7__typescript@5.6.2_@types+node@22.7.4_sass-embedded@1.79.3_typescript@5.6.2",
     "npm:@vue/compiler-sfc@3.5.7": "3.5.7",
     "npm:jwt-decode@4.0.0": "4.0.0",
-    "npm:path@0.12.7": "0.12.7",
     "npm:sass-embedded@1.79.3": "1.79.3",
     "npm:typescript@5.6.2": "5.6.2",
     "npm:vite@5.4.7": "5.4.7_@types+node@22.7.4_sass-embedded@1.79.3",
@@ -362,9 +361,6 @@
     "immutable@4.3.7": {
       "integrity": "sha512-1hqclzwYwjRDFLjcFxOM5AYkkG0rpFPpr1RLPMEuGczoS7YA8gLhy8SWXYRAA/XwfEHpfo3cw5JGioS32fnMRw=="
     },
-    "inherits@2.0.3": {
-      "integrity": "sha512-x00IRNXNy63jwGkJmzPigoySHbaqpNuzKbBOmzK+g2OdZpQ9w+sxCN+VSB3ja7IAge2OP2qpfxTjeNcyjmW1uw=="
-    },
     "jwt-decode@4.0.0": {
       "integrity": "sha512-+KJGIyHgkGuIq3IEBNftfhW/LfWhXUIY6OmyVWjliu5KH1y0fw7VQ8YndE2O4qZdMSd9SqbnC8GOcZEy0Om7sA=="
     },
@@ -389,13 +385,6 @@
     "path-browserify@1.0.1": {
       "integrity": "sha512-b7uo2UCUOYZcnF/3ID0lulOJi/bafxa1xPe7ZPsammBSpjSWQkjNxlt635YGS2MiR9GjvuXCtz2emr3jbsz98g=="
     },
-    "path@0.12.7": {
-      "integrity": "sha512-aXXC6s+1w7otVF9UletFkFcDsJeO7lSZBPUQhtb5O0xJe8LtYhj/GxldoL09bBj9+ZmE2hNoHqQSFMN5fikh4Q==",
-      "dependencies": [
-        "process",
-        "util"
-      ]
-    },
     "picocolors@1.1.0": {
       "integrity": "sha512-TQ92mBOW0l3LeMeyLV6mzy/kWr8lkd/hp3mTg7wYK7zJhuBStmGMBG0BdeDZS/dZx1IukaX6Bk11zcln25o1Aw=="
     },
@@ -406,9 +395,6 @@
         "picocolors",
         "source-map-js"
       ]
-    },
-    "process@0.11.10": {
-      "integrity": "sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A=="
     },
     "rollup@4.24.0": {
       "integrity": "sha512-DOmrlGSXNk1DM0ljiQA+i+o0rSLhtii1je5wgk60j49d1jHT5YYttBv1iWOnYSTG+fZZESUOSNiAl89SIet+Cg==",
@@ -558,12 +544,6 @@
     "undici-types@6.19.8": {
       "integrity": "sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw=="
     },
-    "util@0.10.4": {
-      "integrity": "sha512-0Pm9hTQ3se5ll1XihRic3FDIku70C+iHUdT/W926rSgHV5QgXsYbKZN8MSC3tJtSkhuROzvsQjAaFENRXr+19A==",
-      "dependencies": [
-        "inherits"
-      ]
-    },
     "varint@6.0.0": {
       "integrity": "sha512-cXEIW6cfr15lFv563k4GuVuW/fiwjknytD37jIOLSdSWuOI6WnO/oKwmP2FQTU2l01LP8/M5TSAJpzUaGe3uWg=="
     },
@@ -617,7 +597,6 @@
         "npm:@vitejs/plugin-vue@5.1.4",
         "npm:@vue/compiler-sfc@3.5.7",
         "npm:jwt-decode@4.0.0",
-        "npm:path@0.12.7",
         "npm:sass-embedded@1.79.3",
         "npm:typescript@5.6.2",
         "npm:vite@5.4.7",
