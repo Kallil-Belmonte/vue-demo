@@ -61,7 +61,7 @@ const triggleDeletePost = async () => {
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/helpers/_helpers.scss';
+@use '@/assets/scss/helpers' as *;
 
 [data-component='PostBody'] {
   padding: 50px 0;

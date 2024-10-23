@@ -48,7 +48,7 @@ const isActive = (page: string | number) => Number(page) === currentPage;
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/helpers/_helpers.scss';
+@use '@/assets/scss/helpers' as *;
 
 [data-component='Pagination'] {
   width: max-content;

@@ -129,7 +129,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/helpers/_helpers.scss';
+@use '@/assets/scss/helpers' as *;
 
 [data-page='Blog'] {
   min-height: 500px;

@@ -66,7 +66,7 @@ const mouseleave = () => {
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/helpers/_helpers.scss';
+@use '@/assets/scss/helpers' as *;
 
 [data-component='tooltip'] {
   > .anchor {

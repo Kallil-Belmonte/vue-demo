@@ -14,7 +14,7 @@ import Form from '@/pages/Account/Form/Form.vue';
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/helpers/_helpers.scss';
+@use '@/assets/scss/helpers' as *;
 
 [data-page='Account'] {
   padding: 100px 0;
