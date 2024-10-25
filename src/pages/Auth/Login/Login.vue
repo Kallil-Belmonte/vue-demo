@@ -14,7 +14,6 @@
           name="email"
           required
           placeholder="Enter your e-mail"
-          :input="inputEmail"
           v-model="email"
         />
       </div>
@@ -69,14 +68,6 @@ const loading = ref(false);
 const email = ref('');
 const password = ref('');
 const keepLogged = ref(false);
-
-const inputEmail = (event: Event) => {
-  const { value } = event.target as HTMLInputElement;
-
-  emailComponent.value?.field?.setCustomValidity(
-    value === 'demo@demo.com' ? 'This e-mail does not exists.' : '',
-  );
-};
 
 const submit = async () => {
   loading.value = true;

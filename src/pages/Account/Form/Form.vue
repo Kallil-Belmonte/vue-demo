@@ -84,8 +84,6 @@ const inputEmail = (event: Event) => {
 
   if (value === 'john.doe@gmail.com') {
     emailComponent.value?.field?.setCustomValidity('This e-mail already exists.');
-  } else if (value === 'demo@demo.com') {
-    emailComponent.value?.field?.setCustomValidity('An error occurred, please try again later.');
   } else {
     emailComponent.value?.field?.setCustomValidity('');
   }

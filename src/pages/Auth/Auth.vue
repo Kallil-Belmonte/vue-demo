@@ -8,9 +8,6 @@
           <slot></slot>
 
           <p class="disclaimer text-center mt-2 mb-0">Use any e-mail and password</p>
-          <p class="disclaimer text-center mb-0">
-            To see the error alerts use the e-mail: demo@demo.com
-          </p>
         </div>
       </div>
     </div>
