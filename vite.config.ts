@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
+import deno from '@deno/vite-plugin';
 import vue from '@vitejs/plugin-vue';
-import * as path from 'node:path';
 
 export default defineConfig({
   server: {
@@ -9,7 +9,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': '/src',
     },
   },
   css: {
@@ -19,5 +19,5 @@ export default defineConfig({
       },
     },
   },
-  plugins: [vue()],
+  plugins: [deno(), vue()],
 });

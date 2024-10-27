@@ -6,7 +6,7 @@
       <slot></slot>
     </div>
 
-    <Button v-if="close" :icon="{ name: 'Close', size: '15px' }" @click="close" />
+    <Button v-if="close" variant="icon" :icon="{ name: 'Close', size: '15px' }" @click="close" />
   </div>
 </template>
 

@@ -43,7 +43,7 @@
         <Alert
           v-for="(successMessage, index) in successMessages"
           :key="successMessage"
-          class="my-3"
+          class="mb-3"
           status="success"
           :close="() => clearMessage(successMessages, index)"
         >

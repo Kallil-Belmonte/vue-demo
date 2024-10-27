@@ -1,20 +1,19 @@
-# Vue 3 + Typescript + Vite
+# Vite + Deno + Vue 3 + TypeScript
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Running
 
-## Recommended IDE Setup
+You need to have Deno v2.0.0 or later installed to run this repo.
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+Start a dev server:
 
-## Type Support For `.vue` Imports in TS
+```
+$ deno task dev
+```
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+## Deploy
 
-## Commands
+Build production assets:
 
-| Command                    | Description                                                                    |
-| -------------------------- | ------------------------------------------------------------------------------ |
-| `deno install` or `deno i` | Install package.json dependencies, then runs the package.json scripts.install. |
-| `deno run dev`             | Runs the app in the development mode                                           |
-| `deno run serve`           | Converts the current working directory into a virtual directory                |
-| `deno run build`           | Builds the app for production to the `build` folder                            |
+```
+$ deno task build
+```
