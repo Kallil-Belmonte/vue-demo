@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
-import deno from '@deno/vite-plugin';
 import biome from 'vite-plugin-biome';
+import deno from '@deno/vite-plugin';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
@@ -20,5 +20,5 @@ export default defineConfig({
       },
     },
   },
-  plugins: [deno(), biome(),vue()],
+  plugins: [biome(), deno(), vue()],
 });
