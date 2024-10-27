@@ -1,4 +1,4 @@
-import { RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
+import type { RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
 
 import { isValidAuthToken } from '@/shared/helpers';
 

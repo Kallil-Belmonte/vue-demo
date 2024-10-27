@@ -1,27 +1,20 @@
 {
-  "tasks": {
-    "dev": "deno run -A --node-modules-dir npm:vite --host",
-    "build": "deno run -A --node-modules-dir npm:vite build",
-    "preview": "deno run -A --node-modules-dir npm:vite preview",
-    "serve": "deno run --allow-net --allow-read jsr:@std/http@1/file-server dist/"
-  },
-  "fmt": {
-    "singleQuote": true,
-    "lineWidth": 100
-  },
-  "lint": {
-    "rules": {
-      "exclude": ["no-explicit-any"]
-    }
-  },
-  "imports": {
-    "@deno/vite-plugin": "npm:@deno/vite-plugin@1.0.0",
-    "@vitejs/plugin-vue": "npm:@vitejs/plugin-vue@5.1.4",
-    "jwt-decode": "npm:jwt-decode@4.0.0",
-    "sass-embedded": "npm:sass-embedded@1.80.3",
-    "typescript": "npm:typescript@5.6.3",
-    "vite": "npm:vite@5.4.9",
-    "vue": "npm:vue@3.5.12",
-    "vue-router": "npm:vue-router@4.4.5"
-  }
+	"tasks": {
+		"dev": "deno run -A --node-modules-dir npm:vite --host",
+		"build": "deno run -A --node-modules-dir npm:vite build",
+		"preview": "deno run -A --node-modules-dir npm:vite preview",
+		"serve": "deno run --allow-net --allow-read jsr:@std/http@1/file-server dist/"
+	},
+	"imports": {
+		"@biomejs/biome": "npm:@biomejs/biome@1.9.4",
+		"@deno/vite-plugin": "npm:@deno/vite-plugin@1.0.0",
+		"@vitejs/plugin-vue": "npm:@vitejs/plugin-vue@5.1.4",
+		"jwt-decode": "npm:jwt-decode@4.0.0",
+		"sass-embedded": "npm:sass-embedded@1.80.3",
+		"typescript": "npm:typescript@5.6.3",
+		"vite": "npm:vite@5.4.9",
+		"vue": "npm:vue@3.5.12",
+		"vue-router": "npm:vue-router@4.4.5",
+		"vite-plugin-biome": "npm:vite-plugin-biome@1.0.12"
+	}
 }
