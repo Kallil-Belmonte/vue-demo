@@ -6,7 +6,6 @@
     <Teleport to="body">
       <div
         v-if="show"
-        ref="content"
         :style="contentStyle"
         :class="`tooltip-content animated fadeIn ${color} ${position}`"
       >
@@ -17,7 +16,7 @@
 </template>
 
 <script lang="ts" setup>
-import { type StyleValue, useTemplateRef, ref } from 'vue';
+import { type StyleValue, ref } from 'vue';
 
 import type { Variant } from '@/shared/files/types';
 import { uuid } from '@/shared/helpers';
@@ -50,9 +49,6 @@ const {
 const anchorName = `--tooltip-${uuid().split('-')[0]}`;
 
 const contentStyle = { '--spacing': spacing, 'position-anchor': anchorName } as StyleValue;
-
-// @ts-ignore
-const content = useTemplateRef('content');
 
 const show = ref(false);
 

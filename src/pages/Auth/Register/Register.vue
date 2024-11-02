@@ -31,7 +31,6 @@
 
       <div class="mb-3">
         <Input
-          ref="emailComponent"
           icon="Email"
           label="E-mail"
           type="email"
@@ -65,7 +64,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useTemplateRef, ref } from 'vue';
+import { ref } from 'vue';
 
 import { useRouter } from 'vue-router';
 
@@ -77,8 +76,6 @@ import { Loader, Input, Button } from '@/shared/components';
 import Auth from '../Auth.vue';
 
 const router = useRouter();
-
-const emailComponent = useTemplateRef('emailComponent');
 
 const loading = ref(false);
 const firstName = ref('');
