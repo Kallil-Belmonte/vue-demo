@@ -1,5 +1,5 @@
 <template>
-  <dialog v-if="open" data-component="Modal" aria-modal="true" ref="dialog" @click="click">
+  <dialog ref="dialog" data-component="Modal" aria-modal="true" @click="click">
     <header>
       <div class="title">
         <Icon v-if="icon" :name="icon" size="30px" />
@@ -40,13 +40,7 @@ const click = (event: MouseEvent) => {
 
 const toggleModal = () => {
   if (!dialog.value) return;
-
-  if (open) {
-    dialog.value.showModal();
-    dialog.value.querySelector<HTMLButtonElement>('button')?.blur();
-  } else {
-    dialog.value.close();
-  }
+  open ? dialog.value.showModal() : dialog.value.close();
 };
 
 // LIFECYCLE HOOKS
@@ -59,16 +53,29 @@ watchEffect(() => {
 @use '@/assets/scss/helpers' as *;
 
 [data-component='Modal'] {
-  display: grid;
-  grid-template-rows: 60px 1fr 80px;
   max-width: 500px;
   max-height: 500px;
   @include size(calc(100% - 40px), max-content, 20px);
   padding: 0;
   border: none;
 
+  &[open] {
+    display: grid;
+    grid-template-rows: 60px 1fr 80px;
+  }
+
   &::backdrop {
-    background: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
+    transition:  background-color 0.4s ease;
+  }
+
+  @starting-style {
+    opacity: 0;
+    scale: 0.8;
+
+    &::backdrop {
+      background-color: transparent;
+    }
   }
 
   header {
