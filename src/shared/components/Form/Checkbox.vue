@@ -13,7 +13,6 @@
       :disabled="disabled"
       @change="change"
     />
-    <div class="box"></div>
 
     <p v-if="!!field?.validationMessage" class="validation-message">
       <strong>{{ field.validationMessage }}</strong>
@@ -67,17 +66,10 @@ defineExpose({ field });
   }
 
   input {
-    @include square(18px);
-    opacity: 0;
-    margin: 0;
-    position: absolute;
-    right: 0;
-    z-index: 1;
-  }
-
-  .box {
+    appearance: none;
     @include square(20px, 6px);
     border: 2px solid $field-border-color;
+    margin: 0;
     position: relative;
 
     &::after {
@@ -87,26 +79,20 @@ defineExpose({ field });
       @extend %absolute-center;
       @include transitionAll(0.2s);
     }
-  }
 
-  &:has(input:user-invalid) {
-    .box {
-      border-color: $danger;
-    }
-  }
-
-  &:has(input:checked) {
-    .box {
+    &:checked {
       border-color: $primary;
 
       &::after {
         @include square(70%);
       }
     }
-  }
 
-  &:has(input:disabled) {
-    .box {
+    &:user-invalid {
+      border-color: $danger;
+    }
+
+    &:disabled {
       opacity: 0.5;
     }
   }

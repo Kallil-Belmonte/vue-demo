@@ -18,7 +18,6 @@
           :disabled="disabled"
           @change="(event: Event) => change?.((event.target as HTMLInputElement).value, event)"
         />
-        <div class="radio"></div>
       </div>
     </div>
 
@@ -83,17 +82,10 @@ defineExpose({ field });
       }
 
       input {
-        @include square(18px);
-        opacity: 0;
-        margin: 0;
-        position: absolute;
-        right: 0;
-        z-index: 1;
-      }
-
-      .radio {
+        appearance: none;
         @include square(18px, 50%);
         border: 2px solid $field-border-color;
+        margin: 0;
         position: relative;
 
         &::after {
@@ -103,26 +95,22 @@ defineExpose({ field });
           @extend %absolute-center;
           @include transitionAll(0.2s);
         }
-      }
-
-      &:has(input:user-invalid) {
-        .radio {
-          border-color: $danger;
-        }
-      }
-
-      &:has(input:checked) {
-        .radio {
+ 
+        &:checked {
           border-color: $primary;
 
           &::after {
             @include square(70%);
           }
         }
-      }
 
-      &:has(input:disabled) {
-        opacity: 0.5;
+        &:user-invalid {
+          border-color: $danger;
+        }
+
+        &:disabled {
+          opacity: 0.5;
+        }
       }
     }
   }
