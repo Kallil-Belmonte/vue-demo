@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite';
-import biome from 'vite-plugin-biome';
 import deno from '@deno/vite-plugin';
 import vue from '@vitejs/plugin-vue';
+import { defineConfig } from 'vite';
+import oxlintPlugin from 'vite-plugin-oxlint';
 
 export default defineConfig({
   server: {
@@ -20,5 +20,5 @@ export default defineConfig({
       },
     },
   },
-  plugins: [biome(), deno(), vue()],
+  plugins: [oxlintPlugin({ path: 'src' }), deno(), vue()],
 });

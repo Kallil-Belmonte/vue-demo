@@ -6,15 +6,15 @@
 		"serve": "deno run --allow-net --allow-read jsr:@std/http@1/file-server dist/"
 	},
 	"imports": {
-		"@biomejs/biome": "npm:@biomejs/biome@1.9.4",
 		"@deno/vite-plugin": "npm:@deno/vite-plugin@1.0.1",
 		"@vitejs/plugin-vue": "npm:@vitejs/plugin-vue@5.2.1",
 		"jwt-decode": "npm:jwt-decode@4.0.0",
+		"oxlint": "npm:oxlint@0.14.0",
 		"sass-embedded": "npm:sass-embedded@1.81.0",
 		"typescript": "npm:typescript@5.7.2",
 		"vite": "npm:vite@6.0.1",
+		"vite-plugin-oxlint": "npm:vite-plugin-oxlint@1.1.0",
 		"vue": "npm:vue@3.5.13",
-		"vue-router": "npm:vue-router@4.5.0",
-		"vite-plugin-biome": "npm:vite-plugin-biome@1.0.12"
+		"vue-router": "npm:vue-router@4.5.0"
 	}
 }
