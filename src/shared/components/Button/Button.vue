@@ -19,8 +19,8 @@ import type { ButtonHTMLAttributes } from 'vue';
 import { type RouteLocationRaw, useRouter } from 'vue-router';
 
 import type { Variant } from '@/shared/files/types';
-import type { Icons } from '../Icon/types';
 import Icon from '../Icon/Icon.vue';
+import type { Icons } from '../Icon/types';
 
 type Props = {
   type?: ButtonHTMLAttributes['type'];
@@ -53,7 +53,6 @@ const click = (event: MouseEvent) => {
 
 <style lang="scss">
 @use 'sass:color';
-@use '@/assets/scss/helpers' as *;
 
 $icon-size: 60%;
 

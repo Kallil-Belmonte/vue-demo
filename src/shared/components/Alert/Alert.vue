@@ -13,8 +13,8 @@
 <script lang="ts" setup>
 import type { Status } from '@/shared/files/types';
 import { getIcon } from '@/shared/helpers';
-import Icon from '../Icon/Icon.vue';
 import Button from '../Button/Button.vue';
+import Icon from '../Icon/Icon.vue';
 
 type Props = {
   status?: Status;
@@ -25,8 +25,6 @@ const { status = 'info', close } = defineProps<Props>();
 </script>
 
 <style lang="scss">
-@use '@/assets/scss/helpers' as *;
-
 [data-component='Alert'] {
   @extend %flex-center-y;
   justify-content: space-between;

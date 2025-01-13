@@ -19,9 +19,9 @@
 <script lang="ts" setup>
 import { useTemplateRef, watchEffect } from 'vue';
 
-import type { Icons } from '../Icon/types';
-import Icon from '../Icon/Icon.vue';
 import Button from '../Button/Button.vue';
+import Icon from '../Icon/Icon.vue';
+import type { Icons } from '../Icon/types';
 
 type Props = {
   open: boolean;
@@ -50,8 +50,6 @@ watchEffect(() => {
 </script>
 
 <style lang="scss">
-@use '@/assets/scss/helpers' as *;
-
 [data-component='Modal'] {
   max-width: 500px;
   max-height: 500px;
@@ -61,7 +59,7 @@ watchEffect(() => {
   opacity: 1;
   scale: 1;
   @include transitionAll();
-  
+
   &[open] {
     display: grid;
     grid-template-rows: 60px 1fr 80px;

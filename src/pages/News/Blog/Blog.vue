@@ -39,16 +39,16 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
-import type { Category, Post } from '@/core/services/news/types';
-import { groupArrayItemsInArrays } from '@/shared/helpers';
-import { categories, posts, setCategories, setPosts } from '@/core/state/news';
 import { getCategories, getPosts } from '@/core/services';
+import type { Category, Post } from '@/core/services/news/types';
+import { categories, posts, setCategories, setPosts } from '@/core/state/news';
 import { Loader, PageHeader, Select } from '@/shared/components';
-import Posts from './Posts/Posts.vue';
-import Pagination from './Pagination/Pagination.vue';
+import { groupArrayItemsInArrays } from '@/shared/helpers';
 import Categories from './Categories/Categories.vue';
+import Pagination from './Pagination/Pagination.vue';
+import Posts from './Posts/Posts.vue';
 
 type Pages = { [key: string]: Post[] };
 
@@ -129,8 +129,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-@use '@/assets/scss/helpers' as *;
-
 [data-page='Blog'] {
   min-height: 500px;
   padding: 80px 0 30px;

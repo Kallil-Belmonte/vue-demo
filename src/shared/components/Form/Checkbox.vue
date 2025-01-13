@@ -46,8 +46,6 @@ defineExpose({ field });
 </script>
 
 <style lang="scss">
-@use '@/assets/scss/helpers' as *;
-
 [data-component='Checkbox'] {
   @extend %flex-center-y;
   gap: 10px;

@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts" setup>
-import { type InputHTMLAttributes, useTemplateRef, ref, watchEffect } from 'vue';
+import { type InputHTMLAttributes, ref, useTemplateRef, watchEffect } from 'vue';
 
 import { removeAccent } from '@/shared/helpers';
 import Button from '../Button/Button.vue';
@@ -126,8 +126,6 @@ defineExpose({ field });
 </script>
 
 <style lang="scss">
-@use '@/assets/scss/helpers' as *;
-
 [data-component='Select'].form-field {
   input {
     padding: 0 35px 0 $field-spacing-x;

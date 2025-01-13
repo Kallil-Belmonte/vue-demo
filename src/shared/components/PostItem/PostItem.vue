@@ -13,8 +13,8 @@
 
 <script lang="ts" setup>
 import type { Post } from '@/core/services/news/types';
-import { limitWords } from '@/shared/helpers';
 import { Button } from '@/shared/components';
+import { limitWords } from '@/shared/helpers';
 
 type Props = {
   post: Post;
@@ -24,8 +24,6 @@ const { post } = defineProps<Props>();
 </script>
 
 <style lang="scss">
-@use '@/assets/scss/helpers' as *;
-
 [data-component='PostItem'] {
   text-align: center;
   margin-bottom: 50px;

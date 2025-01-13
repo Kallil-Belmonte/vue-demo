@@ -38,8 +38,6 @@ import { Icon } from '@/shared/components';
 </script>
 
 <style lang="scss">
-@use '@/assets/scss/helpers' as *;
-
 [data-layout='Footer'] {
   padding: 30px 0;
 

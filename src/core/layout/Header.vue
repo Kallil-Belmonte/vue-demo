@@ -45,11 +45,11 @@ import { onMounted } from 'vue';
 
 import { useRouter } from 'vue-router';
 
+import { getUser } from '@/core/services';
+import { fullName, resetUser, setUser } from '@/core/state/auth';
+import { Button, Icon } from '@/shared/components';
 import { PROJECT_TITLE } from '@/shared/files/consts';
 import { clearStorageData } from '@/shared/helpers';
-import { fullName, setUser, resetUser } from '@/core/state/auth';
-import { getUser } from '@/core/services';
-import { Icon, Button } from '@/shared/components';
 
 const router = useRouter();
 
@@ -77,8 +77,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-@use '@/assets/scss/helpers' as *;
-
 [data-layout='Header'] {
   color: #fff;
   text-align: center;

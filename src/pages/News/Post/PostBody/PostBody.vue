@@ -23,11 +23,11 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
-import { useRouter, useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
-import type { Post } from '@/core/services/news/types';
 import { deletePost } from '@/core/services';
-import { Loader, Button } from '@/shared/components';
+import type { Post } from '@/core/services/news/types';
+import { Button, Loader } from '@/shared/components';
 import DeletePostModal from '../DeletePostModal/DeletePostModal.vue';
 
 type Props = {
@@ -61,8 +61,6 @@ const triggleDeletePost = async () => {
 </script>
 
 <style lang="scss">
-@use '@/assets/scss/helpers' as *;
-
 [data-component='PostBody'] {
   padding: 50px 0;
 

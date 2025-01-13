@@ -122,21 +122,21 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
-import type { FavoriteColors } from '@/core/services/contact/types';
-import { clearMessage } from '@/shared/helpers';
 import { getFavoriteColors } from '@/core/services';
+import type { FavoriteColors } from '@/core/services/contact/types';
 import {
   Alert,
-  Loader,
-  Input,
+  Button,
   Checkbox,
+  Input,
+  Loader,
   RadioButton,
   Select,
   Textarea,
-  Button,
 } from '@/shared/components';
+import { clearMessage } from '@/shared/helpers';
 
 const loading = ref(true);
 const favoriteColors = ref<FavoriteColors[]>([]);
@@ -199,8 +199,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-@use '@/assets/scss/helpers' as *;
-
 [data-page='Contact'] form {
   footer {
     @extend %flex-center-y;

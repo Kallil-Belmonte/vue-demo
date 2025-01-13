@@ -9,13 +9,11 @@
 </template>
 
 <script lang="ts" setup>
-import { PageHeader } from '@/shared/components';
 import Form from '@/pages/Contact/Form/Form.vue';
+import { PageHeader } from '@/shared/components';
 </script>
 
 <style lang="scss">
-@use '@/assets/scss/helpers' as *;
-
 [data-page='Contact'] {
   padding: 100px 0;
 }

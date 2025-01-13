@@ -19,8 +19,6 @@ import { Icon } from '@/shared/components';
 </script>
 
 <style lang="scss">
-@use '@/assets/scss/helpers' as *;
-
 body:has([data-page='Auth']) {
   background-color: $grey-1;
 }

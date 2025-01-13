@@ -3,10 +3,10 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watchEffect, onUnmounted } from 'vue';
+import { onUnmounted, ref, watchEffect } from 'vue';
 
-import type { ObjectType } from '@/shared/files/types';
 import { PROJECT_DOMAIN } from '@/shared/files/consts';
+import type { ObjectType } from '@/shared/files/types';
 import type { Category, Icons } from './types';
 
 type Props = {
@@ -56,8 +56,6 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss">
-@use '@/assets/scss/helpers' as *;
-
 [data-component='Icon'] {
   @extend %flex-center;
   @include square(v-bind(size));

@@ -60,11 +60,11 @@
 </template>
 
 <script lang="ts" setup>
-import { useTemplateRef, ref, onMounted } from 'vue';
+import { onMounted, ref, useTemplateRef } from 'vue';
 
+import { setUser, user } from '@/core/state/auth';
+import { Alert, Button, Input } from '@/shared/components';
 import { clearMessage } from '@/shared/helpers';
-import { user, setUser } from '@/core/state/auth';
-import { Alert, Input, Button } from '@/shared/components';
 
 const emailComponent = useTemplateRef('emailComponent');
 
@@ -106,8 +106,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-@use '@/assets/scss/helpers' as *;
-
 [data-page='Account'] form {
   footer {
     @extend %flex-center-y;

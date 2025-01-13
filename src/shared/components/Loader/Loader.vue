@@ -9,8 +9,6 @@
 </template>
 
 <style lang="scss">
-@use '@/assets/scss/helpers' as *;
-
 @keyframes orbit-spinner-orbit-one-animation {
   0% {
     transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);

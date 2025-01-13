@@ -16,14 +16,14 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
-import { useRouter, useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
+import { editPost, getPost } from '@/core/services';
 import type { Post } from '@/core/services/news/types';
-import { getPost, editPost } from '@/core/services';
 import { currentPost, setCurrentPost } from '@/core/state/news';
-import { Loader, Input, Textarea, Button } from '@/shared/components';
+import { Button, Input, Loader, Textarea } from '@/shared/components';
 
 const router = useRouter();
 const route = useRoute();
@@ -76,8 +76,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-@use '@/assets/scss/helpers' as *;
-
 [data-page='EditPost'] {
   form {
     margin: 80px 0;

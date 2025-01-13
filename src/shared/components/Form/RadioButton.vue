@@ -50,8 +50,6 @@ defineExpose({ field });
 </script>
 
 <style lang="scss">
-@use '@/assets/scss/helpers' as *;
-
 [data-component='RadioButton'] {
   .title-wrapper {
     @extend %flex-center-y;
@@ -95,7 +93,7 @@ defineExpose({ field });
           @extend %absolute-center;
           @include transitionAll(0.2s);
         }
- 
+
         &:checked {
           border-color: $primary;
 
