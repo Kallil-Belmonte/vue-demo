@@ -42,10 +42,9 @@
 </template>
 
 <script lang="ts" setup>
-import { type InputHTMLAttributes, ref, useTemplateRef } from 'vue';
+import { type InputHTMLAttributes, ref, useTemplateRef, watchEffect } from 'vue';
 
 import { removeAccent } from '@/shared/helpers';
-import { onMounted } from 'vue';
 import Button from '../Button/Button.vue';
 
 type Option = {
@@ -107,7 +106,7 @@ const select = (option: Option, event: KeyboardEvent | MouseEvent) => {
 };
 
 // LIFECYCLE HOOKS
-onMounted(() => {
+watchEffect(() => {
   setData();
 });
 
