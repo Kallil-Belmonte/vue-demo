@@ -91,7 +91,7 @@ const search = (event: Event) => {
 
 const focusout = (event: FocusEvent) => {
   const target = event.target as HTMLInputElement;
-  const option = options.find(item => item.text.toLowerCase() === target.value.toLowerCase());
+  const option = options.find(item => format(item.text) === format(target.value));
   model.value = option?.text || '';
   setData();
 };
