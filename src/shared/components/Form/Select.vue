@@ -93,7 +93,7 @@ const focusout = (event: FocusEvent) => {
   const target = event.target as HTMLInputElement;
   const option = options.find(item => item.text.toLowerCase() === target.value.toLowerCase());
   model.value = option?.text || '';
-  filteredOptions.value = options;
+  setData();
 };
 
 const select = (option: Option, event: KeyboardEvent | MouseEvent) => {
