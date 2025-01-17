@@ -1,36 +1,39 @@
 <template>
-  <div ref="element" data-component="Select" class="form-field" :tabindex="disabled ? -1 : 0">
+  <div ref="element" data-component="Select" class="form-field">
     <div class="label-wrapper">
       <label :for="name">{{ label }}</label>
     </div>
 
-    <input
-      ref="field"
-      v-model="inputModel"
-      type="text"
-      :name="name"
-      :id="name"
-      :required="required"
-      placeholder="Select"
-      :disabled="disabled"
-      @input="search"
-    />
-    <Button variant="icon" :icon="{ name: 'ArrowDown', size: '15px' }" :disabled="disabled" />
+    <div :tabindex="disabled ? -1 : 0">
+      <input
+        ref="field"
+        v-model="model"
+        type="text"
+        :name="name"
+        :id="name"
+        :required="required"
+        placeholder="Select"
+        :disabled="disabled"
+        @input="search"
+        @focusout="focusout"
+      />
+      <Button variant="icon" :icon="{ name: 'ArrowDown', size: '15px' }" :disabled="disabled" />
 
-    <ul role="listbox" aria-label="Options">
-      <li
-        v-for="option in filteredOptions"
-        :key="option.value"
-        role="option"
-        :tabindex="disabled ? -1 : 0"
-        :aria-selected="isSelected(option.value)"
-        :aria-disabled="option.disabled"
-        @keyup.enter="event => select(option, event)"
-        @click="event => select(option, event)"
-      >
-        {{ option.text }}
-      </li>
-    </ul>
+      <ul role="listbox" aria-label="Options">
+        <li
+          v-for="option in filteredOptions"
+          :key="option.text"
+          role="option"
+          :tabindex="disabled ? -1 : 0"
+          :aria-selected="isSelected(option)"
+          :aria-disabled="option.disabled"
+          @keyup.enter="event => select(option, event)"
+          @click="event => select(option, event)"
+        >
+          {{ option.text }}
+        </li>
+      </ul>
+    </div>
 
     <p v-if="!!field?.validationMessage" class="validation-message">
       <strong>{{ field.validationMessage }}</strong>
@@ -39,14 +42,15 @@
 </template>
 
 <script lang="ts" setup>
-import { type InputHTMLAttributes, ref, useTemplateRef, watchEffect } from 'vue';
+import { type InputHTMLAttributes, ref, useTemplateRef } from 'vue';
 
 import { removeAccent } from '@/shared/helpers';
+import { onMounted } from 'vue';
 import Button from '../Button/Button.vue';
 
 type Option = {
   text: string;
-  value: string;
+  value: any;
   disabled?: boolean;
 };
 
@@ -56,7 +60,7 @@ type Props = {
   required?: InputHTMLAttributes['required'];
   options: Option[];
   disabled?: InputHTMLAttributes['disabled'];
-  change?: (value: string, event: KeyboardEvent | MouseEvent) => void;
+  change?: (option: Option, event: KeyboardEvent | MouseEvent) => void;
 };
 
 const { from } = Array;
@@ -69,12 +73,15 @@ const element = useTemplateRef<HTMLDivElement>('element');
 
 const field = useTemplateRef<HTMLInputElement | HTMLSelectElement>('field');
 
-const inputModel = ref('');
 const filteredOptions = ref<Props['options']>([]);
 
-const isSelected = (value: string) => value === model.value;
+const isSelected = (option: Option) => option.text === model.value;
 
 const format = (text: string) => removeAccent(text.toLowerCase());
+
+const setData = () => {
+  filteredOptions.value = options;
+};
 
 const search = (event: Event) => {
   const target = event.target as HTMLInputElement;
@@ -83,22 +90,24 @@ const search = (event: Event) => {
   );
 };
 
-const select = (option: Option, event: KeyboardEvent | MouseEvent) => {
-  if (option.disabled) return;
-  model.value = option.value;
-  from(element.value?.querySelectorAll<HTMLElement>('[tabindex="0"]') || []).forEach(item =>
-    item.blur(),
-  );
-  change?.(option.value, event);
-};
-
-const setData = () => {
-  inputModel.value = options.find(option => option.value === model.value)?.text || '';
+const focusout = (event: FocusEvent) => {
+  const target = event.target as HTMLInputElement;
+  const option = options.find(item => item.text.toLowerCase() === target.value.toLowerCase());
+  model.value = option?.text || '';
   filteredOptions.value = options;
 };
 
+const select = (option: Option, event: KeyboardEvent | MouseEvent) => {
+  if (option.disabled) return;
+  model.value = option.text;
+  from(element.value?.querySelectorAll<HTMLElement>('[tabindex="0"]') || []).forEach(item =>
+    item.blur(),
+  );
+  change?.(option, event);
+};
+
 // LIFECYCLE HOOKS
-watchEffect(() => {
+onMounted(() => {
   setData();
 });
 
