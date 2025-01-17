@@ -1,5 +1,5 @@
 <template>
-  <div data-component="Select" class="form-field">
+  <div ref="element" data-component="Select" class="form-field" :tabindex="disabled ? -1 : 0">
     <div class="label-wrapper">
       <label :for="name">{{ label }}</label>
     </div>
@@ -14,22 +14,23 @@
       placeholder="Select"
       :disabled="disabled"
       @input="search"
-      @focus="focus"
-      @focusout="focusout"
     />
-    <Button variant="icon" :icon="{ name: 'ArrowDown', size: '15px' }" @click="triggerInputFocus" />
-    <div role="listbox" tabindex="0" aria-label="Options" :aria-hidden="!open">
-      <div
+    <Button variant="icon" :icon="{ name: 'ArrowDown', size: '15px' }" :disabled="disabled" />
+
+    <ul role="listbox" aria-label="Options">
+      <li
         v-for="option in filteredOptions"
         :key="option.value"
         role="option"
+        :tabindex="disabled ? -1 : 0"
         :aria-selected="isSelected(option.value)"
         :aria-disabled="option.disabled"
-        @click="() => select(option)"
+        @keyup.enter="event => select(option, event)"
+        @click="event => select(option, event)"
       >
         {{ option.text }}
-      </div>
-    </div>
+      </li>
+    </ul>
 
     <p v-if="!!field?.validationMessage" class="validation-message">
       <strong>{{ field.validationMessage }}</strong>
@@ -55,16 +56,19 @@ type Props = {
   required?: InputHTMLAttributes['required'];
   options: Option[];
   disabled?: InputHTMLAttributes['disabled'];
-  change?: (value: string, event: Event | MouseEvent | FocusEvent) => void;
+  change?: (value: string, event: KeyboardEvent | MouseEvent) => void;
 };
+
+const { from } = Array;
 
 const { label, name, required, options, disabled, change } = defineProps<Props>();
 
 const [model] = defineModel<string>({ required: true });
 
+const element = useTemplateRef<HTMLDivElement>('element');
+
 const field = useTemplateRef<HTMLInputElement | HTMLSelectElement>('field');
 
-const open = ref(false);
 const inputModel = ref('');
 const filteredOptions = ref<Props['options']>([]);
 
@@ -79,36 +83,13 @@ const search = (event: Event) => {
   );
 };
 
-const focus = () => {
-  open.value = true;
-};
-
-const focusout = (event: FocusEvent) => {
-  const target = event.target as HTMLInputElement;
-
-  setTimeout(() => {
-    const option = options.find(option => format(option.text) === format(target.value));
-
-    if (option) {
-      model.value = option.value;
-      inputModel.value = option.text;
-      change?.(option.value, event);
-    } else {
-      model.value = '';
-      inputModel.value = '';
-    }
-
-    open.value = false;
-  }, 100);
-};
-
-const triggerInputFocus = () => {
-  field.value?.focus();
-};
-
-const select = (option: Option) => {
+const select = (option: Option, event: KeyboardEvent | MouseEvent) => {
   if (option.disabled) return;
   model.value = option.value;
+  from(element.value?.querySelectorAll<HTMLElement>('[tabindex="0"]') || []).forEach(item =>
+    item.blur(),
+  );
+  change?.(option.value, event);
 };
 
 const setData = () => {
@@ -122,7 +103,7 @@ watchEffect(() => {
 });
 
 // EXPOSE
-defineExpose({ field });
+defineExpose({ element, field });
 </script>
 
 <style lang="scss">
@@ -141,6 +122,7 @@ defineExpose({ field });
   }
 
   [role='listbox'] {
+    display: none;
     max-height: 202px;
     border-radius: 4px;
     border: 1px solid $field-border-color;
@@ -154,6 +136,7 @@ defineExpose({ field });
       background-color: #fff;
       cursor: pointer;
       @include transitionAll();
+      margin: 0;
 
       &:hover,
       &[aria-selected='true'] {
@@ -164,6 +147,12 @@ defineExpose({ field });
         pointer-events: none;
         background-color: #fafafa;
       }
+    }
+  }
+
+  &:focus-within {
+    [role='listbox'] {
+      display: block;
     }
   }
 }

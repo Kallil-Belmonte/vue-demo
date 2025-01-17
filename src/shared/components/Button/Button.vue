@@ -28,7 +28,7 @@ type Props = {
   route?: RouteLocationRaw;
   icon?: { name: Icons; color?: string; size?: string };
   loading?: boolean;
-  disabled?: boolean;
+  disabled?: ButtonHTMLAttributes['disabled'];
   click?: (event: MouseEvent) => void;
 };
 
