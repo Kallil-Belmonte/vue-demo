@@ -15,7 +15,7 @@
           { text: '27', value: '27' },
           { text: '36', value: '36' },
         ]"
-        :change="({ value }: SelectOption) => setPaginationSettings(posts, value)"
+        :change="(option: SelectOption) => setPaginationSettings(posts, option.value)"
       />
 
       <div class="row">
