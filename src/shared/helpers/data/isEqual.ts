@@ -1,4 +1,4 @@
-type ObjectType = { [key: string]: any };
+import type { ObjectType } from '@/shared/files/types';
 
 type Value = string | boolean | any[] | ObjectType;
 
