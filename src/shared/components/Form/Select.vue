@@ -24,7 +24,7 @@
           v-for="option in filteredOptions"
           :key="option.text"
           role="option"
-          :tabindex="disabled ? -1 : 0"
+          :tabindex="disabled || option.disabled ? -1 : 0"
           :aria-selected="isSelected(option)"
           :aria-disabled="option.disabled"
           @keyup.enter="event => select(option, event)"
