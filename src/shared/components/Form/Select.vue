@@ -61,7 +61,7 @@ type Props = {
   value: any;
   options: SelectOption[];
   disabled?: InputHTMLAttributes['disabled'];
-  change: (option: SelectOption, event: KeyboardEvent | FocusEvent | MouseEvent) => void;
+  change: (option: SelectOption, event: KeyboardEvent | MouseEvent) => void;
 };
 
 const {
@@ -101,7 +101,7 @@ const triggerInputFocus = () => {
   field.value?.focus();
 };
 
-const select = (option: SelectOption, event: KeyboardEvent | FocusEvent | MouseEvent) => {
+const select = (option: SelectOption, event: KeyboardEvent | MouseEvent) => {
   if (option.disabled) return;
   open.value = false;
   model.value = option.text;
