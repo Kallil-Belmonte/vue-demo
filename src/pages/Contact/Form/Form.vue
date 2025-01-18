@@ -165,7 +165,6 @@ const setInitialData = async () => {
 
 const changeFavoriteColor = (option: SelectOption) => {
   favoriteColor.value = option.text;
-  console.log(favoriteColor.value);
 };
 
 const reset = () => {
