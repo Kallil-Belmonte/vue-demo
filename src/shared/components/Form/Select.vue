@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts" setup>
-import { type InputHTMLAttributes, ref, useTemplateRef, watchEffect } from 'vue';
+import { computed, type InputHTMLAttributes, ref, useTemplateRef, watchEffect } from 'vue';
 
 import type { SelectOption } from '@/shared/files/types';
 import { isEqual, removeAccent } from '@/shared/helpers';
@@ -64,7 +64,15 @@ type Props = {
   change: (option: SelectOption, event: KeyboardEvent | FocusEvent | MouseEvent) => void;
 };
 
-const { label, name, required, value: valueProp, options, disabled, change } = defineProps<Props>();
+const {
+  label,
+  name,
+  required,
+  value: valueProp,
+  options,
+  disabled: disabledProp,
+  change,
+} = defineProps<Props>();
 
 const element = useTemplateRef<HTMLDivElement>('element');
 
@@ -73,6 +81,8 @@ const field = useTemplateRef<HTMLInputElement | HTMLSelectElement>('field');
 const open = ref(false);
 const model = ref<string>('');
 const filteredOptions = ref<Props['options']>([]);
+
+const disabled = computed(() => disabledProp || !options.length);
 
 const isSelected = (option: SelectOption) => option.text === model.value;
 
