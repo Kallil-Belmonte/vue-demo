@@ -133,7 +133,7 @@ const updateOpen = (newValue: boolean) => {
 
 const updateModel = () => {
   const option = options.find(item => isEqual(item.value, valueProp));
-  if (option) model.value = option.text;
+  model.value = option?.text || '';
 };
 
 // LIFECYCLE HOOKS
