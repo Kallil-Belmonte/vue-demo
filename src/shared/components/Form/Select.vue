@@ -104,7 +104,6 @@ const triggerInputFocus = () => {
 const select = (option: SelectOption, event: KeyboardEvent | MouseEvent) => {
   if (option.disabled) return;
   open.value = false;
-  model.value = option.text;
   change(option, event);
 };
 
@@ -132,18 +131,20 @@ const updateOpen = (newValue: boolean) => {
   else document.removeEventListener('click', clickListener);
 };
 
-const updateModel = (newValue: any) => {
-  const option = options.find(item => isEqual(item.value, newValue));
+const updateModel = () => {
+  const option = options.find(item => isEqual(item.value, valueProp));
   if (option) model.value = option.text;
 };
 
 // LIFECYCLE HOOKS
 watch(open, updateOpen);
 
-watch(() => valueProp, updateModel, { immediate: true });
-
 watchEffect(() => {
   setOptions();
+});
+
+watchEffect(() => {
+  updateModel();
 });
 
 // EXPOSE
