@@ -140,7 +140,7 @@ const updateModel = (newValue: any) => {
 // LIFECYCLE HOOKS
 watch(open, updateOpen);
 
-watch(() => valueProp, updateModel);
+watch(() => valueProp, updateModel, { immediate: true });
 
 watchEffect(() => {
   setOptions();
