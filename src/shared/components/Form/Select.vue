@@ -107,7 +107,7 @@ const select = (option: SelectOption, event: KeyboardEvent | MouseEvent) => {
   change(option, event);
 };
 
-const setOptions = () => {
+const updateFilteredOptions = () => {
   filteredOptions.value = options;
 };
 
@@ -122,12 +122,12 @@ const clickListener = (event: MouseEvent) => {
       value: undefined,
     };
     select(option, event);
-    setOptions();
+    updateFilteredOptions();
   }
 };
 
-const updateOpen = (newValue: boolean) => {
-  if (newValue) document.addEventListener('click', clickListener);
+const updateOpen = (newOpen: boolean) => {
+  if (newOpen) document.addEventListener('click', clickListener);
   else document.removeEventListener('click', clickListener);
 };
 
@@ -140,7 +140,7 @@ const updateModel = () => {
 watch(open, updateOpen);
 
 watchEffect(() => {
-  setOptions();
+  updateFilteredOptions();
 });
 
 watchEffect(() => {

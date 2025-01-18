@@ -1,12 +1,12 @@
 <template>
-  <div data-component="Icon" :data-category="category" :data-name="name" v-html="svgs[name]"></div>
+  <div data-component="Icon" :data-category="category" :data-name="name" v-html="icons[name]"></div>
 </template>
 
 <script lang="ts" setup>
 import { onUnmounted, ref, watchEffect } from 'vue';
 
+import { addIcon, icons } from '@/core/state/icons';
 import { PROJECT_DOMAIN } from '@/shared/files/consts';
-import type { ObjectType } from '@/shared/files/types';
 import type { Category, Icons } from './types';
 
 type Props = {
@@ -18,7 +18,6 @@ type Props = {
 
 const { category = 'UI', name, size = '100%', color } = defineProps<Props>();
 
-const svgs = ref<ObjectType>({});
 const mounted = ref(true);
 
 const setIcon = async () => {
@@ -35,13 +34,13 @@ const setIcon = async () => {
     }
 
     svgHTML = (await response?.text()) || '';
-  } else if (!svgs.value[name]) {
+  } else if (!icons.value[name]) {
     const response = await fetch(request);
     svgHTML = await response.text();
   }
 
   if (svgHTML && mounted.value) {
-    svgs.value = { ...svgs.value, [name]: svgHTML };
+    addIcon(name, svgHTML);
   }
 };
 
