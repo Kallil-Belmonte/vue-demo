@@ -75,8 +75,9 @@
           label="Favorite color"
           name="favorite-color"
           required
-          v-model="favoriteColor"
+          :value="favoriteColor"
           :options="favoriteColors"
+          :change="changeFavoriteColor"
         />
       </div>
       <div class="col mt-4">
@@ -136,6 +137,7 @@ import {
   Select,
   Textarea,
 } from '@/shared/components';
+import type { SelectOption } from '@/shared/files/types';
 import { clearMessage } from '@/shared/helpers';
 
 const loading = ref(true);
@@ -159,6 +161,11 @@ const setInitialData = async () => {
   } finally {
     loading.value = false;
   }
+};
+
+const changeFavoriteColor = (option: SelectOption) => {
+  favoriteColor.value = option.text;
+  console.log(favoriteColor.value);
 };
 
 const reset = () => {

@@ -44,29 +44,26 @@
 <script lang="ts" setup>
 import { type InputHTMLAttributes, ref, useTemplateRef, watchEffect } from 'vue';
 
-import { removeAccent } from '@/shared/helpers';
+import type { SelectOption } from '@/shared/files/types';
+import { isEqual, removeAccent } from '@/shared/helpers';
+import { watch } from 'vue';
 import Button from '../Button/Button.vue';
-
-type Option = {
-  text: string;
-  value: any;
-  disabled?: boolean;
-};
 
 type Props = {
   label: string;
   name: InputHTMLAttributes['name'];
   required?: InputHTMLAttributes['required'];
-  options: Option[];
+  value: any;
+  options: SelectOption[];
   disabled?: InputHTMLAttributes['disabled'];
-  change?: (option: Option, event: KeyboardEvent | MouseEvent) => void;
+  change: (option: SelectOption, event: KeyboardEvent | FocusEvent | MouseEvent) => void;
 };
 
 const { from } = Array;
 
-const { label, name, required, options, disabled, change } = defineProps<Props>();
+const { label, name, required, value: valueProp, options, disabled, change } = defineProps<Props>();
 
-const [model] = defineModel<string>({ required: true });
+const model = ref<string>('');
 
 const element = useTemplateRef<HTMLDivElement>('element');
 
@@ -74,40 +71,49 @@ const field = useTemplateRef<HTMLInputElement | HTMLSelectElement>('field');
 
 const filteredOptions = ref<Props['options']>([]);
 
-const isSelected = (option: Option) => option.text === model.value;
+const isSelected = (option: SelectOption) => option.text === model.value;
 
 const format = (text: string) => removeAccent(text.toLowerCase());
 
-const setData = () => {
+const updateModel = (newValue: any) => {
+  const option = options.find(item => isEqual(item.value, newValue));
+  if (option) model.value = option.text;
+};
+
+const setOptions = () => {
   filteredOptions.value = options;
 };
 
 const search = (event: Event) => {
-  const target = event.target as HTMLInputElement;
-  filteredOptions.value = options.filter(option =>
-    format(option.text).includes(format(target.value)),
-  );
+  const { value } = event.target as HTMLInputElement;
+  filteredOptions.value = options.filter(option => format(option.text).includes(format(value)));
 };
 
 const focusout = (event: FocusEvent) => {
-  const target = event.target as HTMLInputElement;
-  const option = options.find(item => format(item.text) === format(target.value));
-  model.value = option?.text || '';
-  setData();
+  const { value } = event.target as HTMLInputElement;
+  const option = options.find(item => format(item.text) === format(value)) || {
+    text: '',
+    value: undefined,
+  };
+  model.value = option.text;
+  change(option, event);
+  setOptions();
 };
 
-const select = (option: Option, event: KeyboardEvent | MouseEvent) => {
+const select = (option: SelectOption, event: KeyboardEvent | MouseEvent) => {
   if (option.disabled) return;
   model.value = option.text;
   from(element.value?.querySelectorAll<HTMLElement>('[tabindex="0"]') || []).forEach(item =>
     item.blur(),
   );
-  change?.(option, event);
+  change(option, event);
 };
 
 // LIFECYCLE HOOKS
+watch(() => valueProp, updateModel);
+
 watchEffect(() => {
-  setData();
+  setOptions();
 });
 
 // EXPOSE

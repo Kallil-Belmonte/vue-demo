@@ -8,14 +8,14 @@
       <Select
         label="Posts per page:"
         name="posts-per-page"
-        v-model="postsPerPage"
+        :value="postsPerPage"
         :options="[
           { text: '9', value: '9' },
           { text: '18', value: '18' },
           { text: '27', value: '27' },
           { text: '36', value: '36' },
         ]"
-        :change="(value: string) => setPaginationSettings(posts, value)"
+        :change="({ value }: SelectOption) => setPaginationSettings(posts, value)"
       />
 
       <div class="row">
@@ -45,6 +45,7 @@ import { getCategories, getPosts } from '@/core/services';
 import type { Category, Post } from '@/core/services/news/types';
 import { categories, posts, setCategories, setPosts } from '@/core/state/news';
 import { Loader, PageHeader, Select } from '@/shared/components';
+import type { SelectOption } from '@/shared/files/types';
 import { groupArrayItemsInArrays } from '@/shared/helpers';
 import Categories from './Categories/Categories.vue';
 import Pagination from './Pagination/Pagination.vue';
