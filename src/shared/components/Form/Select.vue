@@ -4,7 +4,7 @@
       <label :for="name">{{ label }}</label>
     </div>
 
-    <div :tabindex="disabled ? -1 : 0">
+    <div class="field-wrapper" :tabindex="disabled ? -1 : 0">
       <input
         ref="field"
         v-model="model"
@@ -116,51 +116,53 @@ defineExpose({ element, field });
 
 <style lang="scss">
 [data-component='Select'].form-field {
-  input {
-    padding: 0 35px 0 $field-spacing-x;
-  }
-
-  [data-component='Button'] {
-    transition: rotate 0.3s ease;
-    @include position(absolute, 40px, 15px);
-
-    &:has(+ [role='listbox'][aria-hidden='false']) {
-      rotate: 180deg;
+  .field-wrapper {
+    input {
+      padding: 0 35px 0 $field-spacing-x;
     }
-  }
 
-  [role='listbox'] {
-    display: none;
-    max-height: 202px;
-    border-radius: 4px;
-    border: 1px solid $field-border-color;
-    overflow-y: auto;
-    @include position(absolute, calc(100% + 1px), 0, auto, 0, 1);
+    [data-component='Button'] {
+      transition: rotate 0.3s ease;
+      @include position(absolute, 40px, 15px);
 
-    [role='option'] {
-      @extend %flex-center-y;
-      height: 40px;
-      padding: 5px;
-      background-color: #fff;
-      cursor: pointer;
-      @include transitionAll();
-      margin: 0;
-
-      &:hover,
-      &[aria-selected='true'] {
-        background-color: $field-border-color;
-      }
-
-      &[aria-disabled='true'] {
-        pointer-events: none;
-        background-color: #fafafa;
+      &:has(+ [role='listbox'][aria-hidden='false']) {
+        rotate: 180deg;
       }
     }
-  }
 
-  &:focus-within {
     [role='listbox'] {
-      display: block;
+      display: none;
+      max-height: 202px;
+      border-radius: 4px;
+      border: 1px solid $field-border-color;
+      overflow-y: auto;
+      @include position(absolute, calc(100% + 1px), 0, auto, 0, 1);
+
+      [role='option'] {
+        @extend %flex-center-y;
+        height: 40px;
+        padding: 5px;
+        background-color: #fff;
+        cursor: pointer;
+        @include transitionAll();
+        margin: 0;
+
+        &:hover,
+        &[aria-selected='true'] {
+          background-color: $field-border-color;
+        }
+
+        &[aria-disabled='true'] {
+          pointer-events: none;
+          background-color: #fafafa;
+        }
+      }
+    }
+
+    &:focus-within {
+      [role='listbox'] {
+        display: block;
+      }
     }
   }
 }
