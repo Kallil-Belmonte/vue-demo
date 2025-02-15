@@ -56,9 +56,7 @@ watchEffect(() => {
   @include size(calc(100% - 40px), max-content, 20px);
   padding: 0;
   border: none;
-  opacity: 1;
-  scale: 1;
-  @include transitionAll();
+  transition: opacity 300ms ease, scale 300ms ease;
 
   &[open] {
     display: grid;
@@ -67,7 +65,7 @@ watchEffect(() => {
 
   &::backdrop {
     background-color: rgba(0, 0, 0, 0.5);
-    @include transitionAll();
+    transition: background-color 300ms ease;
   }
 
   @starting-style {
