@@ -1,5 +1,5 @@
 <template>
-  <dialog ref="dialog" data-component="Modal" aria-modal="true" @click="click">
+  <dialog ref="element" data-component="Modal" aria-modal="true" @click="click">
     <header>
       <div class="title">
         <Icon v-if="icon" :name="icon" size="30px" />
@@ -24,23 +24,23 @@ import Icon from '../Icon/Icon.vue';
 import type { Icons } from '../Icon/types';
 
 type Props = {
-  open: boolean;
+  isOpen: boolean;
   icon?: Icons;
   title: string;
   close: (event: MouseEvent) => void;
 };
 
-const { open, icon, title, close } = defineProps<Props>();
+const { isOpen, icon, title, close } = defineProps<Props>();
 
-const dialog = useTemplateRef<HTMLDialogElement>('dialog');
+const element = useTemplateRef<HTMLDialogElement>('element');
 
 const click = (event: MouseEvent) => {
-  if (event.target === dialog.value) close(event);
+  if (event.target === element.value) close(event);
 };
 
 const toggleModal = () => {
-  if (!dialog.value) return;
-  open ? dialog.value.showModal() : dialog.value.close();
+  if (isOpen) element.value?.showModal();
+  else element.value?.close();
 };
 
 // LIFECYCLE HOOKS

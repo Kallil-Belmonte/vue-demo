@@ -14,7 +14,7 @@
   </section>
 
   <DeletePostModal
-    :open="openDeletePostModal"
+    :isOpen="isDeletePostModalOpen"
     :confirm="() => triggleDeletePost()"
     :cancel="() => toggleDeletePostModal()"
   />
@@ -40,10 +40,10 @@ const router = useRouter();
 const { params } = useRoute();
 
 const loading = ref(false);
-const openDeletePostModal = ref(false);
+const isDeletePostModalOpen = ref(false);
 
 const toggleDeletePostModal = () => {
-  openDeletePostModal.value = !openDeletePostModal.value;
+  isDeletePostModalOpen.value = !isDeletePostModalOpen.value;
 };
 
 const triggleDeletePost = async () => {

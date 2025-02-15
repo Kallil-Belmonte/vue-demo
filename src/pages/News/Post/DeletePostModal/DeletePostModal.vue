@@ -1,6 +1,6 @@
 <template>
   <section data-component="DeletePostModal">
-    <Modal :open="open" title="Delete Confirmation" :close="cancel">
+    <Modal :isOpen="isOpen" title="Delete Confirmation" :close="cancel">
       <article>
         <p>Are you sure you want to delete this post?</p>
       </article>
@@ -13,13 +13,13 @@
 </template>
 
 <script lang="ts" setup>
-import { Modal, Button } from '@/shared/components';
+import { Button, Modal } from '@/shared/components';
 
 type Props = {
-  open: boolean;
+  isOpen: boolean;
   confirm: (event: MouseEvent) => void;
   cancel: (event: MouseEvent) => void;
 };
 
-const { open, confirm, cancel } = defineProps<Props>();
+const { isOpen, confirm, cancel } = defineProps<Props>();
 </script>
