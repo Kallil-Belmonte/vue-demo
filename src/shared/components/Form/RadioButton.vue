@@ -52,7 +52,7 @@ defineExpose({ field });
 <style lang="scss">
 [data-component='RadioButton'] {
   .title-wrapper {
-    @extend %flex-center-y;
+    @extend %flex-vertical-center;
     margin-bottom: 8px;
 
     .title {

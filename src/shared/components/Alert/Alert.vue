@@ -26,7 +26,7 @@ const { status = 'info', close } = defineProps<Props>();
 
 <style lang="scss">
 [data-component='Alert'] {
-  @extend %flex-center-y;
+  @extend %flex-vertical-center;
   justify-content: space-between;
   padding: 15px;
   border-radius: 15px;

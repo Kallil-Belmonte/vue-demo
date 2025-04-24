@@ -108,7 +108,7 @@ onMounted(() => {
 <style lang="scss">
 [data-page='Account'] form {
   footer {
-    @extend %flex-center-y;
+    @extend %flex-vertical-center;
     gap: 10px;
 
     [data-component='Button'] {

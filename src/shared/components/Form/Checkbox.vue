@@ -47,7 +47,7 @@ defineExpose({ field });
 
 <style lang="scss">
 [data-component='Checkbox'] {
-  @extend %flex-center-y;
+  @extend %flex-vertical-center;
   gap: 10px;
   @include size(max-content, $field-height);
   position: relative;
