@@ -20,7 +20,7 @@ import { Icon } from '@/shared/components';
 
 <style lang="scss">
 body:has([data-page='Auth']) {
-  background-color: $grey-1;
+  background-color: var(--grey-1);
 }
 
 [data-page='Auth'] {

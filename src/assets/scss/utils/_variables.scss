@@ -1,0 +1,51 @@
+@use 'sass:color';
+
+:root {
+  // Colors
+  --primary: #41b883;
+  --primary-light: color.adjust(#41b883, $lightness: 5%);
+  --primary-darker: color.adjust(#41b883, $lightness: -5%);
+  --secondary: #628ee5;
+  --secondary-light: color.adjust(#628ee5, $lightness: 5%);
+  --secondary-darker: color.adjust(#628ee5, $lightness: -5%);
+  --info: #14d5f3;
+  --success: #37c991;
+  --warning: #ffb23e;
+  --danger: #fd6e64;
+  --grey-1: #f9f9f9;
+  --grey-2: #f1f1f1;
+  --grey-3: #eef4fb;
+  --grey-4: #e0e0e0;
+  --grey-5: #cbcbcb;
+  --grey-6: #c0c0c0;
+  --grey-7: #aeb2bf;
+  --dark-1: #616161;
+  --dark-2: #3d464d;
+  --gradient-primary: linear-gradient(90deg, rgb(143, 161, 254) 0%, rgb(160, 160, 241) 100%);
+  --gradient-secondary: linear-gradient(90deg, rgb(160, 160, 241) 0%, rgb(143, 161, 254) 100%);
+  --shadow-primary: 0 0 15px 5px rgba(143, 161, 254, 0.4);
+
+  --text-color: var(--dark-2);
+
+  // Fonts
+  --font-primary: 'Roboto', Arial, sans-serif;
+  --font-size: 16px;
+
+  // Layout
+  --header-size: 80px;
+  --footer-size: 80px;
+  --layout-spacing-y: 15px;
+  --layout-spacing-x: 15px;
+
+  // Form
+  --field-spacing-y: 15px;
+  --field-spacing-x: 15px;
+  --field-icon-size: 20px;
+  --field-height: 40px;
+  --field-border-color: #dae8f7;
+  --field-active-border-color: var(--primary);
+
+  // Button
+  --button-height: 40px;
+  --button-padding: 0 15px;
+}

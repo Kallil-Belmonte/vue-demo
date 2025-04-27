@@ -46,13 +46,13 @@ const select = (category: Category['name']) => {
   li {
     button {
       width: 100%;
-      border: 1px solid $primary;
+      border: 1px solid var(--primary);
       @include transitionAll();
 
       &:hover,
       &.active {
         color: #fff;
-        background-color: $primary;
+        background-color: var(--primary);
       }
 
       &.active {

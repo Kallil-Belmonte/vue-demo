@@ -53,13 +53,13 @@ const isActive = (page: string | number) => Number(page) === currentPage;
 
   li {
     button {
-      border: 1px solid $primary;
+      border: 1px solid var(--primary);
       @include transitionAll();
 
       &:hover,
       &.active {
         color: #fff;
-        background-color: $primary;
+        background-color: var(--primary);
       }
 
       &.active {

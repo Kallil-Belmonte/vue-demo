@@ -154,7 +154,7 @@ defineExpose({ element, field });
 <style lang="scss">
 [data-component='Select'].form-field {
   input {
-    padding: 0 35px 0 $field-spacing-x;
+    padding: 0 35px 0 var(--field-spacing-x);
   }
 
   [data-component='Button'] {
@@ -169,7 +169,7 @@ defineExpose({ element, field });
   [role='listbox'] {
     max-height: 202px;
     border-radius: 4px;
-    border: 1px solid $field-border-color;
+    border: 1px solid var(--field-border-color);
     overflow-y: auto;
     @include position(absolute, calc(100% + 1px), 0, auto, 0, 1);
 
@@ -184,7 +184,7 @@ defineExpose({ element, field });
 
       &:hover,
       &[aria-selected='true'] {
-        background-color: $field-border-color;
+        background-color: var(--field-border-color);
       }
 
       &[aria-disabled='true'] {

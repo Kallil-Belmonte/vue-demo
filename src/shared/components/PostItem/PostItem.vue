@@ -39,7 +39,7 @@ const { post } = defineProps<Props>();
     color: #fff;
     padding: 20px;
     border-radius: 5px 5px 0 0;
-    background-color: $primary;
+    background-color: var(--primary);
   }
 
   article {

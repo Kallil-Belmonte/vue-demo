@@ -82,20 +82,20 @@ defineExpose({ field });
       input {
         appearance: none;
         @include square(18px, 50%);
-        border: 2px solid $field-border-color;
+        border: 2px solid var(--field-border-color);
         margin: 0;
         position: relative;
 
         &::after {
           content: '';
           @include square(0, 50%);
-          background-color: $primary;
+          background-color: var(--primary);
           @extend %absolute-center;
           @include transitionAll(0.2s);
         }
 
         &:checked {
-          border-color: $primary;
+          border-color: var(--primary);
 
           &::after {
             @include square(70%);
@@ -103,7 +103,7 @@ defineExpose({ field });
         }
 
         &:user-invalid {
-          border-color: $danger;
+          border-color: var(--danger);
         }
 
         &:disabled {
@@ -114,7 +114,7 @@ defineExpose({ field });
   }
 
   .validation-message {
-    color: $danger;
+    color: var(--danger);
 
     &:not(:last-child) {
       margin-bottom: 5px;

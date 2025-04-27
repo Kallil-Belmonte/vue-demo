@@ -115,7 +115,7 @@ onMounted(() => {
           &:focus,
           &:active,
           &.active {
-            color: $primary;
+            color: var(--primary);
           }
 
           [data-component='Icon'] {

@@ -83,7 +83,7 @@ $icon-size: 60%;
   // Base
   &.base {
     background-color: #fff;
-    border: 1px solid $grey-4;
+    border: 1px solid var(--grey-4);
 
     @include active-style {
       background-color: color.adjust(#fff, $lightness: -1%);
@@ -93,20 +93,20 @@ $icon-size: 60%;
   // Primary
   &.primary {
     color: #fff;
-    background-color: $primary;
+    background-color: var(--primary);
 
     @include active-style {
-      background-color: $primary-darker;
+      background-color: var(--primary-darker);
     }
   }
 
   // Secondary
   &.secondary {
     color: #fff;
-    background-color: $secondary;
+    background-color: var(--secondary);
 
     @include active-style {
-      background-color: $secondary-darker;
+      background-color: var(--secondary-darker);
     }
   }
 
@@ -144,10 +144,10 @@ $icon-size: 60%;
 
   // Icon
   &.icon {
-    color: $grey-7;
+    color: var(--grey-7);
 
     @include active-style {
-      color: $dark-1;
+      color: var(--dark-1);
     }
 
     [data-component='Icon'] {
@@ -162,7 +162,7 @@ $icon-size: 60%;
   // Icon Base
   &.icon-base {
     background-color: #fff;
-    border: 1px solid $grey-4;
+    border: 1px solid var(--grey-4);
 
     @include active-style {
       background-color: color.adjust(#fff, $lightness: -1%);
@@ -171,19 +171,19 @@ $icon-size: 60%;
 
   // Icon Primary
   &.icon-primary {
-    background-color: $primary;
+    background-color: var(--primary);
 
     @include active-style {
-      background-color: $primary-darker;
+      background-color: var(--primary-darker);
     }
   }
 
   // Icon Secondary
   &.icon-secondary {
-    background-color: $secondary;
+    background-color: var(--secondary);
 
     @include active-style {
-      background-color: $secondary-darker;
+      background-color: var(--secondary-darker);
     }
   }
 }

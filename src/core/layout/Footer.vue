@@ -47,7 +47,7 @@ import { Icon } from '@/shared/components';
     li {
       a {
         font-size: 0;
-        color: $dark-2;
+        color: var(--dark-2);
         display: inline-block;
 
         [data-component='Icon'] {

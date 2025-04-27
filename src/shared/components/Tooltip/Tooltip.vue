@@ -84,17 +84,17 @@ const mouseleave = () => {
 
   // Base
   &.base {
-    background-color: $dark-2;
+    background-color: var(--dark-2);
   }
 
   // Primary
   &.primary {
-    background-color: $primary;
+    background-color: var(--primary);
   }
 
   // Secondary
   &.secondary {
-    background-color: $secondary;
+    background-color: var(--secondary);
   }
 
   // POSITION
