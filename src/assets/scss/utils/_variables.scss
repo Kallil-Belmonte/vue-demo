@@ -2,7 +2,7 @@
 
 :root {
   // Colors
-  --primary: #41b883;
+  --primary: rgb(65, 184, 131);
   --primary-light: color.adjust(#41b883, $lightness: 5%);
   --primary-darker: color.adjust(#41b883, $lightness: -5%);
   --secondary: #628ee5;
@@ -21,9 +21,6 @@
   --grey-7: #aeb2bf;
   --dark-1: #616161;
   --dark-2: #3d464d;
-  --gradient-primary: linear-gradient(90deg, rgb(143, 161, 254) 0%, rgb(160, 160, 241) 100%);
-  --gradient-secondary: linear-gradient(90deg, rgb(160, 160, 241) 0%, rgb(143, 161, 254) 100%);
-  --shadow-primary: 0 0 15px 5px rgba(143, 161, 254, 0.4);
 
   --text-color: var(--dark-2);
 
