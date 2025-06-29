@@ -47,11 +47,10 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, type InputHTMLAttributes, ref, useTemplateRef, watchEffect } from 'vue';
+import { computed, type InputHTMLAttributes, ref, useTemplateRef, watch, watchEffect } from 'vue';
 
 import type { SelectOption } from '@/shared/files/types';
 import { isEqual, removeAccent } from '@/shared/helpers';
-import { watch } from 'vue';
 import Button from '../Button/Button.vue';
 
 type Props = {
