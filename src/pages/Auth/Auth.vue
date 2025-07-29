@@ -7,7 +7,7 @@
         <div class="col-md-6 offset-md-3">
           <slot></slot>
 
-          <p class="disclaimer text-center mt-2 mb-0">Use any e-mail and password</p>
+          <p class="disclaimer text-center mt-15 mb-0">Use any e-mail and password</p>
         </div>
       </div>
     </div>

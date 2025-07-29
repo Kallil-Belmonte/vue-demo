@@ -5,7 +5,7 @@
     <form class="auth-form" @submit.prevent="submit">
       <h1 class="page-title">Register</h1>
 
-      <div class="mb-3">
+      <div class="mb-15">
         <Input
           label="Name"
           name="first-name"
@@ -17,7 +17,7 @@
         />
       </div>
 
-      <div class="mb-3">
+      <div class="mb-15">
         <Input
           label="Last name"
           name="last-name"
@@ -29,7 +29,7 @@
         />
       </div>
 
-      <div class="mb-3">
+      <div class="mb-15">
         <Input
           icon="Email"
           label="E-mail"
@@ -41,7 +41,7 @@
         />
       </div>
 
-      <div class="mb-3">
+      <div class="mb-15">
         <Input
           label="Password"
           type="password"
@@ -56,7 +56,7 @@
       <Button class="d-block mx-auto" type="submit">Register</Button>
 
       <div class="text-center">
-        <hr class="mt-4" />
+        <hr class="my-15" />
         Aleady have an account? <router-link to="/login">Login</router-link>
       </div>
     </form>
@@ -68,11 +68,11 @@ import { ref } from 'vue';
 
 import { useRouter } from 'vue-router';
 
-import type { RegisterUserPayload } from '@/core/services/auth/types';
-import { AUTH_TOKEN_KEY } from '@/shared/files/consts';
 import { registerUser } from '@/core/services';
+import type { RegisterUserPayload } from '@/core/services/auth/types';
 import { setUser } from '@/core/state/auth';
-import { Loader, Input, Button } from '@/shared/components';
+import { Button, Input, Loader } from '@/shared/components';
+import { AUTH_TOKEN_KEY } from '@/shared/files/consts';
 import Auth from '../Auth.vue';
 
 const router = useRouter();

@@ -3,7 +3,7 @@
 
   <form @submit.prevent="submit">
     <div class="row">
-      <div class="col mb-3">
+      <div class="col mb-15">
         <Input
           label="Name"
           name="first-name"
@@ -15,7 +15,7 @@
         />
       </div>
 
-      <div class="col mb-3">
+      <div class="col mb-15">
         <Input
           label="Last name"
           name="last-name"
@@ -29,7 +29,7 @@
     </div>
 
     <div class="row">
-      <div class="col mb-3">
+      <div class="col mb-15">
         <Input
           icon="Email"
           label="E-mail"
@@ -41,7 +41,7 @@
         />
       </div>
 
-      <div class="col mb-3">
+      <div class="col mb-15">
         <Input
           icon="Cellphone"
           label="Telephone"
@@ -55,7 +55,7 @@
     </div>
 
     <div class="row">
-      <div class="col mb-3">
+      <div class="col mb-15">
         <RadioButton
           title="Sex"
           name="sex"
@@ -70,7 +70,7 @@
     </div>
 
     <div class="row">
-      <div class="col mb-3">
+      <div class="col mb-15">
         <Select
           label="Favorite color"
           name="favorite-color"
@@ -80,7 +80,7 @@
           :change="changeFavoriteColor"
         />
       </div>
-      <div class="col mt-4">
+      <div class="col mt-25">
         <Checkbox
           label="Employed"
           name="employed"
@@ -92,7 +92,7 @@
     </div>
 
     <div class="row">
-      <div class="col mb-3">
+      <div class="col mb-15">
         <Textarea
           label="Message"
           name="message"
@@ -108,7 +108,7 @@
     <Alert
       v-for="(successMessage, index) in successMessages"
       :key="successMessage"
-      class="mb-3"
+      class="mb-15"
       status="success"
       :close="() => clearMessage(successMessages, index)"
     >

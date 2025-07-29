@@ -4,7 +4,7 @@
 
     <h1 class="page-title text-center">Page not found</h1>
     <div class="d-flex justify-content-center">
-      <router-link to="/" class="btn btn-primary mt-4">Go back to the home page</router-link>
+      <router-link to="/" class="btn btn-primary mt-15">Go back to the home page</router-link>
     </div>
   </main>
 </template>

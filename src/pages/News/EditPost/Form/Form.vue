@@ -2,11 +2,11 @@
   <Loader v-if="loading" />
 
   <form @submit.prevent="submit">
-    <div class="mb-3">
+    <div class="mb-15">
       <Input label="Title" name="title" required minlength="2" v-model="title" />
     </div>
 
-    <div class="mb-3">
+    <div class="mb-15">
       <Textarea label="Body" name="body" required minlength="2" v-model="body" />
     </div>
 

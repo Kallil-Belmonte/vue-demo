@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-6 offset-md-3">
       <form @submit.prevent="submit">
-        <div class="mb-3">
+        <div class="mb-15">
           <Input
             label="Name"
             name="first-name"
@@ -14,7 +14,7 @@
           />
         </div>
 
-        <div class="mb-3">
+        <div class="mb-15">
           <Input
             label="Last name"
             name="last-name"
@@ -26,7 +26,7 @@
           />
         </div>
 
-        <div class="mb-3">
+        <div class="mb-15">
           <Input
             ref="emailComponent"
             icon="Email"
@@ -43,7 +43,7 @@
         <Alert
           v-for="(successMessage, index) in successMessages"
           :key="successMessage"
-          class="mb-3"
+          class="mb-15"
           status="success"
           :close="() => clearMessage(successMessages, index)"
         >

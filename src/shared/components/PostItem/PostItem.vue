@@ -6,7 +6,7 @@
     <article>
       <h3 class="title">{{ post.title }}</h3>
       <p v-if="post.body" class="mb-0">{{ limitWords(post.body, 8) }}</p>
-      <Button class="mt-3" :route="{ name: 'post', params: { id: post.id } }">Read more</Button>
+      <Button class="mt-15" :route="{ name: 'post', params: { id: post.id } }">Read more</Button>
     </article>
   </div>
 </template>
