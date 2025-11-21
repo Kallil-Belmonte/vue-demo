@@ -3,11 +3,11 @@
 :root {
   // Colors
   --primary: rgb(65, 184, 131);
-  --primary-light: #51c28f;
-  --primary-darker: #3aa576;
+  --primary-light: #{color.adjust(#41b883, $lightness: 5%)};
+  --primary-darker: #{color.adjust(#41b883, $lightness: -5%)};
   --secondary: #628ee5;
-  --secondary-light: #789ee9;
-  --secondary-darker: #4c7ee1;
+  --secondary-light: #{color.adjust(#628ee5, $lightness: 5%)};
+  --secondary-darker: #{color.adjust(#628ee5, $lightness: -5%)};
   --info: #14d5f3;
   --success: #37c991;
   --warning: #ffb23e;
