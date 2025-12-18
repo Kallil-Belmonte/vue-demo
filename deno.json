@@ -32,8 +32,10 @@
     "sass-embedded": "npm:sass-embedded@1.93.3",
     "typescript": "npm:typescript@5.9.3",
     "vite": "npm:vite@7.2.4",
+    "vite-plugin-checker": "npm:vite-plugin-checker@0.12.0",
     "vite-plugin-oxlint": "npm:vite-plugin-oxlint@1.5.0",
     "vue": "npm:vue@3.5.24",
-    "vue-router": "npm:vue-router@4.6.3"
+    "vue-router": "npm:vue-router@4.6.3",
+    "vue-tsc": "npm:vue-tsc@3.1.8"
   }
 }

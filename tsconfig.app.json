@@ -5,6 +5,7 @@
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "module": "ESNext",
     "moduleResolution": "node",
+    "noEmit": true,
     "paths": {
       "@/*": ["src/*"]
     },
@@ -13,6 +14,7 @@
     "sourceMap": true,
     "strict": true,
     "target": "ESNext",
+    "tsBuildInfoFile": "./.vite/tsconfig.app.tsbuildinfo",
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": false,
     "noUnusedLocals": true,
