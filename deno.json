@@ -28,6 +28,7 @@
     "@deno/vite-plugin": "npm:@deno/vite-plugin@1.0.5",
     "@vitejs/plugin-vue": "npm:@vitejs/plugin-vue@6.0.2",
     "jwt-decode": "npm:jwt-decode@4.0.0",
+    "oxfmt": "npm:oxfmt@0.26.0",
     "oxlint": "npm:oxlint@1.29.0",
     "sass-embedded": "npm:sass-embedded@1.93.3",
     "typescript": "npm:typescript@5.9.3",
