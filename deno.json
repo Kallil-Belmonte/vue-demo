@@ -25,18 +25,18 @@
     }
   },
   "imports": {
-    "@deno/vite-plugin": "npm:@deno/vite-plugin@1.0.5",
-    "@vitejs/plugin-vue": "npm:@vitejs/plugin-vue@6.0.2",
+    "@deno/vite-plugin": "npm:@deno/vite-plugin@1.0.6",
+    "@vitejs/plugin-vue": "npm:@vitejs/plugin-vue@6.0.4",
     "jwt-decode": "npm:jwt-decode@4.0.0",
-    "oxfmt": "npm:oxfmt@0.26.0",
-    "oxlint": "npm:oxlint@1.29.0",
-    "sass-embedded": "npm:sass-embedded@1.93.3",
-    "typescript": "npm:typescript@5.9.3",
-    "vite": "npm:vite@7.2.4",
+    "oxfmt": "npm:oxfmt@0.35.0",
+    "oxlint": "npm:oxlint@1.50.0",
+    "sass-embedded": "npm:sass-embedded@1.97.3",
+    "typescript": "npm:typescript@6.0.0-beta",
+    "vite": "npm:vite@7.3.1",
     "vite-plugin-checker": "npm:vite-plugin-checker@0.12.0",
-    "vite-plugin-oxlint": "npm:vite-plugin-oxlint@1.5.0",
-    "vue": "npm:vue@3.5.24",
-    "vue-router": "npm:vue-router@4.6.3",
-    "vue-tsc": "npm:vue-tsc@3.1.8"
+    "vite-plugin-oxlint": "npm:vite-plugin-oxlint@1.6.0",
+    "vue": "npm:vue@3.5.29",
+    "vue-router": "npm:vue-router@5.0.3",
+    "vue-tsc": "npm:vue-tsc@3.2.5"
   }
 }
