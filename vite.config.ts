@@ -1,4 +1,3 @@
-import deno from '@deno/vite-plugin';
 import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
 import vitePluginChecker from 'vite-plugin-checker';
@@ -22,7 +21,6 @@ export default defineConfig({
     },
   },
   plugins: [
-    deno(),
     vue(),
     vitePluginChecker({
       vueTsc: {
