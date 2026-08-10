@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onUnmounted, useTemplateRef, watchEffect } from 'vue';
+import { onUnmounted, watchEffect } from 'vue';
 
 import { addIcon, icons } from '@/core/state/icons';
 import type { Category, Icons } from './types';
@@ -21,8 +21,6 @@ type Props = {
 };
 
 const { category = 'UI', name, size = '100%', color = 'inherit' } = defineProps<Props>();
-
-const element = useTemplateRef<HTMLDivElement>('element');
 
 let controller: null | AbortController = null;
 
@@ -42,12 +40,6 @@ watchEffect(() => {
 
 onUnmounted(() => {
   if (controller) controller.abort();
-});
-
-// EXPOSE
-defineExpose({
-  /** Element ref */
-  element,
 });
 </script>
 
