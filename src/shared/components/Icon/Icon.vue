@@ -1,12 +1,16 @@
 <template>
-  <div data-component="Icon" :data-category="category" :data-name="name" v-html="icons[name]"></div>
+  <div
+    data-component="Icon"
+    :data-category="category"
+    :data-name="name"
+    v-html="icons[category]?.[name]"
+  ></div>
 </template>
 
 <script lang="ts" setup>
-import { onUnmounted, ref, watchEffect } from 'vue';
+import { onUnmounted, useTemplateRef, watchEffect } from 'vue';
 
 import { addIcon, icons } from '@/core/state/icons';
-import { PROJECT_DOMAIN } from '@/shared/files/consts';
 import type { Category, Icons } from './types';
 
 type Props = {
@@ -16,32 +20,19 @@ type Props = {
   color?: string;
 };
 
-const { category = 'UI', name, size = '100%', color } = defineProps<Props>();
+const { category = 'UI', name, size = '100%', color = 'inherit' } = defineProps<Props>();
 
-const mounted = ref(true);
+const element = useTemplateRef<HTMLDivElement>('element');
+
+let controller: null | AbortController = null;
 
 const setIcon = async () => {
-  const request = new Request(`/icons/${category}/${name}.svg`);
-  let svgHTML = '';
+  if (icons.value[category]?.[name]) return;
 
-  if ('caches' in window) {
-    const cache = await caches.open(`${PROJECT_DOMAIN}-icons`);
-    let response = await cache.match(request);
-
-    if (!response) {
-      await cache.add(request);
-      response = await cache.match(request);
-    }
-
-    svgHTML = (await response?.text()) || '';
-  } else if (!icons.value[name]) {
-    const response = await fetch(request);
-    svgHTML = await response.text();
-  }
-
-  if (svgHTML && mounted.value) {
-    addIcon(name, svgHTML);
-  }
+  controller = new AbortController();
+  const response = await fetch(`/icons/${category}/${name}.svg`, { signal: controller.signal });
+  const svgHTML = await response.text();
+  addIcon(category, name, svgHTML);
 };
 
 // LIFECYCLE HOOKS
@@ -50,7 +41,13 @@ watchEffect(() => {
 });
 
 onUnmounted(() => {
-  mounted.value = false;
+  if (controller) controller.abort();
+});
+
+// EXPOSE
+defineExpose({
+  /** Element ref */
+  element,
 });
 </script>
 
