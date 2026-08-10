@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
+import { setPageTitle } from '@/shared/helpers';
 import { app, auth } from './guards';
 
 const router = createRouter({
@@ -93,6 +94,11 @@ const router = createRouter({
       component: () => import('@/pages/NotFound/NotFound.vue'),
     },
   ],
+});
+
+router.afterEach(to => {
+  const { meta } = to;
+  setPageTitle(String(meta.title));
 });
 
 export default router;
