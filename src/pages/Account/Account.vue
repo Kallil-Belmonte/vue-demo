@@ -14,6 +14,8 @@ import { PageHeader } from '@/shared/components';
 </script>
 
 <style lang="scss">
+@use '@/assets/scss/helpers' as *;
+
 [data-page='Account'] {
   padding: 100px 0;
 }

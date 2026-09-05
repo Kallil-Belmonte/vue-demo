@@ -25,6 +25,8 @@ const { status = 'info', close } = defineProps<Props>();
 </script>
 
 <style lang="scss">
+@use '@/assets/scss/helpers' as *;
+
 [data-component='Alert'] {
   @extend %flex-vertical-center;
   justify-content: space-between;

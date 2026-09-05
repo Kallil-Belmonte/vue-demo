@@ -50,13 +50,17 @@ watchEffect(() => {
 </script>
 
 <style lang="scss">
+@use '@/assets/scss/helpers' as *;
+
 [data-component='Modal'] {
   max-width: 500px;
   max-height: 500px;
   @include size(calc(100% - 40px), max-content, 20px);
   padding: 0;
   border: none;
-  transition: opacity 300ms ease, scale 300ms ease;
+  transition:
+    opacity 300ms ease,
+    scale 300ms ease;
 
   &[open] {
     display: grid;

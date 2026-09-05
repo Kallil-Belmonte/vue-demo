@@ -7,25 +7,25 @@
     <nav class="main-menu">
       <ul>
         <li>
-          <router-link class="d-flex align-items-center" to="/" exact>
+          <router-link class="d-flex" to="/" exact>
             <Icon name="Home" />
             Home
           </router-link>
         </li>
         <li>
-          <router-link class="d-flex align-items-center" active-class="active" to="/blog">
+          <router-link class="d-flex" active-class="active" to="/blog">
             <Icon name="Newspaper" />
             Blog
           </router-link>
         </li>
         <li>
-          <router-link class="d-flex align-items-center" active-class="active" to="/contact">
+          <router-link class="d-flex" active-class="active" to="/contact">
             <Icon name="Envelope" />
             Contact
           </router-link>
         </li>
         <li>
-          <router-link class="d-flex align-items-center" active-class="active" to="/account">
+          <router-link class="d-flex" active-class="active" to="/account">
             <Icon name="User" />
             Account
           </router-link>
@@ -33,8 +33,8 @@
       </ul>
     </nav>
 
-    <div class="welcome-box d-flex align-items-center">
-      <p class="me-3">Hello {{ fullName }}!</p>
+    <div class="welcome-box d-flex">
+      <p class="mr-5">Hello {{ fullName }}!</p>
       <Button :click="logOut">Log out</Button>
     </div>
   </header>
@@ -77,6 +77,8 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
+@use '@/assets/scss/helpers' as *;
+
 [data-layout='Header'] {
   color: #fff;
   text-align: center;
@@ -129,6 +131,7 @@ onMounted(() => {
 
   .welcome-box {
     @include position(absolute, 20px, 20px);
+    @extend %flex-vertical-center;
 
     [data-component='Button'] {
       width: max-content;

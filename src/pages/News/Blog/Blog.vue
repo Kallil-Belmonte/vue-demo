@@ -130,6 +130,8 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
+@use '@/assets/scss/helpers' as *;
+
 [data-page='Blog'] {
   min-height: 500px;
   padding: 80px 0 30px;

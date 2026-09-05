@@ -1,8 +1,8 @@
 <template>
   <footer data-layout="Footer">
     <div class="container">
-      <div class="d-flex justify-content-center">
-        <ul class="social-networks d-flex">
+      <div class="d-flex">
+        <ul class="social-networks d-flex mx-auto">
           <li>
             <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
               <Icon name="Facebook" />
@@ -38,6 +38,8 @@ import { Icon } from '@/shared/components';
 </script>
 
 <style lang="scss">
+@use '@/assets/scss/helpers' as *;
+
 [data-layout='Footer'] {
   padding: 30px 0;
 

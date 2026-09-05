@@ -205,6 +205,8 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
+@use '@/assets/scss/helpers' as *;
+
 [data-page='Contact'] form {
   footer {
     @extend %flex-vertical-center;

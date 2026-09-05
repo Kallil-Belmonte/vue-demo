@@ -4,7 +4,7 @@
       <p class="title">{{ title }}</p>
     </div>
 
-    <div class="d-flex align-items-center items">
+    <div class="d-flex items">
       <div v-for="radio in radios" :key="radio.label" class="d-flex item">
         <label :for="radio.value">{{ radio.label }}</label>
         <input
@@ -50,6 +50,8 @@ defineExpose({ field });
 </script>
 
 <style lang="scss">
+@use '@/assets/scss/helpers' as *;
+
 [data-component='RadioButton'] {
   .title-wrapper {
     @extend %flex-vertical-center;

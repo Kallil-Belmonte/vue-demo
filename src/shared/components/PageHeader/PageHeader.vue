@@ -20,6 +20,8 @@ const { icon } = defineProps<Props>();
 </script>
 
 <style lang="scss">
+@use '@/assets/scss/helpers' as *;
+
 [data-component='PageHeader'] {
   [data-component='Icon'] {
     margin-bottom: 15px;

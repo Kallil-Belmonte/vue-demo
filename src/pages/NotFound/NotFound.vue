@@ -21,6 +21,8 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
+@use '@/assets/scss/helpers' as *;
+
 [data-page='NotFound'] {
   color: #fff;
   @include size(100%, 100vh);
