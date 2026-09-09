@@ -97,7 +97,7 @@ $icon-size: 60%;
     background-color: var(--primary);
 
     @include active-style {
-      background-color: var(--primary-darker);
+      background-color: var(--primary-dark);
     }
   }
 
@@ -107,7 +107,7 @@ $icon-size: 60%;
     background-color: var(--secondary);
 
     @include active-style {
-      background-color: var(--secondary-darker);
+      background-color: var(--secondary-dark);
     }
   }
 
@@ -175,7 +175,7 @@ $icon-size: 60%;
     background-color: var(--primary);
 
     @include active-style {
-      background-color: var(--primary-darker);
+      background-color: var(--primary-dark);
     }
   }
 
@@ -184,7 +184,7 @@ $icon-size: 60%;
     background-color: var(--secondary);
 
     @include active-style {
-      background-color: var(--secondary-darker);
+      background-color: var(--secondary-dark);
     }
   }
 }
